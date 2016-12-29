@@ -20,5 +20,33 @@ namespace PrimeEngine
 			Vector3 result(x + right.x, y + right.y, z + right.z);
 			return result;
 		}
+
+		Vector3 Vector3::operator-(const Vector3& right)
+		{
+			Vector3 result(x - right.x, y - right.y, z - right.z);
+			return result;
+		}
+
+		Vector3 Vector3::operator*(float scaler)
+		{
+			Vector3 result;
+			return result;
+		}
+
+		Vector3 Vector3::operator/(float scaler)
+		{
+			Vector3 result;
+			return result;
+		}
+
+		bool Vector3::operator!=(const Vector3& right)
+		{
+			return true;
+		}
+
+		bool Vector3::operator==(const Vector3& right)
+		{
+			return true;
+		}
 	}
 }

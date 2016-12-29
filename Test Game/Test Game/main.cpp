@@ -1,17 +1,18 @@
-#include <iomanip> //temp
-#include <Vector3.h>
 #include <iostream>
+#include <Vector3.h>
+#include <Window.h>
 
 using namespace PrimeEngine::Math;
-using namespace std;
+using namespace PrimeEngine::Graphics;
 
 int main()
 {
-	Vector3* omg = new Vector3(1, 1, 2);
-	Vector3* omg2 = new Vector3(2, 1, 2);
-	Vector3* rez = omg;
-	rez->x = 0.0f;
-	cout << omg->x << " " << omg->y << " " << omg->z << endl;
-	cout << rez->x << " " << rez->y << " " << rez->z << endl;
-	system("PAUSE"); //temp
+	Window::SetWindow("Test Game", 800, 600);
+	Window gameWindow("Test Game", 800, 600);
+	gameWindow.Initialize();
+	while (!gameWindow.Closed())
+	{
+		gameWindow.Update();
+	}
+	return 0;
 }

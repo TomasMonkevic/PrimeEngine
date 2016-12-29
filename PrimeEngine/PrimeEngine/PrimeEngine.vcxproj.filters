@@ -9,10 +9,12 @@
     <ClInclude Include="Vector3.h">
       <Filter>Math</Filter>
     </ClInclude>
+    <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Vector3.cpp">
       <Filter>Math</Filter>
     </ClCompile>
+    <ClCompile Include="Window.cpp" />
   </ItemGroup>
 </Project>
