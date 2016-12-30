@@ -1,17 +1,11 @@
 #include "Window.h"
+#include "Input.h"
 
 namespace PrimeEngine
 {
 	namespace Graphics
 	{
 		Window* Window::instance = NULL;
-
-		void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
-		{
-			std::cout << key << std::endl;
-			if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-				glfwSetWindowShouldClose(window, GL_TRUE);
-		}
 
 		Window::Window(char* title, int width, int height)
 		{
@@ -42,11 +36,13 @@ namespace PrimeEngine
 			_window = glfwCreateWindow(_width, _height, _title, NULL, NULL);
 			if (!_window)
 			{
-				throw "Failed to create GLFW window";
 				glfwTerminate();
+				throw "Failed to create GLFW window";
 			}
 			glfwMakeContextCurrent(_window);
-			glfwSetKeyCallback(_window, key_callback);
+			//glfwSetWindowUserPointer(_window, instance);
+			Input::Input::Initalize();
+			glfwSetKeyCallback(_window, Input::Input::key_callback);
 
 			// Set this to true so GLEW knows to use a modern approach to retrieving function pointers and extensions
 			glewExperimental = GL_TRUE;

@@ -1,17 +1,13 @@
 #ifndef PRIMEENGINE_VECTOR3
 #define PRIMEENGINE_VECTOR3
 
-#ifndef _DLL
-#define MYLIBAPI __declspec(dllimport)
-#else
-#define MYLIBAPI __declspec(dllexport)
-#endif
+#include "DllExport.h"
 
 namespace PrimeEngine
 {
 	namespace Math
 	{
-		class MYLIBAPI Vector3
+		class PRIMEENGINEAPI Vector3
 		{
 		public:
 			float x, y, z;
