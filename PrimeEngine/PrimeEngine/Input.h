@@ -15,8 +15,10 @@ namespace PrimeEngine { namespace Input {
 		static bool mouseButtonPressed[GLFW_MOUSE_BUTTON_LAST + 1];
 	private:
 		static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
+		static void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 		static void Initalize();
 	public:
+		//TODO: mouse position with vector 2d
 		static bool KeyPressed(unsigned int key);
 		static bool MouseButtonPressed(unsigned int mouseButton);
 	};

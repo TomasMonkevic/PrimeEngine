@@ -11,17 +11,25 @@ int main()
 {
 	try
 	{
+		//Window::SetWindow("Test Game", 1366, 768);
 		Window::SetWindow("Test Game", 800, 600);
+		//Window::SetWindow("Test Game Full");
 		Window* gameWindow = Window::GetWindow();
 		gameWindow->Initialize();
 		while (!gameWindow->Closed())
 		{
 			if (Input::KeyPressed('W'))
 			{
+				gameWindow->Close();
 				std::cout << "Pressed!" << std::endl;
+			}
+			else if (Input::MouseButtonPressed(0))
+			{
+				std::cout << "Mouse pressed!" << std::endl;
 			}
 			gameWindow->Update();
 		}
+		gameWindow->Destroy();
 	}
 	catch(char* msg)
 	{

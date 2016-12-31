@@ -16,16 +16,20 @@ namespace PrimeEngine
 			int _width, _height;
 			GLFWwindow* _window;
 			static Window* instance;
+			bool _isFullScreen;
 		private:
 			Window(char* title, int width, int height);
-			~Window(); //deletion doesn't quit work; don't forget about the instance
+			Window(char* title);
+			~Window();
 		public:
+			static void SetWindow(char* title);
 			static void SetWindow(char* title, int width, int height);
 			static Window* GetWindow() { return instance; };
+			void Close() const;
+			void Destroy() const;
 			void Initialize();
 			void Update() const;
 			bool Closed() const;
-			//TODO: close windows function;
 		};
 	}
 }

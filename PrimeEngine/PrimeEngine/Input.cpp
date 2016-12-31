@@ -11,6 +11,11 @@ namespace PrimeEngine { namespace Input {
 		keyPressed[key] = action != GLFW_RELEASE;
 	}
 
+	void Input::mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
+	{
+		mouseButtonPressed[button] = action != GLFW_RELEASE;
+	}
+
 	void Input::Initalize()
 	{
 		for (int i = 0; i < GLFW_KEY_LAST + 1; i++)
