@@ -31,7 +31,7 @@ int main()
 		}
 		gameWindow->Destroy();
 	}
-	catch(char* msg)
+	catch (char* msg)
 	{
 		std::cout << msg << std::endl;
 		system("PAUSE");

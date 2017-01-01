@@ -32,6 +32,14 @@ namespace PrimeEngine
 			instance = NULL;
 		}
 
+		void Window::isInstanceCreated()
+		{
+			if (!instance)
+			{
+				throw "Window instance not created! Please use SetWindows method.";
+			}
+		}
+
 		void Window::Close() const
 		{
 			glfwSetWindowShouldClose(_window, GLFW_TRUE);
@@ -55,6 +63,7 @@ namespace PrimeEngine
 
 		void Window::Initialize()
 		{
+			isInstanceCreated();
 			glfwInit();
 			glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 			//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);

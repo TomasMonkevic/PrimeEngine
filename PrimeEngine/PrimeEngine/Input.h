@@ -19,7 +19,7 @@ namespace PrimeEngine { namespace Input {
 		static void Initalize();
 	public:
 		//TODO: mouse position with vector 2d
-		static bool KeyPressed(unsigned int key);
+		static bool KeyPressed(const unsigned int& key);
 		static bool MouseButtonPressed(unsigned int mouseButton);
 	};
 

@@ -24,7 +24,7 @@ namespace PrimeEngine { namespace Input {
 		}
 	}
 
-	bool Input::KeyPressed(unsigned int key)
+	bool Input::KeyPressed(const unsigned int& key)
 	{
 		if (key > GLFW_KEY_LAST)
 		{

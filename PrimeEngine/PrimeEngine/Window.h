@@ -21,6 +21,7 @@ namespace PrimeEngine
 			Window(char* title, int width, int height);
 			Window(char* title);
 			~Window();
+			inline void isInstanceCreated();
 		public:
 			static void SetWindow(char* title);
 			static void SetWindow(char* title, int width, int height);

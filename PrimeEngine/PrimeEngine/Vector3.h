@@ -12,7 +12,7 @@ namespace PrimeEngine
 		public:
 			float x, y, z;
 			Vector3();
-			Vector3(float x, float y, float z);
+			Vector3(float _x, float _y, float _z);
 			Vector3 operator+(const Vector3& right);
 			Vector3 operator-(const Vector3& right);
 			Vector3 operator*(float scaler);
