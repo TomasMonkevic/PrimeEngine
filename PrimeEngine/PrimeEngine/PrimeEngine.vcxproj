@@ -21,13 +21,15 @@
   <ItemGroup>
     <ClInclude Include="DllExport.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="Math\Vector4.h" />
     <ClInclude Include="Window.h" />
-    <ClInclude Include="Vector3.h" />
+    <ClInclude Include="Math\Vector3.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Math\Vector4.cpp" />
     <ClCompile Include="Window.cpp" />
-    <ClCompile Include="Vector3.cpp" />
+    <ClCompile Include="Math\Vector3.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{0CE5EF6F-7D71-4E54-8926-AC390F4F3C0F}</ProjectGuid>
