@@ -8,7 +8,7 @@ namespace PrimeEngine
 {
 	namespace Math
 	{
-		//TODO: Derive from Vector4
+		//TODO: more operators and funcs
 		class PRIMEENGINEAPI Vector4
 		{
 		public:
@@ -17,13 +17,14 @@ namespace PrimeEngine
 			Vector4();
 			//destructos
 			Vector4(float _x, float _y, float _z, float _w);
+			float Magnitude() const;
+
 			Vector4 operator+(const Vector4& right);
 			Vector4 operator-(const Vector4& right);
 			Vector4 operator*(const float scaler);
 			Vector4 operator/(const float scaler);
-
-			//TODO: more operators
-
+			float operator[](std::size_t index);
+			//more operators
 			bool operator!=(const Vector4& right) const;
 			bool operator==(const Vector4& right) const;
 
@@ -32,6 +33,8 @@ namespace PrimeEngine
 				stream << "(" << vector.x << ", " << vector.y << ", " << vector.z << ", " << vector.w << ")";
 				return stream;
 			}
+
+			static float Dot(const Vector4& left, const Vector4& right); //test needed
 		};
 	}
 }

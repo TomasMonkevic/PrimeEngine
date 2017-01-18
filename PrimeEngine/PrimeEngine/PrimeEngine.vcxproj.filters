@@ -23,6 +23,8 @@
       <Filter>Math</Filter>
     </ClInclude>
     <ClInclude Include="Math\Vector4.h" />
+    <ClInclude Include="Math\Matrix4x4.h" />
+    <ClInclude Include="Core\Math.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Window.cpp">
@@ -35,5 +37,6 @@
       <Filter>Math</Filter>
     </ClCompile>
     <ClCompile Include="Math\Vector4.cpp" />
+    <ClCompile Include="Math\Matrix4x4.cpp" />
   </ItemGroup>
 </Project>

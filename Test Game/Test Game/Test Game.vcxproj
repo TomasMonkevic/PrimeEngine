@@ -116,7 +116,6 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>C:\_Tomas Monkeivc\Projects\Engine Project\PrimeEngine\PrimeEngine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalOptions>/D__COMPLING_MYLIB %(AdditionalOptions)</AdditionalOptions>
       <ExceptionHandling>Sync</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>

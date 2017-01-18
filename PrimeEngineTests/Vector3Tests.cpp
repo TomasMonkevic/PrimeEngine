@@ -37,9 +37,9 @@ namespace PrimeEngineTests
 			Vector3 expectedResult(3, 5, 7);
 			Vector3 expectedV1(1, 2, 3);
 			Vector3& result = v1 + v2;
-			Assert::AreEqual(result, expectedResult, L"Vectors aren't equal!", LINE_INFO());
+			Assert::AreEqual(expectedResult, result, L"Vectors addition failed!");
 			result.x = 100;
-			Assert::AreEqual(v1, expectedV1, L"Vectors aren't equal!", LINE_INFO());
+			Assert::AreEqual(expectedV1, v1, L"Vectors aren't equal!");
 		}
 
 		TEST_METHOD(Vector3SubtarctionTest)

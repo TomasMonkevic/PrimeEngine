@@ -21,12 +21,15 @@
   <ItemGroup>
     <ClInclude Include="DllExport.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="Core\Math.h" />
+    <ClInclude Include="Math\Matrix4x4.h" />
     <ClInclude Include="Math\Vector4.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="Math\Vector3.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Math\Matrix4x4.cpp" />
     <ClCompile Include="Math\Vector4.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="Math\Vector3.cpp" />

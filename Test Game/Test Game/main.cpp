@@ -1,8 +1,7 @@
 #include <iostream>
-#include <Math/Vector3.h> //add all math to one h file
+#include <Core/Math.h>
 #include <Window.h>
 #include <Input.h>
-#include <string>
 
 using namespace PrimeEngine::Math;
 using namespace PrimeEngine::Graphics;
@@ -16,9 +15,21 @@ int main()
 		Window::SetWindow("Test Game", 800, 600);
 		//Window::SetWindow("Test Game Full");
 		Window* gameWindow = Window::GetWindow();
+
 		Vector3 myVec(1, 1, 1);
 		std::cout << myVec << std::endl;
-		//wchar_t* wsting = myVec.ToString();
+
+		float matrixValues[4][4] = {
+			{ 1,2,3,4 },
+			{ 5,6,7,8 },
+			{ 9,10,11,12 },
+			{ 13,14,15,16 },
+		};
+		//const int* p; why this doesn't work?
+		//p = (const int[3]){ 1, 2, 3 };
+		Matrix4x4 myMatrix(matrixValues);
+		std::cout << myMatrix << std::endl;
+		std::cout << Matrix4x4::identity() << std::endl;
 		gameWindow->Initialize();
 		while (!gameWindow->Closed())
 		{
