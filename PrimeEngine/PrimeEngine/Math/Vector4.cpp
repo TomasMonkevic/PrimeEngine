@@ -60,7 +60,7 @@ namespace PrimeEngine
 				case 3:
 					return w;
 				default:
-					throw "Index out of range!"; //use standart exceptions
+					throw "Index out of range";
 			}
 		}
 

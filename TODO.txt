@@ -1,1 +1,3 @@
-1. Marginal float equality
+- Configure project for releas build
+- Marginal float equality
+- Implement custom string class

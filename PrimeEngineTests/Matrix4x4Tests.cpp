@@ -32,27 +32,24 @@ namespace PrimeEngineTests
 
 		TEST_METHOD(Matrix4x4MultiplicationTest) //anylize more
 		{
-			float matrixValues[4][4] = {
+			Matrix4x4 myMatrix(new float[4][4]{
 				{ 4,2,0,0 },
 				{ 0,8,1,0 },
 				{ 0,1,0,0 },
 				{ 0,0,0,0 },
-			};
-			float matrixValues2[4][4] = {
+			});
+			Matrix4x4 myMatrix2(new float[4][4]{
 				{ 4,2,1,0 },
 				{ 2,0,4,0 },
 				{ 9,4,2,0 },
 				{ 0,0,0,0 },
-			};
-			float expecteedMatrixValues[4][4] = {
+			});
+			Matrix4x4 expected(new float[4][4]{
 				{ 20,8,12,0 },
 				{ 25,4,34,0 },
 				{ 2,0,4,0 },
 				{ 0,0,0,0 },
-			};
-			Matrix4x4 myMatrix(matrixValues);
-			Matrix4x4 myMatrix2(matrixValues2);
-			Matrix4x4 expected(expecteedMatrixValues);
+			});
 			Assert::AreEqual(expected, Matrix4x4::Multiply(myMatrix, myMatrix2), L"Multiplication failed", LINE_INFO());
 		}
 

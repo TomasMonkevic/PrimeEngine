@@ -16,20 +16,15 @@ int main()
 		//Window::SetWindow("Test Game Full");
 		Window* gameWindow = Window::GetWindow();
 
-		Vector3 myVec(1, 1, 1);
-		std::cout << myVec << std::endl;
-
-		float matrixValues[4][4] = {
+		Matrix4x4 myMatrix(new float[4][4]{
 			{ 1,2,3,4 },
 			{ 5,6,7,8 },
 			{ 9,10,11,12 },
 			{ 13,14,15,16 },
-		};
-		//const int* p; why this doesn't work?
-		//p = (const int[3]){ 1, 2, 3 };
-		Matrix4x4 myMatrix(matrixValues);
+		});
 		std::cout << myMatrix << std::endl;
-		std::cout << Matrix4x4::identity() << std::endl;
+		std::cout << Matrix4x4::identity << std::endl;
+
 		gameWindow->Initialize();
 		while (!gameWindow->Closed())
 		{
@@ -46,7 +41,7 @@ int main()
 		}
 		gameWindow->Destroy();
 	}
-	catch (char* msg)
+	catch (const char* msg)
 	{
 		std::cout << msg << std::endl;
 		system("PAUSE");

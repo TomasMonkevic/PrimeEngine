@@ -13,7 +13,7 @@ namespace PrimeEngine { namespace Math {
 		Vector4 GetRow(unsigned int row) const;
 		Vector4 GetColumn(unsigned int column) const;
 	public:
-		static Matrix4x4 identity();
+		static const Matrix4x4 identity;
 		static Matrix4x4& Multiply(Matrix4x4 left, const Matrix4x4& right); //write test
 
 		float _matrix[4][4]; //make only get?

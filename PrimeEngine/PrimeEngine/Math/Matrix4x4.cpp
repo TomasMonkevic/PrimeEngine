@@ -2,7 +2,12 @@
 
 namespace PrimeEngine { namespace Math {
 
-	//const Matrix4x4 Matrix4x4::identity = Matrix4x4();
+	const Matrix4x4 Matrix4x4::identity = Matrix4x4(new float[4][4]{
+		{ 1,0,0,0 },
+		{ 0,1,0,0 },
+		{ 0,0,1,0 },
+		{ 0,0,0,1 },
+	});
 
 	Matrix4x4::Matrix4x4(const float matrix[4][4])
 	{
@@ -15,23 +20,11 @@ namespace PrimeEngine { namespace Math {
 		}
 	}
 
-	Matrix4x4 Matrix4x4::identity()
-	{
-		float matrixValues[4][4] = {
-			{ 1,0,0,0 },
-			{ 0,1,0,0 },
-			{ 0,0,1,0 },
-			{ 0,0,0,1 },
-		};
-		Matrix4x4 e(matrixValues);
-		return e;
-	}
-
 	Vector4 Matrix4x4::GetRow(unsigned int row) const
 	{
 		if (row > 4)
 		{
-			throw "Index out of range"; //use standart exceptions
+			throw "Index out of range";
 		}
 		return Vector4(_matrix[row][0], _matrix[row][1], _matrix[row][2], _matrix[row][3]);
 	}
@@ -40,7 +33,7 @@ namespace PrimeEngine { namespace Math {
 	{
 		if (column > 4)
 		{
-			throw "Index out of range"; //use standart exceptions
+			throw "Index out of range";
 		}
 		return Vector4(_matrix[0][column], _matrix[1][column], _matrix[2][column], _matrix[3][column]);
 	}
