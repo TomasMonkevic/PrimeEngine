@@ -1,3 +1,5 @@
-- Configure project for releas build
 - Marginal float equality
 - Implement custom string class
+
+DISCUSS:
+- Staticly link glew to dll in debug too? Or keep static in releas only?
