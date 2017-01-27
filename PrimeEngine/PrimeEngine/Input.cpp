@@ -1,4 +1,4 @@
-#include "Window.h"
+#include "Graphics/Window.h"
 #include "Input.h"
 
 namespace PrimeEngine { namespace Input {

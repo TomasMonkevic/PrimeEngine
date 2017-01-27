@@ -1,5 +1,8 @@
 - Marginal float equality
 - Implement custom string class
+- Logging system
+- Input mous position
+- Unify mouse and key presses
 
 DISCUSS:
 - Staticly link glew to dll in debug too? Or keep static in releas only?

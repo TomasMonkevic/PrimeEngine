@@ -20,19 +20,26 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DllExport.h" />
+    <ClInclude Include="Graphics\Shader.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Core\Math.h" />
     <ClInclude Include="Math\Matrix4x4.h" />
     <ClInclude Include="Math\Vector4.h" />
-    <ClInclude Include="Window.h" />
+    <ClInclude Include="Graphics\Window.h" />
     <ClInclude Include="Math\Vector3.h" />
+    <ClInclude Include="Utilities\File.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Graphics\Shader.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Math\Matrix4x4.cpp" />
     <ClCompile Include="Math\Vector4.cpp" />
-    <ClCompile Include="Window.cpp" />
+    <ClCompile Include="Graphics\Window.cpp" />
     <ClCompile Include="Math\Vector3.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\standart.frag" />
+    <None Include="Shaders\standart.vert" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{0CE5EF6F-7D71-4E54-8926-AC390F4F3C0F}</ProjectGuid>
@@ -117,7 +124,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>C:\_Tomas Monkeivc\Projects\Engine Project\midleware\OpenGL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions> _WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;  _WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>C:\_Tomas Monkeivc\Projects\Engine Project\midleware\OpenGL\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -132,7 +139,7 @@
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <UndefinePreprocessorDefinitions>
       </UndefinePreprocessorDefinitions>
-      <PreprocessorDefinitions> %(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;  %(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -155,7 +162,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>C:\_Tomas Monkeivc\Projects\Engine Project\midleware\OpenGL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions> GLEW_BUILD; GLEW_STATIC;   _WINDLL; %(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;  GLEW_BUILD; GLEW_STATIC;   _WINDLL; %(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -173,7 +180,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>C:\_Tomas Monkeivc\Projects\Engine Project\midleware\OpenGL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions> GLEW_BUILD; GLEW_STATIC;   %(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;  GLEW_BUILD; GLEW_STATIC;   %(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>

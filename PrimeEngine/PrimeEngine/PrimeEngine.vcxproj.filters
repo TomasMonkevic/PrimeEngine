@@ -12,9 +12,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Window.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="DllExport.h" />
     <ClInclude Include="Input.h">
       <Filter>Input</Filter>
@@ -25,11 +22,13 @@
     <ClInclude Include="Math\Vector4.h" />
     <ClInclude Include="Math\Matrix4x4.h" />
     <ClInclude Include="Core\Math.h" />
+    <ClInclude Include="Graphics\Window.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\File.h" />
+    <ClInclude Include="Graphics\Shader.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Window.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="Input.cpp">
       <Filter>Input</Filter>
     </ClCompile>
@@ -38,5 +37,13 @@
     </ClCompile>
     <ClCompile Include="Math\Vector4.cpp" />
     <ClCompile Include="Math\Matrix4x4.cpp" />
+    <ClCompile Include="Graphics\Window.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Shader.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\standart.vert" />
+    <None Include="Shaders\standart.frag" />
   </ItemGroup>
 </Project>
