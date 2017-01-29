@@ -1,3 +1,4 @@
+TODO:
 - Marginal float equality
 - Implement custom string class
 - Logging system
@@ -6,3 +7,6 @@
 
 DISCUSS:
 - Staticly link glew to dll in debug too? Or keep static in releas only?
+
+ISSUES:
+- When windows is in full screen nothing doesn't render

@@ -3,32 +3,42 @@
 
 #include "../DllExport.h"
 #include <iostream>
-#include "Vector4.h" //temp, might need to add all math
+#include "Vector4.h"
 #include "Vector3.h"
 
 namespace PrimeEngine { namespace Math {
 		
 	class PRIMEENGINEAPI Matrix4x4
 	{
-	private:
-		Vector4 GetRow(unsigned int row) const;
-		Vector4& GetColumn(unsigned int column) const;
+	private: //Variables
+		float _matrix[4][4];
+
 	public:
 		static const Matrix4x4 identity;
+		static const Matrix4x4 zero;
+
+	private: //Methods
+		Vector4 GetRow(unsigned int row) const;
+
+	public:
 		static Matrix4x4& Multiply(Matrix4x4 left, const Matrix4x4& right);
-		static Matrix4x4 Orthographic(float left, float right, float bottom, float top, float zNear, float zFar); //write test
+		static Matrix4x4 Orthographic(float left, float right, float bottom, float top, float zNear, float zFar);
 		static Matrix4x4 Perspective(float fov, float aspectRatio, float zNear, float zFar); //TODO
 		static Matrix4x4 Transform(const Vector3& translation);
+		static Matrix4x4 Scale(const Vector3& scaler); //TEST
+		static Matrix4x4 Rotate(float angle, const Vector3& axis); //TODO
 
-		float _matrix[4][4]; //make only get?
-
+		Matrix4x4();
+		Matrix4x4(float diagonalValue);
 		Matrix4x4(const float matrix[4][4]);
+
+		float* GetElements() const;
 
 		Matrix4x4 operator*(const Matrix4x4& right);
 		Matrix4x4& operator*=(const Matrix4x4& right);
 		bool operator==(const Matrix4x4& right) const;
 		bool operator!=(const Matrix4x4& right) const;
-
+		Vector4& operator[](unsigned int col) const; //Gets matrix columns
 		friend std::ostream& operator<<(std::ostream& stream, const Matrix4x4& matrix)
 		{
 			for (int i = 0; i < 4; i++)

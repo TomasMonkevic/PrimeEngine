@@ -47,7 +47,7 @@ namespace PrimeEngine
 			return result;
 		}
 
-		float Vector4::operator[](std::size_t index)
+		float& Vector4::operator[](unsigned int index)
 		{
 			switch(index)
 			{

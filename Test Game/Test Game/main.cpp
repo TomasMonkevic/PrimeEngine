@@ -5,7 +5,6 @@
 //#include <Utilities/File.h>
 #include <Graphics/Shader.h>
 #include <GL/glew.h>
-//#include <GLFW/glfw3.h>
 
 using namespace PrimeEngine::Math;
 using namespace PrimeEngine::Graphics;
@@ -13,12 +12,13 @@ using namespace PrimeEngine::Input;
 
 int main()
 {
+	Window* gameWindow = NULL;
 	try
 	{
 		//Window::SetWindow("Test Game", 1366, 768);
 		Window::SetWindow("Test Game", 800, 600);
 		//Window::SetWindow("Test Game Full");
-		Window* gameWindow = Window::GetWindow();
+		gameWindow = Window::GetWindow();
 		gameWindow->Initialize();
 
 		GLfloat vertices[] = {
@@ -34,42 +34,49 @@ int main()
 		glEnableVertexAttribArray(0);
 
 		Matrix4x4 ortho = Matrix4x4::Orthographic(0.0f, 100, 0.0f, 100, -1.0f, 1.0f);
-		std::cout << ortho << std::endl;
 
 		Shader myshader("..\\..\\PrimeEngine\\PrimeEngine\\Shaders\\standart.vert",
 			"..\\..\\PrimeEngine\\PrimeEngine\\Shaders\\standart.frag");
 		myshader.Enable();
-		glUniformMatrix4fv(glGetUniformLocation(myshader._shaderID, "pr_matrix"), 1, GL_FALSE, (float*)ortho._matrix);
-		
-		Matrix4x4 position = Matrix4x4::Transform(Vector3(0, 0, 0));
-		//position *= Matrix4x4::Transform(Vector3(25, 25, 0));
+		glUniformMatrix4fv(glGetUniformLocation(myshader._shaderID, "pr_matrix"), 1, GL_FALSE, (float*)ortho.GetElements());
+		Matrix4x4 position = Matrix4x4::Transform(Vector3(50, 50, 0));
+		glUniformMatrix4fv(glGetUniformLocation(myshader._shaderID, "model_matrix"), 1, GL_FALSE, (float*)position.GetElements());
 
-		glUniformMatrix4fv(glGetUniformLocation(myshader._shaderID, "model_matrix"), 1, GL_FALSE, (float*)position._matrix);
-
-		//glBindBuffer(GL_ARRAY_BUFFER, 0); // Note that this is allowed, the call to glVertexAttribPointer registered VBO as the currently bound vertex buffer object so afterwards we can safely unbind
-
-		//glBindVertexArray(0); // Unbind VAO (it's always a good thing to unbind any buffer/array to prevent strange bugs), remember: do NOT unbind the EBO, keep it bound to this VAO
-
-		
-
-		
+		float speed = 2.0f;
 		while (!gameWindow->Closed())
 		{
 			gameWindow->Clear();
 			if (Input::KeyPressed('W'))
 			{
-				std::cout << "key pressed" << std::endl;
+				position *= Matrix4x4::Transform(Vector3(0, 0.01f, 0) * speed);
+				glUniformMatrix4fv(glGetUniformLocation(myshader._shaderID, "model_matrix"), 1, GL_FALSE, (float*)position.GetElements());
+			}
+			if (Input::KeyPressed('S'))
+			{
+				position *= Matrix4x4::Transform(Vector3(0, -0.01f, 0) * speed);
+				glUniformMatrix4fv(glGetUniformLocation(myshader._shaderID, "model_matrix"), 1, GL_FALSE, (float*)position.GetElements());
+			}
+			if (Input::KeyPressed('D'))
+			{
+				position *= Matrix4x4::Transform(Vector3(0.01f, 0, 0) * speed);
+				glUniformMatrix4fv(glGetUniformLocation(myshader._shaderID, "model_matrix"), 1, GL_FALSE, (float*)position.GetElements());
+			}
+			if (Input::KeyPressed('A'))
+			{
+				position *= Matrix4x4::Transform(Vector3(-0.01f, 0, 0) * speed);
+				glUniformMatrix4fv(glGetUniformLocation(myshader._shaderID, "model_matrix"), 1, GL_FALSE, (float*)position.GetElements());
 			}
 			glDrawArrays(GL_TRIANGLES, 0, 3);
-			position *= Matrix4x4::Transform(Vector3(0.1f, 0.1f, 0));
-			glUniformMatrix4fv(glGetUniformLocation(myshader._shaderID, "model_matrix"), 1, GL_FALSE, (float*)position._matrix);
-
 			gameWindow->Update();
 		}
 		gameWindow->Destroy();
 	}
 	catch (const char* msg)
 	{
+		if (gameWindow)
+		{
+			gameWindow->Destroy();
+		}
 		std::cout << msg << std::endl;
 		system("PAUSE");
 	}
