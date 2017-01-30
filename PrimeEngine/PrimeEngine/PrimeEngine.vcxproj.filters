@@ -43,7 +43,7 @@
     <ClCompile Include="Graphics\Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\standart.vert" />
-    <None Include="Shaders\standart.frag" />
+    <None Include="Shaders\standard.frag" />
+    <None Include="Shaders\standard.vert" />
   </ItemGroup>
 </Project>

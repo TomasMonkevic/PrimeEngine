@@ -7,17 +7,14 @@ namespace PrimeEngine
 	{
 		Window* Window::instance = NULL;
 
-		Window::Window(const char* title, int width, int height)
+		Window::Window(const char* title, int width, int height) : 
+			_title(title), _width(width), _height(height)
 		{
-			_title = title;
-			_width = width;
-			_height = height;
 			_isFullScreen = false;
 		}
 
-		Window::Window(const char* title) //would be nice to use other constructor
+		Window::Window(const char* title) : _title(title)
 		{
-			_title = title;
 			_isFullScreen = true;
 		}
 
@@ -70,14 +67,11 @@ namespace PrimeEngine
 
 			if (_isFullScreen)
 			{
-				const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-				glfwWindowHint(GLFW_RED_BITS, mode->redBits);
-				glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
-				glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
-				glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
-				_window = glfwCreateWindow(mode->width, mode->height, _title, glfwGetPrimaryMonitor(), NULL);
-				_width = mode->width; //quick fix
+				GLFWmonitor* primalMonitor = glfwGetPrimaryMonitor();
+				const GLFWvidmode* mode = glfwGetVideoMode(primalMonitor);
+				_width = mode->width;
 				_height = mode->height;
+				_window = glfwCreateWindow(_width, _height, _title, primalMonitor, NULL);
 			}
 			else
 			{

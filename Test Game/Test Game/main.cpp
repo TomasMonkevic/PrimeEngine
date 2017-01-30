@@ -5,6 +5,7 @@
 //#include <Utilities/File.h>
 #include <Graphics/Shader.h>
 #include <GL/glew.h>
+#include <GLFW/glfw3.h>
 
 using namespace PrimeEngine::Math;
 using namespace PrimeEngine::Graphics;
@@ -16,8 +17,8 @@ int main()
 	try
 	{
 		//Window::SetWindow("Test Game", 1366, 768);
-		//Window::SetWindow("Test Game", 800, 600);
-		Window::SetWindow("Test Game Full");
+		Window::SetWindow("Test Game", 800, 600);
+		//Window::SetWindow("Test Game Full");
 		gameWindow = Window::GetWindow();
 		gameWindow->Initialize();
 
@@ -35,12 +36,12 @@ int main()
 
 		Matrix4x4 ortho = Matrix4x4::Orthographic(0.0f, 16, 0.0f, 9, -1.0f, 1.0f);
 
-		Shader myshader("..\\..\\PrimeEngine\\PrimeEngine\\Shaders\\standart.vert",
-			"..\\..\\PrimeEngine\\PrimeEngine\\Shaders\\standart.frag");
+		Shader myshader("..\\..\\PrimeEngine\\PrimeEngine\\Shaders\\standard.vert",
+			"..\\..\\PrimeEngine\\PrimeEngine\\Shaders\\standard.frag");
 		myshader.Enable();
-		glUniformMatrix4fv(glGetUniformLocation(myshader._shaderID, "pr_matrix"), 1, GL_FALSE, (float*)ortho.GetElements());
+		glUniformMatrix4fv(glGetUniformLocation(myshader._shaderID, "pr_matrix"), 1, GL_FALSE, ortho.GetElements());
 		Matrix4x4 position = Matrix4x4::Transform(Vector3(0, 0, 0));
-		glUniformMatrix4fv(glGetUniformLocation(myshader._shaderID, "model_matrix"), 1, GL_FALSE, (float*)position.GetElements());
+		glUniformMatrix4fv(glGetUniformLocation(myshader._shaderID, "model_matrix"), 1, GL_FALSE, position.GetElements());
 
 		float speed = 2.0f;
 		while (!gameWindow->Closed())
@@ -49,24 +50,24 @@ int main()
 			if (Input::KeyPressed('W'))
 			{
 				position *= Matrix4x4::Transform(Vector3(0, 0.01f, 0) * speed);
-				glUniformMatrix4fv(glGetUniformLocation(myshader._shaderID, "model_matrix"), 1, GL_FALSE, (float*)position.GetElements());
+				glUniformMatrix4fv(glGetUniformLocation(myshader._shaderID, "model_matrix"), 1, GL_FALSE, position.GetElements());
 			}
 			if (Input::KeyPressed('S'))
 			{
 				position *= Matrix4x4::Transform(Vector3(0, -0.01f, 0) * speed);
-				glUniformMatrix4fv(glGetUniformLocation(myshader._shaderID, "model_matrix"), 1, GL_FALSE, (float*)position.GetElements());
+				glUniformMatrix4fv(glGetUniformLocation(myshader._shaderID, "model_matrix"), 1, GL_FALSE, position.GetElements());
 			}
 			if (Input::KeyPressed('D'))
 			{
 				position *= Matrix4x4::Transform(Vector3(0.01f, 0, 0) * speed);
-				glUniformMatrix4fv(glGetUniformLocation(myshader._shaderID, "model_matrix"), 1, GL_FALSE, (float*)position.GetElements());
+				glUniformMatrix4fv(glGetUniformLocation(myshader._shaderID, "model_matrix"), 1, GL_FALSE, position.GetElements());
 			}
 			if (Input::KeyPressed('A'))
 			{
 				position *= Matrix4x4::Transform(Vector3(-0.01f, 0, 0) * speed);
-				glUniformMatrix4fv(glGetUniformLocation(myshader._shaderID, "model_matrix"), 1, GL_FALSE, (float*)position.GetElements());
+				glUniformMatrix4fv(glGetUniformLocation(myshader._shaderID, "model_matrix"), 1, GL_FALSE, position.GetElements());
 			}
-			if (Input::KeyPressed(256))
+			if (Input::KeyPressed(GLFW_KEY_ESCAPE))
 			{
 				gameWindow->Close();
 			}

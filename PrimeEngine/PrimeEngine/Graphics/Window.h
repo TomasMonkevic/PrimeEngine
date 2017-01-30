@@ -25,7 +25,7 @@ namespace PrimeEngine
 		public:
 			static void SetWindow(const char* title);
 			static void SetWindow(const char* title, int width, int height);
-			static Window* GetWindow() { return instance; };
+			inline static Window* GetWindow() { return instance; };
 			void Close() const;
 			void Destroy() const;
 			void Initialize();

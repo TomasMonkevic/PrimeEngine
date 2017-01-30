@@ -38,8 +38,8 @@
     <ClCompile Include="Math\Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\standart.frag" />
-    <None Include="Shaders\standart.vert" />
+    <None Include="Shaders\standard.frag" />
+    <None Include="Shaders\standard.vert" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{0CE5EF6F-7D71-4E54-8926-AC390F4F3C0F}</ProjectGuid>
