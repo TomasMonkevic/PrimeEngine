@@ -76,6 +76,8 @@ namespace PrimeEngine
 				glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
 				glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
 				_window = glfwCreateWindow(mode->width, mode->height, _title, glfwGetPrimaryMonitor(), NULL);
+				_width = mode->width; //quick fix
+				_height = mode->height;
 			}
 			else
 			{
@@ -108,6 +110,11 @@ namespace PrimeEngine
 
 		void Window::Update() const
 		{
+			GLenum error = glGetError();
+			if (error != GL_NO_ERROR)
+			{
+				throw error;
+			}
 			glfwPollEvents();
 			glfwSwapBuffers(_window);
 		}
