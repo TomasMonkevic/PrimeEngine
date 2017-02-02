@@ -20,19 +20,32 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DllExport.h" />
+    <ClInclude Include="Graphics\Buffers\IndexBuffer.h" />
+    <ClInclude Include="Graphics\Buffers\VertexArray.h" />
+    <ClInclude Include="Graphics\Buffers\VertexBuffer.h" />
+    <ClInclude Include="Graphics\Renderable2D.h" />
+    <ClInclude Include="Graphics\Renderer2D.h" />
     <ClInclude Include="Graphics\Shader.h" />
+    <ClInclude Include="Graphics\SimpleRenderer2D.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Core\Math.h" />
+    <ClInclude Include="Math\MathFunc.h" />
     <ClInclude Include="Math\Matrix4x4.h" />
+    <ClInclude Include="Math\Vector2.h" />
     <ClInclude Include="Math\Vector4.h" />
     <ClInclude Include="Graphics\Window.h" />
     <ClInclude Include="Math\Vector3.h" />
     <ClInclude Include="Utilities\File.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Graphics\Buffers\IndexBuffer.cpp" />
+    <ClCompile Include="Graphics\Buffers\VertexArray.cpp" />
+    <ClCompile Include="Graphics\Buffers\VertexBuffer.cpp" />
     <ClCompile Include="Graphics\Shader.cpp" />
+    <ClCompile Include="Graphics\SimpleRenderer2D.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Math\Matrix4x4.cpp" />
+    <ClCompile Include="Math\Vector2.cpp" />
     <ClCompile Include="Math\Vector4.cpp" />
     <ClCompile Include="Graphics\Window.cpp" />
     <ClCompile Include="Math\Vector3.cpp" />

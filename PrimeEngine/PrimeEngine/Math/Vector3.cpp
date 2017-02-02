@@ -13,6 +13,16 @@ namespace PrimeEngine
 		{
 		}
 
+		float Vector3::Magnitude() const
+		{
+			throw "Not implemented!";
+		}
+
+		float Vector3::Dot(const Vector3& left, const Vector3& right)
+		{
+			return (left.x * right.x + left.y * right.y + left.z * right.z);
+		}
+
 		Vector3 Vector3::operator+(const Vector3& right)
 		{
 			Vector3 result(x + right.x, y + right.y, z + right.z);
@@ -35,6 +45,21 @@ namespace PrimeEngine
 		{
 			Vector3 result(x / scaler, y / scaler, z / scaler);
 			return result;
+		}
+
+		float& Vector3::operator[](unsigned int index)
+		{
+			switch (index)
+			{
+			case 0:
+				return x;
+			case 1:
+				return y;
+			case 2:
+				return z;
+			default:
+				throw "Index out of range";
+			}
 		}
 
 		bool Vector3::operator!=(const Vector3& right) const

@@ -1,5 +1,5 @@
 #include "Window.h"
-#include "../Input.h"
+#include "..\Input.h"
 
 namespace PrimeEngine
 {
@@ -62,7 +62,7 @@ namespace PrimeEngine
 		{
 			isInstanceCreated();
 			glfwInit();
-			glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+			glfwWindowHint(GLFW_RESIZABLE, GL_FALSE); //for now
 			//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
 			if (_isFullScreen)
@@ -83,11 +83,9 @@ namespace PrimeEngine
 				throw "Failed to create GLFW window";
 			}
 			glfwMakeContextCurrent(_window);
-			//glfwSetWindowUserPointer(_window, instance);
-			Input::Input::Initalize();
+			Input::Input::Initalize(); //move to a seperate function
 			glfwSetKeyCallback(_window, Input::Input::key_callback);
 			glfwSetMouseButtonCallback(_window, Input::Input::mouse_button_callback);
-
 			// Set this to true so GLEW knows to use a modern approach to retrieving function pointers and extensions
 			//glewExperimental = GL_TRUE;
 			if (glewInit() != GLEW_OK)

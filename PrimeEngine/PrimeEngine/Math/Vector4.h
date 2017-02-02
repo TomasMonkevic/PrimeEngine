@@ -1,7 +1,7 @@
 #ifndef PRIMEENGINE_VECTOR4
 #define PRIMEENGINE_VECTOR4
 
-#include "../DllExport.h"
+#include "..\DllExport.h"
 #include <iostream>
 
 namespace PrimeEngine { namespace Math {

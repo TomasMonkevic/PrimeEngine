@@ -1,11 +1,14 @@
 #include <iostream>
-#include <Core/Math.h>
-#include <Graphics/Window.h>
+#include <Core\Math.h>
+#include <Graphics\Window.h>
 #include <Input.h>
 //#include <Utilities/File.h>
-#include <Graphics/Shader.h>
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
+#include <Graphics\Shader.h>
+#include <GL\glew.h>
+#include <GLFW\glfw3.h>
+
+#include <Graphics\Renderable2D.h>
+#include <Graphics\SimpleRenderer2D.h>
 
 using namespace PrimeEngine::Math;
 using namespace PrimeEngine::Graphics;
@@ -16,62 +19,56 @@ int main()
 	Window* gameWindow = NULL;
 	try
 	{
-		//Window::SetWindow("Test Game", 1366, 768);
-		Window::SetWindow("Test Game", 800, 600);
+		Window::SetWindow("Test Game", 1366, 768);
+		//Window::SetWindow("Test Game", 800, 600);
 		//Window::SetWindow("Test Game Full");
 		gameWindow = Window::GetWindow();
 		gameWindow->Initialize();
-
-		GLfloat vertices[] = {
-			0,0,0,
-			1,0,0,
-			0,1,0
-		}; 
-		GLuint VBO;
-		glGenBuffers(1, &VBO);
-		glBindBuffer(GL_ARRAY_BUFFER, VBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-		glEnableVertexAttribArray(0);
 
 		Matrix4x4 ortho = Matrix4x4::Orthographic(0.0f, 16, 0.0f, 9, -1.0f, 1.0f);
 
 		Shader myshader("..\\..\\PrimeEngine\\PrimeEngine\\Shaders\\standard.vert",
 			"..\\..\\PrimeEngine\\PrimeEngine\\Shaders\\standard.frag");
 		myshader.Enable();
-		glUniformMatrix4fv(glGetUniformLocation(myshader._shaderID, "pr_matrix"), 1, GL_FALSE, ortho.GetElements());
-		Matrix4x4 position = Matrix4x4::Transform(Vector3(0, 0, 0));
-		glUniformMatrix4fv(glGetUniformLocation(myshader._shaderID, "model_matrix"), 1, GL_FALSE, position.GetElements());
 
-		float speed = 2.0f;
+		myshader.SetUniform("pr_matrix", ortho);
+
+		Vector3 position(8, 4.5f, 0.15f);
+
+		Renderable2D sprite1(Vector3(5, 4.5f, 0.1f), Vector2(1, 2), Vector4(1, 1, 0, 1), myshader);
+		Renderable2D sprite2(Vector3(10, 4.5f, 0.2f), Vector2(2, 1), Vector4(1, 0, 0, 1), myshader);
+		Renderable2D sprite3(position, Vector2(1, 1), Vector4(1, 0.5f, 0, 1), myshader);
+		SimpleRenderer2D renderer;
+		
+		float speed = 10.0f;
 		while (!gameWindow->Closed())
 		{
 			gameWindow->Clear();
+			renderer.Submit(&sprite1);
+			renderer.Submit(&sprite2);
+			renderer.Submit(&sprite3);
 			if (Input::KeyPressed('W'))
 			{
-				position *= Matrix4x4::Transform(Vector3(0, 0.01f, 0) * speed);
-				glUniformMatrix4fv(glGetUniformLocation(myshader._shaderID, "model_matrix"), 1, GL_FALSE, position.GetElements());
+				position = position + (Vector3(0, 0.01f, 0) * speed);
 			}
 			if (Input::KeyPressed('S'))
 			{
-				position *= Matrix4x4::Transform(Vector3(0, -0.01f, 0) * speed);
-				glUniformMatrix4fv(glGetUniformLocation(myshader._shaderID, "model_matrix"), 1, GL_FALSE, position.GetElements());
+				position = position + (Vector3(0, -0.01f, 0) * speed);
 			}
 			if (Input::KeyPressed('D'))
 			{
-				position *= Matrix4x4::Transform(Vector3(0.01f, 0, 0) * speed);
-				glUniformMatrix4fv(glGetUniformLocation(myshader._shaderID, "model_matrix"), 1, GL_FALSE, position.GetElements());
+				position = position + (Vector3(0.01f, 0, 0) * speed);
 			}
 			if (Input::KeyPressed('A'))
 			{
-				position *= Matrix4x4::Transform(Vector3(-0.01f, 0, 0) * speed);
-				glUniformMatrix4fv(glGetUniformLocation(myshader._shaderID, "model_matrix"), 1, GL_FALSE, position.GetElements());
+				position = position + (Vector3(-0.01f, 0, 0) * speed);
 			}
-			if (Input::KeyPressed(GLFW_KEY_ESCAPE))
+			if (Input::KeyPressed(256)) //esc
 			{
 				gameWindow->Close();
 			}
-			glDrawArrays(GL_TRIANGLES, 0, 3);
+			sprite3.SetPosition(position);
+			renderer.Flush();
 			gameWindow->Update();
 		}
 		gameWindow->Destroy();

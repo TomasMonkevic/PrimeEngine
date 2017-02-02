@@ -1,24 +1,28 @@
 #ifndef PRIMEENGINE_VECTOR3
 #define PRIMEENGINE_VECTOR3
 
-#include "../DllExport.h"
+#include "..\DllExport.h"
 #include <iostream>
 
 namespace PrimeEngine {	namespace Math {
 
-	//TODO: Derive from Vector4
 	class PRIMEENGINEAPI Vector3
 	{
 	public:
 		float x, y, z;
 
+		static float Dot(const Vector3& left, const Vector3& right); //TEST
+
 		Vector3();
 		Vector3(float _x, float _y, float _z);
+
+		float Magnitude() const; //TODO
 
 		Vector3 operator+(const Vector3& right);
 		Vector3 operator-(const Vector3& right);
 		Vector3 operator*(const float scaler);
 		Vector3 operator/(const float scaler);
+		float& operator[](unsigned int index);
 		//TODO: more operators
 		bool operator!=(const Vector3& right) const;
 		bool operator==(const Vector3& right) const;

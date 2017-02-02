@@ -1,7 +1,7 @@
 #ifndef PRIMEENGINE_INPUT
 #define PRIMEENGINE_INPUT
 
-#include <GLFW/glfw3.h> //probably not needed
+#include <GLFW/glfw3.h>
 #include "DllExport.h"
 
 namespace PrimeEngine { namespace Input {

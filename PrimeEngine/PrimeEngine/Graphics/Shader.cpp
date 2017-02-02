@@ -13,6 +13,16 @@ namespace PrimeEngine { namespace Graphics {
 		glDeleteProgram(_shaderID);
 	}
 
+	GLint Shader::GetLocation(const GLchar* name) const
+	{
+		return glGetUniformLocation(_shaderID, name);
+	}
+
+	void Shader::SetUniform(const GLchar* name, const Math::Matrix4x4& matrix) const
+	{
+		glUniformMatrix4fv(GetLocation(name), 1, GL_FALSE, matrix.GetElements());
+	}
+
 	GLuint Shader::LoadShader()
 	{
 		GLuint program = glCreateProgram();

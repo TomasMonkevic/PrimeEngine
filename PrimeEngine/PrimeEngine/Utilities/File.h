@@ -1,6 +1,5 @@
 #include <fstream>
 #include <string>
-#include "../DllExport.h"
 
 namespace PrimeEngine {
 

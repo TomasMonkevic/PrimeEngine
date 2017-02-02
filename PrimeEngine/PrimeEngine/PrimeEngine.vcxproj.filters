@@ -27,6 +27,14 @@
     </ClInclude>
     <ClInclude Include="Utilities\File.h" />
     <ClInclude Include="Graphics\Shader.h" />
+    <ClInclude Include="Graphics\Buffers\VertexBuffer.h" />
+    <ClInclude Include="Graphics\Buffers\IndexBuffer.h" />
+    <ClInclude Include="Graphics\Buffers\VertexArray.h" />
+    <ClInclude Include="Math\Vector2.h" />
+    <ClInclude Include="Math\MathFunc.h" />
+    <ClInclude Include="Graphics\Renderable2D.h" />
+    <ClInclude Include="Graphics\Renderer2D.h" />
+    <ClInclude Include="Graphics\SimpleRenderer2D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Input.cpp">
@@ -41,6 +49,11 @@
       <Filter>Graphics</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\Shader.cpp" />
+    <ClCompile Include="Graphics\Buffers\VertexBuffer.cpp" />
+    <ClCompile Include="Graphics\Buffers\IndexBuffer.cpp" />
+    <ClCompile Include="Graphics\Buffers\VertexArray.cpp" />
+    <ClCompile Include="Math\Vector2.cpp" />
+    <ClCompile Include="Graphics\SimpleRenderer2D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\standard.frag" />
