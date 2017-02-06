@@ -4,6 +4,7 @@ TODO:
 - Logging system
 - Input mous position
 - Unify mouse and key presses
+- Color class
 
 DISCUSS:
 - Staticly link glew to dll in debug too? Or keep static in releas only?

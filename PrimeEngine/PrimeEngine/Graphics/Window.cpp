@@ -7,6 +7,13 @@ namespace PrimeEngine
 	{
 		Window* Window::instance = NULL;
 
+		void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+		{
+			//would be nice to change window fields
+			//save the aspect ratio
+			glViewport(0, 0, width, height);
+		}
+
 		Window::Window(const char* title, int width, int height) : 
 			_title(title), _width(width), _height(height)
 		{
@@ -20,7 +27,7 @@ namespace PrimeEngine
 
 		Window::~Window()
 		{
-			//glfwTerminate();
+			glfwTerminate();
 		}
 
 		void Window::Destroy() const
@@ -62,7 +69,7 @@ namespace PrimeEngine
 		{
 			isInstanceCreated();
 			glfwInit();
-			glfwWindowHint(GLFW_RESIZABLE, GL_FALSE); //for now
+			glfwWindowHint(GLFW_RESIZABLE, GL_TRUE); //for now
 			//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
 			if (_isFullScreen)
@@ -83,9 +90,11 @@ namespace PrimeEngine
 				throw "Failed to create GLFW window";
 			}
 			glfwMakeContextCurrent(_window);
+			glfwSetWindowAspectRatio(_window, _width, _height);
 			Input::Input::Initalize(); //move to a seperate function
 			glfwSetKeyCallback(_window, Input::Input::key_callback);
 			glfwSetMouseButtonCallback(_window, Input::Input::mouse_button_callback);
+			glfwSetFramebufferSizeCallback(_window, framebuffer_size_callback);
 			// Set this to true so GLEW knows to use a modern approach to retrieving function pointers and extensions
 			//glewExperimental = GL_TRUE;
 			if (glewInit() != GLEW_OK)
@@ -113,7 +122,7 @@ namespace PrimeEngine
 
 		void Window::Clear() const
 		{
-			glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+			glClearColor(_color.x, _color.y, _color.z, _color.w);
 			glClear(GL_COLOR_BUFFER_BIT);
 		}
 	}

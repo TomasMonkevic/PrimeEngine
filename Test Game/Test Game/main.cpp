@@ -23,6 +23,7 @@ int main()
 		//Window::SetWindow("Test Game", 800, 600);
 		//Window::SetWindow("Test Game Full");
 		gameWindow = Window::GetWindow();
+		gameWindow->SetColor(Vector4(0.3f, 0.6f, 1.0f, 1.0f));
 		gameWindow->Initialize();
 
 		Matrix4x4 ortho = Matrix4x4::Orthographic(0.0f, 16, 0.0f, 9, -1.0f, 1.0f);
@@ -40,7 +41,7 @@ int main()
 		Renderable2D sprite3(position, Vector2(1, 1), Vector4(1, 0.5f, 0, 1), myshader);
 		SimpleRenderer2D renderer;
 		
-		float speed = 0.01f;
+		float speed = 0.1f;
 		while (!gameWindow->Closed())
 		{
 			gameWindow->Clear();
