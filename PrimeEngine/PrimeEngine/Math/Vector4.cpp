@@ -4,6 +4,9 @@ namespace PrimeEngine
 {
 	namespace Math
 	{
+		const Vector4 Vector4::one = Vector4(1, 1, 1, 1);
+		const Vector4 Vector4::zero = Vector4();
+
 		Vector4::Vector4() : Vector4(0, 0, 0, 0)
 		{
 		}
@@ -45,6 +48,42 @@ namespace PrimeEngine
 		{
 			Vector4 result(x / scaler, y / scaler, z / scaler, w * scaler);
 			return result;
+		}
+
+		Vector4& Vector4::operator+=(const Vector4& right)
+		{
+			x += right.x;
+			y += right.y;
+			z += right.z;
+			w += right.w;
+			return *this;
+		}
+
+		Vector4& Vector4::operator-=(const Vector4& right)
+		{
+			x -= right.x;
+			y -= right.y;
+			z -= right.z;
+			w -= right.w;
+			return *this;
+		}
+
+		Vector4& Vector4::operator*=(const float scaler)
+		{
+			x *= scaler;
+			y *= scaler;
+			z *= scaler;
+			w *= scaler;
+			return *this;
+		}
+
+		Vector4& Vector4::operator/=(const float scaler)
+		{
+			x /= scaler;
+			y /= scaler;
+			z /= scaler;
+			w /= scaler;
+			return *this;
 		}
 
 		float& Vector4::operator[](unsigned int index)

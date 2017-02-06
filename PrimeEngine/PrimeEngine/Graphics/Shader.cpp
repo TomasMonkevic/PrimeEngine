@@ -23,6 +23,31 @@ namespace PrimeEngine { namespace Graphics {
 		glUniformMatrix4fv(GetLocation(name), 1, GL_FALSE, matrix.GetElements());
 	}
 
+	void Shader::SetUniform(const GLchar* name, const Math::Vector4& vector4) const 
+	{
+		glUniform4f(GetLocation(name), vector4.x, vector4.y, vector4.z, vector4.w);
+	}
+
+	void Shader::SetUniform(const GLchar* name, const Math::Vector3& vector3) const
+	{
+		glUniform3f(GetLocation(name), vector3.x, vector3.y, vector3.z);
+	}
+
+	void Shader::SetUniform(const GLchar* name, const Math::Vector2& vector2) const
+	{
+		glUniform2f(GetLocation(name), vector2.x, vector2.y);
+	}
+
+	void Shader::SetUniform(const GLchar* name, float value) const
+	{
+		glUniform1f(GetLocation(name), value);
+	}
+
+	void Shader::SetUniform(const GLchar* name, int value) const
+	{
+		glUniform1i(GetLocation(name), value);
+	}
+
 	GLuint Shader::LoadShader()
 	{
 		GLuint program = glCreateProgram();

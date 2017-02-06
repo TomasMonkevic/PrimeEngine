@@ -23,6 +23,11 @@ namespace PrimeEngine { namespace Graphics {
 		~Shader();
 
 		void SetUniform(const GLchar* name, const Math::Matrix4x4& matrix) const;
+		void SetUniform(const GLchar* name, const Math::Vector4& vector4) const;
+		void SetUniform(const GLchar* name, const Math::Vector3& vector3) const;
+		void SetUniform(const GLchar* name, const Math::Vector2& vector2) const;
+		void SetUniform(const GLchar* name, float value) const;
+		void SetUniform(const GLchar* name, int value) const;
 
 		void Enable() const;
 		void Disable() const;

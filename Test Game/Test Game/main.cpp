@@ -40,7 +40,7 @@ int main()
 		Renderable2D sprite3(position, Vector2(1, 1), Vector4(1, 0.5f, 0, 1), myshader);
 		SimpleRenderer2D renderer;
 		
-		float speed = 10.0f;
+		float speed = 0.01f;
 		while (!gameWindow->Closed())
 		{
 			gameWindow->Clear();
@@ -49,19 +49,19 @@ int main()
 			renderer.Submit(&sprite3);
 			if (Input::KeyPressed('W'))
 			{
-				position = position + (Vector3(0, 0.01f, 0) * speed);
+				position += (Vector3::up * speed);
 			}
 			if (Input::KeyPressed('S'))
 			{
-				position = position + (Vector3(0, -0.01f, 0) * speed);
+				position += (Vector3::down * speed);
 			}
 			if (Input::KeyPressed('D'))
 			{
-				position = position + (Vector3(0.01f, 0, 0) * speed);
+				position += (Vector3::right * speed);
 			}
 			if (Input::KeyPressed('A'))
 			{
-				position = position + (Vector3(-0.01f, 0, 0) * speed);
+				position += (Vector3::left * speed);
 			}
 			if (Input::KeyPressed(256)) //esc
 			{

@@ -11,6 +11,9 @@ namespace PrimeEngine { namespace Math {
 	public:
 		float x, y, z, w;
 
+		static const Vector4 one;
+		static const Vector4 zero;
+
 		static float Dot(const Vector4& left, const Vector4& right); //TEST
 
 		Vector4();
@@ -22,8 +25,11 @@ namespace PrimeEngine { namespace Math {
 		Vector4 operator-(const Vector4& right);
 		Vector4 operator*(const float scaler);
 		Vector4 operator/(const float scaler);
+		Vector4& operator+=(const Vector4& right);
+		Vector4& operator-=(const Vector4& right);
+		Vector4& operator*=(const float scaler);
+		Vector4& operator/=(const float scaler);
 		float& operator[](unsigned int index);
-		//more operators
 		bool operator!=(const Vector4& right) const;
 		bool operator==(const Vector4& right) const;
 		friend std::ostream& operator<<(std::ostream& stream, const Vector4& vector)
