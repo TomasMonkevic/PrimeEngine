@@ -54,7 +54,7 @@ namespace PrimeEngine { namespace Graphics {
 			return _vertexArray;
 		}
 
-		inline const Shader& GetShader() const
+		inline Shader& GetShader() const
 		{
 			return _shader;
 		}

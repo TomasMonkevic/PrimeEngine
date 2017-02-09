@@ -2,7 +2,7 @@
 #include <Core\Math.h>
 #include <Graphics\Window.h>
 #include <Input.h>
-//#include <Utilities/File.h>
+#include <Utilities\Time.h>
 #include <Graphics\Shader.h>
 #include <GL\glew.h>
 #include <GLFW\glfw3.h>
@@ -42,6 +42,8 @@ int main()
 		SimpleRenderer2D renderer;
 		
 		float speed = 0.1f;
+		PrimeEngine::Time timer;
+		unsigned int fpsCounter = 0;
 		while (!gameWindow->Closed())
 		{
 			gameWindow->Clear();
@@ -71,6 +73,14 @@ int main()
 			sprite3.SetPosition(position);
 			renderer.Flush();
 			gameWindow->Update();
+			//printf("%f ms\n",timer.Elapsed() * 1000.0f);
+			fpsCounter++;
+			if (timer.Elapsed() >= 1.0f)
+			{
+				printf("%u fps\n", fpsCounter);
+				fpsCounter = 0;
+				timer.Reset();
+			}
 		}
 		gameWindow->Destroy();
 	}

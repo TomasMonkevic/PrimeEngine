@@ -36,6 +36,7 @@
     <ClInclude Include="Graphics\Window.h" />
     <ClInclude Include="Math\Vector3.h" />
     <ClInclude Include="Utilities\File.h" />
+    <ClInclude Include="Utilities\Time.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Graphics\Buffers\IndexBuffer.cpp" />
@@ -49,6 +50,7 @@
     <ClCompile Include="Math\Vector4.cpp" />
     <ClCompile Include="Graphics\Window.cpp" />
     <ClCompile Include="Math\Vector3.cpp" />
+    <ClCompile Include="Utilities\Time.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\standard.frag" />
@@ -195,6 +197,10 @@
       <AdditionalIncludeDirectories>C:\_Tomas Monkeivc\Projects\Engine Project\midleware\OpenGL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;  GLEW_BUILD; GLEW_STATIC;   %(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Fast</FloatingPointModel>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

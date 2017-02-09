@@ -95,6 +95,7 @@ namespace PrimeEngine
 			glfwSetKeyCallback(_window, Input::Input::key_callback);
 			glfwSetMouseButtonCallback(_window, Input::Input::mouse_button_callback);
 			glfwSetFramebufferSizeCallback(_window, framebuffer_size_callback);
+			glfwSwapInterval(1); //Vsync off-0, on-1
 			// Set this to true so GLEW knows to use a modern approach to retrieving function pointers and extensions
 			//glewExperimental = GL_TRUE;
 			if (glewInit() != GLEW_OK)
@@ -111,11 +112,13 @@ namespace PrimeEngine
 
 		void Window::Update() const
 		{
+#ifdef DEBUG
 			GLenum error = glGetError();
 			if (error != GL_NO_ERROR)
 			{
 				throw error;
 			}
+#endif // DEBUG
 			glfwPollEvents();
 			glfwSwapBuffers(_window);
 		}
