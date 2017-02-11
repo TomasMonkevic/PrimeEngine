@@ -5,6 +5,13 @@ namespace PrimeEngine { namespace Input {
 
 	bool Input::keyPressed[GLFW_KEY_LAST + 1];
 	bool Input::mouseButtonPressed[GLFW_MOUSE_BUTTON_LAST + 1];
+	Math::Vector2 Input::mousePosition = Math::Vector2();
+
+	void Input::cursor_position_callback(GLFWwindow* window, double xpos, double ypos)
+	{
+		mousePosition.x = xpos;
+		mousePosition.y = ypos;
+	}
 
 	void Input::key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 	{
@@ -19,6 +26,10 @@ namespace PrimeEngine { namespace Input {
 	void Input::Initalize()
 	{
 		for (int i = 0; i < GLFW_KEY_LAST + 1; i++)
+		{
+			keyPressed[i] = false;
+		}
+		for (int i = 0; i < GLFW_MOUSE_BUTTON_LAST + 1; i++)
 		{
 			keyPressed[i] = false;
 		}

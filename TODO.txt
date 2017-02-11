@@ -1,8 +1,8 @@
 TODO:
-- Marginal float equality
+- Implement "camera" class
+- Implement ScreenToWorld, ViewportToScreen ect. methods
 - Implement custom string class
 - Logging system
-- Input mous position
 - Unify mouse and key presses
 - Color class
 

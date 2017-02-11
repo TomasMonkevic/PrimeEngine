@@ -14,6 +14,9 @@ namespace PrimeEngine { namespace Graphics {
 	{
 	protected:
 		Math::Vector3 _position;
+		Math::Matrix4x4 _rotationMatrix = Math::Matrix4x4::identity; //change to quaternion
+		Math::Vector3 _scale = Math::Vector3::one;
+
 		Math::Vector2 _size;
 		Math::Vector4 _color;
 
@@ -49,6 +52,17 @@ namespace PrimeEngine { namespace Graphics {
 			_indexBuffer = new IndexBuffer(indices, 6);
 		}
 
+		void Rotate(float angle, const Math::Vector3& axis) //change to quaternion
+		{
+			_rotationMatrix *= Math::Matrix4x4::Rotate(angle, axis);
+		}
+
+		inline Math::Matrix4x4 GetModelMatrix() const
+		{
+			return Math::Matrix4x4::TRS(_position, _rotationMatrix, _scale);
+			//return _modelMatrix;
+		}
+
 		inline const VertexArray* GetVertexArray() const
 		{
 			return _vertexArray;
@@ -72,6 +86,11 @@ namespace PrimeEngine { namespace Graphics {
 		inline void SetPosition(const Math::Vector3& position)
 		{
 			_position = position;
+		}
+
+		inline void SetScale(const Math::Vector3& scale)
+		{
+			_scale = scale;
 		}
 
 		inline const Math::Vector2& GetSize() const

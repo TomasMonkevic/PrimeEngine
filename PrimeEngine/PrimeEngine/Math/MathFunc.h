@@ -1,6 +1,8 @@
 #ifndef MATH_FUNC_H
 #define MATH_FUNC_H
 
+#include <math.h> //standard math lib
+
 namespace PrimeEngine { namespace Math {
 
 	inline float Abs(float value)

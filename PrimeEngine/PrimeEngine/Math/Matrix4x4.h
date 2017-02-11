@@ -5,6 +5,7 @@
 #include <iostream>
 #include "Vector4.h"
 #include "Vector3.h"
+#include "MathFunc.h"
 
 namespace PrimeEngine { namespace Math {
 		
@@ -26,7 +27,8 @@ namespace PrimeEngine { namespace Math {
 		static Matrix4x4 Perspective(float fov, float aspectRatio, float zNear, float zFar); //TODO
 		static Matrix4x4 Transform(const Vector3& translation);
 		static Matrix4x4 Scale(const Vector3& scaler); //TEST
-		static Matrix4x4 Rotate(float angle, const Vector3& axis); //TODO
+		static Matrix4x4 Rotate(float angle, const Vector3& axis); //TEST
+		static Matrix4x4 TRS(const Vector3& position, const Matrix4x4& rotationMatrix, const Vector3& scaler); //change to quaternion
 
 		Matrix4x4();
 		Matrix4x4(float diagonalValue);
