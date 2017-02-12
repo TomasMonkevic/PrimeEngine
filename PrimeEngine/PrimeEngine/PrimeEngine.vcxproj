@@ -23,6 +23,7 @@
     <ClInclude Include="Graphics\Buffers\IndexBuffer.h" />
     <ClInclude Include="Graphics\Buffers\VertexArray.h" />
     <ClInclude Include="Graphics\Buffers\VertexBuffer.h" />
+    <ClInclude Include="Graphics\Camera.h" />
     <ClInclude Include="Graphics\Renderable2D.h" />
     <ClInclude Include="Graphics\Renderer2D.h" />
     <ClInclude Include="Graphics\Shader.h" />
@@ -42,6 +43,7 @@
     <ClCompile Include="Graphics\Buffers\IndexBuffer.cpp" />
     <ClCompile Include="Graphics\Buffers\VertexArray.cpp" />
     <ClCompile Include="Graphics\Buffers\VertexBuffer.cpp" />
+    <ClCompile Include="Graphics\Camera.cpp" />
     <ClCompile Include="Graphics\Shader.cpp" />
     <ClCompile Include="Graphics\SimpleRenderer2D.cpp" />
     <ClCompile Include="Input.cpp" />

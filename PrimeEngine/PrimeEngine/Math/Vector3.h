@@ -2,6 +2,7 @@
 #define PRIMEENGINE_VECTOR3
 
 #include "..\DllExport.h"
+#include "MathFunc.h"
 #include <iostream>
 
 namespace PrimeEngine {	namespace Math {
@@ -21,16 +22,19 @@ namespace PrimeEngine {	namespace Math {
 		static const Vector3 right;
 
 		static float Dot(const Vector3& left, const Vector3& right); //TEST
+		static Vector3 Cross(const Vector3& left, const Vector3& right); //TEST
 
 		Vector3();
 		Vector3(float _x, float _y, float _z);
 
-		float Magnitude() const; //TODO
+		float Magnitude() const; //TEST
+		float SqrMagnitude() const; //TEST
+		Vector3 Normalized() const; //TEST
 
-		Vector3 operator+(const Vector3& right);
-		Vector3 operator-(const Vector3& right);
+		Vector3 operator+(const Vector3& right) const;
+		Vector3 operator-(const Vector3& right) const;
 		Vector3 operator*(const float scaler) const;
-		Vector3 operator/(const float scaler);
+		Vector3 operator/(const float scaler) const;
 		Vector3& operator+=(const Vector3& right);
 		Vector3& operator-=(const Vector3& right);
 		Vector3& operator*=(const float scaler);

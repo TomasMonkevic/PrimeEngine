@@ -19,7 +19,6 @@ namespace PrimeEngine { namespace Math {
 		static const Matrix4x4 zero;
 
 	private: //Methods
-		Vector4 GetRow(unsigned int row) const;
 
 	public:
 		static Matrix4x4& Multiply(Matrix4x4 left, const Matrix4x4& right);
@@ -35,6 +34,8 @@ namespace PrimeEngine { namespace Math {
 		Matrix4x4(const float matrix[4][4]);
 
 		float* GetElements() const;
+		Vector4 GetRow(unsigned int row) const; //TODO
+		void SetRow(unsigned int row, const Vector4& value); //TODO
 
 		Matrix4x4 operator*(const Matrix4x4& right);
 		Matrix4x4& operator*=(const Matrix4x4& right);

@@ -36,6 +36,7 @@
     <ClInclude Include="Graphics\Renderer2D.h" />
     <ClInclude Include="Graphics\SimpleRenderer2D.h" />
     <ClInclude Include="Utilities\Time.h" />
+    <ClInclude Include="Graphics\Camera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Input.cpp">
@@ -56,6 +57,7 @@
     <ClCompile Include="Math\Vector2.cpp" />
     <ClCompile Include="Graphics\SimpleRenderer2D.cpp" />
     <ClCompile Include="Utilities\Time.cpp" />
+    <ClCompile Include="Graphics\Camera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\standard.frag" />

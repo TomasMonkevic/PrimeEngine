@@ -24,7 +24,19 @@ namespace PrimeEngine
 
 		float Vector3::Magnitude() const
 		{
-			throw "Not implemented!";
+			return sqrt(x * x + y * y + z * z);
+		}
+
+		float Vector3::SqrMagnitude() const
+		{
+			return x * x + y * y + z * z;
+		}
+
+		Vector3 Vector3::Normalized() const
+		{
+			float length = Magnitude();
+			Vector3 normalized = *this / length;
+			return normalized;
 		}
 
 		float Vector3::Dot(const Vector3& left, const Vector3& right)
@@ -32,13 +44,18 @@ namespace PrimeEngine
 			return (left.x * right.x + left.y * right.y + left.z * right.z);
 		}
 
-		Vector3 Vector3::operator+(const Vector3& right)
+		Vector3 Vector3::Cross(const Vector3& left, const Vector3& right)
+		{
+			return Vector3(left.y * right.z - left.z * right.y, left.z * right.x - left.x * right.z, left.x * right.y - left.y * right.x);
+		}
+
+		Vector3 Vector3::operator+(const Vector3& right) const
 		{
 			Vector3 result(x + right.x, y + right.y, z + right.z);
 			return result;
 		}
 
-		Vector3 Vector3::operator-(const Vector3& right)
+		Vector3 Vector3::operator-(const Vector3& right) const
 		{
 			Vector3 result(x - right.x, y - right.y, z - right.z);
 			return result;
@@ -50,7 +67,7 @@ namespace PrimeEngine
 			return result;
 		}
 
-		Vector3 Vector3::operator/(const float scaler)
+		Vector3 Vector3::operator/(const float scaler) const 
 		{
 			Vector3 result(x / scaler, y / scaler, z / scaler);
 			return result;

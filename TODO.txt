@@ -1,10 +1,11 @@
 TODO:
 - Implement "camera" class
 - Implement ScreenToWorld, ViewportToScreen ect. methods
-- Implement custom string class
-- Logging system
-- Unify mouse and key presses
+- Transformation component
 - Color class
+- Logging system
+- Implement custom string class
+- Unify mouse and key presses
 
 DISCUSS:
 - Staticly link glew to dll in debug too? Or keep static in releas only?

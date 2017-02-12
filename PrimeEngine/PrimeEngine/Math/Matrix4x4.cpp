@@ -49,6 +49,18 @@ namespace PrimeEngine { namespace Math {
 		return Vector4(_matrix[0][row], _matrix[1][row], _matrix[2][row], _matrix[3][row]);
 	}
 
+	void Matrix4x4::SetRow(unsigned int row, const Vector4& value)
+	{
+		if (row > 4)
+		{
+			throw "Index out of range";
+		}
+		_matrix[0][row] = value.x;
+		_matrix[1][row] = value.y;
+		_matrix[2][row] = value.z;
+		_matrix[3][row] = value.w;
+	}
+
 	Matrix4x4& Matrix4x4::Multiply(Matrix4x4 left, const Matrix4x4& right)
 	{
 		for (int i = 0; i < 4; i++)
@@ -77,10 +89,10 @@ namespace PrimeEngine { namespace Math {
 	Matrix4x4 Matrix4x4::Perspective(float fov, float aspectRatio, float zNear, float zFar)
 	{
 		Matrix4x4 result(new float[4][4]{
-			{ 0, 0, 0, 1 },
-			{ 0, 0, 0, 1 },
-			{ 0, 0, 0, 1 },
-			{ 0, 0, 0, 1 }
+			{ (1 / tan(fov / 2)) / aspectRatio, 0, 0, 0 },
+			{ 0, 1 / tan(fov / 2), 0, 0 },
+			{ 0, 0, (zNear + zFar) / (zNear - zFar), -1},
+			{ 0, 0, (2 * zNear * zFar) / (zNear - zFar), 0 }
 		});
 		return result;
 	}
