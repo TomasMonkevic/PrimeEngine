@@ -109,6 +109,7 @@ public:
 	void Update() override
 	{
 		mainCamera->LookAt(mainCamera->GetPosition() + Vector3::back);
+		cout << Input::GetMousePosition() << endl;
 		if (Input::KeyPressed(256)) //esc
 		{
 			GetWindow()->Close();

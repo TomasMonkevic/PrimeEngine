@@ -1,4 +1,5 @@
 #include "Camera.h"
+#include "Window.h"
 
 namespace PrimeEngine { namespace Graphics {
 
@@ -6,6 +7,18 @@ namespace PrimeEngine { namespace Graphics {
 		_shader(shader), _projectionMatrix(projectionMatrix)
 	{
 		_shader.SetUniform("pr_matrix", _projectionMatrix);
+	}
+
+	Math::Vector3 Camera::ScreenToWorldPoint(const Math::Vector2& position) const
+	{
+		Math::Vector2 screenSize = Window::GetWindow()->GetSize();
+		float x = 2.0 * position.x / screenSize.x - 1;
+		float y = -2.0 * position.y / screenSize.y + 1;
+		//Math::Matrix4x4 viewProjectionInverse = inverse(projectionMatrix * viewMatrix);
+
+		Math::Vector3 point3D(x, y, 0);
+		//return viewProjectionInverse.multiply(point3D);
+		return Math::Vector3::zero;
 	}
 
 	void Camera::LookAt(const Math::Vector3& target)

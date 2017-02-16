@@ -33,6 +33,10 @@ namespace PrimeEngine { namespace Math {
 		Matrix4x4(float diagonalValue);
 		Matrix4x4(const float matrix[4][4]);
 
+		float Determinant() const; //TODO
+		Matrix4x4 Transpose() const; //TODO
+		Matrix4x4 Inverse() const; //TODO
+
 		float* GetElements() const;
 		Vector4 GetRow(unsigned int row) const; //TODO
 		void SetRow(unsigned int row, const Vector4& value); //TODO

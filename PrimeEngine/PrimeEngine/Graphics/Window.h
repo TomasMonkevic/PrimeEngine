@@ -4,6 +4,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include "../Math/Vector4.h"
+#include "../Math/Vector2.h"
 #include "../DllExport.h"
 
 namespace PrimeEngine
@@ -40,6 +41,11 @@ namespace PrimeEngine
 			inline const Math::Vector4& GetColor() const
 			{
 				return _color;
+			}
+
+			inline Math::Vector2 GetSize() const
+			{
+				return Math::Vector2(_width, _height);
 			}
 
 			void Close() const;

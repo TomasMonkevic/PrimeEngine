@@ -25,6 +25,8 @@ namespace PrimeEngine { namespace Graphics {
 	public:
 		Camera(const Shader& shader, const Math::Matrix4x4& projectionMatrix);
 
+		Math::Vector3 ScreenToWorldPoint(const Math::Vector2& position) const;
+
 		void LookAt(const Math::Vector3& target);
 		void Render();
 
