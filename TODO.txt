@@ -1,5 +1,8 @@
 TODO:
-- Implement "camera" class
+- Deltatime
+- Vsync enable/disable
+- Fix exception throwing
+- KeyDown, KeyUp etc
 - Implement ScreenToWorld, ViewportToScreen ect. methods
 - Transformation component
 - Color class

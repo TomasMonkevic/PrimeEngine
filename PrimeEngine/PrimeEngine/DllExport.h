@@ -1,10 +1,10 @@
 #ifndef DLL_EXPORT
 #define DLL_EXPORT
 
-#ifndef _DLL
-#define PRIMEENGINEAPI __declspec(dllimport)
-#else
+#if _DLL
 #define PRIMEENGINEAPI __declspec(dllexport)
+#else
+#define PRIMEENGINEAPI __declspec(dllimport)
 #endif
 
 #endif // DLL_EXPORT
