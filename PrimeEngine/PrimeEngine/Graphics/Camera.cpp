@@ -14,11 +14,9 @@ namespace PrimeEngine { namespace Graphics {
 		Math::Vector2 screenSize = Window::GetWindow()->GetSize();
 		float x = 2.0 * position.x / screenSize.x - 1;
 		float y = -2.0 * position.y / screenSize.y + 1;
-		//Math::Matrix4x4 viewProjectionInverse = inverse(projectionMatrix * viewMatrix);
-
+		Math::Matrix4x4 viewProjectionInverse = (_projectionMatrix * _viewMatrix).Inverse();
 		Math::Vector3 point3D(x, y, 0);
-		//return viewProjectionInverse.multiply(point3D);
-		return Math::Vector3::zero;
+		return Math::Matrix4x4::Multiply(viewProjectionInverse, point3D);
 	}
 
 	void Camera::LookAt(const Math::Vector3& target)

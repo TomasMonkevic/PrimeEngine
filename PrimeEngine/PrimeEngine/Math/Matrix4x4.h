@@ -19,9 +19,12 @@ namespace PrimeEngine { namespace Math {
 		static const Matrix4x4 zero;
 
 	private: //Methods
-
+		inline float* Minor(int col, int row, int size, float elements[]) const;
+		float Det(int size, float elements[]) const;
 	public:
 		static Matrix4x4& Multiply(Matrix4x4 left, const Matrix4x4& right);
+		static Vector4& Multiply(const Matrix4x4& left, Vector4 right); //TEST
+		static Vector3& Multiply(const Matrix4x4& left, Vector3 right); //TEST
 		static Matrix4x4 Orthographic(float left, float right, float bottom, float top, float zNear, float zFar);
 		static Matrix4x4 Perspective(float fov, float aspectRatio, float zNear, float zFar); //TODO
 		static Matrix4x4 Transform(const Vector3& translation);
@@ -33,15 +36,19 @@ namespace PrimeEngine { namespace Math {
 		Matrix4x4(float diagonalValue);
 		Matrix4x4(const float matrix[4][4]);
 
-		float Determinant() const; //TODO
+		float Determinant() const;
 		Matrix4x4 Transpose() const; //TODO
+		Matrix4x4 Scale(float scaler) const;
 		Matrix4x4 Inverse() const; //TODO
 
-		float* GetElements() const;
+		inline float* GetElements() const
+		{
+			return (float*)_matrix;
+		}
 		Vector4 GetRow(unsigned int row) const; //TODO
 		void SetRow(unsigned int row, const Vector4& value); //TODO
 
-		Matrix4x4 operator*(const Matrix4x4& right);
+		Matrix4x4 operator*(const Matrix4x4& right) const;
 		Matrix4x4& operator*=(const Matrix4x4& right);
 		bool operator==(const Matrix4x4& right) const;
 		bool operator!=(const Matrix4x4& right) const;

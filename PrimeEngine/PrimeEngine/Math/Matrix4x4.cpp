@@ -35,9 +35,92 @@ namespace PrimeEngine { namespace Math {
 		}
 	}
 
-	float* Matrix4x4::GetElements() const //is this needed? maybe make the elements public?
+	inline float* Matrix4x4::Minor(int col, int row, int size, float elements[]) const
 	{
-		return (float*)_matrix;
+		float* temp = new float[(size - 1) * (size - 1)];
+		int tempI = 0;
+		for (int j = 0; j < size * size; j++)
+		{
+			if (j % size != row && (col * size > j || (col + 1) * size <= j))
+			{
+				temp[tempI] = elements[j];
+				tempI++;
+			}
+		}
+		return temp;
+	}
+
+	float Matrix4x4::Det(int size, float elements[]) const
+	{
+		if (size == 1)
+		{
+			return elements[0];
+		}
+		else if (size == 2)
+		{
+			return elements[0 * size + 0] * elements[1 * size + 1] - elements[0 * size + 1] * elements[1 * size + 0];
+		}
+		else
+		{
+			float sum = 0;
+			for (int i = 0; i < size; i++)
+			{
+				float* temp = Minor(0, i, size, elements);
+				//float* temp = new float[(size - 1) * (size -1)];
+				//int tempI = 0;
+				//for (int j = size; j < size * size; j++)
+				//{
+				//	if (j % size != i)
+				//	{
+				//		temp[tempI] = elements[j];
+				//		tempI++;
+				//	}
+				//}
+				float adjunktas = elements[0 * size + i] * pow(-1, 0 + i) * Det(size - 1, temp);
+				delete[] temp;
+				//delete temp;
+				sum += adjunktas;
+			}
+			return sum;
+		}
+	}
+
+	float Matrix4x4::Determinant() const
+	{
+		return Det(4, GetElements());
+	}
+
+	Matrix4x4 Matrix4x4::Transpose() const
+	{
+		return Matrix4x4::zero;
+	}
+
+	Matrix4x4 Matrix4x4::Scale(float scaler) const
+	{
+		Matrix4x4 temp;
+		for (int col = 0; col < 4; col++)
+		{
+			for (int row = 0; row < 4; row++)
+			{
+				temp[col][row] = (*this)[col][row] * scaler;
+			}
+		}
+		return temp;
+	}
+
+	Matrix4x4 Matrix4x4::Inverse() const //Is this how inverse is done? :D Might be better to remove all the hardcoded stuff
+	{
+		Matrix4x4 temp;
+		for (int col = 0; col < 4; col++)
+		{
+			for (int row = 0; row < 4; row++)
+			{
+				float* minor = Minor(col, row, 4, GetElements());
+				temp[row][col] = pow(-1, col+row) * Det(3, minor);
+				delete[] minor;
+			}
+		}
+		return temp.Scale(1 / Det(4, GetElements()));
 	}
 
 	Vector4 Matrix4x4::GetRow(unsigned int row) const
@@ -73,6 +156,28 @@ namespace PrimeEngine { namespace Math {
 			}
 		}
 		return left;
+	}
+
+	Vector4& Matrix4x4::Multiply(const Matrix4x4& left, Vector4 right)
+	{
+		Vector4 col = right;
+		for (int i = 0; i < 4; i++)
+		{
+			Vector4 row = left.GetRow(i);
+			right[i] = Vector4::Dot(row, col);
+		}
+		return right;
+	}
+
+	Vector3& Matrix4x4::Multiply(const Matrix4x4& left, Vector3 right)
+	{
+		Vector4 col(right.x, right.y, right.z, 1); //implement vector conversation
+		for (int i = 0; i < 3; i++)
+		{
+			Vector4 row = left.GetRow(i);
+			right[i] = Vector4::Dot(row, col);
+		}
+		return right;
 	}
 
 	Matrix4x4 Matrix4x4::Orthographic(float left, float right, float bottom, float top, float zNear, float zFar)
@@ -142,7 +247,7 @@ namespace PrimeEngine { namespace Math {
 		return result;
 	}
 
-	Matrix4x4 Matrix4x4::operator*(const Matrix4x4& right)
+	Matrix4x4 Matrix4x4::operator*(const Matrix4x4& right) const
 	{
 		return Matrix4x4::Multiply(*this, right);
 	}

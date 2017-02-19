@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 
 #include <PrimeEngine.h>
 
@@ -26,30 +27,37 @@ using std::cout;
 using std::cin;
 using std::endl;
 
+struct Cell
+{
+	bool isPlaced;
+	Renderable2D cellRenderer;
+};
+
 class TicTacToe : public PrimeEngine::PrimeEngine
 {
 public:
+	float cellSize, gap;
 	SimpleRenderer2D renderer;
 	Camera* mainCamera;
 	Shader* myshader;
-	Renderable2D *cell, *cell1, *cell2, *cell3, *cell4, *cell5, *cell6, *cell7, *cell8, *vLine1, *vLine2, *hLine1, *hLine2;
+	Renderable2D* cells[9];
+	Vector3 cellPoints[9];
+	Renderable2D *vLine1, *vLine2, *hLine1, *hLine2;
 
-	TicTacToe() : PrimeEngine(true)
+	TicTacToe(float _cellSize = 2.4f, float _gap = 0.1f) : PrimeEngine(true), cellSize(_cellSize), gap(_gap)
 	{
 
 	}
 
 	~TicTacToe()
 	{
-		delete cell;
-		delete cell1;
-		delete cell2;
-		delete cell3;
-		delete cell4;
-		delete cell5;
-		delete cell6;
-		delete cell7;
-		delete cell8;
+		for (int i = 0; i < 9; i++)
+		{
+			if (cells[i])
+			{
+				delete cells[i];
+			}
+		}
 		delete vLine1;
 		delete vLine2;
 		delete hLine1;
@@ -58,28 +66,29 @@ public:
 		delete myshader;
 	}
 
+	void CreateBoard()
+	{
+		//create cellpoints
+		//cells[0] = new Renderable2D(Vector3(0, 0, 0), Vector2(cellSize, cellSize), Vector4(1, 0.5f, 0, 1), *myshader);
+		//cell1 = new Renderable2D(Vector3(-(size + offset), 0, 0), Vector2(size, size), Vector4(1, 0.5f, 0, 1), *myshader);
+		//cell2 = new Renderable2D(Vector3((size + offset), 0, 0), Vector2(size, size), Vector4(1, 0.5f, 0, 1), *myshader);
+		//cell3 = new Renderable2D(Vector3(0, (size + offset), 0), Vector2(size, size), Vector4(1, 0.5f, 0, 1), *myshader);
+		//cell4 = new Renderable2D(Vector3(-(size + offset), (size + offset), 0), Vector2(size, size), Vector4(1, 0.5f, 0, 1), *myshader);
+		//cell5 = new Renderable2D(Vector3((size + offset), (size + offset), 0), Vector2(size, size), Vector4(1, 0.5f, 0, 1), *myshader);
+		//cell6 = new Renderable2D(Vector3(0, -(size + offset), 0), Vector2(size, size), Vector4(1, 0.5f, 0, 1), *myshader);
+		//cell7 = new Renderable2D(Vector3(-(size + offset), -(size + offset), 0), Vector2(size, size), Vector4(1, 0.5f, 0, 1), *myshader);
+		//cell8 = new Renderable2D(Vector3((size + offset), -(size + offset), 0), Vector2(size, size), Vector4(1, 0.5f, 0, 1), *myshader);
+		vLine1 = new Renderable2D(Vector3((gap + cellSize) / 2, 0, 0), Vector2(0.1f, 3 * cellSize + 2 * gap), Vector4(1, 1, 0, 1), *myshader);
+		vLine2 = new Renderable2D(Vector3(-(gap + cellSize) / 2, 0, 0), Vector2(0.1f, 3 * cellSize + 2 * gap), Vector4(1, 1, 0, 1), *myshader);
+		hLine1 = new Renderable2D(Vector3(0, (gap + cellSize) / 2, 0), Vector2(3 * cellSize + 2 * gap, 0.1f), Vector4(1, 1, 0, 1), *myshader);
+		hLine2 = new Renderable2D(Vector3(0, -(gap + cellSize) / 2, 0), Vector2(3 * cellSize + 2 * gap, 0.1f), Vector4(1, 1, 0, 1), *myshader);
+	}
+
 	void Awake() override
 	{
-		CreateWin("Tik Tac Toe", 1366, 768);
+		//CreateWin("Tik Tac Toe", 1366, 768);
+		CreateWin("Tik Tac Toe", 800, 600);
 		GetWindow()->SetColor(Vector4(0.3f, 0.6f, 1.0f, 1.0f));
-
-		//char option;
-		//cout << "Host or client? H/C ";
-		//cin >> option;
-		//if (option == 'h')
-		//{
-		//	cout << "Host working" << endl;
-		//	NetworkHost host("27015");
-		//	host.Listen();
-		//}
-		//else
-		//{
-		//	cout << "Client msg: " << endl;
-		//	NetworkClient client("127.0.0.1", "27015");
-		//	client.Send("1234567890sfdsfdsf dsf sdf dsfdsf dsf dsfdsf dsfdsf ds"); //why is the mesage cut off?????
-		//	cout << client.Receive() << endl;
-		//}
-
 		Matrix4x4 pr = Matrix4x4::Orthographic(-8.0f, 8.0f, -4.5f, 4.5f, -1.0f, 1.0f);
 
 		myshader = new Shader("standard.vert", "standard.frag");
@@ -89,27 +98,17 @@ public:
 		Vector3 cameraPosition(Vector3(0, 0, 0.0f));
 		mainCamera->SetPosition(cameraPosition);
 
-		float size = 2.4f, offset = 0.1;
-		cell = new Renderable2D(Vector3(0, 0, 0), Vector2(size, size), Vector4(1, 0.5f, 0, 1), *myshader);
-		cell1 = new Renderable2D(Vector3(-(size + offset), 0, 0), Vector2(size, size), Vector4(1, 0.5f, 0, 1), *myshader);
-		cell2 = new Renderable2D(Vector3((size + offset), 0, 0), Vector2(size, size), Vector4(1, 0.5f, 0, 1), *myshader);
-		cell3 = new Renderable2D(Vector3(0, (size + offset), 0), Vector2(size, size), Vector4(1, 0.5f, 0, 1), *myshader);
-		cell4 = new Renderable2D(Vector3(-(size + offset), (size + offset), 0), Vector2(size, size), Vector4(1, 0.5f, 0, 1), *myshader);
-		cell5 = new Renderable2D(Vector3((size + offset), (size + offset), 0), Vector2(size, size), Vector4(1, 0.5f, 0, 1), *myshader);
-		cell6 = new Renderable2D(Vector3(0, -(size + offset), 0), Vector2(size, size), Vector4(1, 0.5f, 0, 1), *myshader);
-		cell7 = new Renderable2D(Vector3(-(size + offset), -(size + offset), 0), Vector2(size, size), Vector4(1, 0.5f, 0, 1), *myshader);
-		cell8 = new Renderable2D(Vector3((size + offset), -(size + offset), 0), Vector2(size, size), Vector4(1, 0.5f, 0, 1), *myshader);
-
-		vLine1 = new Renderable2D(Vector3((offset + size) / 2, 0, 0), Vector2(0.1f, 3 * size + 2 * offset), Vector4(1, 1, 0, 1), *myshader);
-		vLine2 = new Renderable2D(Vector3(-(offset + size) / 2, 0, 0), Vector2(0.1f, 3 * size + 2 * offset), Vector4(1, 1, 0, 1), *myshader);
-		hLine1 = new Renderable2D(Vector3(0, (offset + size) / 2, 0), Vector2(3 * size + 2 * offset, 0.1f), Vector4(1, 1, 0, 1), *myshader);
-		hLine2 = new Renderable2D(Vector3(0, -(offset + size) / 2, 0), Vector2(3 * size + 2 * offset, 0.1f), Vector4(1, 1, 0, 1), *myshader);
+		CreateBoard();
 	}
 
 	void Update() override
 	{
 		mainCamera->LookAt(mainCamera->GetPosition() + Vector3::back);
-		cout << Input::GetMousePosition() << endl;
+		if (Input::MouseButtonPressed(0))
+		{
+			//place cell here
+			cout << mainCamera->ScreenToWorldPoint(Input::GetMousePosition()) << endl;
+		}
 		if (Input::KeyPressed(256)) //esc
 		{
 			GetWindow()->Close();
@@ -123,15 +122,13 @@ public:
 
 	void Render() override 
 	{
-		renderer.Submit(cell);
-		renderer.Submit(cell1);
-		renderer.Submit(cell2);
-		renderer.Submit(cell3);
-		renderer.Submit(cell4);
-		renderer.Submit(cell5);
-		renderer.Submit(cell6);
-		renderer.Submit(cell7);
-		renderer.Submit(cell8);
+		for (int i = 0; i < 9; i++)
+		{
+			if (cells[i])
+			{
+				renderer.Submit(cells[i]);
+			}
+		}
 		renderer.Submit(vLine1);
 		renderer.Submit(vLine2);
 		renderer.Submit(hLine1);
