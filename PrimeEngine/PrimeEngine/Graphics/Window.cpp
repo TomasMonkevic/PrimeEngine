@@ -10,7 +10,6 @@ namespace PrimeEngine
 		void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 		{
 			//would be nice to change window fields
-			//save the aspect ratio
 			glViewport(0, 0, width, height);
 		}
 

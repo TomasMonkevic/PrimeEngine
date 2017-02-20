@@ -1,17 +1,14 @@
 TODO:
 - Deltatime
+- Color class
 - Vsync enable/disable
 - Fix exception throwing
 - KeyDown, KeyUp etc
-- Implement ScreenToWorld, ViewportToScreen ect. methods
+- Implement ViewportToScreen ect. methods
 - Transformation component
-- Color class
 - Logging system
 - Implement custom string class
 - Unify mouse and key presses
 
 DISCUSS:
 - Staticly link glew to dll in debug too? Or keep static in releas only?
-
-ISSUES:
-- [FIXED] When windows is in full screen nothing doesn't render

@@ -1,4 +1,5 @@
 #include "Vector3.h"
+#include <stdlib.h>
 
 namespace PrimeEngine
 {
@@ -47,6 +48,16 @@ namespace PrimeEngine
 		Vector3 Vector3::Cross(const Vector3& left, const Vector3& right)
 		{
 			return Vector3(left.y * right.z - left.z * right.y, left.z * right.x - left.x * right.z, left.x * right.y - left.y * right.x);
+		}
+
+		Vector3 Vector3::Create(const char* string)
+		{
+			char* pEnd;
+			float x, y, z;
+			x = strtof(++string, &pEnd);
+			y = strtof(++pEnd, &pEnd);
+			z = strtof(++pEnd, NULL);
+			return Vector3(x, y, z);
 		}
 
 		Vector3 Vector3::operator+(const Vector3& right) const

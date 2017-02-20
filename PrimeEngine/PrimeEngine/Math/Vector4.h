@@ -15,6 +15,7 @@ namespace PrimeEngine { namespace Math {
 		static const Vector4 zero;
 
 		static float Dot(const Vector4& left, const Vector4& right); //TEST
+		static Vector4 Create(const char* string);
 
 		Vector4();
 		Vector4(float _x, float _y, float _z, float _w);

@@ -23,6 +23,7 @@ namespace PrimeEngine {	namespace Math {
 
 		static float Dot(const Vector3& left, const Vector3& right); //TEST
 		static Vector3 Cross(const Vector3& left, const Vector3& right); //TEST
+		static Vector3 Create(const char* string);
 
 		Vector3();
 		Vector3(float _x, float _y, float _z);

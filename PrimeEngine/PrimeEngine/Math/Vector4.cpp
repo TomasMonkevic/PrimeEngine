@@ -1,4 +1,5 @@
 #include "Vector4.h"
+#include <stdlib.h>
 
 namespace PrimeEngine
 {
@@ -24,6 +25,17 @@ namespace PrimeEngine
 		float Vector4::Dot(const Vector4& left, const Vector4& right)
 		{
 			return (left.x * right.x + left.y * right.y + left.z * right.z + left.w * right.w);
+		}
+
+		Vector4 Vector4::Create(const char* string)
+		{
+			char* pEnd;
+			float x, y, z, w;
+			x = strtof(++string, &pEnd);
+			y = strtof(++pEnd, &pEnd);
+			z = strtof(++pEnd, &pEnd);
+			w = strtof(++pEnd, NULL);
+			return Vector4(x, y, z, w);
 		}
 
 		Vector4 Vector4::operator+(const Vector4& right)

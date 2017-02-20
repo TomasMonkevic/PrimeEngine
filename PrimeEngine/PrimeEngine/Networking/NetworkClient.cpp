@@ -49,7 +49,7 @@ namespace PrimeEngine { namespace Networking {
 #endif
 		if (connect(_socket, (sockaddr*)&_serverAddress, sizeof(_serverAddress))<0)
 		{
-			//int error = WSAGetLastError();
+			int error = WSAGetLastError();
 			throw "ERROR #4: error in connect().\n";
 		}
 	}

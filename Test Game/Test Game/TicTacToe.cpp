@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+#include <string>
+#include <sstream>
 
 #include <PrimeEngine.h>
 
@@ -29,6 +31,9 @@ using std::endl;
 
 #define BOARD_SIZE 3
 
+NetworkHost* host = NULL; //making global for now
+NetworkClient* client = NULL;
+
 struct Cell
 {
 	bool isPlaced;
@@ -52,8 +57,10 @@ struct Cell
 class TicTacToe : public PrimeEngine::PrimeEngine
 {
 public:
+	bool isHost, isStarting;
 	float cellSize, gap;
 	int placedCellCount = 0;
+	Vector4 cellColor, linesColor, backGroundColor;
 	SimpleRenderer2D renderer;
 	Camera* mainCamera;
 	Shader* myshader;
@@ -61,7 +68,8 @@ public:
 	Vector3 cellPoints[BOARD_SIZE * BOARD_SIZE];
 	Renderable2D *vLine1, *vLine2, *hLine1, *hLine2;
 
-	TicTacToe(float _cellSize = 2.4f, float _gap = 0.1f) : PrimeEngine(true), cellSize(_cellSize), gap(_gap)
+	TicTacToe(Vector4 _cellColor, const Vector4& _linesColor, const Vector4& _backGroundColor, bool _isHost, bool _isStarting, float _cellSize = 2.4f, float _gap = 0.1f) :
+		PrimeEngine(true), cellColor(_cellColor), linesColor(_linesColor), backGroundColor(_backGroundColor), isHost(_isHost), isStarting(_isStarting), cellSize(_cellSize), gap(_gap)
 	{
 
 	}
@@ -96,28 +104,14 @@ public:
 				//cout << cellPoints[i] << endl;
 			}
 		}
-		//create cellpoints
-		//cells[0] = new Renderable2D(Vector3(0, 0, 0), Vector2(cellSize, cellSize), Vector4(1, 0.5f, 0, 1), *myshader);
-		//cell1 = new Renderable2D(Vector3(-(size + offset), 0, 0), Vector2(size, size), Vector4(1, 0.5f, 0, 1), *myshader);
-		//cell2 = new Renderable2D(Vector3((size + offset), 0, 0), Vector2(size, size), Vector4(1, 0.5f, 0, 1), *myshader);
-		//cell3 = new Renderable2D(Vector3(0, (size + offset), 0), Vector2(size, size), Vector4(1, 0.5f, 0, 1), *myshader);
-		//cell4 = new Renderable2D(Vector3(-(size + offset), (size + offset), 0), Vector2(size, size), Vector4(1, 0.5f, 0, 1), *myshader);
-		//cell5 = new Renderable2D(Vector3((size + offset), (size + offset), 0), Vector2(size, size), Vector4(1, 0.5f, 0, 1), *myshader);
-		//cell6 = new Renderable2D(Vector3(0, -(size + offset), 0), Vector2(size, size), Vector4(1, 0.5f, 0, 1), *myshader);
-		//cell7 = new Renderable2D(Vector3(-(size + offset), -(size + offset), 0), Vector2(size, size), Vector4(1, 0.5f, 0, 1), *myshader);
-		//cell8 = new Renderable2D(Vector3((size + offset), -(size + offset), 0), Vector2(size, size), Vector4(1, 0.5f, 0, 1), *myshader);
-		vLine1 = new Renderable2D(Vector3((gap + cellSize) / 2, 0, 0), Vector2(0.1f, 3 * cellSize + 2 * gap), Vector4(1, 1, 0, 1), *myshader);
-		vLine2 = new Renderable2D(Vector3(-(gap + cellSize) / 2, 0, 0), Vector2(0.1f, 3 * cellSize + 2 * gap), Vector4(1, 1, 0, 1), *myshader);
-		hLine1 = new Renderable2D(Vector3(0, (gap + cellSize) / 2, 0), Vector2(3 * cellSize + 2 * gap, 0.1f), Vector4(1, 1, 0, 1), *myshader);
-		hLine2 = new Renderable2D(Vector3(0, -(gap + cellSize) / 2, 0), Vector2(3 * cellSize + 2 * gap, 0.1f), Vector4(1, 1, 0, 1), *myshader);
+		vLine1 = new Renderable2D(Vector3((gap + cellSize) / 2, 0, 0), Vector2(0.1f, 3 * cellSize + 2 * gap), linesColor, *myshader);
+		vLine2 = new Renderable2D(Vector3(-(gap + cellSize) / 2, 0, 0), Vector2(0.1f, 3 * cellSize + 2 * gap), linesColor, *myshader);
+		hLine1 = new Renderable2D(Vector3(0, (gap + cellSize) / 2, 0), Vector2(3 * cellSize + 2 * gap, 0.1f), linesColor, *myshader);
+		hLine2 = new Renderable2D(Vector3(0, -(gap + cellSize) / 2, 0), Vector2(3 * cellSize + 2 * gap, 0.1f), linesColor, *myshader);
 	}
 
 	void Place(Vector3 position)
 	{
-		//for (auto &pos : cellPoints) //trying out c++(11) foreach
-		//{
-		//	
-		//}
 		int closesPoint = 0;
 		for (int i = 0; i < BOARD_SIZE * BOARD_SIZE; i++)
 		{
@@ -145,9 +139,29 @@ public:
 				}
 			}
 			//cout << "Placed!!!!!!!!!!" << endl;
-			cells[placedCellCount]->cellRenderer = new Renderable2D(cellPoints[closesPoint], Vector2(cellSize, cellSize), Vector4(1, 0.5f, 0, 1), *myshader);
+			cells[placedCellCount]->cellRenderer = new Renderable2D(cellPoints[closesPoint], Vector2(cellSize, cellSize), cellColor, *myshader);
 			cells[placedCellCount]->isPlaced = true;
 			placedCellCount++;
+			std::ostringstream stream;
+			stream << cellPoints[closesPoint] << ";" << cellColor;
+			std::string str = stream.str();
+			const char* chr = str.c_str();
+			if (isHost) //implement interface for networking
+			{
+
+				if (isStarting)
+				{
+					host->Send(chr);
+				}
+			}
+			else
+			{
+				if (isStarting)
+				{
+					client->Send(chr);
+				}
+			}
+			isStarting = !isStarting;
 		}
 	}
 
@@ -172,7 +186,7 @@ public:
 	{
 		CreateWin("Tik Tac Toe", 1366, 768);
 		//CreateWin("Tik Tac Toe", 800, 600);
-		GetWindow()->SetColor(Vector4(0.3f, 0.6f, 1.0f, 1.0f));
+		GetWindow()->SetColor(backGroundColor);
 		Matrix4x4 pr = Matrix4x4::Orthographic(-8.0f, 8.0f, -4.5f, 4.5f, -1.0f, 1.0f);
 
 		myshader = new Shader("standard.vert", "standard.frag");
@@ -187,6 +201,56 @@ public:
 
 	void Update() override
 	{
+		if (isHost) //implement interface for networking
+		{
+			if (!isStarting)
+			{
+				char * pch;
+				char* str = new char[1024];
+				strcpy(str, host->Receive());
+				char* position = new char[1024];
+				char* color = new char[1024];
+				pch = strtok(str, ";");
+				strcpy(position, pch);
+				pch = strtok(NULL, ";");
+				//pch = strtok(str, ";");
+				strcpy(color, pch);
+				cells[placedCellCount]->cellRenderer = new Renderable2D(Vector3::Create(position), Vector2(cellSize, cellSize), Vector4::Create(color), *myshader);
+				cells[placedCellCount]->isPlaced = true;
+				placedCellCount++;
+				cout << position << " " << color << endl;
+				delete[] str;
+				delete[] position;
+				delete[] color;
+				//cout << host->Receive() << endl;
+				isStarting = !isStarting;
+			}
+		}
+		else
+		{
+			if (!isStarting)
+			{
+				char * pch;
+				char* str = new char[1024];
+				strcpy(str, client->Receive());
+				pch = strtok(str, ";");
+				char* position = new char[1024];
+				strcpy(position, pch);
+				pch = strtok(NULL, ";");
+				//pch = strtok(str, ";");
+				char* color = new char[1024];
+				strcpy(color, pch);
+				cells[placedCellCount]->cellRenderer = new Renderable2D(Vector3::Create(position), Vector2(cellSize, cellSize), Vector4::Create(color), *myshader);
+				cells[placedCellCount]->isPlaced = true;
+				placedCellCount++;
+				cout << position << " " << color << endl;
+				delete[] str;
+				delete[] position;
+				delete[] color;
+				//cout << client->Receive() << endl;
+				isStarting = !isStarting;
+			}
+		}
 		mainCamera->LookAt(mainCamera->GetPosition() + Vector3::back);
 		if (Input::MouseButtonPressed(0))
 		{
@@ -206,7 +270,7 @@ public:
 
 	void Tick() override
 	{
-		//cout << GetFPS() << "fps" << endl;
+		cout << GetFPS() << "fps" << endl;
 	}
 
 	void Render() override 
@@ -232,27 +296,42 @@ int main()
 	TicTacToe* game = NULL;
 	try
 	{
-		//char option;
-		//cout << "Host or client? H/C ";
-		//cin >> option;
-		//if (option == 'h')
-		//{
-		//	cout << "Host online " << endl;
-		//	NetworkHost host("27015");
-		//	host.Listen();
-		//	cout << host.Receive() << endl;
-		//	host.Send("This message was sent by the SERVER");
-		//	host.DisconnectClient();
-		//}
-		//else
-		//{
-		//	cout << "Client online " << endl;
-		//	NetworkClient client("127.0.0.1", "27015");
-		//	client.Send("This message was sent by the CLIENT");
-		//	cout << client.Receive() << endl;
-		//}
-		game = new TicTacToe;
+		//Vector3 rez = Vector3::Create("(-1.01, 0, 1)");
+		//cout<<rez.Magnitude()<<endl;
+		Vector4 lineColor(1, 1, 1, 1); //white
+		Vector4 backGroundColor(0.858f, 0.815f, 0.364f, 1); //yellowish
+		Vector4* cellColor = NULL;
+		char option;
+		bool isHost;
+		cout << "Host or client? H/C ";
+		cin >> option;
+		if (option == 'h')
+		{
+			cout << "Host online " << endl;
+			host = new NetworkHost("27015");
+			host->Listen();
+			//cout << host.Receive() << endl;
+			//host.Send("This message was sent by the SERVER");
+			//host.DisconnectClient();
+			isHost = true;
+			cellColor = new Vector4(0.317f, 0.678f, 0.294f, 1); //greenish
+		}
+		else
+		{
+			cout << "Client online " << endl;
+			client = new NetworkClient("127.0.0.1", "27015");
+			//client = new NetworkClient("78.60.19.86", "27015");
+			//client.Send("This message was sent by the CLIENT");
+			//cout << client.Receive() << endl;
+			isHost = false;
+			cellColor = new Vector4(0.850f, 0.368f, 0.427f, 1); //redish
+		}
+
+		game = new TicTacToe(*cellColor, lineColor, backGroundColor, isHost, isHost);
+		delete cellColor;
 		game->Play();
+		delete host;
+		delete client;
 	}
 	catch (const char* msg) //fix exception throwing, because this won't catch shit
 	{
