@@ -11,7 +11,7 @@ namespace PrimeEngine { namespace Graphics {
 	{
 	private:
 		GLuint _Id;
-		//std::vector<VertexBuffer*> _buffers;
+		std::vector<VertexBuffer*> _buffers;
 	public:
 		VertexArray();
 		~VertexArray();

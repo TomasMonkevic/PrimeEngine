@@ -27,21 +27,38 @@ using std::cout;
 using std::cin;
 using std::endl;
 
+#define BOARD_SIZE 3
+
 struct Cell
 {
 	bool isPlaced;
-	Renderable2D cellRenderer;
+	Renderable2D* cellRenderer;
+
+	Cell() :
+		isPlaced(false), cellRenderer(NULL)
+	{
+
+	}
+
+	~Cell()
+	{
+		if (cellRenderer)
+		{
+			delete cellRenderer;
+		}
+	}
 };
 
 class TicTacToe : public PrimeEngine::PrimeEngine
 {
 public:
 	float cellSize, gap;
+	int placedCellCount = 0;
 	SimpleRenderer2D renderer;
 	Camera* mainCamera;
 	Shader* myshader;
-	Renderable2D* cells[9];
-	Vector3 cellPoints[9];
+	Cell* cells[BOARD_SIZE * BOARD_SIZE];
+	Vector3 cellPoints[BOARD_SIZE * BOARD_SIZE];
 	Renderable2D *vLine1, *vLine2, *hLine1, *hLine2;
 
 	TicTacToe(float _cellSize = 2.4f, float _gap = 0.1f) : PrimeEngine(true), cellSize(_cellSize), gap(_gap)
@@ -68,6 +85,17 @@ public:
 
 	void CreateBoard()
 	{
+		for (int i = 0; i < BOARD_SIZE; i++)
+		{
+			for (int j = 0; j < BOARD_SIZE; j++)
+			{
+				cellPoints[i * BOARD_SIZE + j] = Vector3((i - 1) * (cellSize + gap), (j - 1) * (cellSize + gap), 0);
+				cells[i * BOARD_SIZE + j] = new Cell();
+				cells[i * BOARD_SIZE + j]->isPlaced = false;
+				cells[i * BOARD_SIZE + j]->cellRenderer = NULL;
+				//cout << cellPoints[i] << endl;
+			}
+		}
 		//create cellpoints
 		//cells[0] = new Renderable2D(Vector3(0, 0, 0), Vector2(cellSize, cellSize), Vector4(1, 0.5f, 0, 1), *myshader);
 		//cell1 = new Renderable2D(Vector3(-(size + offset), 0, 0), Vector2(size, size), Vector4(1, 0.5f, 0, 1), *myshader);
@@ -84,10 +112,66 @@ public:
 		hLine2 = new Renderable2D(Vector3(0, -(gap + cellSize) / 2, 0), Vector2(3 * cellSize + 2 * gap, 0.1f), Vector4(1, 1, 0, 1), *myshader);
 	}
 
+	void Place(Vector3 position)
+	{
+		//for (auto &pos : cellPoints) //trying out c++(11) foreach
+		//{
+		//	
+		//}
+		int closesPoint = 0;
+		for (int i = 0; i < BOARD_SIZE * BOARD_SIZE; i++)
+		{
+			//cout << cellPoints[i] << endl;
+			if ((position - cellPoints[i]).SqrMagnitude() < (position - cellPoints[closesPoint]).SqrMagnitude())
+			{
+				closesPoint = i;
+			}
+		}
+		if (placedCellCount >= BOARD_SIZE * BOARD_SIZE)
+		{
+			return;
+		}
+		//cout << cellPoints[closesPoint] << endl;
+		if (position.x < cellPoints[closesPoint].x + cellSize / 2 && position.x > cellPoints[closesPoint].x - cellSize / 2 &&
+			position.y < cellPoints[closesPoint].y + cellSize / 2 && position.y > cellPoints[closesPoint].y - cellSize / 2 &&
+			cells[placedCellCount] && !cells[placedCellCount]->cellRenderer)
+		{
+			for (int i = 0; i < BOARD_SIZE * BOARD_SIZE; i++)
+			{
+				if (cells[i] && cells[i]->cellRenderer && cells[i]->cellRenderer->GetPosition() == cellPoints[closesPoint])
+				{
+					return;
+					//closesPoint = i;
+				}
+			}
+			//cout << "Placed!!!!!!!!!!" << endl;
+			cells[placedCellCount]->cellRenderer = new Renderable2D(cellPoints[closesPoint], Vector2(cellSize, cellSize), Vector4(1, 0.5f, 0, 1), *myshader);
+			cells[placedCellCount]->isPlaced = true;
+			placedCellCount++;
+		}
+	}
+
+	void Reset()
+	{
+		for (int i = 0; i < BOARD_SIZE * BOARD_SIZE; i++)
+		{
+			if (cells[i] && cells[i]->cellRenderer)
+			{
+				//cells[i] = NULL;
+				//delete cells[i];
+				//cells[i]->cellRenderer = NULL;
+				delete cells[i]->cellRenderer;
+				cells[i]->cellRenderer = NULL; //fucking memory leak :(((
+				cells[i]->isPlaced = false;
+				placedCellCount = 0;
+			}
+		}
+	}
+
 	void Awake() override
 	{
-		//CreateWin("Tik Tac Toe", 1366, 768);
-		CreateWin("Tik Tac Toe", 800, 600);
+		CreateWin("Tik Tac Toe", 1366, 768);
+		//CreateWin("Tik Tac Toe", 800, 600);
 		GetWindow()->SetColor(Vector4(0.3f, 0.6f, 1.0f, 1.0f));
 		Matrix4x4 pr = Matrix4x4::Orthographic(-8.0f, 8.0f, -4.5f, 4.5f, -1.0f, 1.0f);
 
@@ -107,7 +191,12 @@ public:
 		if (Input::MouseButtonPressed(0))
 		{
 			//place cell here
-			cout << mainCamera->ScreenToWorldPoint(Input::GetMousePosition()) << endl;
+			Place(mainCamera->ScreenToWorldPoint(Input::GetMousePosition()));
+			//cout << mainCamera->ScreenToWorldPoint(Input::GetMousePosition()) << endl;
+		}
+		if (Input::KeyPressed(' ')) //space
+		{
+			Reset();
 		}
 		if (Input::KeyPressed(256)) //esc
 		{
@@ -117,16 +206,16 @@ public:
 
 	void Tick() override
 	{
-		cout << GetFPS() << "fps" << endl;
+		//cout << GetFPS() << "fps" << endl;
 	}
 
 	void Render() override 
 	{
-		for (int i = 0; i < 9; i++)
+		for (int i = 0; i < BOARD_SIZE * BOARD_SIZE; i++)
 		{
-			if (cells[i])
+			if (cells[i] && cells[i]->cellRenderer)
 			{
-				renderer.Submit(cells[i]);
+				renderer.Submit(cells[i]->cellRenderer);
 			}
 		}
 		renderer.Submit(vLine1);

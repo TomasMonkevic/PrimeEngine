@@ -52,6 +52,14 @@ namespace PrimeEngine { namespace Graphics {
 			_indexBuffer = new IndexBuffer(indices, 6);
 		}
 
+		~Renderable2D()
+		{
+			delete _vertexArray;
+			_vertexArray = NULL;
+			delete _indexBuffer;
+			_indexBuffer = NULL;
+		}
+
 		void Rotate(float angle, const Math::Vector3& axis) //change to quaternion
 		{
 			_rotationMatrix *= Math::Matrix4x4::Rotate(angle, axis);
