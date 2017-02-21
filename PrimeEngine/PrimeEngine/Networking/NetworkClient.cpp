@@ -16,7 +16,8 @@ namespace PrimeEngine { namespace Networking {
 	{
 #ifdef _WIN32
 		WSADATA data;
-#endif    
+#endif  
+		isHost = false;
 		sockaddr_in _serverAddress;
 		unsigned int _port;
 		_port = atoi(port);

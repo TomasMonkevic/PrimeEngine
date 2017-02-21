@@ -3,13 +3,14 @@
 
 #include "../DllExport.h"
 #include <stdlib.h>
+#include "NetworkEntity.h"
 #include <stdio.h>
 
 #define BUFFER_LENGTH 1024
 
 namespace PrimeEngine { namespace Networking {
 
-	class PRIMEENGINEAPI NetworkHost
+	class PRIMEENGINEAPI NetworkHost : public NetworkEntity
 	{
 	private:
 		int s_len;
@@ -23,8 +24,8 @@ namespace PrimeEngine { namespace Networking {
 		NetworkHost(const char* port);
 		//~NetworkHost();
 		void Listen();
-		void Send(const char* message);
-		const char* Receive();
+		void Send(const char* message) override;
+		const char* Receive() override;
 		void DisconnectClient();
 		void DisconnectServer();
 	};

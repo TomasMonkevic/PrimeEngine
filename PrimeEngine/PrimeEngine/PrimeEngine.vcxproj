@@ -37,6 +37,7 @@
     <ClInclude Include="Graphics\Window.h" />
     <ClInclude Include="Math\Vector3.h" />
     <ClInclude Include="Networking\NetworkClient.h" />
+    <ClInclude Include="Networking\NetworkEntity.h" />
     <ClInclude Include="Networking\NetworkHost.h" />
     <ClInclude Include="PrimeEngine.h" />
     <ClInclude Include="Utilities\File.h" />

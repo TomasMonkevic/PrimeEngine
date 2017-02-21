@@ -1,4 +1,5 @@
 TODO:
+- 2D batch renderer
 - Deltatime
 - Color class
 - Vsync enable/disable

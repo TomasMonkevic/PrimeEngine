@@ -40,6 +40,7 @@
     <ClInclude Include="Networking\NetworkClient.h" />
     <ClInclude Include="Networking\NetworkHost.h" />
     <ClInclude Include="PrimeEngine.h" />
+    <ClInclude Include="Networking\NetworkEntity.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Input.cpp">

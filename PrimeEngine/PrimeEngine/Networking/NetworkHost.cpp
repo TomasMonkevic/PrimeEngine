@@ -16,6 +16,7 @@ namespace PrimeEngine { namespace Networking {
 #ifdef _WIN32
 		WSADATA data;
 #endif
+		isHost = true;
 		_port = atoi(port);
 		sockaddr_in _servaddr;
 		if ((_port < 1) || (_port > 65535))
