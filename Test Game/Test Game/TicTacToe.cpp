@@ -118,12 +118,12 @@ public:
 		hLine2 = new Renderable2D(Vector3(0, -(gap + cellSize) / 2, 0), Vector2(3 * cellSize + 2 * gap, 0.1f), linesColor, *myshader);
 	}
 
-	void SendCell(unsigned int i)
+	void SendPackage(bool isReset, unsigned int i = 0) //think about this function
 	{
 		if (party)
 		{
 			std::ostringstream stream;
-			stream << cellPoints[i] << ";" << cellColor;
+			stream << isReset << ";" <<cellPoints[i] << ";" << cellColor; //could be optimized
 			std::string str = stream.str();
 			const char* chr = str.c_str();
 			if (isStarting)
@@ -134,27 +134,30 @@ public:
 		}
 	}
 
-	void ReceiveCell()
+	void ReceivePackage()
 	{
 		if (party && !isStarting)
 		{
-			char * pch;
-			char* str = new char[1024];
-			strcpy(str, party->Receive());
-			char* position = new char[1024];
-			char* color = new char[1024];
-			pch = strtok(str, ";");
-			strcpy(position, pch);
-			pch = strtok(NULL, ";");
-			//pch = strtok(str, ";");
-			strcpy(color, pch);
-			cells[placedCellCount]->cellRenderer = new Renderable2D(Vector3::Create(position), Vector2(cellSize, cellSize), Vector4::Create(color), *myshader);
-			cells[placedCellCount]->isPlaced = true;
-			placedCellCount++;
-			LOG(position << " " << color);
-			delete[] str;
-			delete[] position;
-			delete[] color;
+			char* buffer = new char[1024];
+			strcpy(buffer, party->Receive()); //add check for the message lenght
+			char* position;
+			char* color;
+			char* isReset;
+			isReset = strtok(buffer, ";");
+			if (*isReset == '1')
+			{
+				Reset();
+			}
+			else
+			{
+				position = strtok(NULL, ";");
+				color = strtok(NULL, ";");
+				cells[placedCellCount]->cellRenderer = new Renderable2D(Vector3::Create(position), Vector2(cellSize, cellSize), Vector4::Create(color), *myshader);
+				cells[placedCellCount]->isPlaced = true;
+				placedCellCount++;
+				LOG(position << " " << color);
+			}
+			delete[] buffer;
 			isStarting = !isStarting;
 		}
 	}
@@ -187,7 +190,7 @@ public:
 			cells[placedCellCount]->cellRenderer = new Renderable2D(cellPoints[closesPoint], Vector2(cellSize, cellSize), cellColor, *myshader);
 			cells[placedCellCount]->isPlaced = true;
 			placedCellCount++;
-			SendCell(closesPoint);
+			SendPackage(false, closesPoint);
 		}
 	}
 
@@ -227,14 +230,15 @@ public:
 
 	void Update() override
 	{
-		ReceiveCell();
+		ReceivePackage();
 		mainCamera->LookAt(mainCamera->GetPosition() + Vector3::back);
 		if (Input::MouseButtonPressed(0))
 		{
 			Place(mainCamera->ScreenToWorldPoint(Input::GetMousePosition()));
 		}
-		if (Input::KeyPressed(' ')) //space
+		if (Input::KeyPressed(' ')) //&& won
 		{
+			SendPackage(true);
 			Reset();
 		}
 		if (Input::KeyPressed(256)) //esc
@@ -276,20 +280,36 @@ int main()
 		Vector4 backGroundColor(0.858f, 0.815f, 0.364f, 1); //yellowish
 		Vector4* cellColor = NULL;
 		char option;
+		std::string port;
 		cout << "Host or client? H/C ";
 		cin >> option;
-		if (option == 'h')
+		if (option == 'h' || option == 'H')
 		{
 			cout << "Host online " << endl;
+			cout << "Enter server's port: ";
+			cin >> port;
 			cout << "Waiting for client..." << endl;
-			entity = new NetworkHost("27015");
+#if _DEBUG
+			entity = new NetworkHost("2075");
+#else
+			entity = new NetworkHost(port.c_str());
+#endif
 			((NetworkHost*)entity)->Listen(); //need to make this cast safer
 			cellColor = new Vector4(0.317f, 0.678f, 0.294f, 1); //greenish
 		}
-		else if(option == 'c')
+		else if(option == 'c' || option == 'C')
 		{
+			std::string ip;
 			cout << "Client online " << endl;
-			entity = new NetworkClient("127.0.0.1", "27015");
+			cout << "Enter server's IP address: ";
+			cin >> ip;
+			cout << "Enter server's port: ";
+			cin >> port;
+#if _DEBUG
+			entity = new NetworkClient("127.0.0.1", "2075"); //"127.0.0.1" - localhost
+#else
+			entity = new NetworkClient(ip.c_str(), port.c_str()); 
+#endif
 			cellColor = new Vector4(0.850f, 0.368f, 0.427f, 1); //redish
 		}
 		else
