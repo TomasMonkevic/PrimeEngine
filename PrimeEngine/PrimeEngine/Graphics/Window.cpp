@@ -9,7 +9,8 @@ namespace PrimeEngine
 
 		void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 		{
-			//would be nice to change window fields
+			Window::GetWindow()->_width = width;
+			Window::GetWindow()->_height = height;
 			glViewport(0, 0, width, height);
 		}
 

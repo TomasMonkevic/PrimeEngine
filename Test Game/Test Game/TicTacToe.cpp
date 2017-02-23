@@ -118,6 +118,47 @@ public:
 		hLine2 = new Renderable2D(Vector3(0, -(gap + cellSize) / 2, 0), Vector2(3 * cellSize + 2 * gap, 0.1f), linesColor, *myshader);
 	}
 
+	void SendCell(unsigned int i)
+	{
+		if (party)
+		{
+			std::ostringstream stream;
+			stream << cellPoints[i] << ";" << cellColor;
+			std::string str = stream.str();
+			const char* chr = str.c_str();
+			if (isStarting)
+			{
+				party->Send(chr);
+			}
+			isStarting = !isStarting;
+		}
+	}
+
+	void ReceiveCell()
+	{
+		if (party && !isStarting)
+		{
+			char * pch;
+			char* str = new char[1024];
+			strcpy(str, party->Receive());
+			char* position = new char[1024];
+			char* color = new char[1024];
+			pch = strtok(str, ";");
+			strcpy(position, pch);
+			pch = strtok(NULL, ";");
+			//pch = strtok(str, ";");
+			strcpy(color, pch);
+			cells[placedCellCount]->cellRenderer = new Renderable2D(Vector3::Create(position), Vector2(cellSize, cellSize), Vector4::Create(color), *myshader);
+			cells[placedCellCount]->isPlaced = true;
+			placedCellCount++;
+			LOG(position << " " << color);
+			delete[] str;
+			delete[] position;
+			delete[] color;
+			isStarting = !isStarting;
+		}
+	}
+
 	void Place(Vector3 position)
 	{
 		int closesPoint = 0;
@@ -146,15 +187,7 @@ public:
 			cells[placedCellCount]->cellRenderer = new Renderable2D(cellPoints[closesPoint], Vector2(cellSize, cellSize), cellColor, *myshader);
 			cells[placedCellCount]->isPlaced = true;
 			placedCellCount++;
-			std::ostringstream stream;
-			stream << cellPoints[closesPoint] << ";" << cellColor;
-			std::string str = stream.str();
-			const char* chr = str.c_str();
-			if (isStarting)
-			{
-				party->Send(chr);
-			}
-			isStarting = !isStarting;
+			SendCell(closesPoint);
 		}
 	}
 
@@ -194,27 +227,7 @@ public:
 
 	void Update() override
 	{
-		if (!isStarting)
-		{
-			char * pch;
-			char* str = new char[1024];
-			strcpy(str, party->Receive());
-			char* position = new char[1024];
-			char* color = new char[1024];
-			pch = strtok(str, ";");
-			strcpy(position, pch);
-			pch = strtok(NULL, ";");
-			//pch = strtok(str, ";");
-			strcpy(color, pch);
-			cells[placedCellCount]->cellRenderer = new Renderable2D(Vector3::Create(position), Vector2(cellSize, cellSize), Vector4::Create(color), *myshader);
-			cells[placedCellCount]->isPlaced = true;
-			placedCellCount++;
-			LOG(position << " " << color);
-			delete[] str;
-			delete[] position;
-			delete[] color;
-			isStarting = !isStarting;
-		}
+		ReceiveCell();
 		mainCamera->LookAt(mainCamera->GetPosition() + Vector3::back);
 		if (Input::MouseButtonPressed(0))
 		{
@@ -268,14 +281,19 @@ int main()
 		if (option == 'h')
 		{
 			cout << "Host online " << endl;
+			cout << "Waiting for client..." << endl;
 			entity = new NetworkHost("27015");
 			((NetworkHost*)entity)->Listen(); //need to make this cast safer
 			cellColor = new Vector4(0.317f, 0.678f, 0.294f, 1); //greenish
 		}
-		else
+		else if(option == 'c')
 		{
 			cout << "Client online " << endl;
 			entity = new NetworkClient("127.0.0.1", "27015");
+			cellColor = new Vector4(0.850f, 0.368f, 0.427f, 1); //redish
+		}
+		else
+		{
 			cellColor = new Vector4(0.850f, 0.368f, 0.427f, 1); //redish
 		}
 

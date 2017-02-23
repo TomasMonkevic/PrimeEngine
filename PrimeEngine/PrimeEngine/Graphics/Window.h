@@ -13,6 +13,7 @@ namespace PrimeEngine
 	{
 		class PRIMEENGINEAPI Window
 		{
+			friend void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 		private:
 			const char* _title;
 			int _width, _height;
