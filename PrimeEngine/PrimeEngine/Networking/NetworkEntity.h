@@ -12,6 +12,7 @@ namespace PrimeEngine { namespace Networking {
 
 		virtual void Send(const char* message) = 0;
 		virtual const char* Receive() = 0;
+		virtual void Disconnect() = 0;
 	};
 }}
 

@@ -144,6 +144,11 @@ public:
 			char* color;
 			char* isReset;
 			isReset = strtok(buffer, ";");
+			if (!isReset) //implement better disconnection
+			{
+				party->Disconnect();
+				return;
+			}
 			if (*isReset == '1')
 			{
 				Reset();
@@ -213,8 +218,8 @@ public:
 
 	void Awake() override
 	{
-		CreateWin("Tik Tac Toe", 1366, 768);
-		//CreateWin("Tik Tac Toe", 800, 600);
+		//CreateWin("Tik Tac Toe", 1366, 768);
+		CreateWin("Tik Tac Toe", 800, 600);
 		GetWindow()->SetColor(backGroundColor);
 		Matrix4x4 pr = Matrix4x4::Orthographic(-8.0f, 8.0f, -4.5f, 4.5f, -1.0f, 1.0f);
 

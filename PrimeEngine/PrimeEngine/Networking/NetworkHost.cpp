@@ -100,4 +100,10 @@ namespace PrimeEngine { namespace Networking {
 		close(l_socket);
 #endif
 	}
+
+	void NetworkHost::Disconnect()
+	{
+		DisconnectClient();
+		DisconnectServer();
+	}
 }}

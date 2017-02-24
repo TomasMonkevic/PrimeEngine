@@ -13,8 +13,6 @@ namespace PrimeEngine { namespace Networking {
 	class PRIMEENGINEAPI NetworkHost : public NetworkEntity
 	{
 	private:
-		int s_len;
-		int r_len;
 		char buffer[BUFFER_LENGTH];
 		int l_socket; // socket'as skirtas prisijungimø laukimui
 		int c_socket; // prisijungusio kliento socket'as
@@ -28,6 +26,7 @@ namespace PrimeEngine { namespace Networking {
 		const char* Receive() override;
 		void DisconnectClient();
 		void DisconnectServer();
+		void Disconnect() override;
 	};
 }}
 
