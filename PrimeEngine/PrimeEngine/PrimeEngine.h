@@ -1,8 +1,8 @@
 #ifndef PRIMEENGINE_H
 #define PRIMEENGINE_H
 
-#include "Graphics\Window.h"
 #include "Utilities\Time.h"
+#include "Graphics\Window.h"
 #include "DllExport.h"
 
 namespace PrimeEngine {

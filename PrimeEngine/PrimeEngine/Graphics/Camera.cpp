@@ -12,8 +12,8 @@ namespace PrimeEngine { namespace Graphics {
 	Math::Vector3 Camera::ScreenToWorldPoint(const Math::Vector2& position) const
 	{
 		Math::Vector2 screenSize = Window::GetWindow()->GetSize();
-		float x = 2.0 * position.x / screenSize.x - 1;
-		float y = -2.0 * position.y / screenSize.y + 1;
+		float x = 2.0f * position.x / screenSize.x - 1;
+		float y = -2.0f * position.y / screenSize.y + 1;
 		Math::Matrix4x4 viewProjectionInverse = (_projectionMatrix * _viewMatrix).Inverse();
 		Math::Vector3 point3D(x, y, 0);
 		return Math::Matrix4x4::Multiply(viewProjectionInverse, point3D);

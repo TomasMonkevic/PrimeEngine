@@ -76,7 +76,7 @@ namespace PrimeEngine { namespace Math {
 				//		tempI++;
 				//	}
 				//}
-				float adjunktas = elements[0 * size + i] * pow(-1, 0 + i) * Det(size - 1, temp);
+				float adjunktas = elements[0 * size + i] * (float)pow(-1, 0 + i) * Det(size - 1, temp);
 				delete[] temp;
 				//delete temp;
 				sum += adjunktas;
@@ -116,7 +116,7 @@ namespace PrimeEngine { namespace Math {
 			for (int row = 0; row < 4; row++)
 			{
 				float* minor = Minor(col, row, 4, GetElements());
-				temp[row][col] = pow(-1, col+row) * Det(3, minor);
+				temp[row][col] = (float)pow(-1, col+row) * Det(3, minor);
 				delete[] minor;
 			}
 		}
@@ -125,7 +125,7 @@ namespace PrimeEngine { namespace Math {
 
 	Vector4 Matrix4x4::GetRow(unsigned int row) const
 	{
-		if (row > 4)
+		if (row >= 4)
 		{
 			throw "Index out of range";
 		}
@@ -134,7 +134,7 @@ namespace PrimeEngine { namespace Math {
 
 	void Matrix4x4::SetRow(unsigned int row, const Vector4& value)
 	{
-		if (row > 4)
+		if (row >= 4)
 		{
 			throw "Index out of range";
 		}
@@ -280,7 +280,7 @@ namespace PrimeEngine { namespace Math {
 
 	Vector4& Matrix4x4::operator[](unsigned int col) const
 	{
-		if (col > 4)
+		if (col >= 4)
 		{
 			throw "Index out of range";
 		}

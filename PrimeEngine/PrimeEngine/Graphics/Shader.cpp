@@ -5,21 +5,23 @@ namespace PrimeEngine { namespace Graphics {
 	Shader::Shader(const char* vertexShaderPath, const char* fragmentShaderPath) :
 		_vertexShaderPath(vertexShaderPath), _fragmentShaderPath(fragmentShaderPath)
 	{
+		_uniformLocation = new std::map<const GLchar*, GLint>;
 		_shaderID = LoadShader();
 	}
 
 	Shader::~Shader()
 	{
+		delete _uniformLocation;
 		glDeleteProgram(_shaderID);
 	}
 
 	GLint Shader::GetLocation(const GLchar* name)
 	{
-		std::map<const GLchar*, GLint>::iterator mapIterator = uniformLocation.find(name);
-		if (mapIterator == uniformLocation.end()) 
+		std::map<const GLchar*, GLint>::iterator mapIterator = _uniformLocation->find(name);
+		if (mapIterator == _uniformLocation->end())
 		{
 			GLint location = glGetUniformLocation(_shaderID, name);
-			uniformLocation.insert(std::pair<const GLchar*, GLint>(name, location));
+			_uniformLocation->insert(std::pair<const GLchar*, GLint>(name, location));
 			return location;
 		}
 		else

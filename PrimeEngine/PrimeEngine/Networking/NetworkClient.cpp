@@ -1,8 +1,6 @@
 #include "NetworkClient.h"
 #ifdef _WIN32
-//#include <winsock2.h>
 #include <Ws2tcpip.h>
-//#include <Windows.h>
 #else
 #include <sys/socket.h>
 #include <sys/types.h>
@@ -30,7 +28,8 @@ namespace PrimeEngine { namespace Networking {
 #ifdef _WIN32
 		WSAStartup(MAKEWORD(2, 2), &data);
 #endif
-		if ((_socket = socket(AF_INET, SOCK_STREAM, 0)) < 0)
+		_socket = socket(AF_INET, SOCK_STREAM, 0);
+		if (_socket < 0)
 		{
 			throw "ERROR #2: cannot create socket.\n";
 		}
@@ -57,7 +56,7 @@ namespace PrimeEngine { namespace Networking {
 
 	void NetworkClient::Send(const char* message)
 	{
-		send(_socket, message, strlen(message), 0);
+		send(_socket, message, (int)strlen(message), 0);
 	}
 
 	const char* NetworkClient::Receive()

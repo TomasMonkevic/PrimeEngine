@@ -1,6 +1,6 @@
 #include "NetworkHost.h"
 #ifdef _WIN32
-#include <winsock2.h>
+//#include <winsock2.h>
 #include <Ws2tcpip.h>
 #else
 #include <sys/socket.h>
@@ -27,7 +27,8 @@ namespace PrimeEngine { namespace Networking {
 #ifdef _WIN32
 		WSAStartup(MAKEWORD(2, 2), &data);
 #endif
-		if ((l_socket = socket(AF_INET, SOCK_STREAM, 0)) < 0) 
+		l_socket = socket(AF_INET, SOCK_STREAM, 0);
+		if (l_socket < 0)
 		{
 			throw "ERROR #2: cannot create listening socket.\n";
 		}
@@ -65,7 +66,8 @@ namespace PrimeEngine { namespace Networking {
 		sockaddr_in _clientaddr;
 		memset(&_clientaddr, 0, sizeof(_clientaddr));
 		_clientaddrlen = sizeof(sockaddr);
-		if ((c_socket = accept(l_socket, (sockaddr*)&_clientaddr, &_clientaddrlen)) < 0)
+		c_socket = accept(l_socket, (sockaddr*)&_clientaddr, &_clientaddrlen);
+		if (c_socket < 0)
 		{
 			throw "ERROR #5: error occured accepting connection.\n";
 		}
@@ -73,7 +75,7 @@ namespace PrimeEngine { namespace Networking {
 
 	void NetworkHost::Send(const char* message)
 	{
-		send(c_socket, message, strlen(message), 0);
+		send(c_socket, message, (int)strlen(message), 0);
 	}
 
 	const char* NetworkHost::Receive()

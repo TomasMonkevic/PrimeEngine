@@ -1,13 +1,10 @@
 #include <iostream>
+#include <Utilities\Time.h>
 #include <Core\Math.h>
 #include <Graphics\Window.h>
 #include <Input.h>
-#include <Utilities\Time.h>
 #include <Graphics\Shader.h>
-#include <GL\glew.h>
-#include <GLFW\glfw3.h>
 #include <Graphics\Camera.h>
-#include <Networking\NetworkClient.h>
 #include <Graphics\Renderable2D.h>
 #include <Graphics\SimpleRenderer2D.h>
 

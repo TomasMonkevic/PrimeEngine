@@ -13,7 +13,7 @@ namespace PrimeEngine { namespace Graphics {
 	{
 	private:
 		GLuint _shaderID;
-		std::map<const GLchar*, GLint> uniformLocation;
+		std::map<const GLchar*, GLint>* _uniformLocation;
 		const char *_vertexShaderPath, *_fragmentShaderPath;
 	public:
 

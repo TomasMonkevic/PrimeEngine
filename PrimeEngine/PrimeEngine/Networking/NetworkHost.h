@@ -20,7 +20,6 @@ namespace PrimeEngine { namespace Networking {
 		int _clientaddrlen;
 	public:
 		NetworkHost(const char* port);
-		//~NetworkHost();
 		void Listen();
 		void Send(const char* message) override;
 		const char* Receive() override;

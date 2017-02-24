@@ -3,21 +3,22 @@
 #include <string>
 #include <sstream>
 
+#include <Networking\NetworkClient.h>
+#include <Networking\NetworkHost.h>
+
 #include <PrimeEngine.h>
+
+
+#include <Utilities\Time.h>
 
 #include <Core\Math.h>
 #include <Input.h>
-
-#include <Utilities\Time.h>
 
 #include <Graphics\Window.h>
 #include <Graphics\Shader.h>
 #include <Graphics\Camera.h>
 #include <Graphics\Renderable2D.h>
 #include <Graphics\SimpleRenderer2D.h>
-
-#include <Networking\NetworkClient.h>
-#include <Networking\NetworkHost.h>
 
 using namespace PrimeEngine::Math;
 using namespace PrimeEngine::Graphics;

@@ -10,8 +10,10 @@ namespace PrimeEngine { namespace Graphics {
 	class PRIMEENGINEAPI SimpleRenderer2D : public Renderer2D
 	{
 	private:
-		std::deque<const Renderable2D*> _renderQueue;
+		std::deque<const Renderable2D*>* _renderQueue;
 	public:
+		SimpleRenderer2D();
+		~SimpleRenderer2D();
 		void Submit(const Renderable2D* renderable2D) override;
 		void Flush() override;
 	};

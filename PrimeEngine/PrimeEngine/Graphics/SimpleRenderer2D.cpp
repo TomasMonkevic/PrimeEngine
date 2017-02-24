@@ -2,26 +2,35 @@
 
 namespace PrimeEngine { namespace Graphics {
 
+	SimpleRenderer2D::SimpleRenderer2D()
+	{
+		_renderQueue = new std::deque<const Renderable2D*>;
+	}
+
+	SimpleRenderer2D::~SimpleRenderer2D()
+	{
+		delete _renderQueue;
+	}
+
 	void SimpleRenderer2D::Submit(const Renderable2D* renderable2D)
 	{
-		_renderQueue.push_back(renderable2D);
+		_renderQueue->push_back(renderable2D);
 	}
 
 	void SimpleRenderer2D::Flush()
 	{
-		while (!_renderQueue.empty())
+		while (!_renderQueue->empty())
 		{
-			const Renderable2D* renderable2D = _renderQueue.front();
+			const Renderable2D* renderable2D = _renderQueue->front();
 			if (renderable2D)
 			{
 				renderable2D->GetVertexArray()->Bind();
 				renderable2D->GetIndexBuffer()->Bind();
 				renderable2D->GetShader().SetUniform("model_matrix", renderable2D->GetModelMatrix());
-				//renderable2D->GetShader().SetUniform("model_matrix", Math::Matrix4x4::Transform(renderable2D->GetPosition()));
 				glDrawElements(GL_TRIANGLES, renderable2D->GetIndexBuffer()->GetCount(), GL_UNSIGNED_SHORT, 0);
 				renderable2D->GetVertexArray()->Unbind();
 				renderable2D->GetIndexBuffer()->Unbind();
-				_renderQueue.pop_front();
+				_renderQueue->pop_front();
 			}
 		}
 	}

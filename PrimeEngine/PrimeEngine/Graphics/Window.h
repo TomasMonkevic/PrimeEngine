@@ -46,7 +46,7 @@ namespace PrimeEngine
 
 			inline Math::Vector2 GetSize() const
 			{
-				return Math::Vector2(_width, _height);
+				return Math::Vector2((float)_width, (float)_height);
 			}
 
 			void Close() const;
