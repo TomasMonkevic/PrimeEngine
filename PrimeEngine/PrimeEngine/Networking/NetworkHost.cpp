@@ -27,8 +27,8 @@ namespace PrimeEngine { namespace Networking {
 #ifdef _WIN32
 		WSAStartup(MAKEWORD(2, 2), &data);
 #endif
-		l_socket = socket(AF_INET, SOCK_STREAM, 0);
-		if (l_socket < 0)
+		_listenSocket = socket(AF_INET, SOCK_STREAM, 0);
+		if (_listenSocket < 0)
 		{
 			throw "ERROR #2: cannot create listening socket.\n";
 		}
@@ -45,7 +45,7 @@ namespace PrimeEngine { namespace Networking {
 		/*
 		* Serverio adresas susiejamas su socket'u
 		*/
-		if (bind(l_socket, (sockaddr*)&_servaddr, sizeof(_servaddr)) < 0) 
+		if (bind(_listenSocket, (sockaddr*)&_servaddr, sizeof(_servaddr)) < 0)
 		{
 			throw "ERROR #3: bind listening socket.\n";
 		}
@@ -54,10 +54,9 @@ namespace PrimeEngine { namespace Networking {
 		* Nurodoma, kad socket'u l_socket bus laukiama klientø prisijungimo,
 		* eilëje ne daugiau kaip 5 aptarnavimo laukiantys klientai
 		*/
-		if (listen(l_socket, 5) < 0) 
+		if (listen(_listenSocket, 5) < 0)
 		{
-			fprintf(stderr, "ERROR #4: error in listen().\n");
-			exit(1);
+			throw "ERROR #4: error in listen().\n";
 		}
 	}
 
@@ -65,9 +64,9 @@ namespace PrimeEngine { namespace Networking {
 	{
 		sockaddr_in _clientaddr;
 		memset(&_clientaddr, 0, sizeof(_clientaddr));
-		_clientaddrlen = sizeof(sockaddr);
-		c_socket = accept(l_socket, (sockaddr*)&_clientaddr, &_clientaddrlen);
-		if (c_socket < 0)
+		int _clientaddrlen = sizeof(sockaddr);
+		_clientSocket = accept(_listenSocket, (sockaddr*)&_clientaddr, &_clientaddrlen);
+		if (_clientSocket < 0)
 		{
 			throw "ERROR #5: error occured accepting connection.\n";
 		}
@@ -75,31 +74,31 @@ namespace PrimeEngine { namespace Networking {
 
 	void NetworkHost::Send(const char* message)
 	{
-		send(c_socket, message, (int)strlen(message), 0);
+		send(_clientSocket, message, (int)strlen(message), 0);
 	}
 
 	const char* NetworkHost::Receive()
 	{
-		memset(&buffer, 0, sizeof(buffer));
-		recv(c_socket, buffer, sizeof(buffer), 0);
-		return buffer;
+		memset(&_buffer, 0, sizeof(_buffer));
+		recv(_clientSocket, _buffer, sizeof(_buffer), 0);
+		return _buffer;
 	}
 
 	void NetworkHost::DisconnectClient()
 	{
 #ifdef _WIN32
-		closesocket(c_socket);
+		closesocket(_clientSocket);
 #else
-		close(c_socket);
+		close(_clientSocket);
 #endif
 	}
 
 	void NetworkHost::DisconnectServer()
 	{
 #ifdef _WIN32
-		closesocket(l_socket);
+		closesocket(_listenSocket);
 #else
-		close(l_socket);
+		close(_listenSocket);
 #endif
 	}
 

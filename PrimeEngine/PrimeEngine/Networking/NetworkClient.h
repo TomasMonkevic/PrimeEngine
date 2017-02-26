@@ -1,7 +1,6 @@
 #ifndef NETWORK_CLIENT_H
 #define NETWORK_CLIENT_H
 
-
 #include <stdlib.h> 
 #include "NetworkEntity.h"
 #include "../DllExport.h"
@@ -17,7 +16,6 @@ namespace PrimeEngine { namespace Networking {
 		char _buffer[BUFFER_LENGTH];
 	public:
 		NetworkClient(const char* ip, const char* port);
-		//~NetworkClient();
 		void Send(const char* message) override;
 		const char* Receive() override;
 		void Disconnect() override;

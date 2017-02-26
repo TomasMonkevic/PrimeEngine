@@ -100,7 +100,7 @@ namespace PrimeEngine
 			glfwSetFramebufferSizeCallback(_window, framebuffer_size_callback);
 			glfwSwapInterval(1); //Vsync off-0, on-1
 			// Set this to true so GLEW knows to use a modern approach to retrieving function pointers and extensions
-			//glewExperimental = GL_TRUE;
+			glewExperimental = GL_TRUE;
 			if (glewInit() != GLEW_OK)
 			{
 				throw "Failed to initialize GLEW";

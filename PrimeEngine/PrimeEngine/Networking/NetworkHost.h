@@ -13,11 +13,10 @@ namespace PrimeEngine { namespace Networking {
 	class PRIMEENGINEAPI NetworkHost : public NetworkEntity
 	{
 	private:
-		char buffer[BUFFER_LENGTH];
-		int l_socket; // socket'as skirtas prisijungimø laukimui
-		int c_socket; // prisijungusio kliento socket'as
+		char _buffer[BUFFER_LENGTH];
+		int _listenSocket; // socket'as skirtas prisijungimu laukimui
+		int _clientSocket; // prisijungusio kliento socket'as
 		unsigned int _port;
-		int _clientaddrlen;
 	public:
 		NetworkHost(const char* port);
 		void Listen();

@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include <thread>
 
 #include <Networking\NetworkClient.h>
 #include <Networking\NetworkHost.h>
@@ -42,6 +43,7 @@ using std::endl;
 struct Cell
 {
 	bool isPlaced;
+	bool isEnemy;
 	Renderable2D* cellRenderer;
 
 	Cell() :
@@ -62,7 +64,7 @@ struct Cell
 class TicTacToe : public PrimeEngine::PrimeEngine
 {
 public:
-	bool isStarting;
+	bool isStarting, isWinner, isGameOver, lock;
 	float cellSize, gap;
 	int placedCellCount = 0;
 	Vector4 cellColor, linesColor, backGroundColor;
@@ -81,6 +83,9 @@ public:
 		{
 			isStarting = party->isHost;
 		}
+		isWinner = false;
+		isGameOver = false;
+		lock = false;
 	}
 
 	~TicTacToe()
@@ -107,9 +112,11 @@ public:
 		{
 			for (int j = 0; j < BOARD_SIZE; j++)
 			{
-				cellPoints[i * BOARD_SIZE + j] = Vector3((i - 1) * (cellSize + gap), (j - 1) * (cellSize + gap), 0);
+				cellPoints[i * BOARD_SIZE + j] = Vector3((j - 1) * (cellSize + gap), (i - 1) * (cellSize + gap), 0);
+				LOG(cellPoints[i * BOARD_SIZE + j]);
 				cells[i * BOARD_SIZE + j] = new Cell();
 				cells[i * BOARD_SIZE + j]->isPlaced = false;
+				cells[i * BOARD_SIZE + j]->isEnemy = true;
 				cells[i * BOARD_SIZE + j]->cellRenderer = NULL;
 			}
 		}
@@ -124,7 +131,7 @@ public:
 		if (party)
 		{
 			std::ostringstream stream;
-			stream << isReset << ";" <<cellPoints[i] << ";" << cellColor; //could be optimized
+			stream << isReset << ";" << isWinner << ";" << cellPoints[i] << ";" << cellColor; //could be optimized
 			std::string str = stream.str();
 			const char* chr = str.c_str();
 			if (isStarting)
@@ -133,6 +140,91 @@ public:
 			}
 			isStarting = !isStarting;
 		}
+	}
+
+	Cell* GetCellByPosition(const Vector3& position)
+	{
+		int i = 0;
+		while (i < BOARD_SIZE * BOARD_SIZE)
+		{
+			if (cells[i] && cells[i]->cellRenderer && cells[i]->cellRenderer->GetPosition() == position)
+			{
+				return cells[i];
+			}
+			i++;
+		}
+		return NULL;
+	}
+
+	bool IsWinner(int index) //O(BOARD_SIZE) - linear
+	{
+		int x = index % BOARD_SIZE;
+		int y = index / BOARD_SIZE;
+		Cell* foundCell;
+		bool isWinner = false;
+		for (int i = 0; i < BOARD_SIZE; i++) //vertical check
+		{
+			foundCell = GetCellByPosition(cellPoints[i * BOARD_SIZE + x]);
+			if (!foundCell || foundCell->isEnemy)
+			{
+				goto checkHorizontal;
+			}
+		}
+		return true;
+		checkHorizontal:
+		for (int i = 0; i < BOARD_SIZE; i++) //horizontal check
+		{
+			foundCell = GetCellByPosition(cellPoints[y * BOARD_SIZE + i]);
+			if (!foundCell || foundCell->isEnemy)
+			{
+				goto checkDiagonal1;
+			}
+		}
+		return true;
+		checkDiagonal1:
+		for (int i = 0; i < BOARD_SIZE; i++) //diagonal(bottom-top) check
+		{
+			foundCell = GetCellByPosition(cellPoints[i * BOARD_SIZE + i]);
+			if (!foundCell || foundCell->isEnemy)
+			{
+				goto checkDiagonal2;
+			}
+		}
+		return true;
+		checkDiagonal2:
+		for (int i = 0; i < BOARD_SIZE; i++) //diagonal(top-bottom) check
+		{
+			foundCell = GetCellByPosition(cellPoints[i * BOARD_SIZE + (BOARD_SIZE - 1 - i)]);
+			if (!foundCell || foundCell->isEnemy)
+			{
+				goto noWin;
+			}
+		}
+		return true;
+		noWin:
+		return false;
+	}
+
+	void GameOver()
+	{
+		if (isWinner)
+		{
+#if _WIN32
+			MessageBox(NULL, "You win!", "Game Over", MB_OK | MB_ICONINFORMATION | MB_SYSTEMMODAL);
+#else
+			cout << "You win!" << endl;
+#endif
+			SendPackage(true);
+		}
+		else
+		{
+#if _WIN32
+			MessageBox(NULL, "You lose!", "Game Over", MB_OK | MB_ICONINFORMATION | MB_SYSTEMMODAL);
+#else
+			cout << "You lose!" << endl;
+#endif
+		}
+		Reset();
 	}
 
 	void ReceivePackage()
@@ -144,6 +236,7 @@ public:
 			char* position;
 			char* color;
 			char* isReset;
+			char* isWin;
 			isReset = strtok(buffer, ";");
 			if (!isReset) //implement better disconnection
 			{
@@ -156,12 +249,25 @@ public:
 			}
 			else
 			{
-				position = strtok(NULL, ";");
-				color = strtok(NULL, ";");
-				cells[placedCellCount]->cellRenderer = new Renderable2D(Vector3::Create(position), Vector2(cellSize, cellSize), Vector4::Create(color), *myshader);
-				cells[placedCellCount]->isPlaced = true;
-				placedCellCount++;
-				LOG(position << " " << color);
+				isWin = strtok(NULL, ";");
+				if (*isWin == '1')
+				{
+					GameOver();
+					//isStarting = !isStarting;
+					//return;
+				}
+				else
+				{
+					position = strtok(NULL, ";");
+					color = strtok(NULL, ";");
+					lock = true;
+					cells[placedCellCount]->cellRenderer = new Renderable2D(Vector3::Create(position), Vector2(cellSize, cellSize), Vector4::Create(color), *myshader);
+					cells[placedCellCount]->isPlaced = true;
+					cells[placedCellCount]->isEnemy = true;
+					placedCellCount++;
+					lock = false;
+					LOG(position << " " << color);
+				}
 			}
 			delete[] buffer;
 			isStarting = !isStarting;
@@ -186,16 +292,19 @@ public:
 			position.y < cellPoints[closesPoint].y + cellSize / 2 && position.y > cellPoints[closesPoint].y - cellSize / 2 &&
 			cells[placedCellCount] && !cells[placedCellCount]->cellRenderer)
 		{
-			for (int i = 0; i < BOARD_SIZE * BOARD_SIZE; i++)
+			if (GetCellByPosition(cellPoints[closesPoint]))
 			{
-				if (cells[i] && cells[i]->cellRenderer && cells[i]->cellRenderer->GetPosition() == cellPoints[closesPoint])
-				{
-					return;
-				}
+				return;
 			}
 			cells[placedCellCount]->cellRenderer = new Renderable2D(cellPoints[closesPoint], Vector2(cellSize, cellSize), cellColor, *myshader);
 			cells[placedCellCount]->isPlaced = true;
+			cells[placedCellCount]->isEnemy = false;
 			placedCellCount++;
+			isWinner = IsWinner(closesPoint);
+			if (isWinner)
+			{
+				isGameOver = true;
+			}
 			SendPackage(false, closesPoint);
 		}
 	}
@@ -210,9 +319,12 @@ public:
 				//delete cells[i];
 				//cells[i]->cellRenderer = NULL;
 				delete cells[i]->cellRenderer; // memory leak :(((
-				cells[i]->cellRenderer = NULL; 
+				cells[i]->cellRenderer = NULL;
+				cells[placedCellCount]->isEnemy = true;
 				cells[i]->isPlaced = false;
 				placedCellCount = 0;
+				isGameOver = false;
+				isWinner = false;
 			}
 		}
 	}
@@ -220,6 +332,8 @@ public:
 	void Awake() override
 	{
 		//CreateWin("Tik Tac Toe", 1366, 768);
+		//isWinner(7);
+		//std::thread(&TicTacToe::ReceivePackage).detach();
 		CreateWin("Tik Tac Toe", 800, 600);
 		GetWindow()->SetColor(backGroundColor);
 		Matrix4x4 pr = Matrix4x4::Orthographic(-8.0f, 8.0f, -4.5f, 4.5f, -1.0f, 1.0f);
@@ -236,17 +350,17 @@ public:
 
 	void Update() override
 	{
-		ReceivePackage();
+		//ReceivePackage();
 		mainCamera->LookAt(mainCamera->GetPosition() + Vector3::back);
-		if (Input::MouseButtonPressed(0))
+		if (Input::MouseButtonPressed(0) && !isGameOver && isStarting)
 		{
 			Place(mainCamera->ScreenToWorldPoint(Input::GetMousePosition()));
 		}
-		if (Input::KeyPressed(' ')) //&& won
-		{
-			SendPackage(true);
-			Reset();
-		}
+		//if (Input::KeyPressed(' ')) //&& won
+		//{
+		//	SendPackage(true);
+		//	Reset();
+		//}
 		if (Input::KeyPressed(256)) //esc
 		{
 			GetWindow()->Close();
@@ -256,23 +370,30 @@ public:
 	void Tick() override
 	{
 		LOG(GetFPS() << "fps");
+		if (isWinner)
+		{
+			GameOver();
+		}
 	}
 
 	void Render() override 
 	{
-		for (int i = 0; i < BOARD_SIZE * BOARD_SIZE; i++)
+		if (!lock)
 		{
-			if (cells[i] && cells[i]->cellRenderer)
+			for (int i = 0; i < BOARD_SIZE * BOARD_SIZE; i++)
 			{
-				renderer.Submit(cells[i]->cellRenderer);
+				if (cells[i] && cells[i]->cellRenderer)
+				{
+					renderer.Submit(cells[i]->cellRenderer);
+				}
 			}
+			renderer.Submit(vLine1);
+			renderer.Submit(vLine2);
+			renderer.Submit(hLine1);
+			renderer.Submit(hLine2);
+			mainCamera->Render();
+			renderer.Flush();
 		}
-		renderer.Submit(vLine1);
-		renderer.Submit(vLine2);
-		renderer.Submit(hLine1);
-		renderer.Submit(hLine2);
-		mainCamera->Render();
-		renderer.Flush();
 	}
 };
 
@@ -323,8 +444,9 @@ int main()
 			cellColor = new Vector4(0.850f, 0.368f, 0.427f, 1); //redish
 		}
 
-		game = new TicTacToe(*cellColor, lineColor, backGroundColor, entity);
-		delete cellColor;
+		game = new TicTacToe(*cellColor, *cellColor, backGroundColor, entity);
+		std::thread(&TicTacToe::ReceivePackage, std::ref(game)).detach();
+		//delete cellColor;
 		game->Play();
 	}
 	catch (const char* msg) //fix exception throwing, because this won't catch anything
