@@ -64,15 +64,15 @@ struct Cell
 class TicTacToe : public PrimeEngine::PrimeEngine
 {
 public:
-	bool isStarting, isWinner, isGameOver, lock;
+	bool isStarting, isWinner, isGameOver, isPlaced;
 	float cellSize, gap;
 	int placedCellCount = 0;
-	Vector4 cellColor, linesColor, backGroundColor;
+	Vector4 enemyColor, cellColor, linesColor, backGroundColor;
 	SimpleRenderer2D renderer;
 	Camera* mainCamera;
 	Shader* myshader;
 	Cell* cells[BOARD_SIZE * BOARD_SIZE];
-	Vector3 cellPoints[BOARD_SIZE * BOARD_SIZE];
+	Vector3 cellPoints[BOARD_SIZE * BOARD_SIZE], enemyPos;
 	Renderable2D *vLine1, *vLine2, *hLine1, *hLine2;
 	NetworkEntity* party;
 
@@ -85,7 +85,7 @@ public:
 		}
 		isWinner = false;
 		isGameOver = false;
-		lock = false;
+		isPlaced = false;
 	}
 
 	~TicTacToe()
@@ -214,7 +214,6 @@ public:
 #else
 			cout << "You win!" << endl;
 #endif
-			SendPackage(true);
 		}
 		else
 		{
@@ -225,52 +224,58 @@ public:
 #endif
 		}
 		Reset();
+		SendPackage(true);
 	}
 
 	void ReceivePackage()
 	{
-		if (party && !isStarting)
+		while (true)
 		{
-			char* buffer = new char[1024];
-			strcpy(buffer, party->Receive()); //add check for the message lenght
-			char* position;
-			char* color;
-			char* isReset;
-			char* isWin;
-			isReset = strtok(buffer, ";");
-			if (!isReset) //implement better disconnection
+			if (party && !isStarting)
 			{
-				party->Disconnect();
-				return;
-			}
-			if (*isReset == '1')
-			{
-				Reset();
-			}
-			else
-			{
-				isWin = strtok(NULL, ";");
-				if (*isWin == '1')
+				char* buffer = new char[1024];
+				strcpy(buffer, party->Receive()); //add check for the message lenght
+				char* position;
+				char* color;
+				char* isReset;
+				char* isWin;
+				isReset = strtok(buffer, ";");
+				if (!isReset) //implement better disconnection
 				{
-					GameOver();
-					//isStarting = !isStarting;
-					//return;
+					party->Disconnect();
+					return;
+				}
+				if (*isReset == '1')
+				{
+					Reset();
 				}
 				else
 				{
-					position = strtok(NULL, ";");
-					color = strtok(NULL, ";");
-					lock = true;
-					cells[placedCellCount]->cellRenderer = new Renderable2D(Vector3::Create(position), Vector2(cellSize, cellSize), Vector4::Create(color), *myshader);
-					cells[placedCellCount]->isPlaced = true;
-					cells[placedCellCount]->isEnemy = true;
-					placedCellCount++;
-					lock = false;
-					LOG(position << " " << color);
+					isWin = strtok(NULL, ";");
+					if (*isWin == '1')
+					{
+						//GameOver();
+						isGameOver = true;
+						//isStarting = !isStarting;
+						//return;
+					}
+					else
+					{
+						position = strtok(NULL, ";");
+						color = strtok(NULL, ";");
+						enemyPos = Vector3::Create(position);
+						enemyColor = Vector4::Create(color);
+						isPlaced = true;
+						//cells[placedCellCount]->cellRenderer = new Renderable2D(Vector3::Create(position), Vector2(cellSize, cellSize), Vector4::Create(color), *myshader);
+						//cells[placedCellCount]->isPlaced = true;
+						//cells[placedCellCount]->isEnemy = true;
+						//placedCellCount++;
+						//LOG(position << " " << color);
+					}
 				}
+				delete[] buffer;
+				//isStarting = !isStarting;
 			}
-			delete[] buffer;
-			isStarting = !isStarting;
 		}
 	}
 
@@ -351,6 +356,20 @@ public:
 	void Update() override
 	{
 		//ReceivePackage();
+		if (isPlaced)
+		{
+			cells[placedCellCount]->cellRenderer = new Renderable2D(enemyPos, Vector2(cellSize, cellSize), enemyColor, *myshader);
+			cells[placedCellCount]->isPlaced = true;
+			cells[placedCellCount]->isEnemy = true;
+			placedCellCount++;
+			LOG(enemyPos << " " << enemyColor);
+			isPlaced = false;
+			isStarting = !isStarting;
+		}
+		if (isGameOver)
+		{
+			GameOver();
+		}
 		mainCamera->LookAt(mainCamera->GetPosition() + Vector3::back);
 		if (Input::MouseButtonPressed(0) && !isGameOver && isStarting)
 		{
@@ -378,22 +397,19 @@ public:
 
 	void Render() override 
 	{
-		if (!lock)
+		for (int i = 0; i < BOARD_SIZE * BOARD_SIZE; i++)
 		{
-			for (int i = 0; i < BOARD_SIZE * BOARD_SIZE; i++)
+			if (cells[i] && cells[i]->cellRenderer)
 			{
-				if (cells[i] && cells[i]->cellRenderer)
-				{
-					renderer.Submit(cells[i]->cellRenderer);
-				}
+				renderer.Submit(cells[i]->cellRenderer);
 			}
-			renderer.Submit(vLine1);
-			renderer.Submit(vLine2);
-			renderer.Submit(hLine1);
-			renderer.Submit(hLine2);
-			mainCamera->Render();
-			renderer.Flush();
 		}
+		renderer.Submit(vLine1);
+		renderer.Submit(vLine2);
+		renderer.Submit(hLine1);
+		renderer.Submit(hLine2);
+		mainCamera->Render();
+		renderer.Flush();
 	}
 };
 
