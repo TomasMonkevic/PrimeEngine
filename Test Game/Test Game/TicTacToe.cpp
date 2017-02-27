@@ -64,7 +64,7 @@ struct Cell
 class TicTacToe : public PrimeEngine::PrimeEngine
 {
 public:
-	bool isStarting, isWinner, isGameOver, isPlaced;
+	bool isStarting, isWinner, isGameOver, isPlacedByEnemy;
 	float cellSize, gap;
 	int placedCellCount = 0;
 	Vector4 enemyColor, cellColor, linesColor, backGroundColor;
@@ -85,7 +85,7 @@ public:
 		}
 		isWinner = false;
 		isGameOver = false;
-		isPlaced = false;
+		isPlacedByEnemy = false;
 	}
 
 	~TicTacToe()
@@ -224,7 +224,6 @@ public:
 #endif
 		}
 		Reset();
-		SendPackage(true);
 	}
 
 	void ReceivePackage()
@@ -234,7 +233,7 @@ public:
 			if (party && !isStarting)
 			{
 				char* buffer = new char[1024];
-				strcpy(buffer, party->Receive()); //add check for the message lenght
+				strcpy(buffer, party->Receive());
 				char* position;
 				char* color;
 				char* isReset;
@@ -254,10 +253,7 @@ public:
 					isWin = strtok(NULL, ";");
 					if (*isWin == '1')
 					{
-						//GameOver();
 						isGameOver = true;
-						//isStarting = !isStarting;
-						//return;
 					}
 					else
 					{
@@ -265,18 +261,21 @@ public:
 						color = strtok(NULL, ";");
 						enemyPos = Vector3::Create(position);
 						enemyColor = Vector4::Create(color);
-						isPlaced = true;
-						//cells[placedCellCount]->cellRenderer = new Renderable2D(Vector3::Create(position), Vector2(cellSize, cellSize), Vector4::Create(color), *myshader);
-						//cells[placedCellCount]->isPlaced = true;
-						//cells[placedCellCount]->isEnemy = true;
-						//placedCellCount++;
-						//LOG(position << " " << color);
+						isPlacedByEnemy = true;
 					}
 				}
 				delete[] buffer;
-				//isStarting = !isStarting;
+				isStarting = !isStarting;
 			}
 		}
+	}
+
+	void PlaceCell(const Vector3& position, const Vector4& color, bool isEnemy)
+	{
+		cells[placedCellCount]->cellRenderer = new Renderable2D(position, Vector2(cellSize, cellSize), color, *myshader);
+		cells[placedCellCount]->isPlaced = true;
+		cells[placedCellCount]->isEnemy = isEnemy;
+		placedCellCount++;
 	}
 
 	void Place(Vector3 position)
@@ -301,10 +300,7 @@ public:
 			{
 				return;
 			}
-			cells[placedCellCount]->cellRenderer = new Renderable2D(cellPoints[closesPoint], Vector2(cellSize, cellSize), cellColor, *myshader);
-			cells[placedCellCount]->isPlaced = true;
-			cells[placedCellCount]->isEnemy = false;
-			placedCellCount++;
+			PlaceCell(cellPoints[closesPoint], cellColor, false);
 			isWinner = IsWinner(closesPoint);
 			if (isWinner)
 			{
@@ -337,8 +333,6 @@ public:
 	void Awake() override
 	{
 		//CreateWin("Tik Tac Toe", 1366, 768);
-		//isWinner(7);
-		//std::thread(&TicTacToe::ReceivePackage).detach();
 		CreateWin("Tik Tac Toe", 800, 600);
 		GetWindow()->SetColor(backGroundColor);
 		Matrix4x4 pr = Matrix4x4::Orthographic(-8.0f, 8.0f, -4.5f, 4.5f, -1.0f, 1.0f);
@@ -355,16 +349,11 @@ public:
 
 	void Update() override
 	{
-		//ReceivePackage();
-		if (isPlaced)
+		if (isPlacedByEnemy)
 		{
-			cells[placedCellCount]->cellRenderer = new Renderable2D(enemyPos, Vector2(cellSize, cellSize), enemyColor, *myshader);
-			cells[placedCellCount]->isPlaced = true;
-			cells[placedCellCount]->isEnemy = true;
-			placedCellCount++;
+			PlaceCell(enemyPos, enemyColor, true);
 			LOG(enemyPos << " " << enemyColor);
-			isPlaced = false;
-			isStarting = !isStarting;
+			isPlacedByEnemy = false;
 		}
 		if (isGameOver)
 		{
@@ -375,13 +364,9 @@ public:
 		{
 			Place(mainCamera->ScreenToWorldPoint(Input::GetMousePosition()));
 		}
-		//if (Input::KeyPressed(' ')) //&& won
-		//{
-		//	SendPackage(true);
-		//	Reset();
-		//}
 		if (Input::KeyPressed(256)) //esc
 		{
+			party->Disconnect();
 			GetWindow()->Close();
 		}
 	}
@@ -460,9 +445,9 @@ int main()
 			cellColor = new Vector4(0.850f, 0.368f, 0.427f, 1); //redish
 		}
 
-		game = new TicTacToe(*cellColor, *cellColor, backGroundColor, entity);
+		game = new TicTacToe(*cellColor, lineColor, backGroundColor, entity);
 		std::thread(&TicTacToe::ReceivePackage, std::ref(game)).detach();
-		//delete cellColor;
+		delete cellColor;
 		game->Play();
 	}
 	catch (const char* msg) //fix exception throwing, because this won't catch anything

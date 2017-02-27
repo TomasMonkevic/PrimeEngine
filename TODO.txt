@@ -1,4 +1,5 @@
 TODO:
+- Seperate engine components into different headers
 - 2D batch renderer
 - Deltatime
 - Color class
