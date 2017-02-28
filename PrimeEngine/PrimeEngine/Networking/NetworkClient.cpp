@@ -1,4 +1,5 @@
 #include "NetworkClient.h"
+#include <string>
 #ifdef _WIN32
 #include <Ws2tcpip.h>
 #else
@@ -49,8 +50,12 @@ namespace PrimeEngine { namespace Networking {
 #endif
 		if (connect(_socket, (sockaddr*)&_serverAddress, sizeof(_serverAddress))<0)
 		{
-			int error = WSAGetLastError();
+			//int error = WSAGetLastError();
 			throw "ERROR #4: error in connect().\n";
+			//char * errorMsg = new char [1028];
+			//std::string errorMsg = std::to_string(error);
+			//const char* watafak = errorMsg.c_str();
+			//throw errorMsg;
 		}
 	}
 

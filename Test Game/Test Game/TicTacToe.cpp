@@ -64,7 +64,10 @@ struct Cell
 class TicTacToe : public PrimeEngine::PrimeEngine
 {
 public:
-	bool isStarting, isWinner, isGameOver, isPlacedByEnemy;
+	enum GameOver { loser, winner, tie };
+
+	GameOver gameEnd;
+	bool isStarting, isGameOver, isPlacedByEnemy;
 	float cellSize, gap;
 	int placedCellCount = 0;
 	Vector4 enemyColor, cellColor, linesColor, backGroundColor;
@@ -83,9 +86,13 @@ public:
 		{
 			isStarting = party->isHost;
 		}
-		isWinner = false;
+		else
+		{
+			isStarting = true;
+		}
 		isGameOver = false;
 		isPlacedByEnemy = false;
+		gameEnd = loser;
 	}
 
 	~TicTacToe()
@@ -131,7 +138,7 @@ public:
 		if (party)
 		{
 			std::ostringstream stream;
-			stream << isReset << ";" << isWinner << ";" << cellPoints[i] << ";" << cellColor; //could be optimized
+			stream << isReset << ";" << gameEnd << ";" << cellPoints[i] << ";" << cellColor; //could be optimized
 			std::string str = stream.str();
 			const char* chr = str.c_str();
 			if (isStarting)
@@ -207,12 +214,20 @@ public:
 
 	void GameOver()
 	{
-		if (isWinner)
+		if (gameEnd == winner)
 		{
 #if _WIN32
 			MessageBox(NULL, "You win!", "Game Over", MB_OK | MB_ICONINFORMATION | MB_SYSTEMMODAL);
 #else
 			cout << "You win!" << endl;
+#endif
+		}
+		else if (gameEnd == tie)
+		{
+#if _WIN32
+			MessageBox(NULL, "It's a tie!", "Game Over", MB_OK | MB_ICONINFORMATION | MB_SYSTEMMODAL);
+#else
+			cout << "It's a tie!" << endl;
 #endif
 		}
 		else
@@ -234,6 +249,7 @@ public:
 			{
 				char* buffer = new char[1024];
 				strcpy(buffer, party->Receive());
+				LOG(buffer);
 				char* position;
 				char* color;
 				char* isReset;
@@ -253,6 +269,12 @@ public:
 					isWin = strtok(NULL, ";");
 					if (*isWin == '1')
 					{
+						gameEnd = loser;
+						isGameOver = true;
+					}
+					else if (*isWin == '2')
+					{
+						gameEnd = tie;
 						isGameOver = true;
 					}
 					else
@@ -301,9 +323,15 @@ public:
 				return;
 			}
 			PlaceCell(cellPoints[closesPoint], cellColor, false);
-			isWinner = IsWinner(closesPoint);
+			bool isWinner = IsWinner(closesPoint);
 			if (isWinner)
 			{
+				gameEnd = winner;
+				isGameOver = true;
+			}
+			if (!isWinner && placedCellCount == BOARD_SIZE * BOARD_SIZE)
+			{
+				gameEnd = tie;
 				isGameOver = true;
 			}
 			SendPackage(false, closesPoint);
@@ -321,11 +349,11 @@ public:
 				//cells[i]->cellRenderer = NULL;
 				delete cells[i]->cellRenderer; // memory leak :(((
 				cells[i]->cellRenderer = NULL;
-				cells[placedCellCount]->isEnemy = true;
+				cells[i]->isEnemy = true;
 				cells[i]->isPlaced = false;
 				placedCellCount = 0;
 				isGameOver = false;
-				isWinner = false;
+				gameEnd = loser;
 			}
 		}
 	}
@@ -374,10 +402,6 @@ public:
 	void Tick() override
 	{
 		LOG(GetFPS() << "fps");
-		if (isWinner)
-		{
-			GameOver();
-		}
 	}
 
 	void Render() override 
@@ -452,8 +476,8 @@ int main()
 	}
 	catch (const char* msg) //fix exception throwing, because this won't catch anything
 	{
-		delete game;
 		cout << msg << endl;
+		delete game;
 		system("PAUSE");
 	}
 	return 0;
