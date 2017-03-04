@@ -39,6 +39,7 @@
     <ClInclude Include="Networking\NetworkClient.h" />
     <ClInclude Include="Networking\NetworkEntity.h" />
     <ClInclude Include="Networking\NetworkHost.h" />
+    <ClInclude Include="Networking\NetworkServer.h" />
     <ClInclude Include="PrimeEngine.h" />
     <ClInclude Include="Utilities\File.h" />
     <ClInclude Include="Utilities\Time.h" />
@@ -58,6 +59,7 @@
     <ClCompile Include="Math\Vector3.cpp" />
     <ClCompile Include="Networking\NetworkClient.cpp" />
     <ClCompile Include="Networking\NetworkHost.cpp" />
+    <ClCompile Include="Networking\NetworkSever.cpp" />
     <ClCompile Include="Utilities\Time.cpp" />
   </ItemGroup>
   <ItemGroup>

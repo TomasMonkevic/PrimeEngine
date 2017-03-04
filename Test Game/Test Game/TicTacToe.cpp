@@ -435,6 +435,7 @@ int main()
 		std::string port;
 		cout << "Host or client? H/C ";
 		cin >> option;
+		bool start = false;
 		if (option == 'h' || option == 'H')
 		{
 			cout << "Host online " << endl;
@@ -462,7 +463,18 @@ int main()
 #else
 			entity = new NetworkClient(ip.c_str(), port.c_str()); 
 #endif
-			cellColor = new Vector4(0.850f, 0.368f, 0.427f, 1); //redish
+			//----------------- Multiclient stuff ------------
+			//entity->Receive();
+			//LOG(entity->Receive());
+			if (*(entity->Receive()) == '1')
+			{
+				start = true;
+				cellColor = new Vector4(0.317f, 0.678f, 0.294f, 1); //greenish
+			}
+			else
+			{
+				cellColor = new Vector4(0.850f, 0.368f, 0.427f, 1); //redish
+			}
 		}
 		else
 		{
@@ -470,7 +482,9 @@ int main()
 		}
 
 		game = new TicTacToe(*cellColor, lineColor, backGroundColor, entity);
+		game->isStarting = start;
 		std::thread(&TicTacToe::ReceivePackage, std::ref(game)).detach();
+		LOG(*cellColor);
 		delete cellColor;
 		game->Play();
 	}
