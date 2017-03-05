@@ -277,14 +277,14 @@ public:
 						gameEnd = tie;
 						isGameOver = true;
 					}
-					else
-					{
-						position = strtok(NULL, ";");
-						color = strtok(NULL, ";");
-						enemyPos = Vector3::Create(position);
-						enemyColor = Vector4::Create(color);
-						isPlacedByEnemy = true;
-					}
+					//else
+					//{
+					position = strtok(NULL, ";");
+					color = strtok(NULL, ";");
+					isPlacedByEnemy = true;
+					enemyPos = Vector3::Create(position);
+					enemyColor = Vector4::Create(color);
+					//}
 				}
 				delete[] buffer;
 				isStarting = !isStarting;
@@ -385,6 +385,8 @@ public:
 		}
 		if (isGameOver)
 		{
+			Draw();
+			GetWindow()->Update();
 			GameOver();
 		}
 		mainCamera->LookAt(mainCamera->GetPosition() + Vector3::back);
@@ -404,7 +406,7 @@ public:
 		LOG(GetFPS() << "fps");
 	}
 
-	void Render() override 
+	inline void Draw()
 	{
 		for (int i = 0; i < BOARD_SIZE * BOARD_SIZE; i++)
 		{
@@ -419,6 +421,11 @@ public:
 		renderer.Submit(hLine2);
 		mainCamera->Render();
 		renderer.Flush();
+	}
+
+	void Render() override 
+	{
+		Draw();
 	}
 };
 
@@ -466,6 +473,7 @@ int main()
 			//----------------- Multiclient stuff ------------
 			//entity->Receive();
 			//LOG(entity->Receive());
+			cout << "Waiting for partner..." << endl;
 			if (*(entity->Receive()) == '1')
 			{
 				start = true;

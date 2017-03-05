@@ -116,6 +116,11 @@ namespace PrimeEngine { namespace Networking {
 	{
 		if (_clientSocket[clientId] != -1)
 		{
+			if (!message)
+			{
+				DisconnectClient(clientId);
+				return;
+			}
 			int w_len = send(_clientSocket[clientId], message, strlen(message), 0);
 			if (w_len <= 0)
 			{
@@ -146,5 +151,6 @@ namespace PrimeEngine { namespace Networking {
 		close(_clientSocket[clientIndex]);
 #endif
 		_clientSocket[clientIndex] = -1;
+		_clientCount--;
 	}
 }}
