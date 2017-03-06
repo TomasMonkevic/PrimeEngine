@@ -277,14 +277,14 @@ public:
 						gameEnd = tie;
 						isGameOver = true;
 					}
-					else
-					{
-						position = strtok(NULL, ";");
-						color = strtok(NULL, ";");
-						enemyPos = Vector3::Create(position);
-						enemyColor = Vector4::Create(color);
-						isPlacedByEnemy = true;
-					}
+					//else
+					//{
+					position = strtok(NULL, ";");
+					color = strtok(NULL, ";");
+					isPlacedByEnemy = true;
+					enemyPos = Vector3::Create(position);
+					enemyColor = Vector4::Create(color);
+					//}
 				}
 				delete[] buffer;
 				isStarting = !isStarting;
@@ -385,6 +385,8 @@ public:
 		}
 		if (isGameOver)
 		{
+			Draw();
+			GetWindow()->Update();
 			GameOver();
 		}
 		mainCamera->LookAt(mainCamera->GetPosition() + Vector3::back);
@@ -404,7 +406,7 @@ public:
 		LOG(GetFPS() << "fps");
 	}
 
-	void Render() override 
+	inline void Draw()
 	{
 		for (int i = 0; i < BOARD_SIZE * BOARD_SIZE; i++)
 		{
@@ -419,6 +421,11 @@ public:
 		renderer.Submit(hLine2);
 		mainCamera->Render();
 		renderer.Flush();
+	}
+
+	void Render() override 
+	{
+		Draw();
 	}
 };
 
@@ -435,6 +442,7 @@ int main()
 		std::string port;
 		cout << "Host or client? H/C ";
 		cin >> option;
+		bool start = false;
 		if (option == 'h' || option == 'H')
 		{
 			cout << "Host online " << endl;
@@ -462,7 +470,19 @@ int main()
 #else
 			entity = new NetworkClient(ip.c_str(), port.c_str()); 
 #endif
-			cellColor = new Vector4(0.850f, 0.368f, 0.427f, 1); //redish
+			//----------------- Multiclient stuff ------------
+			//entity->Receive();
+			//LOG(entity->Receive());
+			cout << "Waiting for partner..." << endl;
+			if (*(entity->Receive()) == '1')
+			{
+				start = true;
+				cellColor = new Vector4(0.317f, 0.678f, 0.294f, 1); //greenish
+			}
+			else
+			{
+				cellColor = new Vector4(0.850f, 0.368f, 0.427f, 1); //redish
+			}
 		}
 		else
 		{
@@ -470,7 +490,9 @@ int main()
 		}
 
 		game = new TicTacToe(*cellColor, lineColor, backGroundColor, entity);
+		game->isStarting = start;
 		std::thread(&TicTacToe::ReceivePackage, std::ref(game)).detach();
+		LOG(*cellColor);
 		delete cellColor;
 		game->Play();
 	}

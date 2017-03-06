@@ -41,6 +41,7 @@
     <ClInclude Include="Networking\NetworkHost.h" />
     <ClInclude Include="PrimeEngine.h" />
     <ClInclude Include="Networking\NetworkEntity.h" />
+    <ClInclude Include="Networking\NetworkServer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Input.cpp">
@@ -64,6 +65,7 @@
     <ClCompile Include="Graphics\Camera.cpp" />
     <ClCompile Include="Networking\NetworkClient.cpp" />
     <ClCompile Include="Networking\NetworkHost.cpp" />
+    <ClCompile Include="Networking\NetworkSever.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\standard.frag" />
