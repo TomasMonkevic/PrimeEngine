@@ -21,7 +21,7 @@ int main()
 	try
 	{
 		//Window::SetWindow("Test Game", 1366, 768);
-		//Window::SetWindow("Test Game", 800, 600);
+		Window::SetWindow("Test Game", 800, 600);
 		//Window::SetWindow("Test Game Full");
 		gameWindow = Window::GetWindow();
 		gameWindow->SetColor(Vector4(0.3f, 0.6f, 1.0f, 1.0f));

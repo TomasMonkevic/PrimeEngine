@@ -121,7 +121,7 @@ namespace PrimeEngine { namespace Networking {
 				DisconnectClient(clientId);
 				return;
 			}
-			int w_len = send(_clientSocket[clientId], message, strlen(message), 0);
+			int w_len = send(_clientSocket[clientId], message, (int)strlen(message), 0);
 			if (w_len <= 0)
 			{
 				DisconnectClient(clientId);

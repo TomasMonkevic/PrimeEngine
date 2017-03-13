@@ -43,7 +43,6 @@ namespace PrimeEngine
 			{
 				PrimeException windowNotInit("Window instance not created! Please use SetWindows method.", -1);
 				throw windowNotInit;
-				//throw "Window instance not created! Please use SetWindows method.";
 			}
 		}
 
@@ -90,7 +89,8 @@ namespace PrimeEngine
 			if (!_window)
 			{
 				glfwTerminate();
-				throw "Failed to create GLFW window";
+				PrimeException windowNotInit("Failed to create GLFW window", -1);
+				throw windowNotInit;
 			}
 			glfwMakeContextCurrent(_window);
 			glfwSetWindowAspectRatio(_window, _width, _height);
@@ -106,7 +106,8 @@ namespace PrimeEngine
 			glewExperimental = GL_TRUE;
 			if (glewInit() != GLEW_OK)
 			{
-				throw "Failed to initialize GLEW";
+				PrimeException windowNotInit("Failed to initialize GLEW", -1);
+				throw windowNotInit;
 			}
 			glViewport(0, 0, _width, _height);
 		}
@@ -118,11 +119,12 @@ namespace PrimeEngine
 
 		void Window::Update() const
 		{
-#ifdef DEBUG
+#ifdef _DEBUG
 			GLenum error = glGetError();
 			if (error != GL_NO_ERROR)
 			{
-				throw error;
+				PrimeException windowNotInit("GLEW error occured", (int)error);
+				throw windowNotInit;
 			}
 #endif // DEBUG
 			glfwPollEvents();
