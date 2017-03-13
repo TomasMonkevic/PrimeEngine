@@ -7,6 +7,7 @@
 #include <Graphics\Camera.h>
 #include <Graphics\Renderable2D.h>
 #include <Graphics\SimpleRenderer2D.h>
+#include <PrimeException.h>
 
 using namespace PrimeEngine::Math;
 using namespace PrimeEngine::Graphics;
@@ -14,12 +15,12 @@ using namespace PrimeEngine::Input;
 
 #define MOVE_CAMERA true
 
-int mainnot()
+int main()
 {
 	Window* gameWindow = NULL;
 	try
 	{
-		Window::SetWindow("Test Game", 1366, 768);
+		//Window::SetWindow("Test Game", 1366, 768);
 		//Window::SetWindow("Test Game", 800, 600);
 		//Window::SetWindow("Test Game Full");
 		gameWindow = Window::GetWindow();
@@ -136,13 +137,13 @@ int mainnot()
 		}
 		gameWindow->Destroy();
 	}
-	catch (const char* msg)
+	catch (const PrimeEngine::PrimeException& ex)
 	{
 		if (gameWindow)
 		{
 			gameWindow->Destroy();
 		}
-		std::cout << msg << std::endl;
+		std::cout << ex.what() << " " << ex.GetErrorCode() << std::endl;
 		system("PAUSE");
 	}
 	return 0;

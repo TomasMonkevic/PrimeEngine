@@ -36,6 +36,7 @@ namespace PrimeEngine
 
 			inline void SetColor(const Math::Vector4& color)
 			{
+				isInstanceCreated();
 				_color = color;
 			}
 

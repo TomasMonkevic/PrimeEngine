@@ -1,5 +1,6 @@
 #include "Window.h"
 #include "..\Input.h"
+#include "..\PrimeException.h"
 
 namespace PrimeEngine
 {
@@ -40,7 +41,9 @@ namespace PrimeEngine
 		{
 			if (!instance)
 			{
-				throw "Window instance not created! Please use SetWindows method.";
+				PrimeException windowNotInit("Window instance not created! Please use SetWindows method.", -1);
+				throw windowNotInit;
+				//throw "Window instance not created! Please use SetWindows method.";
 			}
 		}
 

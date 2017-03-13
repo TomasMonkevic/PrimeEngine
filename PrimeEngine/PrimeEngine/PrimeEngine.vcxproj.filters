@@ -42,6 +42,7 @@
     <ClInclude Include="PrimeEngine.h" />
     <ClInclude Include="Networking\NetworkEntity.h" />
     <ClInclude Include="Networking\NetworkServer.h" />
+    <ClInclude Include="PrimeException.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Input.cpp">
@@ -66,6 +67,7 @@
     <ClCompile Include="Networking\NetworkClient.cpp" />
     <ClCompile Include="Networking\NetworkHost.cpp" />
     <ClCompile Include="Networking\NetworkSever.cpp" />
+    <ClCompile Include="PrimeException.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\standard.frag" />

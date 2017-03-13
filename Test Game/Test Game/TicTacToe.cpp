@@ -86,10 +86,10 @@ public:
 		{
 			isStarting = party->isHost;
 		}
-		else
-		{
-			isStarting = true;
-		}
+		//else
+		//{
+		//	isStarting = true;
+		//}
 		isGameOver = false;
 		isPlacedByEnemy = false;
 		gameEnd = loser;
@@ -429,7 +429,7 @@ public:
 	}
 };
 
-int main()
+int mainnot()
 {
 	TicTacToe* game = NULL;
 	NetworkEntity* entity = NULL;
@@ -473,16 +473,16 @@ int main()
 			//----------------- Multiclient stuff ------------
 			//entity->Receive();
 			//LOG(entity->Receive());
-			cout << "Waiting for partner..." << endl;
-			if (*(entity->Receive()) == '1')
-			{
-				start = true;
-				cellColor = new Vector4(0.317f, 0.678f, 0.294f, 1); //greenish
-			}
-			else
-			{
+			//cout << "Waiting for partner..." << endl;
+			//if (*(entity->Receive()) == '1')
+			//{
+			//	start = true;
+			//	cellColor = new Vector4(0.317f, 0.678f, 0.294f, 1); //greenish
+			//}
+			//else
+			//{
 				cellColor = new Vector4(0.850f, 0.368f, 0.427f, 1); //redish
-			}
+			//}
 		}
 		else
 		{
@@ -490,7 +490,7 @@ int main()
 		}
 
 		game = new TicTacToe(*cellColor, lineColor, backGroundColor, entity);
-		game->isStarting = start;
+		//game->isStarting = start;
 		std::thread(&TicTacToe::ReceivePackage, std::ref(game)).detach();
 		LOG(*cellColor);
 		delete cellColor;

@@ -41,6 +41,7 @@
     <ClInclude Include="Networking\NetworkHost.h" />
     <ClInclude Include="Networking\NetworkServer.h" />
     <ClInclude Include="PrimeEngine.h" />
+    <ClInclude Include="PrimeException.h" />
     <ClInclude Include="Utilities\File.h" />
     <ClInclude Include="Utilities\Time.h" />
   </ItemGroup>
@@ -60,6 +61,7 @@
     <ClCompile Include="Networking\NetworkClient.cpp" />
     <ClCompile Include="Networking\NetworkHost.cpp" />
     <ClCompile Include="Networking\NetworkSever.cpp" />
+    <ClCompile Include="PrimeException.cpp" />
     <ClCompile Include="Utilities\Time.cpp" />
   </ItemGroup>
   <ItemGroup>
