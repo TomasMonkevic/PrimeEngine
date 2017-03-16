@@ -11,7 +11,7 @@ namespace PrimeEngine { namespace Graphics {
 	class PRIMEENGINEAPI Camera
 	{
 	private: //Variables
-		Shader _shader;
+		Shader& _shader;
 		Math::Matrix4x4 _projectionMatrix;
 		Math::Matrix4x4 _viewMatrix;
 		Math::Vector3 _position;
@@ -23,7 +23,7 @@ namespace PrimeEngine { namespace Graphics {
 	private: //Methods
 
 	public:
-		Camera(const Shader& shader, const Math::Matrix4x4& projectionMatrix);
+		Camera(Shader& shader, const Math::Matrix4x4& projectionMatrix);
 
 		Math::Vector3 ScreenToWorldPoint(const Math::Vector2& position) const;
 

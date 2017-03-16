@@ -3,7 +3,7 @@
 
 namespace PrimeEngine { namespace Graphics {
 
-	Camera::Camera(const Shader& shader, const Math::Matrix4x4& projectionMatrix) :
+	Camera::Camera(Shader& shader, const Math::Matrix4x4& projectionMatrix) :
 		_shader(shader), _projectionMatrix(projectionMatrix)
 	{
 		_shader.SetUniform("pr_matrix", _projectionMatrix);

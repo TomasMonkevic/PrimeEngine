@@ -11,7 +11,10 @@ namespace PrimeEngine { namespace Graphics {
 
 	Shader::~Shader()
 	{
-		delete _uniformLocation;
+		if (_uniformLocation)
+		{
+			delete _uniformLocation;
+		}
 		glDeleteProgram(_shaderID);
 	}
 
