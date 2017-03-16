@@ -41,7 +41,7 @@ namespace PrimeEngine
 		{
 			if (!instance)
 			{
-				PrimeException windowNotInit("Window instance not created! Please use SetWindows method.", -1);
+				PrimeException windowNotInit("Window instance not created! Please use SetWindows method.", (int)glGetError());
 				throw windowNotInit;
 			}
 		}
@@ -89,7 +89,7 @@ namespace PrimeEngine
 			if (!_window)
 			{
 				glfwTerminate();
-				PrimeException windowNotInit("Failed to create GLFW window", -1);
+				PrimeException windowNotInit("Failed to create GLFW window", (int)glGetError());
 				throw windowNotInit;
 			}
 			glfwMakeContextCurrent(_window);
@@ -106,7 +106,7 @@ namespace PrimeEngine
 			glewExperimental = GL_TRUE;
 			if (glewInit() != GLEW_OK)
 			{
-				PrimeException windowNotInit("Failed to initialize GLEW", -1);
+				PrimeException windowNotInit("Failed to initialize GLEW", (int)glGetError());
 				throw windowNotInit;
 			}
 			glViewport(0, 0, _width, _height);

@@ -1,4 +1,5 @@
 #include "Vector3.h"
+#include "../PrimeException.h"
 #include <stdlib.h>
 
 namespace PrimeEngine
@@ -127,7 +128,8 @@ namespace PrimeEngine
 			case 2:
 				return z;
 			default:
-				throw "Index out of range";
+				PrimeException indexOutOfRange("Index out of range", -1);
+				throw indexOutOfRange;;
 			}
 		}
 

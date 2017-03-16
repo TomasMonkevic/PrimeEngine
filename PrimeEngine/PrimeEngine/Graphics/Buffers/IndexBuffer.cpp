@@ -5,9 +5,14 @@ namespace PrimeEngine { namespace Graphics {
 	IndexBuffer::IndexBuffer(const GLushort* data, GLsizei count) : _Count(count)
 	{
 		glGenBuffers(1, &_Id);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _Id);
+		Bind();
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(GLushort), data, GL_STATIC_DRAW);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+		Unbind();
+	}
+
+	IndexBuffer::~IndexBuffer()
+	{
+		glDeleteBuffers(1, &_Id);
 	}
 
 	void IndexBuffer::Bind() const

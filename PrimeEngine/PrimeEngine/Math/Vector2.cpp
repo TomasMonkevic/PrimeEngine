@@ -1,4 +1,5 @@
 #include "Vector2.h"
+#include "../PrimeException.h"
 
 namespace PrimeEngine
 {
@@ -22,7 +23,8 @@ namespace PrimeEngine
 
 		float Vector2::Magnitude() const
 		{
-			throw "Not implemented!";
+			PrimeException indexOutOfRange("Not impelemnted", -1);
+			throw indexOutOfRange;;
 		}
 
 		float Vector2::Dot(const Vector2& left, const Vector2& right)
@@ -91,7 +93,8 @@ namespace PrimeEngine
 			case 1:
 				return y;
 			default:
-				throw "Index out of range";
+				PrimeException indexOutOfRange("Index out of range", -1);
+				throw indexOutOfRange;;
 			}
 		}
 

@@ -15,7 +15,7 @@ using namespace PrimeEngine::Input;
 
 #define MOVE_CAMERA true
 
-int main()
+int mainnot()
 {
 	Window* gameWindow = NULL;
 	try

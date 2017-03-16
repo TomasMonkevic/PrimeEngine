@@ -19,6 +19,7 @@ namespace PrimeEngine { namespace Networking {
 		void Send(const char* message) override;
 		const char* Receive() override;
 		void Disconnect() override;
+		int GetLastError() override;
 	};
 }}
 

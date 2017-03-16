@@ -5,10 +5,14 @@ namespace PrimeEngine { namespace Graphics {
 	VertexBuffer::VertexBuffer(const GLfloat* data, GLsizei count, GLuint componentCount) : _componentCount(componentCount)
 	{
 		glGenBuffers(1, &_index);
-		glBindBuffer(GL_ARRAY_BUFFER, _index);
+		Bind();
 		glBufferData(GL_ARRAY_BUFFER, count * sizeof(GLfloat), data, GL_STATIC_DRAW);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		//delete data;
+		Unbind();
+	}
+
+	VertexBuffer::~VertexBuffer()
+	{
+		glDeleteBuffers(1, &_index);
 	}
 
 	void VertexBuffer::Bind() const

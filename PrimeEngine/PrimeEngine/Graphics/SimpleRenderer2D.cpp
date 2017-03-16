@@ -4,7 +4,7 @@ namespace PrimeEngine { namespace Graphics {
 
 	SimpleRenderer2D::SimpleRenderer2D()
 	{
-		_renderQueue = new std::deque<const Renderable2D*>;
+		_renderQueue = new std::queue<const Renderable2D*>;
 	}
 
 	SimpleRenderer2D::~SimpleRenderer2D()
@@ -14,7 +14,7 @@ namespace PrimeEngine { namespace Graphics {
 
 	void SimpleRenderer2D::Submit(const Renderable2D* renderable2D)
 	{
-		_renderQueue->push_back(renderable2D);
+		_renderQueue->push(renderable2D);
 	}
 
 	void SimpleRenderer2D::Flush()
@@ -30,7 +30,7 @@ namespace PrimeEngine { namespace Graphics {
 				glDrawElements(GL_TRIANGLES, renderable2D->GetIndexBuffer()->GetCount(), GL_UNSIGNED_SHORT, 0);
 				renderable2D->GetVertexArray()->Unbind();
 				renderable2D->GetIndexBuffer()->Unbind();
-				_renderQueue->pop_front();
+				_renderQueue->pop();
 			}
 		}
 	}

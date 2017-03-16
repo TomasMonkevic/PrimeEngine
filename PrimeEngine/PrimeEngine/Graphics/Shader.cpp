@@ -1,4 +1,5 @@
 #include "Shader.h"
+#include "../PrimeException.h"
 
 namespace PrimeEngine { namespace Graphics {
 
@@ -11,10 +12,7 @@ namespace PrimeEngine { namespace Graphics {
 
 	Shader::~Shader()
 	{
-		if (_uniformLocation)
-		{
-			delete _uniformLocation;
-		}
+		delete _uniformLocation;
 		glDeleteProgram(_shaderID);
 	}
 
@@ -89,7 +87,8 @@ namespace PrimeEngine { namespace Graphics {
 			glDeleteShader(vertexShader);
 			char* errorMsg = new char[sizeof(error) + 50];
 			sprintf(errorMsg, "Failed to compile vertex shader:\n%s \n", error);
-			throw errorMsg; //a loging system would be nice
+			PrimeException errorCompiling(errorMsg, -1);
+			throw errorCompiling;
 		}
 
 		glShaderSource(fragmentShader, 1, &fragmentSource, NULL);
@@ -105,7 +104,8 @@ namespace PrimeEngine { namespace Graphics {
 			glDeleteShader(fragmentShader);
 			char* errorMsg = new char[sizeof(error) + 50];
 			sprintf(errorMsg, "Failed to compile fragment shader:\n%s \n", error);
-			throw errorMsg; //a loging system would be nice
+			PrimeException errorCompiling(errorMsg, -1);
+			throw errorCompiling;
 		}
 
 		glAttachShader(program, vertexShader);

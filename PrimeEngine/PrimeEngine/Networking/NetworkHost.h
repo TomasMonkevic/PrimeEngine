@@ -25,6 +25,7 @@ namespace PrimeEngine { namespace Networking {
 		void DisconnectClient();
 		void DisconnectServer();
 		void Disconnect() override;
+		int GetLastError() override;
 	};
 }}
 

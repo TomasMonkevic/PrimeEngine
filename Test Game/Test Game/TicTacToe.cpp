@@ -54,10 +54,7 @@ struct Cell
 
 	~Cell()
 	{
-		if (cellRenderer)
-		{
-			delete cellRenderer;
-		}
+		delete cellRenderer;
 	}
 };
 
@@ -86,10 +83,10 @@ public:
 		{
 			isStarting = party->isHost;
 		}
-		//else
-		//{
-		//	isStarting = true;
-		//}
+		else
+		{
+			isStarting = true;
+		}
 		isGameOver = false;
 		isPlacedByEnemy = false;
 		gameEnd = loser;
@@ -394,6 +391,10 @@ public:
 		{
 			Place(mainCamera->ScreenToWorldPoint(Input::GetMousePosition()));
 		}
+		if (Input::KeyPressed(' '))
+		{
+			Reset();
+		}
 		if (Input::KeyPressed(256)) //esc
 		{
 			party->Disconnect();
@@ -429,7 +430,7 @@ public:
 	}
 };
 
-int mainnot()
+int main()
 {
 	TicTacToe* game = NULL;
 	NetworkEntity* entity = NULL;

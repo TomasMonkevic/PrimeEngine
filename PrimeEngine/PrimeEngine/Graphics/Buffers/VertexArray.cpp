@@ -14,6 +14,7 @@ namespace PrimeEngine { namespace Graphics {
 			delete _buffers[i];
 		}
 		Unbind();
+		glDeleteVertexArrays(1, &_Id);
 	}
 
 	void VertexArray::AddBuffer(VertexBuffer* buffer, GLuint index)

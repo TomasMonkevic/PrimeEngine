@@ -12,6 +12,7 @@ namespace PrimeEngine { namespace Graphics {
 		GLuint _componentCount;
 	public:
 		VertexBuffer(const GLfloat* data, GLsizei count, GLuint componentCount);
+		~VertexBuffer();
 
 		void Bind() const;
 		void Unbind() const;

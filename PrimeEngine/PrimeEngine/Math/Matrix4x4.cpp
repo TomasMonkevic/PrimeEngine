@@ -1,4 +1,5 @@
 #include "Matrix4x4.h"
+#include "../PrimeException.h"
 
 namespace PrimeEngine { namespace Math {
 
@@ -66,19 +67,8 @@ namespace PrimeEngine { namespace Math {
 			for (int i = 0; i < size; i++)
 			{
 				float* temp = Minor(0, i, size, elements);
-				//float* temp = new float[(size - 1) * (size -1)];
-				//int tempI = 0;
-				//for (int j = size; j < size * size; j++)
-				//{
-				//	if (j % size != i)
-				//	{
-				//		temp[tempI] = elements[j];
-				//		tempI++;
-				//	}
-				//}
 				float adjunktas = elements[0 * size + i] * (float)pow(-1, 0 + i) * Det(size - 1, temp);
 				delete[] temp;
-				//delete temp;
 				sum += adjunktas;
 			}
 			return sum;
@@ -108,7 +98,7 @@ namespace PrimeEngine { namespace Math {
 		return temp;
 	}
 
-	Matrix4x4 Matrix4x4::Inverse() const //Is this how inverse is done? :D Might be better to remove all the hardcoded stuff
+	Matrix4x4 Matrix4x4::Inverse() const
 	{
 		Matrix4x4 temp;
 		for (int col = 0; col < 4; col++)
@@ -127,7 +117,8 @@ namespace PrimeEngine { namespace Math {
 	{
 		if (row >= 4)
 		{
-			throw "Index out of range";
+			PrimeException indexOutOfRange("Index out of range", -1);
+			throw indexOutOfRange;
 		}
 		return Vector4(_matrix[0][row], _matrix[1][row], _matrix[2][row], _matrix[3][row]);
 	}
@@ -136,7 +127,8 @@ namespace PrimeEngine { namespace Math {
 	{
 		if (row >= 4)
 		{
-			throw "Index out of range";
+			PrimeException indexOutOfRange("Index out of range", -1);
+			throw indexOutOfRange;
 		}
 		_matrix[0][row] = value.x;
 		_matrix[1][row] = value.y;
@@ -282,7 +274,8 @@ namespace PrimeEngine { namespace Math {
 	{
 		if (col >= 4)
 		{
-			throw "Index out of range";
+			PrimeException indexOutOfRange("Index out of range", -1);
+			throw indexOutOfRange;
 		}
 		return (Vector4&)_matrix[col];
 	}

@@ -1,4 +1,5 @@
 #include "NetworkHost.h"
+#include "../PrimeException.h"
 #ifdef _WIN32
 //#include <winsock2.h>
 #include <Ws2tcpip.h>
@@ -7,6 +8,7 @@
 #include <sys/types.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <errno.h>
 #endif
 
 namespace PrimeEngine { namespace Networking {
@@ -21,7 +23,8 @@ namespace PrimeEngine { namespace Networking {
 		sockaddr_in _servaddr;
 		if ((_port < 1) || (_port > 65535))
 		{
-			throw "ERROR #1: invalid port specified.\n";
+			PrimeException invalidPort("Invalid port specified.", -1);
+			throw invalidPort;
 		}
 
 #ifdef _WIN32
@@ -30,7 +33,8 @@ namespace PrimeEngine { namespace Networking {
 		_listenSocket = socket(AF_INET, SOCK_STREAM, 0);
 		if (_listenSocket < 0)
 		{
-			throw "ERROR #2: cannot create listening socket.\n";
+			PrimeException errorCreatingScoket("Cannot create socket.\n", GetLastError());
+			throw errorCreatingScoket;
 		}
 		memset(&_servaddr, 0, sizeof(_servaddr));
 		_servaddr.sin_family = AF_INET;
@@ -47,7 +51,8 @@ namespace PrimeEngine { namespace Networking {
 		*/
 		if (bind(_listenSocket, (sockaddr*)&_servaddr, sizeof(_servaddr)) < 0)
 		{
-			throw "ERROR #3: bind listening socket.\n";
+			PrimeException invalidIP("ERROR #3: Invalid remote IP address.\n", GetLastError());
+			throw invalidIP;
 		}
 
 		/*
@@ -56,7 +61,8 @@ namespace PrimeEngine { namespace Networking {
 		*/
 		if (listen(_listenSocket, 5) < 0)
 		{
-			throw "ERROR #4: error in listen().\n";
+			PrimeException listenError("Error in liste()\n", GetLastError());
+			throw listenError;
 		}
 	}
 
@@ -68,7 +74,8 @@ namespace PrimeEngine { namespace Networking {
 		_clientSocket = accept(_listenSocket, (sockaddr*)&_clientaddr, &_clientaddrlen);
 		if (_clientSocket < 0)
 		{
-			throw "ERROR #5: error occured accepting connection.\n";
+			PrimeException acceptError("ERROR #5: error occured accepting connection.\n", GetLastError());
+			throw acceptError;
 		}
 	}
 
@@ -106,5 +113,14 @@ namespace PrimeEngine { namespace Networking {
 	{
 		DisconnectClient();
 		DisconnectServer();
+	}
+
+	int NetworkHost::GetLastError()
+	{
+#if _WIN32
+		return WSAGetLastError();
+#else
+		return errno;
+#endif // _WIN32
 	}
 }}

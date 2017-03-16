@@ -12,6 +12,7 @@ namespace PrimeEngine { namespace Graphics {
 		GLuint _Count;
 	public:
 		IndexBuffer(const GLushort* data, GLsizei count);
+		~IndexBuffer();
 
 		void Bind() const;
 		void Unbind() const;
