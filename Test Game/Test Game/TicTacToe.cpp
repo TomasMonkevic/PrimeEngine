@@ -18,7 +18,7 @@
 #include <Graphics\Window.h>
 #include <Graphics\Shader.h>
 #include <Graphics\Camera.h>
-#include <Graphics\Renderable2D.h>
+#include <Graphics\SimpleSprite.h>
 #include <Graphics\SimpleRenderer2D.h>
 
 using namespace PrimeEngine::Math;
@@ -44,7 +44,7 @@ struct Cell
 {
 	bool isPlaced;
 	bool isEnemy;
-	Renderable2D* cellRenderer;
+	SimpleSprite* cellRenderer;
 
 	Cell() :
 		isPlaced(false), cellRenderer(NULL)
@@ -73,7 +73,7 @@ public:
 	Shader* myshader;
 	Cell* cells[BOARD_SIZE * BOARD_SIZE];
 	Vector3 cellPoints[BOARD_SIZE * BOARD_SIZE], enemyPos;
-	Renderable2D *vLine1, *vLine2, *hLine1, *hLine2;
+	SimpleSprite *vLine1, *vLine2, *hLine1, *hLine2;
 	NetworkEntity* party;
 
 	TicTacToe(Vector4 _cellColor, const Vector4& _linesColor, const Vector4& _backGroundColor, NetworkEntity* _party, float _cellSize = 2.4f, float _gap = 0.1f) :
@@ -124,10 +124,10 @@ public:
 				cells[i * BOARD_SIZE + j]->cellRenderer = NULL;
 			}
 		}
-		vLine1 = new Renderable2D(Vector3((gap + cellSize) / 2, 0, 0), Vector2(0.1f, 3 * cellSize + 2 * gap), linesColor, *myshader);
-		vLine2 = new Renderable2D(Vector3(-(gap + cellSize) / 2, 0, 0), Vector2(0.1f, 3 * cellSize + 2 * gap), linesColor, *myshader);
-		hLine1 = new Renderable2D(Vector3(0, (gap + cellSize) / 2, 0), Vector2(3 * cellSize + 2 * gap, 0.1f), linesColor, *myshader);
-		hLine2 = new Renderable2D(Vector3(0, -(gap + cellSize) / 2, 0), Vector2(3 * cellSize + 2 * gap, 0.1f), linesColor, *myshader);
+		vLine1 = new SimpleSprite(Vector3((gap + cellSize) / 2, 0, 0), Vector2(0.1f, 3 * cellSize + 2 * gap), linesColor, *myshader);
+		vLine2 = new SimpleSprite(Vector3(-(gap + cellSize) / 2, 0, 0), Vector2(0.1f, 3 * cellSize + 2 * gap), linesColor, *myshader);
+		hLine1 = new SimpleSprite(Vector3(0, (gap + cellSize) / 2, 0), Vector2(3 * cellSize + 2 * gap, 0.1f), linesColor, *myshader);
+		hLine2 = new SimpleSprite(Vector3(0, -(gap + cellSize) / 2, 0), Vector2(3 * cellSize + 2 * gap, 0.1f), linesColor, *myshader);
 	}
 
 	void SendPackage(bool isReset, unsigned int i = 0) //think about this function
@@ -291,7 +291,7 @@ public:
 
 	void PlaceCell(const Vector3& position, const Vector4& color, bool isEnemy)
 	{
-		cells[placedCellCount]->cellRenderer = new Renderable2D(position, Vector2(cellSize, cellSize), color, *myshader);
+		cells[placedCellCount]->cellRenderer = new SimpleSprite(position, Vector2(cellSize, cellSize), color, *myshader);
 		cells[placedCellCount]->isPlaced = true;
 		cells[placedCellCount]->isEnemy = isEnemy;
 		placedCellCount++;

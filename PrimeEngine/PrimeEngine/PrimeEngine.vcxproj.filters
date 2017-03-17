@@ -43,6 +43,9 @@
     <ClInclude Include="Networking\NetworkEntity.h" />
     <ClInclude Include="Networking\NetworkServer.h" />
     <ClInclude Include="PrimeException.h" />
+    <ClInclude Include="Graphics\BatchRenderer2D.h" />
+    <ClInclude Include="Graphics\SimpleSprite.h" />
+    <ClInclude Include="Graphics\Sprite.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Input.cpp">
@@ -68,6 +71,9 @@
     <ClCompile Include="Networking\NetworkHost.cpp" />
     <ClCompile Include="Networking\NetworkSever.cpp" />
     <ClCompile Include="PrimeException.cpp" />
+    <ClCompile Include="Graphics\BatchRenderer2D.cpp" />
+    <ClCompile Include="Graphics\SimpleSprite.cpp" />
+    <ClCompile Include="Graphics\Sprite.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\standard.frag" />

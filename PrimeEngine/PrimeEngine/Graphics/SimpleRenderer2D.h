@@ -3,6 +3,7 @@
 
 #include "Renderer2D.h"
 #include <queue>
+#include "SimpleSprite.h"
 #include "..\DllExport.h"
 
 namespace PrimeEngine { namespace Graphics {
@@ -10,7 +11,7 @@ namespace PrimeEngine { namespace Graphics {
 	class PRIMEENGINEAPI SimpleRenderer2D : public Renderer2D
 	{
 	private:
-		std::queue<const Renderable2D*>* _renderQueue;
+		std::queue<const SimpleSprite*>* _renderQueue;
 	public:
 		SimpleRenderer2D();
 		~SimpleRenderer2D();

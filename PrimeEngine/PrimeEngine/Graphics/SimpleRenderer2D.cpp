@@ -4,7 +4,7 @@ namespace PrimeEngine { namespace Graphics {
 
 	SimpleRenderer2D::SimpleRenderer2D()
 	{
-		_renderQueue = new std::queue<const Renderable2D*>;
+		_renderQueue = new std::queue<const SimpleSprite*>;
 	}
 
 	SimpleRenderer2D::~SimpleRenderer2D()
@@ -12,16 +12,16 @@ namespace PrimeEngine { namespace Graphics {
 		delete _renderQueue;
 	}
 
-	void SimpleRenderer2D::Submit(const Renderable2D* renderable2D)
+	void SimpleRenderer2D::Submit(const Renderable2D* renderable2D) //will be bad if wrong parametar will be given
 	{
-		_renderQueue->push(renderable2D);
+		_renderQueue->push((const SimpleSprite*)renderable2D);
 	}
 
 	void SimpleRenderer2D::Flush()
 	{
 		while (!_renderQueue->empty())
 		{
-			const Renderable2D* renderable2D = _renderQueue->front();
+			const SimpleSprite* renderable2D = _renderQueue->front();
 			if (renderable2D)
 			{
 				renderable2D->GetVertexArray()->Bind();

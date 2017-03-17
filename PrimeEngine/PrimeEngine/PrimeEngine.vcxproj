@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DllExport.h" />
+    <ClInclude Include="Graphics\BatchRenderer2D.h" />
     <ClInclude Include="Graphics\Buffers\IndexBuffer.h" />
     <ClInclude Include="Graphics\Buffers\VertexArray.h" />
     <ClInclude Include="Graphics\Buffers\VertexBuffer.h" />
@@ -28,6 +29,8 @@
     <ClInclude Include="Graphics\Renderer2D.h" />
     <ClInclude Include="Graphics\Shader.h" />
     <ClInclude Include="Graphics\SimpleRenderer2D.h" />
+    <ClInclude Include="Graphics\SimpleSprite.h" />
+    <ClInclude Include="Graphics\Sprite.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Core\Math.h" />
     <ClInclude Include="Math\MathFunc.h" />
@@ -46,12 +49,15 @@
     <ClInclude Include="Utilities\Time.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Graphics\BatchRenderer2D.cpp" />
     <ClCompile Include="Graphics\Buffers\IndexBuffer.cpp" />
     <ClCompile Include="Graphics\Buffers\VertexArray.cpp" />
     <ClCompile Include="Graphics\Buffers\VertexBuffer.cpp" />
     <ClCompile Include="Graphics\Camera.cpp" />
     <ClCompile Include="Graphics\Shader.cpp" />
     <ClCompile Include="Graphics\SimpleRenderer2D.cpp" />
+    <ClCompile Include="Graphics\SimpleSprite.cpp" />
+    <ClCompile Include="Graphics\Sprite.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Math\Matrix4x4.cpp" />
     <ClCompile Include="Math\Vector2.cpp" />

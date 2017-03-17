@@ -7,6 +7,9 @@
 #include <Graphics\Camera.h>
 #include <Graphics\Renderable2D.h>
 #include <Graphics\SimpleRenderer2D.h>
+#include <Graphics\SimpleSprite.h>
+#include <Graphics\BatchRenderer2D.h>
+#include <Graphics\Sprite.h>
 #include <PrimeException.h>
 
 using namespace PrimeEngine::Math;
@@ -14,8 +17,9 @@ using namespace PrimeEngine::Graphics;
 using namespace PrimeEngine::Input;
 
 #define MOVE_CAMERA true
+#define BATCH_RENDERER true;
 
-int mainnot()
+int main()
 {
 	Window* gameWindow = NULL;
 	try
@@ -36,19 +40,28 @@ int mainnot()
 		myshader.Enable();
 
 		Camera mainCamera(myshader, pr);
-		Vector3 cameraPosition(Vector3(9, 4.5f, -0.9f));
+		Vector3 cameraPosition(Vector3(9, 4.5f, -6.0f));
 		mainCamera.SetPosition(cameraPosition);
 		//myshader.SetUniform("pr_matrix", ortho);
 		myshader.SetUniform("lightPosition", Vector2(8, 4.5f));
 		Vector3 position(4, 4.5f, 0.15f);
 		Vector3 scale = Vector3::one;
 
-		Renderable2D backGround(Vector3(5, 4.5f, 0.1f), Vector2(100, 100), Vector4(1, 0.5f, 0, 1), myshader);
-		Renderable2D sprite1(Vector3(5, 4.5f, 0.1f), Vector2(1, 2), Vector4(1, 1, 0, 1), myshader);
-		Renderable2D sprite2(Vector3(10, 4.5f, 0.2f), Vector2(2, 1), Vector4(1, 0, 0, 1), myshader);
-		Renderable2D sprite4(Vector3(1, 1, 0.2f), Vector2(1, 1), Vector4(0, 1, 0, 1), myshader);
-		Renderable2D sprite3(position, Vector2(1, 1), Vector4(0.5f, 0.5f, 0.2f, 1), myshader);
+#if BATCH_RENDERER
+		Sprite backGround(Vector3(5, 4.5f, 0.1f), Vector2(100, 100), Vector4(1, 0.5f, 0, 1));
+		Sprite sprite1(Vector3(5, 4.5f, 0.1f), Vector2(1, 2), Vector4(1, 1, 0, 1));
+		Sprite sprite2(Vector3(10, 4.5f, 0.2f), Vector2(2, 1), Vector4(1, 0, 0, 1));
+		Sprite sprite4(Vector3(1, 1, 0.2f), Vector2(1, 1), Vector4(0, 1, 0, 1));
+		Sprite sprite3(position, Vector2(1, 1), Vector4(0.5f, 0.5f, 0.2f, 1));
+		BatchRenderer2D renderer;
+#else
+		SimpleSprite backGround(Vector3(5, 4.5f, 0.1f), Vector2(100, 100), Vector4(1, 0.5f, 0, 1),myshader);
+		SimpleSprite sprite1(Vector3(5, 4.5f, 0.1f), Vector2(1, 2), Vector4(1, 1, 0, 1), myshader);
+		SimpleSprite sprite2(Vector3(10, 4.5f, 0.2f), Vector2(2, 1), Vector4(1, 0, 0, 1), myshader);
+		SimpleSprite sprite4(Vector3(1, 1, 0.2f), Vector2(1, 1), Vector4(0, 1, 0, 1), myshader);
+		SimpleSprite sprite3(position, Vector2(1, 1), Vector4(0.5f, 0.5f, 0.2f, 1), myshader);
 		SimpleRenderer2D renderer;
+#endif
 		
 		float speed = 0.1f, scaleSpeed = 0.005f, cameraSpeed = 0.05f;
 		PrimeEngine::Time timer;
@@ -56,11 +69,17 @@ int mainnot()
 		while (!gameWindow->Closed())
 		{
 			gameWindow->Clear();
+#if BATCH_RENDERER
+			renderer.Begin();
+#endif
 			renderer.Submit(&backGround);
 			renderer.Submit(&sprite1);
 			renderer.Submit(&sprite2);
 			renderer.Submit(&sprite3);
 			renderer.Submit(&sprite4);
+#if BATCH_RENDERER
+			renderer.End();
+#endif
 			//myshader.SetUniform("lightPosition", Input::GetMousePosition());
 			if (Input::KeyPressed('W'))
 			{
@@ -117,11 +136,13 @@ int mainnot()
 			mainCamera.SetPosition(cameraPosition);
 			//std::cout << Input::GetMousePosition() << std::endl;
 			//backGround.Rotate(0.1f, Vector3::left);
+#if BATCH_RENDERER
 			sprite2.Rotate(0.1f, Vector3::forward);
 			sprite3.Rotate(0.1f, Vector3::left);
 			sprite1.Rotate(0.1f, Vector3::up);
 			sprite3.SetScale(scale);
 			sprite3.SetPosition(position);
+#endif
 			renderer.Flush();
 			mainCamera.LookAt(mainCamera.GetPosition() + Vector3::back);
 			mainCamera.Render();
