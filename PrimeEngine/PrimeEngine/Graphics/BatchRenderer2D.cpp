@@ -33,7 +33,7 @@ namespace PrimeEngine { namespace Graphics {
 			offset += 4;
 		}
 		_ibo = new IndexBuffer(indecies, RENDERER_INDECIES_SIZE);
-		delete indecies;
+		delete[] indecies;
 		glBindVertexArray(0);
 	}
 
@@ -55,19 +55,19 @@ namespace PrimeEngine { namespace Graphics {
 		const Math::Vector3& position = renderable2D->GetPosition();
 		const Math::Vector2& size = renderable2D->GetSize();
 
-		_buffer->position = Math::Vector3(position.x + -size.x/2.0f, position.y + size.y/2.0f, position.z);
+		_buffer->position = position + Math::Matrix4x4::Multiply(renderable2D->GetModelMatrix(), Math::Vector3(-size.x / 2.0f, size.y / 2.0f, 0));
 		_buffer->color = color;
 		_buffer++;
 
-		_buffer->position = Math::Vector3(position.x + size.x / 2.0f, position.y + size.y / 2.0f, position.z);
+		_buffer->position = position + Math::Matrix4x4::Multiply(renderable2D->GetModelMatrix(), Math::Vector3(size.x / 2.0f,  size.y / 2.0f, 0));
 		_buffer->color = color;
 		_buffer++;
 
-		_buffer->position = Math::Vector3(position.x + size.x / 2.0f, position.y + -size.y / 2.0f, position.z);
+		_buffer->position = position + Math::Matrix4x4::Multiply(renderable2D->GetModelMatrix(), Math::Vector3(size.x / 2.0f, -size.y / 2.0f, 0));
 		_buffer->color = color;
 		_buffer++;
 
-		_buffer->position = Math::Vector3(position.x + -size.x / 2.0f, position.y + -size.y / 2.0f, position.z);
+		_buffer->position = position + Math::Matrix4x4::Multiply(renderable2D->GetModelMatrix(), Math::Vector3(-size.x / 2.0f, -size.y / 2.0f, 0));
 		_buffer->color = color;
 		_buffer++;
 

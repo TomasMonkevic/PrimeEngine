@@ -2,6 +2,7 @@
 #define RENDERER2D
 
 #include "Renderable2D.h"
+#include "..\DllExport.h"
 
 struct VertexData
 {
@@ -12,10 +13,12 @@ struct VertexData
 namespace PrimeEngine { namespace Graphics {
 
 
-	class Renderer2D
+	class PRIMEENGINEAPI Renderer2D
 	{
-	protected:
+	public:
+		virtual void Begin() {}
 		virtual void Submit(const Renderable2D* renderable2D) = 0;
+		virtual void End() {}
 		virtual void Flush() = 0;
 	};
 }}

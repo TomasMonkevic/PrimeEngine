@@ -11,7 +11,6 @@ namespace PrimeEngine { namespace Graphics {
 	class PRIMEENGINEAPI Camera
 	{
 	private: //Variables
-		Shader& _shader;
 		Math::Matrix4x4 _projectionMatrix;
 		Math::Matrix4x4 _viewMatrix;
 		Math::Vector3 _position;
@@ -19,11 +18,13 @@ namespace PrimeEngine { namespace Graphics {
 		Math::Vector3 _right;
 		Math::Vector3 _up;
 	public:
+		Shader* _shader;
 
 	private: //Methods
 
 	public:
-		Camera(Shader& shader, const Math::Matrix4x4& projectionMatrix);
+		Camera(Shader* shader, const Math::Matrix4x4& projectionMatrix);
+		~Camera(); //camera should delete shader
 
 		Math::Vector3 ScreenToWorldPoint(const Math::Vector2& position) const;
 

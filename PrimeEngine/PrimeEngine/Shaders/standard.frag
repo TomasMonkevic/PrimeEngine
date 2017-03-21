@@ -2,7 +2,7 @@
 
 out vec4 color;
 
-//uniform vec2 lightPosition; //temp
+uniform vec2 lightPosition; //temp
 
 in data
 {
@@ -12,6 +12,6 @@ in data
 
  void main()
  {
-	//float lightIntesity = 1.0 / length(fs_in.position.xy - lightPosition) * 2;
-	color = fs_in.color; //* lightIntesity;
+	float lightIntesity = 1.0 / length(fs_in.position.xy - lightPosition) * 2;
+	color = fs_in.color * lightIntesity;
  }

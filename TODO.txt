@@ -1,13 +1,14 @@
 TODO:
 - Seperate engine components into different headers
-- 2D batch renderer
-- Deltatime
+- !Deltatime
 - Color class
-- Vsync enable/disable
-- Fix exception throwing [IN PROGRESS]
+- !Vsync enable/disable
+- !Fix exception throwing [IN PROGRESS]
 - KeyDown, KeyUp etc
 - Implement ViewportToScreen ect. methods
-- Transformation component
+- !Transformation stack
+- !Groups
+- !Clean up TestGame.cpp
 - Logging system
 - Implement custom string class
 - Unify mouse and key presses

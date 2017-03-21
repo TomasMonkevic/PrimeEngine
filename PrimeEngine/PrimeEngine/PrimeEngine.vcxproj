@@ -25,6 +25,7 @@
     <ClInclude Include="Graphics\Buffers\VertexArray.h" />
     <ClInclude Include="Graphics\Buffers\VertexBuffer.h" />
     <ClInclude Include="Graphics\Camera.h" />
+    <ClInclude Include="Graphics\Layers\Layer.h" />
     <ClInclude Include="Graphics\Renderable2D.h" />
     <ClInclude Include="Graphics\Renderer2D.h" />
     <ClInclude Include="Graphics\Shader.h" />
@@ -54,6 +55,12 @@
     <ClCompile Include="Graphics\Buffers\VertexArray.cpp" />
     <ClCompile Include="Graphics\Buffers\VertexBuffer.cpp" />
     <ClCompile Include="Graphics\Camera.cpp" />
+    <ClCompile Include="Graphics\Layers\Layer.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Graphics\Shader.cpp" />
     <ClCompile Include="Graphics\SimpleRenderer2D.cpp" />
     <ClCompile Include="Graphics\SimpleSprite.cpp" />

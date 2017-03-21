@@ -3,10 +3,17 @@
 
 namespace PrimeEngine { namespace Graphics {
 
-	Camera::Camera(Shader& shader, const Math::Matrix4x4& projectionMatrix) :
+	Camera::Camera(Shader* shader, const Math::Matrix4x4& projectionMatrix) :
 		_shader(shader), _projectionMatrix(projectionMatrix)
 	{
-		_shader.SetUniform("pr_matrix", _projectionMatrix);
+		//_shader->Enable();
+		_shader->SetUniform("pr_matrix", _projectionMatrix);
+		//_shader->Disable();
+	}
+
+	Camera::~Camera()
+	{
+		delete _shader;
 	}
 
 	Math::Vector3 Camera::ScreenToWorldPoint(const Math::Vector2& position) const
@@ -33,7 +40,7 @@ namespace PrimeEngine { namespace Graphics {
 
 	void Camera::Render()
 	{
-		_shader.SetUniform("view_matrix", _viewMatrix);
+		_shader->SetUniform("view_matrix", _viewMatrix);
 	}
 
 }}
