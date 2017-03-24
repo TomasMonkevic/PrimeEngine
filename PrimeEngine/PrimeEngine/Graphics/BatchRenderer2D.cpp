@@ -52,22 +52,21 @@ namespace PrimeEngine { namespace Graphics {
 	void BatchRenderer2D::Submit(const Renderable2D* renderable2D)
 	{
 		const Math::Vector4& color = renderable2D->GetColor();
-		const Math::Vector3& position = renderable2D->GetPosition();
 		const Math::Vector2& size = renderable2D->GetSize();
 
-		_buffer->position = position + Math::Matrix4x4::Multiply(renderable2D->GetModelMatrix(), Math::Vector3(-size.x / 2.0f, size.y / 2.0f, 0));
+		_buffer->position = Math::Matrix4x4::Multiply(renderable2D->GetModelMatrix(), Math::Vector3(-size.x / 2.0f, size.y / 2.0f, 0));
 		_buffer->color = color;
 		_buffer++;
 
-		_buffer->position = position + Math::Matrix4x4::Multiply(renderable2D->GetModelMatrix(), Math::Vector3(size.x / 2.0f,  size.y / 2.0f, 0));
+		_buffer->position = Math::Matrix4x4::Multiply(renderable2D->GetModelMatrix(), Math::Vector3(size.x / 2.0f,  size.y / 2.0f, 0));
 		_buffer->color = color;
 		_buffer++;
 
-		_buffer->position = position + Math::Matrix4x4::Multiply(renderable2D->GetModelMatrix(), Math::Vector3(size.x / 2.0f, -size.y / 2.0f, 0));
+		_buffer->position = Math::Matrix4x4::Multiply(renderable2D->GetModelMatrix(), Math::Vector3(size.x / 2.0f, -size.y / 2.0f, 0));
 		_buffer->color = color;
 		_buffer++;
 
-		_buffer->position = position + Math::Matrix4x4::Multiply(renderable2D->GetModelMatrix(), Math::Vector3(-size.x / 2.0f, -size.y / 2.0f, 0));
+		_buffer->position = Math::Matrix4x4::Multiply(renderable2D->GetModelMatrix(), Math::Vector3(-size.x / 2.0f, -size.y / 2.0f, 0));
 		_buffer->color = color;
 		_buffer++;
 

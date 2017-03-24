@@ -54,8 +54,8 @@ int main()
 		gameWindow->SetColor(Vector4(0.3f, 0.6f, 1.0f, 1.0f));
 		gameWindow->Initialize();
 
-		//Matrix4x4 pr = Matrix4x4::Orthographic(-8.0f, 8.0f, -4.5f, 4.5f, -1.0f, 1.0f);
-		Matrix4x4 pr = Matrix4x4::Perspective(45.0f, 16.0f / 9.0f, -1.5f, 1.5f);
+		Matrix4x4 pr = Matrix4x4::Orthographic(-8.0f, 8.0f, -4.5f, 4.5f, -1.0f, 1.0f);
+		//Matrix4x4 pr = Matrix4x4::Perspective(45.0f, 16.0f / 9.0f, -1.5f, 1.5f);
 
 
 		Shader* myshader = new Shader("..\\..\\PrimeEngine\\PrimeEngine\\Shaders\\standard.vert",
@@ -66,8 +66,8 @@ int main()
 		//myshader2->Enable();
 
 		Camera* mainCamera = new Camera(myshader, pr);
-		Vector3 cameraPosition(Vector3(9, 4.5f, -6.0f)); //projection
-		//Vector3 cameraPosition(Vector3(0, 0, 0.0f)); //ortho
+		//Vector3 cameraPosition(Vector3(9, 4.5f, -6.0f)); //projection
+		Vector3 cameraPosition(Vector3(0, 0, 0.0f)); //ortho
 		mainCamera->SetPosition(cameraPosition);
 		//myshader.SetUniform("pr_matrix", ortho);
 		//myshader2->SetUniform("lightPosition", Vector2(0, 0));
@@ -176,8 +176,9 @@ int main()
 			sprite2.Rotate(0.1f, Vector3::forward);
 			sprite3.Rotate(0.1f, Vector3::left);
 			sprite1.Rotate(0.1f, Vector3::up);
-			sprite4.SetScale(scale);
+			//sprite4.SetScale(scale);
 			sprite4.SetPosition(position);
+			std::cout << sprite4.GetPosition() << std::endl;
 #endif
 			//renderer.Flush();
 			mainCamera->LookAt(mainCamera->GetPosition() + Vector3::back);
