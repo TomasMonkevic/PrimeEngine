@@ -12,12 +12,13 @@
 #include <Graphics\Sprite.h>
 #include <PrimeException.h>
 #include <Graphics\Layers\Layer.h>
+#include <Graphics\Layers\Group.h>
 
 using namespace PrimeEngine::Math;
 using namespace PrimeEngine::Graphics;
 using namespace PrimeEngine::Input;
 
-#define MOVE_CAMERA false
+#define MOVE_CAMERA true
 #define BATCH_RENDERER true;
 
 
@@ -95,9 +96,15 @@ int main()
 		gameLayer.Submit(&sprite2);
 		gameLayer.Submit(&sprite3);
 		gameLayer.Submit(&sprite4);
-		Sprite uiEl(Vector3(0, 0, 0), Vector2(1, 1), Vector4(0.5f, 0.5f, 0.2f, 1));
-		FakeUILayer ui(myshader2); //somethings's up with the shader
-		ui.Submit(&uiEl);
+		Group* buttonsContainer = new Group(Vector3(-6, 0, 0), Vector2(10, 10));
+		Group* button = new Group(Vector3(0, 1.5f, 0), Vector2(10, 10));
+		Sprite uiEl(Vector3(0, 0, 0), Vector2(4, 1), Vector4(1.0f, 0.0f, 0.0f, 1));
+		buttonsContainer->Add(button);
+		buttonsContainer->Add(&uiEl);
+		button->Add(new Sprite(Vector3(0, 0.0f, 0), Vector2(4, 1), Vector4(1.0f, 0.0f, 0.0f, 1)));
+		button->Add(new Sprite(Vector3(0, 0.0f, 0), Vector2(3, 0.5f), Vector4(0.0f, 0.0f, 1.0f, 1)));
+		FakeUILayer ui(myshader2);
+		ui.Submit(buttonsContainer);
 		float speed = 0.1f, scaleSpeed = 0.005f, cameraSpeed = 0.05f;
 		PrimeEngine::Time timer;
 		unsigned int fpsCounter = 0;
@@ -116,7 +123,9 @@ int main()
 //			renderer.End();
 //#endif
 			Vector3 opa = mainCamera->ScreenToWorldPoint(Input::GetMousePosition());
+			Vector3 opa2 = ui.camera->ScreenToWorldPoint(Input::GetMousePosition());
 			myshader->SetUniform("lightPosition", Vector2(opa.x, opa.y));
+			myshader2->SetUniform("lightPosition", Vector2(opa2.x, opa2.y));
 			if (Input::KeyPressed('W'))
 			{
 #if MOVE_CAMERA
@@ -173,12 +182,13 @@ int main()
 			//std::cout << Input::GetMousePosition() << std::endl;
 			//backGround.Rotate(0.1f, Vector3::left);
 #if BATCH_RENDERER
-			sprite2.Rotate(0.1f, Vector3::forward);
+			buttonsContainer->Rotate(0.1f, Vector3::forward);
+			button->Rotate(0.1f, Vector3::forward);
 			sprite3.Rotate(0.1f, Vector3::left);
 			sprite1.Rotate(0.1f, Vector3::up);
 			//sprite4.SetScale(scale);
 			sprite4.SetPosition(position);
-			std::cout << sprite4.GetPosition() << std::endl;
+			//std::cout << sprite4.GetPosition() << std::endl;
 #endif
 			//renderer.Flush();
 			mainCamera->LookAt(mainCamera->GetPosition() + Vector3::back);

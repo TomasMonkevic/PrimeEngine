@@ -3,11 +3,12 @@
 
 #include <GL\glew.h>
 #include "..\Core\Math.h"
+#include "Renderer2D.h"
 #include "..\DllExport.h"
 
 namespace PrimeEngine { namespace Graphics {
 
-	class PRIMEENGINEAPI Renderable2D
+	class PRIMEENGINEAPI Renderable2D //might need to seperate translation component from renderable
 	{
 	protected:
 		Math::Vector3 _position;
@@ -26,6 +27,11 @@ namespace PrimeEngine { namespace Graphics {
 		virtual ~Renderable2D()
 		{
 
+		}
+
+		virtual void Submit(Renderer2D* renderer) const
+		{
+			renderer->Submit(this);
 		}
 
 		void Rotate(float angle, const Math::Vector3& axis) //change to quaternion

@@ -241,7 +241,17 @@ namespace PrimeEngine { namespace Math {
 
 	Matrix4x4 Matrix4x4::operator*(const Matrix4x4& right) const
 	{
-		return Matrix4x4::Multiply(*this, right);
+		return Multiply(*this, right);
+	}
+
+	Vector4& Matrix4x4::operator*(Vector4 right) const
+	{
+		return Multiply(*this, right);
+	}
+
+	Vector3& Matrix4x4::operator*(Vector3 right) const
+	{
+		return Multiply(*this, right);
 	}
 
 	Matrix4x4& Matrix4x4::operator*=(const Matrix4x4& right)

@@ -2,6 +2,7 @@
 #define BATCH_RENDERER2D
 
 #include "Renderer2D.h"
+#include "Renderable2D.h"
 #include <queue>
 #include "Buffers\IndexBuffer.h"
 #include "..\DllExport.h"

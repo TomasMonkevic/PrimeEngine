@@ -54,19 +54,19 @@ namespace PrimeEngine { namespace Graphics {
 		const Math::Vector4& color = renderable2D->GetColor();
 		const Math::Vector2& size = renderable2D->GetSize();
 
-		_buffer->position = Math::Matrix4x4::Multiply(renderable2D->GetModelMatrix(), Math::Vector3(-size.x / 2.0f, size.y / 2.0f, 0));
+		_buffer->position = *_transformationStackBack * renderable2D->GetModelMatrix() * Math::Vector3(-size.x / 2.0f, size.y / 2.0f, 0);
 		_buffer->color = color;
 		_buffer++;
 
-		_buffer->position = Math::Matrix4x4::Multiply(renderable2D->GetModelMatrix(), Math::Vector3(size.x / 2.0f,  size.y / 2.0f, 0));
+		_buffer->position = *_transformationStackBack * renderable2D->GetModelMatrix() * Math::Vector3(size.x / 2.0f,  size.y / 2.0f, 0);
 		_buffer->color = color;
 		_buffer++;
 
-		_buffer->position = Math::Matrix4x4::Multiply(renderable2D->GetModelMatrix(), Math::Vector3(size.x / 2.0f, -size.y / 2.0f, 0));
+		_buffer->position = *_transformationStackBack * renderable2D->GetModelMatrix() * Math::Vector3(size.x / 2.0f, -size.y / 2.0f, 0);
 		_buffer->color = color;
 		_buffer++;
 
-		_buffer->position = Math::Matrix4x4::Multiply(renderable2D->GetModelMatrix(), Math::Vector3(-size.x / 2.0f, -size.y / 2.0f, 0));
+		_buffer->position = *_transformationStackBack * renderable2D->GetModelMatrix() * Math::Vector3(-size.x / 2.0f, -size.y / 2.0f, 0);
 		_buffer->color = color;
 		_buffer++;
 

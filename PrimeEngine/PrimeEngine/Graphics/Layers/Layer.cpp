@@ -42,7 +42,7 @@ namespace PrimeEngine { namespace Graphics {
 		_renderer->Begin();
 		for (const Renderable2D* renderable : *_renderables)
 		{
-			_renderer->Submit(renderable);
+			renderable->Submit(_renderer);
 		}
 		_renderer->End();
 		camera->Render();

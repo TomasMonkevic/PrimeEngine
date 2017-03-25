@@ -5,7 +5,6 @@
 #include "../Camera.h"
 #include "../Renderer2D.h"
 #include "../BatchRenderer2D.h"
-#include "../../PrimeException.h"
 
 namespace PrimeEngine { namespace Graphics {
 

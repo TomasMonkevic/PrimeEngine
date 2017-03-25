@@ -49,6 +49,8 @@ namespace PrimeEngine { namespace Math {
 		void SetRow(unsigned int row, const Vector4& value); //TODO
 
 		Matrix4x4 operator*(const Matrix4x4& right) const;
+		Vector4& operator*(Vector4 right) const;
+		Vector3& operator*(Vector3 right) const;
 		Matrix4x4& operator*=(const Matrix4x4& right);
 		bool operator==(const Matrix4x4& right) const;
 		bool operator!=(const Matrix4x4& right) const;
