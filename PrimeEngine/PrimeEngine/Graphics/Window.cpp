@@ -71,7 +71,7 @@ namespace PrimeEngine
 		{
 			isInstanceCreated();
 			glfwInit();
-			glfwWindowHint(GLFW_RESIZABLE, GL_TRUE); //for now
+			glfwWindowHint(GLFW_RESIZABLE, GL_TRUE); //for now always is resizable
 			//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
 			if (_isFullScreen)
@@ -101,7 +101,8 @@ namespace PrimeEngine
 			glfwSetCursorPosCallback(_window, Input::Input::cursor_position_callback);
 
 			glfwSetFramebufferSizeCallback(_window, framebuffer_size_callback);
-			glfwSwapInterval(1); //Vsync off-0, on-1
+			//glfwSwapInterval(1); //Vsync off-0, on-1
+			//EnableVSync();
 			// Set this to true so GLEW knows to use a modern approach to retrieving function pointers and extensions
 			glewExperimental = GL_TRUE;
 			if (glewInit() != GLEW_OK)

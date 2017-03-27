@@ -40,6 +40,11 @@ namespace PrimeEngine {
 		virtual void Update() { };
 		virtual void Render() = 0;
 
+		PrimeEngine() : PrimeEngine(true)
+		{
+
+		}
+
 		PrimeEngine(bool vSync) : _vSync(vSync)
 		{
 

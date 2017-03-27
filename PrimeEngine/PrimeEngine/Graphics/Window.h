@@ -29,6 +29,7 @@ namespace PrimeEngine
 		public:
 			static void SetWindow(const char* title);
 			static void SetWindow(const char* title, int width, int height);
+
 			inline static Window* GetWindow() 
 			{ 
 				return instance; 
@@ -48,6 +49,11 @@ namespace PrimeEngine
 			inline Math::Vector2 GetSize() const
 			{
 				return Math::Vector2((float)_width, (float)_height);
+			}
+
+			inline void EnableVSync(bool isEnabled)
+			{
+				glfwSwapInterval((GLint)isEnabled);
 			}
 
 			void Close() const;

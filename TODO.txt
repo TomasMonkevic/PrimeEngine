@@ -6,9 +6,6 @@ TODO:
 - !Fix exception throwing [IN PROGRESS]
 - KeyDown, KeyUp etc
 - Implement ViewportToScreen ect. methods
-- !Transformation stack
-- !Groups
-- !Clean up TestGame.cpp
 - Logging system
 - Implement custom string class
 - Unify mouse and key presses
