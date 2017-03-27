@@ -11,8 +11,8 @@ namespace PrimeEngine {
 	{
 	private:
 		Graphics::Window* _window;
-		unsigned int _fpsCounter, _deltaTime; //not implemented
-		bool _vSync; //yet to be implemented
+		unsigned int _fpsCounter;
+		float _deltaTime, _prevDeltatime = 0;
 
 	private:
 		void Run()
@@ -22,14 +22,17 @@ namespace PrimeEngine {
 			while (!_window->Closed())
 			{
 				_window->Clear();
-				Update();
+				Update(); //first frame fps and delta time is 0
 				Render();
 				_window->Update();
 				_fpsCounter++;
+				_deltaTime = timer.Elapsed() - _prevDeltatime;
+				_prevDeltatime = timer.Elapsed();
 				if (timer.Elapsed() >= 1.0f)
 				{
 					Tick();
 					_fpsCounter = 0;
+					_prevDeltatime = 0;
 					timer.Reset();
 				}
 			}
@@ -40,12 +43,7 @@ namespace PrimeEngine {
 		virtual void Update() { };
 		virtual void Render() = 0;
 
-		PrimeEngine() : PrimeEngine(true)
-		{
-
-		}
-
-		PrimeEngine(bool vSync) : _vSync(vSync)
+		PrimeEngine()
 		{
 
 		}
@@ -80,7 +78,7 @@ namespace PrimeEngine {
 			return _fpsCounter;
 		}
 
-		inline unsigned int GetDeltaTime() const
+		inline float GetDeltaTime() const
 		{
 			return _deltaTime;
 		}

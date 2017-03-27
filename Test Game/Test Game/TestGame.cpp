@@ -61,7 +61,7 @@ public:
 class TestGame : public PrimeEngine::PrimeEngine
 {
 private:
-	float speed = 0.1f, scaleSpeed = 0.005f, cameraSpeed = 0.05f;
+	float speed = 10.0f;
 	Shader *gameShader, *uiShader;
 	GameLayer* gameLayer;
 	FakeUILayer* uiLayer;
@@ -130,10 +130,10 @@ public:
 		uiShader->SetUniform("lightPosition", Vector2(opa2.x, opa2.y));
 
 		//Rotate ui
-		buttonContainer->Rotate(0.1f, Vector3::forward);
-		button->Rotate(0.1f, Vector3::forward);
+		buttonContainer->Rotate(GetDeltaTime(), Vector3::forward);
+		button->Rotate(GetDeltaTime(), Vector3::forward);
 
-		sprite1->Rotate(0.1f, Vector3::forward);
+		sprite1->Rotate(GetDeltaTime() * speed, Vector3::forward);
 		if (Input::KeyPressed(256)) //esc
 		{
 			GetWindow()->Close();

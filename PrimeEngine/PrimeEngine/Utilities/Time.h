@@ -1,5 +1,5 @@
-#ifndef TIMER_H
-#define TIMER_H
+#ifndef PRIME_TIMER_H
+#define PRIME_TIMER_H
 
 #include <Windows.h>
 #include "..\DllExport.h"
@@ -16,9 +16,8 @@ namespace PrimeEngine
 		Time();
 		void Reset();
 		float Elapsed();
-		unsigned int GetFPS();
 	};
 }
 
-#endif // !TIMER_H
+#endif // !PRIME_TIMER_H
 

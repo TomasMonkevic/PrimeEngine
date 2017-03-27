@@ -22,9 +22,4 @@ namespace PrimeEngine
 		unsigned __int64 cycles = current.QuadPart - _startTime.QuadPart;
 		return (float)(cycles * _frequency);
 	}
-
-	unsigned int Time::GetFPS()
-	{
-		return 0;
-	}
 }

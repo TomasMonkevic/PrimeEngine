@@ -1,9 +1,12 @@
 TODO:
+- BatchRenderer with textures
+- Font rendering
+- Audio
+- Android compatibility
+- Cross-platform timer
 - Seperate engine components into different headers
-- !Deltatime
 - Color class
-- !Vsync enable/disable
-- !Fix exception throwing [IN PROGRESS]
+- !Fix exception throwing [IN PROGRESS] //Are exception good for engines? Maybe logging system is enough?
 - KeyDown, KeyUp etc
 - Implement ViewportToScreen ect. methods
 - Logging system
