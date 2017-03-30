@@ -1,8 +1,13 @@
 #ifndef PRIMEENGINE_WINDOW
 #define PRIMEENGINE_WINDOW
 
+#if PRIME_WINDOWS
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#endif
+#if PRIME_ANDROID
+#include <GLES3/gl3.h>
+#endif
 #include "../Math/Vector4.h"
 #include "../Math/Vector2.h"
 #include "../DllExport.h"
