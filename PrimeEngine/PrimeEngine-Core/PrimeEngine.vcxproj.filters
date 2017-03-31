@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Math">
+      <UniqueIdentifier>{1b1508c2-a07e-4229-a34c-0913653acc72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{d73ce50a-2da3-4cb1-924a-71ab5f10c3f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{b5135db1-82db-4fa1-82e5-2583fbb2f70b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DllExport.h" />
+    <ClInclude Include="Input.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector3.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector4.h" />
+    <ClInclude Include="Math\Matrix4x4.h" />
+    <ClInclude Include="Core\Math.h" />
+    <ClInclude Include="Graphics\Window.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\File.h" />
+    <ClInclude Include="Graphics\Shader.h" />
+    <ClInclude Include="Graphics\Buffers\VertexBuffer.h" />
+    <ClInclude Include="Graphics\Buffers\IndexBuffer.h" />
+    <ClInclude Include="Graphics\Buffers\VertexArray.h" />
+    <ClInclude Include="Math\Vector2.h" />
+    <ClInclude Include="Math\MathFunc.h" />
+    <ClInclude Include="Graphics\Renderable2D.h" />
+    <ClInclude Include="Graphics\Renderer2D.h" />
+    <ClInclude Include="Graphics\SimpleRenderer2D.h" />
+    <ClInclude Include="Utilities\Time.h" />
+    <ClInclude Include="Graphics\Camera.h" />
+    <ClInclude Include="Networking\NetworkClient.h" />
+    <ClInclude Include="Networking\NetworkHost.h" />
+    <ClInclude Include="PrimeEngine.h" />
+    <ClInclude Include="Networking\NetworkEntity.h" />
+    <ClInclude Include="Networking\NetworkServer.h" />
+    <ClInclude Include="PrimeException.h" />
+    <ClInclude Include="Graphics\BatchRenderer2D.h" />
+    <ClInclude Include="Graphics\SimpleSprite.h" />
+    <ClInclude Include="Graphics\Sprite.h" />
+    <ClInclude Include="Graphics\Layers\Layer.h" />
+    <ClInclude Include="Graphics\Layers\Group.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Input.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Vector3.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Vector4.cpp" />
+    <ClCompile Include="Math\Matrix4x4.cpp" />
+    <ClCompile Include="Graphics\Window.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Shader.cpp" />
+    <ClCompile Include="Graphics\Buffers\VertexBuffer.cpp" />
+    <ClCompile Include="Graphics\Buffers\IndexBuffer.cpp" />
+    <ClCompile Include="Graphics\Buffers\VertexArray.cpp" />
+    <ClCompile Include="Math\Vector2.cpp" />
+    <ClCompile Include="Graphics\SimpleRenderer2D.cpp" />
+    <ClCompile Include="Utilities\Time.cpp" />
+    <ClCompile Include="Graphics\Camera.cpp" />
+    <ClCompile Include="Networking\NetworkClient.cpp" />
+    <ClCompile Include="Networking\NetworkHost.cpp" />
+    <ClCompile Include="Networking\NetworkSever.cpp" />
+    <ClCompile Include="PrimeException.cpp" />
+    <ClCompile Include="Graphics\BatchRenderer2D.cpp" />
+    <ClCompile Include="Graphics\SimpleSprite.cpp" />
+    <ClCompile Include="Graphics\Sprite.cpp" />
+    <ClCompile Include="Graphics\Layers\Layer.cpp" />
+    <ClCompile Include="Graphics\Layers\Group.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\standard.frag" />
+    <None Include="Shaders\standard.vert" />
+  </ItemGroup>
+</Project>
