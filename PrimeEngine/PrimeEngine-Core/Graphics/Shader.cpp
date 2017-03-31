@@ -92,7 +92,7 @@ namespace PrimeEngine { namespace Graphics {
 			glGetShaderInfoLog(vertexShader, lenght, &lenght, error);
 			glDeleteShader(vertexShader);
 			char* errorMsg = new char[sizeof(error) + 50];
-			sprintf(errorMsg, "Failed to compile vertex shader:\n%s \n", error);
+			sprintf_s(errorMsg, sizeof(error) + 50, "Failed to compile vertex shader:\n%s \n", error);
 			PrimeException errorCompiling(errorMsg, -1);
 			throw errorCompiling;
 		}
@@ -109,7 +109,7 @@ namespace PrimeEngine { namespace Graphics {
 			glGetShaderInfoLog(fragmentShader, lenght, &lenght, error);
 			glDeleteShader(fragmentShader);
 			char* errorMsg = new char[sizeof(error) + 50];
-			sprintf(errorMsg, "Failed to compile fragment shader:\n%s \n", error);
+			sprintf_s(errorMsg, sizeof(error) + 50, "Failed to compile fragment shader:\n%s \n", error);
 			PrimeException errorCompiling(errorMsg, -1);
 			throw errorCompiling;
 		}

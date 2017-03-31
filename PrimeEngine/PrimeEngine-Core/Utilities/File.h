@@ -11,7 +11,8 @@ namespace PrimeEngine {
 		{
 			//not safe to use????
 			//preprocessor in game and engine
-			FILE* file = fopen(path, "rt"); //using C file reading for faster performance
+			FILE *file;
+			fopen_s(&file, path, "rt"); //using C file reading for faster performance
 			if (!file)
 			{
 				throw "File failed to open";
@@ -24,6 +25,7 @@ namespace PrimeEngine {
 			fread(data, 1, lenght + 1, file); //read the data
 
 			std::string result(data);
+			delete[] data;
 			return result;
 		}
 	};

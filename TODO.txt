@@ -1,8 +1,9 @@
 TODO:
+- !Refactor file system
 - BatchRenderer with textures
 - Font rendering
 - Audio
-- Android compatibility
+- Android support
 - Cross-platform timer
 - Seperate engine components into different headers
 - Color class
