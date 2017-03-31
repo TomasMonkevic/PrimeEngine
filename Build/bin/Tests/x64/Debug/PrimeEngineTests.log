@@ -1,0 +1,8 @@
+﻿C:\Program Files (x86)\MSBuild\14.0\bin\Microsoft.Common.CurrentVersion.targets(1611,5): warning : The referenced project '..\PrimeEngine\PrimeEngine\PrimeEngine.vcxproj' does not exist.
+  stdafx.cpp
+  Vector3Tests.cpp
+  Matrix4x4Tests.cpp
+  Generating Code...
+     Creating library C:\_Tomas Monkeivc\Projects\Engine Project\PrimeEngine\..\Build\x64\Debug\PrimeEngineTests.lib and object C:\_Tomas Monkeivc\Projects\Engine Project\PrimeEngine\..\Build\x64\Debug\PrimeEngineTests.exp
+  PrimeEngineTests.vcxproj -> C:\_Tomas Monkeivc\Projects\Engine Project\PrimeEngine\..\Build\x64\Debug\PrimeEngineTests.dll
+  PrimeEngineTests.vcxproj -> C:\_Tomas Monkeivc\Projects\Engine Project\PrimeEngine\..\Build\x64\Debug\PrimeEngineTests.pdb (Partial PDB)

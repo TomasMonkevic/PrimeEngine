@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?><DEFECTS><DEFECT>
+    <SFA>
+      <FILEPATH>c:\_tomas monkeivc\projects\engine project\primeengine\primeengine-core\networking\</FILEPATH>
+      <FILENAME>networkclient.cpp</FILENAME>
+      <LINE>33</LINE>
+      <COLUMN>12</COLUMN>
+    </SFA>
+    <DEFECTCODE>6031</DEFECTCODE>
+    <DESCRIPTION>Return value ignored: 'WSAStartup'.</DESCRIPTION>
+    <FUNCTION>PrimeEngine::Networking::NetworkClient::{ctor}</FUNCTION>
+    <DECORATED>??0NetworkClient@Networking@PrimeEngine@@QEAA@PEBD0@Z</DECORATED>
+    <FUNCLINE>16</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>c:\_tomas monkeivc\projects\engine project\primeengine\primeengine-core\networking\</FILEPATH>
+      <FILENAME>networkhost.cpp</FILENAME>
+      <LINE>31</LINE>
+      <COLUMN>12</COLUMN>
+    </SFA>
+    <DEFECTCODE>6031</DEFECTCODE>
+    <DESCRIPTION>Return value ignored: 'WSAStartup'.</DESCRIPTION>
+    <FUNCTION>PrimeEngine::Networking::NetworkHost::{ctor}</FUNCTION>
+    <DECORATED>??0NetworkHost@Networking@PrimeEngine@@QEAA@PEBD@Z</DECORATED>
+    <FUNCLINE>16</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>c:\_tomas monkeivc\projects\engine project\primeengine\primeengine-core\networking\</FILEPATH>
+      <FILENAME>networksever.cpp</FILENAME>
+      <LINE>31</LINE>
+      <COLUMN>12</COLUMN>
+    </SFA>
+    <DEFECTCODE>6031</DEFECTCODE>
+    <DESCRIPTION>Return value ignored: 'WSAStartup'.</DESCRIPTION>
+    <FUNCTION>PrimeEngine::Networking::NetworkServer::{ctor}</FUNCTION>
+    <DECORATED>??0NetworkServer@Networking@PrimeEngine@@QEAA@PEBD@Z</DECORATED>
+    <FUNCLINE>17</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT></DEFECTS>
