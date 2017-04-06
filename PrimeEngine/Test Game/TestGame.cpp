@@ -78,7 +78,11 @@ public:
 
 	~TestGame()
 	{
-		//delete all stuff
+		delete uiLayer;
+		delete gameLayer;
+		delete sprite1;
+		delete button;
+		delete buttonContainer;
 	}
 
 	void Awake() override
@@ -141,6 +145,7 @@ public:
 	void Tick() override
 	{
 		LOG(GetFPS() << "fps");
+		//cout << GetFPS() << "fps" << endl;
 	}
 
 	void Render() override

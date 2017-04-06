@@ -4,7 +4,6 @@ TODO:
 - Font rendering
 - Audio
 - Android support
-- Cross-platform timer
 - Seperate engine components into different headers
 - Color class
 - !Fix exception throwing [IN PROGRESS] //Are exception good for engines? Maybe logging system is enough?
@@ -14,6 +13,3 @@ TODO:
 - Implement custom string class
 - Unify mouse and key presses
 - Improve networking
-
-DISCUSS:
-- Staticly link glew to dll in debug too? Or keep static in releas only?
