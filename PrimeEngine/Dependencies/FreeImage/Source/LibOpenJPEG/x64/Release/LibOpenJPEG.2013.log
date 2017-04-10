@@ -1,0 +1,22 @@
+﻿  bio.c
+  cio.c
+  dwt.c
+  event.c
+  image.c
+  j2k.c
+  jp2.c
+  mct.c
+  mqc.c
+  openjpeg.c
+  pi.c
+  raw.c
+  t1.c
+  t2.c
+  tcd.c
+  tgt.c
+  Generating Code...
+  function_list.c
+  invert.c
+  opj_clock.c
+  Generating Code...
+  LibOpenJPEG.2013.vcxproj -> D:\Projects\Engine_Project\PrimeEngine\Dependencies\FreeImage\Source\LibOpenJPEG\.\x64\Release\LibOpenJPEG.lib

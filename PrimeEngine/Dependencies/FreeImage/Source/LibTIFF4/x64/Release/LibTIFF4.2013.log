@@ -1,0 +1,70 @@
+﻿  tif_aux.c
+  tif_close.c
+  tif_codec.c
+  tif_color.c
+  tif_compress.c
+  tif_dir.c
+  tif_dirinfo.c
+  tif_dirread.c
+  tif_dirwrite.c
+  tif_dumpmode.c
+  tif_error.c
+  tif_extension.c
+  tif_fax3.c
+  tif_fax3sm.c
+  tif_flush.c
+  tif_getimage.c
+  tif_jpeg.c
+tif_jpeg.c(1842): warning C4244: '=': conversion from 'tmsize_t' to 'int', possible loss of data
+  tif_luv.c
+  tif_lzma.c
+  tif_lzw.c
+  Generating Code...
+  Compiling...
+  tif_next.c
+  tif_ojpeg.c
+tif_ojpeg.c(618): warning C4477: 'fprintf' : format string '%lu' requires an argument of type 'unsigned long', but variadic argument 1 has type 'uint64'
+  tif_ojpeg.c(618): note: consider using '%llu' in the format string
+  tif_ojpeg.c(618): note: consider using '%Iu' in the format string
+  tif_ojpeg.c(618): note: consider using '%I64u' in the format string
+tif_ojpeg.c(620): warning C4477: 'fprintf' : format string '%lu' requires an argument of type 'unsigned long', but variadic argument 1 has type 'uint64'
+  tif_ojpeg.c(620): note: consider using '%llu' in the format string
+  tif_ojpeg.c(620): note: consider using '%Iu' in the format string
+  tif_ojpeg.c(620): note: consider using '%I64u' in the format string
+tif_ojpeg.c(625): warning C4477: 'fprintf' : format string '%lu' requires an argument of type 'unsigned long', but variadic argument 1 has type 'uint64'
+  tif_ojpeg.c(625): note: consider using '%llu' in the format string
+  tif_ojpeg.c(625): note: consider using '%Iu' in the format string
+  tif_ojpeg.c(625): note: consider using '%I64u' in the format string
+tif_ojpeg.c(632): warning C4477: 'fprintf' : format string '%lu' requires an argument of type 'unsigned long', but variadic argument 1 has type 'uint64'
+  tif_ojpeg.c(632): note: consider using '%llu' in the format string
+  tif_ojpeg.c(632): note: consider using '%Iu' in the format string
+  tif_ojpeg.c(632): note: consider using '%I64u' in the format string
+tif_ojpeg.c(639): warning C4477: 'fprintf' : format string '%lu' requires an argument of type 'unsigned long', but variadic argument 1 has type 'uint64'
+  tif_ojpeg.c(639): note: consider using '%llu' in the format string
+  tif_ojpeg.c(639): note: consider using '%Iu' in the format string
+  tif_ojpeg.c(639): note: consider using '%I64u' in the format string
+tif_ojpeg.c(1777): warning C4244: '=': conversion from 'tmsize_t' to 'uint32', possible loss of data
+tif_ojpeg.c(1820): warning C4244: '=': conversion from 'tmsize_t' to 'uint32', possible loss of data
+tif_ojpeg.c(1841): warning C4244: '=': conversion from 'tmsize_t' to 'uint32', possible loss of data
+tif_ojpeg.c(1884): warning C4244: '=': conversion from 'tmsize_t' to 'uint32', possible loss of data
+tif_ojpeg.c(1905): warning C4244: '=': conversion from 'tmsize_t' to 'uint32', possible loss of data
+  tif_open.c
+  tif_packbits.c
+  tif_pixarlog.c
+tif_pixarlog.c(925): warning C4244: '=': conversion from 'tmsize_t' to 'uInt', possible loss of data
+  tif_predict.c
+  tif_print.c
+tif_print.c(398): warning C4244: 'initializing': conversion from '__int64' to 'int', possible loss of data
+tif_print.c(678): warning C4267: 'function': conversion from 'size_t' to 'int', possible loss of data
+  tif_read.c
+  tif_strip.c
+  tif_swab.c
+  tif_thunder.c
+  tif_tile.c
+  tif_version.c
+  tif_warning.c
+  tif_write.c
+  tif_zip.c
+tif_zip.c(243): warning C4244: '=': conversion from 'tmsize_t' to 'uInt', possible loss of data
+  Generating Code...
+  LibTIFF4.2013.vcxproj -> D:\Projects\Engine_Project\PrimeEngine\Dependencies\FreeImage\Source\LibTIFF4\.\x64\Release\LibTIFF4.lib

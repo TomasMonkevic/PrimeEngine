@@ -1,0 +1,132 @@
+﻿  BitmapAccess.cpp
+  ColorLookup.cpp
+  ConversionRGBA16.cpp
+  ConversionRGBAF.cpp
+  FreeImage.cpp
+  FreeImageIO.cpp
+  GetType.cpp
+  LFPQuantizer.cpp
+  MemoryIO.cpp
+  PixelAccess.cpp
+  NNQuantizer.cpp
+  WuQuantizer.cpp
+  Conversion.cpp
+  Conversion16_555.cpp
+  Conversion16_565.cpp
+  Conversion24.cpp
+  Conversion32.cpp
+  Conversion4.cpp
+  Conversion8.cpp
+  ConversionFloat.cpp
+  Generating Code...
+  Compiling...
+  ConversionRGB16.cpp
+  ConversionRGBF.cpp
+  ConversionType.cpp
+  ConversionUINT16.cpp
+  Halftoning.cpp
+  tmoColorConvert.cpp
+  tmoDrago03.cpp
+  tmoFattal02.cpp
+  tmoReinhard05.cpp
+  ToneMapping.cpp
+  J2KHelper.cpp
+  MNGHelper.cpp
+  Plugin.cpp
+  PluginBMP.cpp
+  PluginCUT.cpp
+  PluginDDS.cpp
+  PluginEXR.cpp
+  PluginG3.cpp
+  PluginGIF.cpp
+..\FreeImage\PluginGIF.cpp(1030): warning C4477: 'sprintf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'std::size_t'
+  ..\FreeImage\PluginGIF.cpp(1030): note: consider using '%zd' in the format string
+  PluginHDR.cpp
+  Generating Code...
+  Compiling...
+  PluginICO.cpp
+  PluginIFF.cpp
+  PluginJ2K.cpp
+  PluginJNG.cpp
+  PluginJP2.cpp
+  PluginJPEG.cpp
+  PluginJXR.cpp
+  PluginKOALA.cpp
+  PluginMNG.cpp
+  PluginPCD.cpp
+  PluginPCX.cpp
+  PluginPFM.cpp
+  PluginPICT.cpp
+  PluginPNG.cpp
+  PluginPNM.cpp
+  PluginPSD.cpp
+  PluginRAS.cpp
+  PluginRAW.cpp
+  PluginSGI.cpp
+  PluginTARGA.cpp
+  Generating Code...
+  Compiling...
+  PluginTIFF.cpp
+  PluginWBMP.cpp
+  PluginWebP.cpp
+  PluginXBM.cpp
+  PluginXPM.cpp
+  PSDParser.cpp
+  TIFFLogLuv.cpp
+  Deprecated.cpp
+  DeprecationMgr.cpp
+..\DeprecationManager\DeprecationMgr.cpp(49): warning C4477: 'sprintf' : format string '%i' requires an argument of type 'int', but variadic argument 2 has type 'unsigned __int64'
+  ..\DeprecationManager\DeprecationMgr.cpp(49): note: consider using '%zi' in the format string
+  CacheFile.cpp
+  MultiPage.cpp
+  ZLibInterface.cpp
+  Exif.cpp
+  FIRational.cpp
+  FreeImageTag.cpp
+  IPTC.cpp
+  TagConversion.cpp
+..\Metadata\TagConversion.cpp(202): warning C4477: 'sprintf' : format string '%ld' requires an argument of type 'long', but variadic argument 1 has type 'UINT64'
+  ..\Metadata\TagConversion.cpp(202): note: consider using '%lld' in the format string
+  ..\Metadata\TagConversion.cpp(202): note: consider using '%Id' in the format string
+  ..\Metadata\TagConversion.cpp(202): note: consider using '%I64d' in the format string
+..\Metadata\TagConversion.cpp(205): warning C4477: 'sprintf' : format string '%ld' requires an argument of type 'long', but variadic argument 1 has type 'UINT64'
+  ..\Metadata\TagConversion.cpp(205): note: consider using '%lld' in the format string
+  ..\Metadata\TagConversion.cpp(205): note: consider using '%Id' in the format string
+  ..\Metadata\TagConversion.cpp(205): note: consider using '%I64d' in the format string
+..\Metadata\TagConversion.cpp(215): warning C4477: 'sprintf' : format string '%X' requires an argument of type 'unsigned int', but variadic argument 1 has type 'UINT64'
+  ..\Metadata\TagConversion.cpp(215): note: consider using '%llX' in the format string
+  ..\Metadata\TagConversion.cpp(215): note: consider using '%IX' in the format string
+  ..\Metadata\TagConversion.cpp(215): note: consider using '%I64X' in the format string
+..\Metadata\TagConversion.cpp(218): warning C4477: 'sprintf' : format string '%X' requires an argument of type 'unsigned int', but variadic argument 1 has type 'UINT64'
+  ..\Metadata\TagConversion.cpp(218): note: consider using '%llX' in the format string
+  ..\Metadata\TagConversion.cpp(218): note: consider using '%IX' in the format string
+  ..\Metadata\TagConversion.cpp(218): note: consider using '%I64X' in the format string
+..\Metadata\TagConversion.cpp(228): warning C4477: 'sprintf' : format string '%ld' requires an argument of type 'long', but variadic argument 1 has type 'INT64'
+  ..\Metadata\TagConversion.cpp(228): note: consider using '%lld' in the format string
+  ..\Metadata\TagConversion.cpp(228): note: consider using '%Id' in the format string
+  ..\Metadata\TagConversion.cpp(228): note: consider using '%I64d' in the format string
+..\Metadata\TagConversion.cpp(231): warning C4477: 'sprintf' : format string '%ld' requires an argument of type 'long', but variadic argument 1 has type 'INT64'
+  ..\Metadata\TagConversion.cpp(231): note: consider using '%lld' in the format string
+  ..\Metadata\TagConversion.cpp(231): note: consider using '%Id' in the format string
+  ..\Metadata\TagConversion.cpp(231): note: consider using '%I64d' in the format string
+  TagLib.cpp
+  XTIFF.cpp
+  Background.cpp
+  Generating Code...
+  Compiling...
+  BSplineRotate.cpp
+  Channels.cpp
+  ClassicRotate.cpp
+  Colors.cpp
+  CopyPaste.cpp
+  Display.cpp
+  Flip.cpp
+  JPEGTransform.cpp
+  MultigridPoissonSolver.cpp
+  Rescale.cpp
+  Resize.cpp
+  Generating Code...
+  FreeImageLib.2013.vcxproj -> D:\Projects\Engine_Project\PrimeEngine\Dependencies\FreeImage\Source\FreeImageLib\.\x64\Release\FreeImageLib.lib
+  A subdirectory or file ..\..\Dist\x64 already exists.
+          1 file(s) copied.
+          1 file(s) copied.
