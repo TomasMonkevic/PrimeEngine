@@ -15,6 +15,7 @@
 
 #define SHADER_POSITION_INDEX 0
 #define SHADER_COLOR_INDEX 1
+#define SHADER_TEXTURE_INDEX 2
 
 namespace PrimeEngine { namespace Graphics {
 

@@ -14,9 +14,11 @@ namespace PrimeEngine { namespace Graphics {
 
 		glEnableVertexAttribArray(SHADER_POSITION_INDEX);
 		glEnableVertexAttribArray(SHADER_COLOR_INDEX);
+		glEnableVertexAttribArray(SHADER_TEXTURE_INDEX);
 
 		glVertexAttribPointer(SHADER_POSITION_INDEX, 3, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, NULL);
 		glVertexAttribPointer(SHADER_COLOR_INDEX, 4, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(VertexData, VertexData::color)));
+		glVertexAttribPointer(SHADER_TEXTURE_INDEX, 2, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(VertexData, VertexData::textureCord)));
 
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 
@@ -53,21 +55,26 @@ namespace PrimeEngine { namespace Graphics {
 	{
 		const Math::Vector4& color = renderable2D->GetColor();
 		const Math::Vector2& size = renderable2D->GetSize();
+		//const Math::Vector2* textCords = renderable2D->GetTextureCords();
 
 		_buffer->position = *_transformationStackBack * renderable2D->GetModelMatrix() * Math::Vector3(-size.x / 2.0f, size.y / 2.0f, 0);
 		_buffer->color = color;
+		_buffer->textureCord = renderable2D->GetTextureCords(0);
 		_buffer++;
 
 		_buffer->position = *_transformationStackBack * renderable2D->GetModelMatrix() * Math::Vector3(size.x / 2.0f,  size.y / 2.0f, 0);
 		_buffer->color = color;
+		_buffer->textureCord = renderable2D->GetTextureCords(1);
 		_buffer++;
 
 		_buffer->position = *_transformationStackBack * renderable2D->GetModelMatrix() * Math::Vector3(size.x / 2.0f, -size.y / 2.0f, 0);
 		_buffer->color = color;
+		_buffer->textureCord = renderable2D->GetTextureCords(2);
 		_buffer++;
 
 		_buffer->position = *_transformationStackBack * renderable2D->GetModelMatrix() * Math::Vector3(-size.x / 2.0f, -size.y / 2.0f, 0);
 		_buffer->color = color;
+		_buffer->textureCord = renderable2D->GetTextureCords(3);
 		_buffer++;
 
 		_indexCount += 6;

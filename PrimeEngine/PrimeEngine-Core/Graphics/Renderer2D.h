@@ -9,12 +9,6 @@ namespace PrimeEngine { namespace Graphics {
 
 	class Renderable2D;
 
-	struct VertexData
-	{
-		Math::Vector3 position;
-		Math::Vector4 color;
-	};
-
 	class PRIMEENGINEAPI Renderer2D
 	{
 	protected:

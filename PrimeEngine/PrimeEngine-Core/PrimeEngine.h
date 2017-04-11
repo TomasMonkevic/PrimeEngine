@@ -1,8 +1,9 @@
-#ifndef PRIMEENGINE_H
-#define PRIMEENGINE_H
+#ifndef PRIME_ENGINE_H
+#define PRIME_ENGINE_H
 
 #include "Utilities\Time.h"
 #include "Graphics\Window.h"
+//#include <FreeImage.h>
 #include "DllExport.h"
 
 namespace PrimeEngine {
@@ -86,10 +87,16 @@ namespace PrimeEngine {
 	public:
 		void Play()
 		{
+//#ifdef FREEIMAGE_LIB //this should not be here
+//			FreeImage_Initialise();
+//#endif
 			Awake();
 			Run();
+//#ifdef FREEIMAGE_LIB
+//			FreeImage_DeInitialise();
+//#endif
 		}
 	};
 }
 
-#endif // !PRIMEENGINE_H
+#endif // !PRIME_ENGINE_H

@@ -1,5 +1,5 @@
-#ifndef RENDERABLE2D
-#define RENDERABLE2D
+#ifndef PRIME_RENDERABLE2D
+#define PRIME_RENDERABLE2D
 
 #include <GL\glew.h>
 #include "..\Core\Math.h"
@@ -7,6 +7,13 @@
 #include "..\DllExport.h"
 
 namespace PrimeEngine { namespace Graphics {
+
+	struct VertexData
+	{
+		Math::Vector3 position;
+		Math::Vector4 color;
+		Math::Vector2 textureCord;
+	};
 
 	class PRIMEENGINEAPI Renderable2D //might need to seperate translation component from renderable
 	{
@@ -17,11 +24,22 @@ namespace PrimeEngine { namespace Graphics {
 
 		Math::Vector2 _size;
 		Math::Vector4 _color;
+		Math::Vector2 _textureCord[4];
+
+	private:
+		void SetTextureCords()
+		{
+			_textureCord[0] = Math::Vector2(0, 1);
+			_textureCord[1] = Math::Vector2(1, 1);
+			_textureCord[2] = Math::Vector2(1, 0);
+			_textureCord[3] = Math::Vector2(0, 0);
+		}
+
 	public:
 		Renderable2D(const Math::Vector3& position, const Math::Vector2& size, const Math::Vector4& color)
 			: _position(position), _size(size), _color(color)
 		{
-
+			SetTextureCords();
 		}
 
 		virtual ~Renderable2D()
@@ -68,7 +86,12 @@ namespace PrimeEngine { namespace Graphics {
 		{
 			return _color;
 		}
+
+		inline const Math::Vector2& GetTextureCords(unsigned index) const
+		{
+			return _textureCord[index];
+		}
 	};
 }}
 
-#endif // !RENDERABLE2D
+#endif // !PRIME_RENDERABLE2D

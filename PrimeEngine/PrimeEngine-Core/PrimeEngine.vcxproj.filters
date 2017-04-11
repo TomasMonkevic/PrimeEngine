@@ -48,7 +48,8 @@
     <ClInclude Include="Graphics\Sprite.h" />
     <ClInclude Include="Graphics\Layers\Layer.h" />
     <ClInclude Include="Graphics\Layers\Group.h" />
-    <ClInclude Include="TestTexture.h" />
+    <ClInclude Include="Graphics\Texture.h" />
+    <ClInclude Include="Utilities\ImageLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Input.cpp">
@@ -79,7 +80,7 @@
     <ClCompile Include="Graphics\Sprite.cpp" />
     <ClCompile Include="Graphics\Layers\Layer.cpp" />
     <ClCompile Include="Graphics\Layers\Group.cpp" />
-    <ClCompile Include="TestTexture.cpp" />
+    <ClCompile Include="Graphics\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\standard.frag" />
