@@ -1,4 +1,4 @@
-#include "TestGame.h"
+#include "Game.h"
 
 #define TEST_GAME true
 
@@ -17,6 +17,5 @@ int main()
 		system("PAUSE");
 	}
 #endif
-	cout << "Opa" << endl;
 	return 0;
 }

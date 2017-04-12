@@ -3,7 +3,7 @@
 namespace PrimeEngine { namespace Graphics {
 
 	Group::Group(const Math::Vector3& position, const Math::Vector2& size)
-		: Renderable2D(position, size, Math::Vector4::zero)
+		: Renderable2D(position, size, NULL, Math::Vector4::zero)
 	{
 		_children = new std::vector<Renderable2D*>;
 	}

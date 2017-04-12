@@ -6,6 +6,12 @@ namespace PrimeEngine { namespace Graphics {
 		: _renderer(renderer), camera(_camera)
 	{
 		_renderables = new std::vector<Renderable2D*>;
+		GLint texIds[32]; //should be moved somewhere else?
+		for (unsigned i = 0; i < 32; i++)
+		{
+			texIds[i] = i;
+		} //----------
+		camera->_shader->SetUniform("textures", texIds, 32);
 	}
 
 	Layer::~Layer() //don't take control of renderables

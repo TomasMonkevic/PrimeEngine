@@ -12,6 +12,7 @@ namespace PrimeEngine { namespace Graphics {
 
 	public:
 		Sprite(const Math::Vector3& position, const Math::Vector2& size, const Math::Vector4& color);
+		Sprite(const Math::Vector3& position, const Math::Vector2& size, Texture* texture, const Math::Vector4& color = Math::Vector4::one);
 		~Sprite() override;
 	};
 }}

@@ -15,7 +15,8 @@
 
 #define SHADER_POSITION_INDEX 0
 #define SHADER_COLOR_INDEX 1
-#define SHADER_TEXTURE_INDEX 2
+#define SHADER_TEXTURE_CORD_INDEX 2
+#define SHADER_TEXTURE_INDEX 3
 
 namespace PrimeEngine { namespace Graphics {
 
@@ -27,6 +28,8 @@ namespace PrimeEngine { namespace Graphics {
 		GLuint _vao;
 		GLuint _vbo;
 		GLsizei _indexCount;
+		std::vector<GLuint>* _textureSlots;
+
 	public:
 		BatchRenderer2D();
 		~BatchRenderer2D();

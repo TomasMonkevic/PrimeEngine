@@ -3,7 +3,9 @@
   <ItemGroup>
     <ClCompile Include="TicTacToe.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="TestGame.h" />
-    <ClCompile Include="TestGame.cpp" />
+    <ClCompile Include="Game.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Game.h" />
   </ItemGroup>
 </Project>

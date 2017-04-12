@@ -6,9 +6,8 @@ namespace PrimeEngine { namespace Graphics {
 	Camera::Camera(Shader* shader, const Math::Matrix4x4& projectionMatrix) :
 		_shader(shader), _projectionMatrix(projectionMatrix)
 	{
-		//_shader->Enable();
+		_shader->Enable();
 		_shader->SetUniform("pr_matrix", _projectionMatrix);
-		//_shader->Disable();
 	}
 
 	Camera::~Camera()

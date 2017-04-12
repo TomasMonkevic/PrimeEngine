@@ -81,6 +81,7 @@
     <ClCompile Include="Graphics\Layers\Layer.cpp" />
     <ClCompile Include="Graphics\Layers\Group.cpp" />
     <ClCompile Include="Graphics\Texture.cpp" />
+    <ClCompile Include="PrimeEngine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\standard.frag" />

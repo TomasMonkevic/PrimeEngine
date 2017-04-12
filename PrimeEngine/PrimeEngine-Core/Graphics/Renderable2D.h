@@ -4,6 +4,7 @@
 #include <GL\glew.h>
 #include "..\Core\Math.h"
 #include "Renderer2D.h"
+#include "Texture.h"
 #include "..\DllExport.h"
 
 namespace PrimeEngine { namespace Graphics {
@@ -13,6 +14,7 @@ namespace PrimeEngine { namespace Graphics {
 		Math::Vector3 position;
 		Math::Vector4 color;
 		Math::Vector2 textureCord;
+		float texture;
 	};
 
 	class PRIMEENGINEAPI Renderable2D //might need to seperate translation component from renderable
@@ -23,8 +25,9 @@ namespace PrimeEngine { namespace Graphics {
 		Math::Vector3 _scale = Math::Vector3::one;
 
 		Math::Vector2 _size;
-		Math::Vector4 _color;
+		Math::Vector4 _color = Math::Vector4::one;
 		Math::Vector2 _textureCord[4];
+		Texture* _texture;
 
 	private:
 		void SetTextureCords()
@@ -36,8 +39,8 @@ namespace PrimeEngine { namespace Graphics {
 		}
 
 	public:
-		Renderable2D(const Math::Vector3& position, const Math::Vector2& size, const Math::Vector4& color)
-			: _position(position), _size(size), _color(color)
+		Renderable2D(const Math::Vector3& position, const Math::Vector2& size, Texture* texture, const Math::Vector4& color) //change the same as sprite constructor
+			: _position(position), _size(size), _texture(texture), _color(color)
 		{
 			SetTextureCords();
 		}
@@ -67,7 +70,7 @@ namespace PrimeEngine { namespace Graphics {
 			_scale = scale;
 		}
 
-		inline Math::Matrix4x4 GetModelMatrix() const
+		inline const Math::Matrix4x4 GetModelMatrix() const
 		{
 			return Math::Matrix4x4::TRS(_position, _rotationMatrix, _scale);
 		}
@@ -90,6 +93,11 @@ namespace PrimeEngine { namespace Graphics {
 		inline const Math::Vector2& GetTextureCords(unsigned index) const
 		{
 			return _textureCord[index];
+		}
+
+		inline const GLuint GetTextureId() const
+		{
+			return _texture == NULL ? 0 : _texture->GetId();
 		}
 	};
 }}

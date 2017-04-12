@@ -3,7 +3,7 @@
 namespace PrimeEngine { namespace Graphics {
 
 	SimpleSprite::SimpleSprite(const Math::Vector3& position, const Math::Vector2& size, const Math::Vector4& color, Shader& shader)
-		: Renderable2D(position, size, color), _shader(shader)
+		: Renderable2D(position, size, NULL, color), _shader(shader)
 	{
 		_vertexArray = new VertexArray();
 

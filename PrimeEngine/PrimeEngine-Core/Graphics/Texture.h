@@ -22,6 +22,11 @@ namespace PrimeEngine { namespace Graphics {
 
 		void Bind() const;
 		void Unbind() const;
+
+		inline const GLuint GetId() const
+		{
+			return _Id;
+		}
 	};
 }}
 

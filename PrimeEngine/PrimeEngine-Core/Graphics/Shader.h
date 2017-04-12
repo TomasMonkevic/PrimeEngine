@@ -1,5 +1,5 @@
-#ifndef PRIMEENGINE_SHADER
-#define PRIMEENGINE_SHADER
+#ifndef PRIME_SHADER
+#define PRIME_SHADER
 
 #include <GL\glew.h>
 #include "..\Utilities\File.h"
@@ -30,10 +30,12 @@ namespace PrimeEngine { namespace Graphics {
 		void SetUniform(const GLchar* name, const Math::Vector2& vector2);
 		void SetUniform(const GLchar* name, float value);
 		void SetUniform(const GLchar* name, int value);
+		void SetUniform(const GLchar* name, int values[], int size);
+
 
 		void Enable() const;
 		void Disable() const;
 	};
 
 }}
-#endif // !PRIMEENGINE_SHADER
+#endif // !PRIME_SHADER

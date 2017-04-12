@@ -3,6 +3,7 @@
 layout (location = 0) in vec4 position;
 layout (location = 1) in vec4 color;
 layout (location = 2) in vec2 textureCord;
+layout (location = 3) in float texture;
 
 uniform mat4 pr_matrix;
 uniform mat4 view_matrix = mat4(1.0f);
@@ -13,6 +14,7 @@ out data
 	vec4 position;
 	vec4 color; //only color needed
 	vec2 texCord;
+	float texture;
 } vs_out;
 
 void main()
@@ -21,4 +23,5 @@ void main()
 	vs_out.position = model_matrix * position;
 	vs_out.color = color;
 	vs_out.texCord = textureCord;
+	vs_out.texture = texture;
 }

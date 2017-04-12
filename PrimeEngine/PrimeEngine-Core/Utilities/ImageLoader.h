@@ -2,15 +2,11 @@
 #define PRIME_IMAGE_LOADER
 
 #include <FreeImage.h>
-#include <iostream> //teamp
 
 namespace PrimeEngine {
 
 	static BYTE* LoadImage(const char* path, unsigned* width, unsigned* height)
 	{
-		#ifdef FREEIMAGE_LIB //this should not be here
-					FreeImage_Initialise();
-		#endif
 		FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;
 		FIBITMAP* dib = NULL;
 		fif = FreeImage_GetFileType(path, 0);
@@ -23,31 +19,25 @@ namespace PrimeEngine {
 		if (!dib)
 			return NULL;
 
-		BYTE* result = FreeImage_GetBits(dib);
-		*width = FreeImage_GetWidth(dib);
-		*height = FreeImage_GetHeight(dib);
+		unsigned bitsPerPixel = FreeImage_GetBPP(dib);
+		FIBITMAP* bitmap32;
+		//if not 32 bit depth -> convert to it
+		//is converting the best solution?
+		if (bitsPerPixel == 32)
+		{
+			bitmap32 = dib;
+		}
+		else
+		{
+			bitmap32 = FreeImage_ConvertTo32Bits(dib);
+		}
+		//----
+		BYTE* result = FreeImage_GetBits(bitmap32);
+		*width = FreeImage_GetWidth(bitmap32);
+		*height = FreeImage_GetHeight(bitmap32);
 
 		if ((result == 0) || (width == 0) || (height == 0))
 			return NULL;
-
-		//Delete this later:
-
-		//std::cout << *width << " " << *height << std::endl;
-		//std::cout << FreeImage_GetImageType(dib) << std::endl;
-		//unsigned bytespp = FreeImage_GetPitch(dib);
-		//for (unsigned y = 0; y < *height; y++)
-		//{
-		//	BYTE *pixel = (BYTE*)result;
-		//	for (unsigned x = 0; x < *width; x++)
-		//	{
-		//		// Set pixel color to green with a transparency of 128
-		//		std::cout << +pixel[FI_RGBA_RED] << " " << +pixel[FI_RGBA_GREEN] << " " << +pixel[FI_RGBA_BLUE] << " " << +pixel[FI_RGBA_ALPHA] << std::endl;
-		//		pixel += 4;
-		//		// jump to next pixel
-		//	}
-		//	result += bytespp;
-		//}
-
 		//FreeImage_Unload(dib);
 		return result;
 	}

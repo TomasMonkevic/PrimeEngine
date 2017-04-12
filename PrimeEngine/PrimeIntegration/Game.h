@@ -64,16 +64,24 @@ class TestGame : public PrimeEngine::PrimeEngine
 private:
 	float speed = 10.0f;
 	Shader *gameShader, *uiShader;
-	Texture* texture;
 	GameLayer* gameLayer;
 	FakeUILayer* uiLayer;
 	Sprite *sprite1;
 	Group *button, *buttonContainer;
 	Camera* mainCamera;
+	Texture* texture;
+	Texture* texture2;
+	Texture* texture3;
 
 public:
-	TestGame();
-	~TestGame();
+	~TestGame() 
+	{
+		delete uiLayer;
+		delete gameLayer;
+		delete sprite1;
+		delete button;
+		delete buttonContainer;
+	}
 	void Awake() override;
 	void Update() override;
 	void Tick() override;
