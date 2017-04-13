@@ -1,5 +1,4 @@
 TODO:
-- !Make sure to delete unused resources in build paths
 - !Refactor file system
 - Test textures with different depths
 - Test texture overfloaing

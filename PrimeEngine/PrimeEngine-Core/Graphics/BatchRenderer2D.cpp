@@ -80,7 +80,7 @@ namespace PrimeEngine { namespace Graphics {
 			if (!isTextureFound)
 			{
 				//need to test this
-				if (_textureSlots->size() >= 32) //32 - max opengl unit texture count
+				if (_textureSlots->size() >= MAX_TEXTURE_COUNT)
 				{
 					End();
 					Flush();

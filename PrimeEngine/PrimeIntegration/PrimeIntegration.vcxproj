@@ -143,7 +143,8 @@
       </Command>
     </PreLinkEvent>
     <PostBuildEvent>
-      <Command>mkdir "$(ProjectDir)..\..\Build\$(Platform)\$(Configuration)\Resources"
+      <Command>rd /S /Q "$(ProjectDir)..\..\Build\$(Platform)\$(Configuration)\Resources"
+mkdir "$(ProjectDir)..\..\Build\$(Platform)\$(Configuration)\Resources"
 xcopy $(ProjectDir)Resources "$(ProjectDir)..\..\Build\$(Platform)\$(Configuration)\Resources" /E /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -181,7 +182,8 @@ xcopy $(ProjectDir)Resources "$(ProjectDir)..\..\Build\$(Platform)\$(Configurati
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>mkdir "$(ProjectDir)..\..\Build\$(Platform)\$(Configuration)\Resources"
+      <Command>rd /S /Q "$(ProjectDir)..\..\Build\$(Platform)\$(Configuration)\Resources"
+mkdir "$(ProjectDir)..\..\Build\$(Platform)\$(Configuration)\Resources"
 xcopy $(ProjectDir)Resources "$(ProjectDir)..\..\Build\$(Platform)\$(Configuration)\Resources" /E /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>

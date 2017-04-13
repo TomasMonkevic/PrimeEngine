@@ -12,7 +12,7 @@ in data
 	float texture;
 } fs_in;
 
-uniform sampler2D textures[32];
+uniform sampler2D textures[8];
 
  void main()
  {
