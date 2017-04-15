@@ -2,6 +2,7 @@
 #define PRIME_IMAGE_LOADER
 
 #include <FreeImage.h>
+#include <iostream> //temp
 
 namespace PrimeEngine {
 
@@ -20,26 +21,37 @@ namespace PrimeEngine {
 			return NULL;
 
 		unsigned bitsPerPixel = FreeImage_GetBPP(dib);
-		FIBITMAP* bitmap32;
 		//if not 32 bit depth -> convert to it
 		//is converting the best solution?
-		if (bitsPerPixel == 32)
+		if (bitsPerPixel != 32)
 		{
-			bitmap32 = dib;
-		}
-		else
-		{
-			bitmap32 = FreeImage_ConvertTo32Bits(dib);
+			FIBITMAP* tempImage = dib;
+			dib = FreeImage_ConvertTo32Bits(tempImage);
 		}
 		//----
-		BYTE* result = FreeImage_GetBits(bitmap32);
-		*width = FreeImage_GetWidth(bitmap32);
-		*height = FreeImage_GetHeight(bitmap32);
+		*width = FreeImage_GetWidth(dib);
+		*height = FreeImage_GetHeight(dib);
+		BYTE* pixels = (BYTE*)FreeImage_GetBits(dib);
 
-		if ((result == 0) || (width == 0) || (height == 0))
+		if ((pixels == 0) || (*width == 0) || (*height == 0))
 			return NULL;
+
+		//BYTE* bits = new BYTE[*width * *height * 4];
+		//for (unsigned i = 0; i < *width * *height; i++) //form BGRA to RGBA
+		//{
+		//	bits[i * 4 + 0] = pixels[i * 4 + 2];
+		//	//std::cout << bits[i * 4 + 0] << " ";
+		//	bits[i * 4 + 1] = pixels[i * 4 + 1];
+		//	//std::cout << bits[i * 4 + 1] << " ";
+		//	bits[i * 4 + 2] = pixels[i * 4 + 0];
+		//	//std::cout << bits[i * 4 + 2] << " ";
+		//	bits[i * 4 + 3] = pixels[i * 4 + 3];
+		//	//std::cout << bits[i * 4 + 3] << std::endl;
+		//}
+
 		//FreeImage_Unload(dib);
-		return result;
+		//clean up memory
+		return pixels;
 	}
 }
 

@@ -83,8 +83,4 @@
     <ClCompile Include="Graphics\Texture.cpp" />
     <ClCompile Include="PrimeEngine.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Shaders\standard.frag" />
-    <None Include="Shaders\standard.vert" />
-  </ItemGroup>
 </Project>

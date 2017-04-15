@@ -31,6 +31,10 @@
   <ItemGroup>
     <ClInclude Include="Game.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Shaders\standard.frag" />
+    <None Include="Resources\Shaders\standard.vert" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{303A2AAB-9E45-49B4-8F10-A24E54D1FE4E}</ProjectGuid>
     <RootNamespace>PrimeIntegration</RootNamespace>

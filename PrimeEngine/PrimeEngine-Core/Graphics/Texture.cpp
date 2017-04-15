@@ -31,7 +31,7 @@ namespace PrimeEngine { namespace Graphics {
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, _width, _width, 0, GL_BGRA, GL_UNSIGNED_BYTE, image); //doesn't work for every image format
 		glBindTexture(GL_TEXTURE_2D, 0);
 		glGenerateMipmap(GL_TEXTURE_2D);
-		//delete image;
+		//delete[] image;
 		//need to clean up image memory!!!!!!!!!!!!!
 		return result;
 	}

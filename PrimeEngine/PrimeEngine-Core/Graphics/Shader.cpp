@@ -90,8 +90,8 @@ namespace PrimeEngine { namespace Graphics {
 			char* error = new char[lenght + 1];
 			glGetShaderInfoLog(vertexShader, lenght, &lenght, error);
 			glDeleteShader(vertexShader);
-			char* errorMsg = new char[sizeof(error) + 50];
-			sprintf_s(errorMsg, sizeof(error) + 50, "Failed to compile vertex shader:\n%s \n", error);
+			char* errorMsg = new char[sizeof(error) + 100];
+			sprintf_s(errorMsg, sizeof(error) + 100, "Failed to compile vertex shader:\n%s \n", error);
 			PrimeException errorCompiling(errorMsg, -1);
 			throw errorCompiling;
 		}

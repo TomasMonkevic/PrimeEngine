@@ -8,4 +8,8 @@
   <ItemGroup>
     <ClInclude Include="Game.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Shaders\standard.frag" />
+    <None Include="Resources\Shaders\standard.vert" />
+  </ItemGroup>
 </Project>
