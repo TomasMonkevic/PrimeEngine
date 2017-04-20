@@ -50,6 +50,7 @@
     <ClInclude Include="Graphics\Layers\Group.h" />
     <ClInclude Include="Graphics\Texture.h" />
     <ClInclude Include="Utilities\ImageLoader.h" />
+    <ClInclude Include="Utilities\Log.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Input.cpp">

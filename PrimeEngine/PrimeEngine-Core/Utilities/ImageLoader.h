@@ -2,7 +2,6 @@
 #define PRIME_IMAGE_LOADER
 
 #include <FreeImage.h>
-#include <iostream> //temp
 
 namespace PrimeEngine {
 
@@ -35,20 +34,6 @@ namespace PrimeEngine {
 
 		if ((pixels == 0) || (*width == 0) || (*height == 0))
 			return NULL;
-
-		//BYTE* bits = new BYTE[*width * *height * 4];
-		//for (unsigned i = 0; i < *width * *height; i++) //form BGRA to RGBA
-		//{
-		//	bits[i * 4 + 0] = pixels[i * 4 + 2];
-		//	//std::cout << bits[i * 4 + 0] << " ";
-		//	bits[i * 4 + 1] = pixels[i * 4 + 1];
-		//	//std::cout << bits[i * 4 + 1] << " ";
-		//	bits[i * 4 + 2] = pixels[i * 4 + 0];
-		//	//std::cout << bits[i * 4 + 2] << " ";
-		//	bits[i * 4 + 3] = pixels[i * 4 + 3];
-		//	//std::cout << bits[i * 4 + 3] << std::endl;
-		//}
-
 		//FreeImage_Unload(dib);
 		//clean up memory
 		return pixels;

@@ -50,6 +50,7 @@
     <ClInclude Include="PrimeException.h" />
     <ClInclude Include="Utilities\File.h" />
     <ClInclude Include="Utilities\ImageLoader.h" />
+    <ClInclude Include="Utilities\Log.h" />
     <ClInclude Include="Utilities\Time.h" />
   </ItemGroup>
   <ItemGroup>
@@ -184,7 +185,7 @@
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <UndefinePreprocessorDefinitions>
       </UndefinePreprocessorDefinitions>
-      <PreprocessorDefinitions>FREEIMAGE_LIB;PRIME_WINDOWS;_PRIME_ENGINE;GLEW_BUILD; GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>FREEIMAGE_LIB;PRIME_WINDOWS;_PRIME_ENGINE;GLEW_BUILD;P_DEBUG; GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>

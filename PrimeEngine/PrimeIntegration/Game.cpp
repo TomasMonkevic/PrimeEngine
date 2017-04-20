@@ -23,8 +23,8 @@ void TestGame::Awake()
 	texture = new Texture("Resources\\Textures\\texture.png");
 	//texture2 = new Texture("Resources\\Textures\\textur2.png");
 	//texture3 = new Texture("Resources\\Textures\\1.jpg");
-	Texture* texture4 = new Texture("Resources\\Textures\\bc.png"); //openGL doesn't like this texture
-	sprite1 = new Sprite(Vector3(0, -0.5f, 0.1f), Vector2(1, 1), texture4, Vector4(0,0,1,1.0f));
+	//Texture* texture4 = new Texture("Resources\\Textures\\bc.png"); //openGL doesn't like this texture
+	sprite1 = new Sprite(Vector3(0, -0.5f, 0.1f), Vector2(1, 1), texture, Vector4(0,0,1,1.0f));
 	Sprite* sprite2 = new Sprite(Vector3(5, -0.5f, 0.1f), Vector2(1, 1), NULL);
 	Sprite* sprite3 = new Sprite(Vector3(0, -0.5f, 0.1f), Vector2(3, 1), texture);
 
