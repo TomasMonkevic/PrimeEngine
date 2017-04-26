@@ -1,6 +1,7 @@
 #ifndef PRIME_IMAGE_LOADER
 #define PRIME_IMAGE_LOADER
 
+#include "Log.h"
 #include <FreeImage.h>
 
 namespace PrimeEngine {
@@ -35,6 +36,9 @@ namespace PrimeEngine {
 		if ((pixels == 0) || (*width == 0) || (*height == 0))
 			return NULL;
 		//FreeImage_Unload(dib);
+		PlatformPrint(0, "Trololololoo \n");
+		char* bla = new char[5];
+		PRIME_ERROR(bla);
 		//clean up memory
 		return pixels;
 	}
