@@ -7,7 +7,7 @@
 namespace PrimeEngine { namespace Input {
 
 	//TODO: add key states: down, pressed, released;
-	class PRIMEENGINEAPI Input
+	class PRIMEENGINEAPI InputPC
 	{
 		friend void Graphics::Window::Initialize();
 	private:

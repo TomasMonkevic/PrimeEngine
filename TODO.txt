@@ -1,4 +1,6 @@
 TODO:
+- One file shader
+- Default shader
 - !Refactor file system
 - Test textures with different depths
 - Test texture overfloaing
@@ -11,7 +13,6 @@ TODO:
 - !Fix exception throwing [IN PROGRESS] //Are exception good for engines? Maybe logging system is enough?
 - KeyDown, KeyUp etc
 - Implement ViewportToScreen ect. methods
-- Logging system
 - Implement custom string class
 - Unify mouse and key presses
 - Improve networking

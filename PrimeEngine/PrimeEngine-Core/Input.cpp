@@ -3,27 +3,27 @@
 
 namespace PrimeEngine { namespace Input {
 
-	bool Input::keyPressed[GLFW_KEY_LAST + 1];
-	bool Input::mouseButtonPressed[GLFW_MOUSE_BUTTON_LAST + 1];
-	Math::Vector2 Input::mousePosition = Math::Vector2();
+	bool InputPC::keyPressed[GLFW_KEY_LAST + 1];
+	bool InputPC::mouseButtonPressed[GLFW_MOUSE_BUTTON_LAST + 1];
+	Math::Vector2 InputPC::mousePosition = Math::Vector2();
 
-	void Input::cursor_position_callback(GLFWwindow* window, double xpos, double ypos)
+	void InputPC::cursor_position_callback(GLFWwindow* window, double xpos, double ypos)
 	{
 		mousePosition.x = (float)xpos;
 		mousePosition.y = (float)ypos;
 	}
 
-	void Input::key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
+	void InputPC::key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 	{
 		keyPressed[key] = action != GLFW_RELEASE;
 	}
 
-	void Input::mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
+	void InputPC::mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 	{
 		mouseButtonPressed[button] = action != GLFW_RELEASE;
 	}
 
-	void Input::Initalize()
+	void InputPC::Initalize()
 	{
 		for (int i = 0; i < GLFW_KEY_LAST + 1; i++)
 		{
@@ -35,7 +35,7 @@ namespace PrimeEngine { namespace Input {
 		}
 	}
 
-	bool Input::KeyPressed(const unsigned int& key)
+	bool InputPC::KeyPressed(const unsigned int& key)
 	{
 		if (key > GLFW_KEY_LAST)
 		{
@@ -44,7 +44,7 @@ namespace PrimeEngine { namespace Input {
 		return keyPressed[key];
 	}
 
-	bool Input::MouseButtonPressed(unsigned int mouseButton)
+	bool InputPC::MouseButtonPressed(unsigned int mouseButton)
 	{
 		if (mouseButton > GLFW_MOUSE_BUTTON_LAST)
 		{

@@ -8,7 +8,7 @@
 
 namespace PrimeEngine {
 
-	class PRIMEENGINEAPI PrimeEngine
+	class PRIMEENGINEAPI PrimeEngineBase
 	{
 	private:
 		Graphics::Window* _window;
@@ -23,12 +23,12 @@ namespace PrimeEngine {
 		virtual void Update() { };
 		virtual void Render() = 0;
 
-		PrimeEngine()
+		PrimeEngineBase()
 		{
 
 		}
 
-		virtual ~PrimeEngine()
+		virtual ~PrimeEngineBase()
 		{
 			_window->Destroy();
 		}

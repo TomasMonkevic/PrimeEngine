@@ -2,7 +2,7 @@
 
 namespace PrimeEngine {
 
-	void PrimeEngine::Run()
+	void PrimeEngineBase::Run()
 	{
 		Time timer;
 		_fpsCounter = 0;
@@ -25,21 +25,21 @@ namespace PrimeEngine {
 		}
 	}
 
-	void PrimeEngine::CreateWin(const char* title, int width, int height)
+	void PrimeEngineBase::CreateWin(const char* title, int width, int height)
 	{
 		Graphics::Window::SetWindow(title, width, height);
 		_window = Graphics::Window::GetWindow();
 		_window->Initialize();
 	}
 
-	void PrimeEngine::CreateWin(const char* title)
+	void PrimeEngineBase::CreateWin(const char* title)
 	{
 		Graphics::Window::SetWindow(title);
 		_window = Graphics::Window::GetWindow();
 		_window->Initialize();
 	}
 
-	void PrimeEngine::Play()
+	void PrimeEngineBase::Play()
 	{
 #ifdef FREEIMAGE_LIB
 		FreeImage_Initialise();

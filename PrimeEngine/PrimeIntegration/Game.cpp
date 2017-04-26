@@ -4,7 +4,7 @@ void TestGame::Awake()
 {
 	//CreateWin("Tik Tac Toe", 1366, 768);
 	CreateWin("Test Game", 800, 600);
-	GetWindow()->EnableVSync(false);
+	GetWindow()->EnableVSync(true);
 	GetWindow()->SetColor(Vector4(0.3f, 0.6f, 1.0f, 1.0f));
 
 	Matrix4x4 pr = Matrix4x4::Orthographic(-8.0f, 8.0f, -4.5f, 4.5f, -1.0f, 1.0f);
@@ -57,7 +57,7 @@ void TestGame::Update()
 	button->Rotate(GetDeltaTime(), Vector3::left);
 
 	sprite1->Rotate(GetDeltaTime(), Vector3::forward);
-	if (Input::KeyPressed(256)) //esc
+	if (InputPC::KeyPressed(256)) //esc
 	{
 		GetWindow()->Close();
 	}
@@ -65,8 +65,8 @@ void TestGame::Update()
 
 void TestGame::Tick()
 {
-	//LOG(GetFPS() << "fps");
-	cout << GetFPS() << "fps" << endl;
+	PRIME_INFO(GetFPS(), " ms \n");
+	//PRIME_INFO(Vector2::down, "\n");
 }
 
 void TestGame::Render()

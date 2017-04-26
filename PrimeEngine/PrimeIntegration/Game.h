@@ -6,6 +6,7 @@
 #include <Networking\NetworkHost.h>
 
 #include <Utilities\Time.h>
+#include <Utilities\Log.h>
 
 #include <Core\Math.h>
 #include <Input.h>
@@ -22,21 +23,15 @@
 #include <Graphics\Layers\Group.h>
 #include <Graphics\Texture.h>
 
-using namespace PrimeEngine::Math;
-using namespace PrimeEngine::Graphics;
-using namespace PrimeEngine::Input;
-using namespace PrimeEngine::Networking;
-//using namespace PrimeEngine;
+using namespace PrimeEngine;
+using namespace Math;
+using namespace Graphics;
+using namespace Input;
+using namespace Networking;
 
 using std::cout;
 using std::cin;
 using std::endl;
-
-#if _DEBUG //need to add a more advanced loggin system to engine
-#define LOG(x) cout<<x<<endl;
-#else
-#define LOG(x)
-#endif // _DEBUG
 
 class FakeUILayer : public Layer
 {
@@ -59,7 +54,7 @@ public:
 	}
 };
 
-class TestGame : public PrimeEngine::PrimeEngine
+class TestGame : public PrimeEngineBase
 {
 private:
 	float speed = 10.0f;

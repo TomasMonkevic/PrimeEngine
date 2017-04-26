@@ -1,13 +1,24 @@
 #ifndef PRIME_LOG
 #define PRIME_LOG
 
-#include <string.h>
+//add define for logging to be enabled
+
+#include <string>
 #include <cstdio>
 #include <Windows.h> //later move to platform specific folder
 
-#define PRIME_INFO_L		0
+#define PRIME_INFO_L		2
 #define PRIME_WARNING_L		1
-#define PRIME_ERROR_L		2
+#define PRIME_ERROR_L		0
+
+namespace std
+{
+	template<typename T>
+	static string to_string(const T& arg)
+	{
+		return string("Type not suported");
+	}
+}
 
 namespace PrimeEngine 
 {
@@ -29,10 +40,11 @@ namespace PrimeEngine
 
 	static char _buffer[1024 * 10];
 
+	#pragma region ToString functions
 	template<typename T>
-	static const char* ToString(const T& cString)
+	static const char* ToString(const T& number)
 	{
-		return "Type not supported";
+		return std::to_string(number).c_str();
 	}
 
 	template<>
@@ -48,10 +60,17 @@ namespace PrimeEngine
 	}
 
 	template<>
-	static const char* ToString<bool>(const bool& t)
+	static const char* ToString<const unsigned char*>(const unsigned char* const& openGLString)
 	{
-		return t ? "true" : "false";
+		return (const char*)openGLString;
 	}
+
+	template<>
+	static const char* ToString<bool>(const bool& b)
+	{
+		return b ? "true" : "false";
+	}
+	#pragma endregion
 
 	template<typename First>
 	static void PrintInternal(unsigned& position, First first)
@@ -62,23 +81,24 @@ namespace PrimeEngine
 	}
 
 	template<typename First, typename... T>
-	static void PrintInternal(unsigned& position, First first, T... args)
+	static void PrintInternal(unsigned& position, First&& first, T&&... args)
 	{
 		const char* formated = ToString(first);
 		memcpy(&_buffer[position], formated, strlen(formated));
 		position += strlen(formated);
 		if (sizeof...(args))
 		{
-			PrintInternal(position, args...);
+			PrintInternal(position, std::forward<T>(args)...);
 		}
 	}
 
 	template<typename... T>
-	void LogMessage(unsigned level, T... message)
+	static void LogMessage(unsigned level, T... message)
 	{
 		unsigned position = 0;
-		PrintInternal(position, message...);
+		PrintInternal(position, std::forward<T>(message)...);
 		PlatformPrint(level, _buffer);
+		memset(_buffer, 0, position);
 	}
 }
 

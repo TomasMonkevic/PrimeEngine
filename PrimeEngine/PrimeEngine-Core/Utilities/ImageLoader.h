@@ -36,7 +36,6 @@ namespace PrimeEngine {
 		if ((pixels == 0) || (*width == 0) || (*height == 0))
 			return NULL;
 		//FreeImage_Unload(dib);
-		PRIME_ERROR("Help", "\n", false, "\n");
 		//clean up memory
 		return pixels;
 	}
