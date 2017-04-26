@@ -1,7 +1,7 @@
 #include "Window.h"
 #include "..\Input.h"
 #include "..\PrimeException.h"
-#include <iostream>
+#include "..\Utilities\Log.h"
 
 namespace PrimeEngine
 {
@@ -112,9 +112,9 @@ namespace PrimeEngine
 				throw windowNotInit;
 			}
 			glViewport(0, 0, _width, _height);
-			std::cout << glGetString(GL_VERSION) << std::endl;
-			std::cout << glGetString(GL_VENDOR) << std::endl;
-			std::cout << glGetString(GL_RENDERER) << std::endl;
+			PRIME_INFO(glGetString(GL_VERSION), "\n");
+			PRIME_INFO(glGetString(GL_VENDOR), "\n");
+			PRIME_INFO(glGetString(GL_RENDERER), "\n");
 		}
 
 		bool Window::Closed() const

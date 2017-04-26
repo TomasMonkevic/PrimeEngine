@@ -29,12 +29,26 @@ namespace PrimeEngine
 
 	static char _buffer[1024 * 10];
 
-	static const char* ToString(const char* cString)
+	template<typename T>
+	static const char* ToString(const T& cString)
+	{
+		return "Type not supported";
+	}
+
+	template<>
+	static const char* ToString<char*>(char* const& cString)
 	{
 		return cString;
 	}
 
-	static const char* ToString(const bool& t)
+	template<>
+	static const char* ToString<const char*>(const char* const& cString)
+	{
+		return cString;
+	}
+
+	template<>
+	static const char* ToString<bool>(const bool& t)
 	{
 		return t ? "true" : "false";
 	}
@@ -51,11 +65,11 @@ namespace PrimeEngine
 	static void PrintInternal(unsigned& position, First first, T... args)
 	{
 		const char* formated = ToString(first);
-		memcpy(_buffer[position], formated, strlen(formated));
+		memcpy(&_buffer[position], formated, strlen(formated));
 		position += strlen(formated);
 		if (sizeof...(args))
 		{
-			PrintInternal(position, args);
+			PrintInternal(position, args...);
 		}
 	}
 
@@ -72,6 +86,18 @@ namespace PrimeEngine
 	#define PRIME_ERROR(...) LogMessage(PRIME_ERROR_L, __VA_ARGS__)
 #else
 	#define PRIME_ERROR(...)
+#endif
+
+#ifdef P_DEBUG
+	#define PRIME_WARNING(...) LogMessage(PRIME_WARNING_L, __VA_ARGS__)
+#else
+	#define PRIME_WARNING(...)
+#endif
+
+#ifdef P_DEBUG
+	#define PRIME_INFO(...) LogMessage(PRIME_INFO_L, __VA_ARGS__)
+#else
+	#define PRIME_INFO(...)
 #endif
 
 #endif // !PRIME_LOG
