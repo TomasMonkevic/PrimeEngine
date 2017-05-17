@@ -27,4 +27,6 @@ PrimeEngine/Dependencies/FreeImage/Source/LibWebP/x64/
 PrimeEngine/Dependencies/FreeImage/Source/OpenEXR/x64/
 PrimeEngine/Dependencies/FreeImage/Source/ZLib/x64/
 PrimeEngine/Dependencies/FreeImage/x64/
-PrimeEngine/Dependencies/FreeType/
+
+PrimeEngine/Dependencies/FreeType/Intermediate
+PrimeEngine/Dependencies/FreeType/x64
