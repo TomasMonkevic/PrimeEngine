@@ -2,8 +2,8 @@
 
 #include <PrimeEngine.h>
 
-#include <Networking\NetworkClient.h>
-#include <Networking\NetworkHost.h>
+#include <Networking\TCPServer.h>
+#include <Networking\TCPClient.h>
 
 #include <Utilities\Time.h>
 #include <Utilities\Log.h>

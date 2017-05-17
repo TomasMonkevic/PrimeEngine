@@ -9,7 +9,6 @@ namespace PrimeEngine {
 	public:
 		static std::string ReadFile(const char* path)
 		{
-			//not safe to use????
 			//preprocessor in game and engine
 			FILE *file;
 			fopen_s(&file, path, "rt"); //using C file reading for faster performance

@@ -42,10 +42,9 @@
     <ClInclude Include="Math\Vector4.h" />
     <ClInclude Include="Graphics\Window.h" />
     <ClInclude Include="Math\Vector3.h" />
-    <ClInclude Include="Networking\NetworkClient.h" />
+    <ClInclude Include="Networking\TCPClient.h" />
     <ClInclude Include="Networking\NetworkEntity.h" />
-    <ClInclude Include="Networking\NetworkHost.h" />
-    <ClInclude Include="Networking\NetworkServer.h" />
+    <ClInclude Include="Networking\TCPServer.h" />
     <ClInclude Include="PrimeEngine.h" />
     <ClInclude Include="PrimeException.h" />
     <ClInclude Include="Utilities\File.h" />
@@ -77,9 +76,8 @@
     <ClCompile Include="Math\Vector4.cpp" />
     <ClCompile Include="Graphics\Window.cpp" />
     <ClCompile Include="Math\Vector3.cpp" />
-    <ClCompile Include="Networking\NetworkClient.cpp" />
-    <ClCompile Include="Networking\NetworkHost.cpp" />
-    <ClCompile Include="Networking\NetworkSever.cpp" />
+    <ClCompile Include="Networking\TCPClient.cpp" />
+    <ClCompile Include="Networking\TCPSever.cpp" />
     <ClCompile Include="PrimeEngine.cpp" />
     <ClCompile Include="PrimeException.cpp" />
     <ClCompile Include="Utilities\Time.cpp" />

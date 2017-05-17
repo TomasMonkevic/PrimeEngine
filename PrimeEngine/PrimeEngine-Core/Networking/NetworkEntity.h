@@ -5,6 +5,7 @@
 
 namespace PrimeEngine { namespace Networking {
 
+	//probably not needed
 	class PRIMEENGINEAPI NetworkEntity
 	{
 	public:

@@ -1,4 +1,4 @@
-#include "NetworkClient.h"
+#include "TCPClient.h"
 #include "../PrimeException.h"
 #include <string>
 #ifdef _WIN32
