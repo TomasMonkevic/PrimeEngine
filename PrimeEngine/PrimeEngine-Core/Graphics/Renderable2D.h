@@ -97,7 +97,7 @@ namespace PrimeEngine { namespace Graphics {
 
 		inline const GLuint GetTextureId() const
 		{
-			return _texture == NULL ? 0 : _texture->GetId();
+			return _texture ? _texture->GetId() : 0;
 		}
 	};
 }}

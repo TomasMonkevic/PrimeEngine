@@ -1,10 +1,15 @@
+#define P_LOG_LEVEL 2
+
 #include "Game.h"
 
 void TestGame::Awake()
 {
+	//make a method in the engine?
+	ShowWindow(GetConsoleWindow(), SW_HIDE);
+
 	//CreateWin("Tik Tac Toe", 1366, 768);
 	CreateWin("Test Game", 800, 600);
-	GetWindow()->EnableVSync(false);
+	GetWindow()->EnableVSync(true);
 	GetWindow()->SetColor(Vector4(0.3f, 0.6f, 1.0f, 1.0f));
 
 	Matrix4x4 pr = Matrix4x4::Orthographic(-8.0f, 8.0f, -4.5f, 4.5f, -1.0f, 1.0f);
@@ -20,13 +25,13 @@ void TestGame::Awake()
 	mainCamera->SetPosition(cameraPosition);
 
 	Sprite* backGround = new Sprite(Vector3(5, 4.5f, 0.1f), Vector2(100, 100), Vector4(1, 0.5f, 0, 1));
-	texture = new Texture("Resources\\Textures\\texture.png");
-	//texture2 = new Texture("Resources\\Textures\\textur2.png");
-	//texture3 = new Texture("Resources\\Textures\\1.jpg");
+	texture = new Texture("Resources\\Textures\\Sparkles.png");
+	texture2 = new Texture("Resources\\Textures\\textur2.png");
+	texture3 = new Texture("Resources\\Textures\\1.jpg");
 	//Texture* texture4 = new Texture("Resources\\Textures\\bc.png"); //openGL doesn't like this texture
-	sprite1 = new Sprite(Vector3(0, -0.5f, 0.1f), Vector2(1, 1), texture, Vector4(0,0,1,1.0f));
+	sprite1 = new Sprite(Vector3(0, -0.5f, 0.1f), Vector2(5, 5), texture, Vector4(0,0,1,0.5f));
 	Sprite* sprite2 = new Sprite(Vector3(5, -0.5f, 0.1f), Vector2(1, 1), NULL);
-	Sprite* sprite3 = new Sprite(Vector3(0, -0.5f, 0.1f), Vector2(3, 1), texture);
+	Sprite* sprite3 = new Sprite(Vector3(0, -0.5f, 0.1f), Vector2(3, 1), texture2);
 
 	gameLayer = new GameLayer(mainCamera);
 	gameLayer->Submit(backGround);

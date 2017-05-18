@@ -21,7 +21,10 @@ uniform sampler2D textures[8];
 	if(fs_in.texture > 0.0)
 	{
 		int textureId = int(fs_in.texture - 0.5);
-		color = mix(texture(textures[textureId], fs_in.texCord), fs_in.color, 1-fs_in.color.w);
+		vec4 textureColor = texture(textures[textureId], fs_in.texCord);
+		if(textureColor.a < 0.1)
+			discard;
+		color = mix(textureColor, fs_in.color, fs_in.color.w);
 	}
 	else
 	{

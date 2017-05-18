@@ -15,6 +15,10 @@
 
 Build/
 PrimeEngine/.vs/
+PrimeEngine/PrimeEngine.VC.VC.opendb
+PrimeEngine/PrimeEngine.VC.db
+PrimeEngine/ipch/
+
 PrimeEngine/Dependencies/FreeImage/Dist/
 PrimeEngine/Dependencies/FreeImage/Source/FreeImageLib/x64/
 PrimeEngine/Dependencies/FreeImage/Source/LibJPEG/x64/

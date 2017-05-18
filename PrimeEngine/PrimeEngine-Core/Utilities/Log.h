@@ -11,6 +11,11 @@
 #define PRIME_WARNING_L		1
 #define PRIME_ERROR_L		0
 
+#ifndef P_LOG_LEVEL
+	#define P_LOG_LEVEL 2
+#endif // !P_LOG_LEVEL
+
+
 namespace std
 {
 	template<typename T>
@@ -102,19 +107,19 @@ namespace PrimeEngine
 	}
 }
 
-#ifdef P_DEBUG
+#if P_LOG_LEVEL >= PRIME_ERROR_L
 	#define PRIME_ERROR(...) LogMessage(PRIME_ERROR_L, __VA_ARGS__)
 #else
 	#define PRIME_ERROR(...)
 #endif
 
-#ifdef P_DEBUG
+#if P_LOG_LEVEL >= PRIME_WARNING_L
 	#define PRIME_WARNING(...) LogMessage(PRIME_WARNING_L, __VA_ARGS__)
 #else
 	#define PRIME_WARNING(...)
 #endif
 
-#ifdef P_DEBUG
+#if P_LOG_LEVEL >= PRIME_INFO_L
 	#define PRIME_INFO(...) LogMessage(PRIME_INFO_L, __VA_ARGS__)
 #else
 	#define PRIME_INFO(...)
