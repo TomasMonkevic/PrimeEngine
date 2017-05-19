@@ -40,6 +40,13 @@ namespace PrimeEngine { namespace Graphics {
 		_ibo = new IndexBuffer(indecies, RENDERER_INDECIES_SIZE);
 		delete[] indecies;
 		glBindVertexArray(0);
+
+		_atlas = ftgl::texture_atlas_new(512, 512, 1); //remove hardcoded stuff
+		_font = texture_font_new_from_file(_atlas, 100, "arial.ttf"); //same here
+
+		texture_font_get_glyph(_font, 'A');
+		texture_font_get_glyph(_font, 'B');
+		texture_font_get_glyph(_font, 'C');
 	}
 
 	BatchRenderer2D::~BatchRenderer2D()
@@ -114,6 +121,65 @@ namespace PrimeEngine { namespace Graphics {
 		_buffer->color = color;
 		_buffer->textureCord = renderable2D->GetTextureCords(3);
 		_buffer->texture = activeTexture;
+		_buffer++;
+
+		_indexCount += 6;
+	}
+
+	void BatchRenderer2D::DrawLabel(const std::string& text, const Math::Vector3& position, const Math::Vector4& color)
+	{
+		using namespace ftgl;
+		float activeTexture = 0.0f;
+
+		//find the texture
+		bool isTextureFound = false;
+		unsigned i = 0;
+		while (i < _textureSlots->size())
+		{
+			if ((*_textureSlots)[i] == _atlas->id)
+			{
+				activeTexture = (float)(i + 1);
+				isTextureFound = true;
+				break;
+			}
+			i++;
+		}
+		if (!isTextureFound)
+		{
+			//need to test this
+			if (_textureSlots->size() >= MAX_TEXTURE_COUNT)
+			{
+				End();
+				Flush();
+				Begin();
+				_textureSlots->clear();
+			}
+			_textureSlots->push_back(_atlas->id);
+			activeTexture = (float)_textureSlots->size();
+		}
+
+		_buffer->position = Math::Vector3(-7, -4, 0);
+		_buffer->textureCord = Math::Vector2(0, 0);
+		_buffer->texture = activeTexture;
+		//_buffer->color = color;
+		_buffer++;
+
+		_buffer->position = Math::Vector3(-7, 4, 0);
+		_buffer->textureCord = Math::Vector2(0, 1);
+		_buffer->texture = activeTexture;
+		//_buffer->color = color;
+		_buffer++;
+
+		_buffer->position = Math::Vector3(7, 4, 0);
+		_buffer->textureCord = Math::Vector2(1, 1);
+		_buffer->texture = activeTexture;
+		//_buffer->color = color;
+		_buffer++;
+
+		_buffer->position = Math::Vector3(7, -4, 0);
+		_buffer->textureCord = Math::Vector2(1, 0);
+		_buffer->texture = activeTexture;
+		//_buffer->color = color;
 		_buffer++;
 
 		_indexCount += 6;

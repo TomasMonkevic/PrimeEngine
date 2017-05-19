@@ -100,13 +100,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(ProjectDir)..\..\Build\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)..\..\Build\bin\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
-    <IncludePath>$(SolutionDir)\PrimeEngine-Core;$(SolutionDir)\Dependencies\OpenGL\include;$(SolutionDir)\Dependencies\FreeImage\Dist\$(Platform);$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)\PrimeEngine-Core;$(SolutionDir)\Dependencies\OpenGL\include;$(SolutionDir)\Dependencies\FreeImage\Dist\$(Platform);$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)\Dependencies\FreeType</IncludePath>
     <LibraryPath>$(SolutionDir)..\Build\$(Platform)\$(Configuration)\;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(ProjectDir)..\..\Build\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)..\..\Build\bin\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
-    <IncludePath>$(SolutionDir)\PrimeEngine-Core;$(SolutionDir)\Dependencies\OpenGL\include;$(SolutionDir)\Dependencies\FreeImage\Dist\$(Platform);$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)\PrimeEngine-Core;$(SolutionDir)\Dependencies\OpenGL\include;$(SolutionDir)\Dependencies\FreeImage\Dist\$(Platform);$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)\Dependencies\FreeType</IncludePath>
     <LibraryPath>$(SolutionDir)..\Build\$(Platform)\$(Configuration)\;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

@@ -50,6 +50,7 @@
     <ClInclude Include="Utilities\Log.h" />
     <ClInclude Include="Networking\TCPServer.h" />
     <ClInclude Include="Networking\TCPClient.h" />
+    <ClInclude Include="Graphics\Label.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Input.cpp">
@@ -81,5 +82,6 @@
     <ClCompile Include="PrimeEngine.cpp" />
     <ClCompile Include="Networking\TCPSever.cpp" />
     <ClCompile Include="Networking\TCPClient.cpp" />
+    <ClCompile Include="Graphics\Label.cpp" />
   </ItemGroup>
 </Project>

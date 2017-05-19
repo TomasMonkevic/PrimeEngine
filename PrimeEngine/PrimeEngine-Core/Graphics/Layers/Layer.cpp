@@ -50,6 +50,9 @@ namespace PrimeEngine { namespace Graphics {
 		{
 			renderable->Submit(_renderer);
 		}
+
+		_renderer->DrawLabel("abcaaaaaaa", Math::Vector3::zero, Math::Vector4::one);
+
 		_renderer->End();
 		camera->Render();
 		_renderer->Flush();

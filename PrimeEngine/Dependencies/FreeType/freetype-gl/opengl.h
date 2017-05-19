@@ -35,6 +35,8 @@
 #ifndef __OPEN_GL_H__
 #define __OPEN_GL_H__
 
+#include "..\..\OpenGL\include\GL\glew.h" //only for prime_windows
+
 #if defined(__APPLE__)
 #  ifdef GL_ES_VERSION_2_0
 #    include <OpenGLES/ES2/gl.h>

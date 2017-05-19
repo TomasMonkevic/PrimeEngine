@@ -44,22 +44,22 @@ public:
 	}
 };
 
-class GameLayer : public Layer
-{
-public:
-	GameLayer(Camera* camera) :
-		Layer(new BatchRenderer2D(), camera)
-	{
-
-	}
-};
+//class GameLayer : public Layer
+//{
+//public:
+//	GameLayer(Camera* camera) :
+//		Layer(new BatchRenderer2D(), camera)
+//	{
+//
+//	}
+//};
 
 class TestGame : public PrimeEngineBase
 {
 private:
 	float speed = 10.0f;
 	Shader *gameShader, *uiShader;
-	GameLayer* gameLayer;
+	//GameLayer* gameLayer;
 	FakeUILayer* uiLayer;
 	Sprite *sprite1;
 	Group *button, *buttonContainer;
@@ -72,7 +72,7 @@ public:
 	~TestGame() 
 	{
 		delete uiLayer;
-		delete gameLayer;
+		//delete gameLayer;
 		delete sprite1;
 		delete button;
 		delete buttonContainer;

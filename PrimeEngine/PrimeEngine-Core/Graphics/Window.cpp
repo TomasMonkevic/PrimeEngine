@@ -75,9 +75,6 @@ namespace PrimeEngine
 			glfwWindowHint(GLFW_RESIZABLE, GL_TRUE); //for now always is resizable
 			//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
-			glEnable(GL_BLEND);
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
 			if (_isFullScreen)
 			{
 				GLFWmonitor* primalMonitor = glfwGetPrimaryMonitor();
@@ -115,6 +112,10 @@ namespace PrimeEngine
 				throw windowNotInit;
 			}
 			glViewport(0, 0, _width, _height);
+
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 			PRIME_INFO(glGetString(GL_VERSION), "\n");
 			PRIME_INFO(glGetString(GL_VENDOR), "\n");
 			PRIME_INFO(glGetString(GL_RENDERER), "\n");
