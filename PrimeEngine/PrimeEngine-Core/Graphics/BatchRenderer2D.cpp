@@ -1,4 +1,5 @@
 #include "BatchRenderer2D.h"
+#include <Utilities/Log.h>
 
 namespace PrimeEngine { namespace Graphics {
 
@@ -41,12 +42,8 @@ namespace PrimeEngine { namespace Graphics {
 		delete[] indecies;
 		glBindVertexArray(0);
 
-		_atlas = ftgl::texture_atlas_new(512, 512, 1); //remove hardcoded stuff
-		_font = texture_font_new_from_file(_atlas, 100, "arial.ttf"); //same here
-
-		texture_font_get_glyph(_font, 'A');
-		texture_font_get_glyph(_font, 'B');
-		texture_font_get_glyph(_font, 'C');
+		_atlas = ftgl::texture_atlas_new(512, 512, 2); 
+		_font = texture_font_new_from_file(_atlas, 100, "arial.ttf"); //remove hardcoded stuff
 	}
 
 	BatchRenderer2D::~BatchRenderer2D()
@@ -158,31 +155,51 @@ namespace PrimeEngine { namespace Graphics {
 			activeTexture = (float)_textureSlots->size();
 		}
 
-		_buffer->position = Math::Vector3(-7, -4, 0);
-		_buffer->textureCord = Math::Vector2(0, 0);
-		_buffer->texture = activeTexture;
-		//_buffer->color = color;
-		_buffer++;
+		float x = position.x;
 
-		_buffer->position = Math::Vector3(-7, 4, 0);
-		_buffer->textureCord = Math::Vector2(0, 1);
-		_buffer->texture = activeTexture;
-		//_buffer->color = color;
-		_buffer++;
+		float xScale = 800.0f / 18.0f; //fix the hardcoded resolution
+		float yScale = 600.0f / 9.0f;
 
-		_buffer->position = Math::Vector3(7, 4, 0);
-		_buffer->textureCord = Math::Vector2(1, 1);
-		_buffer->texture = activeTexture;
-		//_buffer->color = color;
-		_buffer++;
+		for (int i = 0; i < text.size(); i++)
+		{
+			const char& c = text[i];
+			texture_glyph_t* glyph = texture_font_get_glyph(_font, c);
 
-		_buffer->position = Math::Vector3(7, -4, 0);
-		_buffer->textureCord = Math::Vector2(1, 0);
-		_buffer->texture = activeTexture;
-		//_buffer->color = color;
-		_buffer++;
+			if (glyph)
+			{
+				float x0 = x;
+				float x1 = x0 + (float)glyph->width / xScale;
+				float y0 = ((float)glyph->offset_y - (float)glyph->height) / yScale + position.y;
+				float y1 = y0 + (float)glyph->offset_y / yScale;
 
-		_indexCount += 6;
+				_buffer->position = *_transformationStackBack * Math::Vector3(x0, y0, 0);
+				_buffer->textureCord = Math::Vector2(glyph->s0, glyph->t1);
+				_buffer->texture = activeTexture;
+				_buffer->color = color;
+				_buffer++;
+
+				_buffer->position = *_transformationStackBack * Math::Vector3(x0, y1, 0);
+				_buffer->textureCord = Math::Vector2(glyph->s0, glyph->t0);
+				_buffer->texture = activeTexture;
+				_buffer->color = color;
+				_buffer++;
+
+				_buffer->position = *_transformationStackBack * Math::Vector3(x1, y1, 0);
+				_buffer->textureCord = Math::Vector2(glyph->s1, glyph->t0);
+				_buffer->texture = activeTexture;
+				_buffer->color = color;
+				_buffer++;
+
+				_buffer->position = *_transformationStackBack * Math::Vector3(x1, y0, 0);
+				_buffer->textureCord = Math::Vector2(glyph->s1, glyph->t1);
+				_buffer->texture = activeTexture;
+				_buffer->color = color;
+				_buffer++;
+
+				_indexCount += 6;
+				x += (glyph->advance_x / xScale);
+			}
+		}
 	}
 
 	void BatchRenderer2D::End()

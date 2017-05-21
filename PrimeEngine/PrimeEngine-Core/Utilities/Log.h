@@ -1,7 +1,8 @@
 #ifndef PRIME_LOG
 #define PRIME_LOG
 
-//add define for logging to be enabled
+//prime types
+#include <Math/Vector3.h>
 
 #include <string>
 #include <cstdio>
@@ -44,6 +45,7 @@ namespace PrimeEngine
 	}
 
 	static char _buffer[1024 * 10];
+	static char _formatBuffer[1024 * 10];
 
 	#pragma region ToString functions
 	template<typename T>
@@ -74,6 +76,14 @@ namespace PrimeEngine
 	static const char* ToString<bool>(const bool& b)
 	{
 		return b ? "true" : "false";
+	}
+
+	template<>
+	static const char* ToString<Math::Vector3>(const Math::Vector3& vec)
+	{
+		sprintf_s(_formatBuffer, "(%f, %f, %f)\n", vec.x, vec.y, vec.z);
+		const char* rez = _formatBuffer;
+		return rez;
 	}
 	#pragma endregion
 

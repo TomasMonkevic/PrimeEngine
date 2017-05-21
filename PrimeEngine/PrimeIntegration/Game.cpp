@@ -32,12 +32,13 @@ void TestGame::Awake()
 	sprite1 = new Sprite(Vector3(0, -0.5f, 0.1f), Vector2(5, 5), texture, Vector4(0,0,1,0.9f));
 	Sprite* sprite2 = new Sprite(Vector3(5, -0.5f, 0.1f), Vector2(1, 1), NULL);
 	Sprite* sprite3 = new Sprite(Vector3(0, -0.5f, 0.1f), Vector2(2, 2), texture2);
+	//PRIME_WARNING(sprite2->GetPosition());
 
-	//gameLayer = new GameLayer(mainCamera);
-	//gameLayer->Submit(backGround);
-	//gameLayer->Submit(sprite3);
-	//gameLayer->Submit(sprite2);
-	//gameLayer->Submit(sprite1);
+	gameLayer = new GameLayer(mainCamera);
+	gameLayer->Submit(backGround);
+	gameLayer->Submit(sprite3);
+	gameLayer->Submit(sprite2);
+	gameLayer->Submit(sprite1);
 
 	buttonContainer = new Group(Vector3(-6, 0, 0), Vector2(10, 10));
 	button = new Group(Vector3(0, 1.5f, 0), Vector2(10, 10));
@@ -76,7 +77,7 @@ void TestGame::Tick()
 
 void TestGame::Render()
 {
-	//gameLayer->Render();
+	gameLayer->Render();
 	uiLayer->Render();
 	mainCamera->LookAt(mainCamera->GetPosition() + Vector3::back);
 	mainCamera->Render();

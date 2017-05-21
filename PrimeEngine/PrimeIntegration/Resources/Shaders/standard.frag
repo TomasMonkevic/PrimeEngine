@@ -22,14 +22,15 @@ uniform sampler2D textures[8];
 	{
 		int textureId = int(fs_in.texture - 0.5);
 		vec4 textureColor = texture(textures[textureId], fs_in.texCord);
-		//if(textureColor.a < 0.1)
-			//discard;
+		if(textureColor.a < 0.03)
+			discard;
 		color = mix(textureColor, fs_in.color, fs_in.color.w);
-		color = vec4(1,0,1,1);
+		//color = fs_in.color * textureColor;
+		//color = vec4(1,0,1,1);
 	}
 	else
 	{
 		color = fs_in.color;
-		color = vec4(0,0,1,1);
+		//color = vec4(0,0,1,1);
 	}
  }

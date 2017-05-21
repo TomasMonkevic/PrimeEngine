@@ -51,7 +51,7 @@ namespace PrimeEngine { namespace Graphics {
 			renderable->Submit(_renderer);
 		}
 
-		_renderer->DrawLabel("abcaaaaaaa", Math::Vector3::zero, Math::Vector4::one);
+		_renderer->DrawLabel("Hello!gg", Math::Vector3(-8,-4.5f,10), Math::Vector4(0,0,1,1));
 
 		_renderer->End();
 		camera->Render();
