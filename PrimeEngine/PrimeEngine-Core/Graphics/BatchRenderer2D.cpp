@@ -159,7 +159,7 @@ namespace PrimeEngine { namespace Graphics {
 
 		float x = position.x;
 
-		float xScale = 800.0f / 18.0f; //fix the hardcoded resolution
+		float xScale = 800.0f / 16.0f; //fix the hardcoded resolution
 		float yScale = 600.0f / 9.0f;
 
 		for (int i = 0; i < text.size(); i++)
