@@ -67,6 +67,8 @@ private:
 	Texture* texture;
 	Texture* texture2;
 	Texture* texture3;
+	Font* myFont;
+	Label* myLabel;
 
 public:
 	~TestGame() 

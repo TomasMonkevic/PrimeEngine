@@ -25,6 +25,7 @@
     <ClInclude Include="Graphics\Buffers\VertexArray.h" />
     <ClInclude Include="Graphics\Buffers\VertexBuffer.h" />
     <ClInclude Include="Graphics\Camera.h" />
+    <ClInclude Include="Graphics\Font.h" />
     <ClInclude Include="Graphics\Label.h" />
     <ClInclude Include="Graphics\Layers\Group.h" />
     <ClInclude Include="Graphics\Layers\Layer.h" />
@@ -59,6 +60,7 @@
     <ClCompile Include="Graphics\Buffers\VertexArray.cpp" />
     <ClCompile Include="Graphics\Buffers\VertexBuffer.cpp" />
     <ClCompile Include="Graphics\Camera.cpp" />
+    <ClCompile Include="Graphics\Font.cpp" />
     <ClCompile Include="Graphics\Label.cpp" />
     <ClCompile Include="Graphics\Layers\Group.cpp" />
     <ClCompile Include="Graphics\Layers\Layer.cpp">

@@ -1,6 +1,9 @@
 #define P_LOG_LEVEL 2
 
+#include <Graphics/Font.h>
+#include <Graphics/Label.h>
 #include "Game.h"
+#include <time.h>
 
 void TestGame::Awake()
 {
@@ -9,7 +12,7 @@ void TestGame::Awake()
 
 	//CreateWin("Tik Tac Toe", 1366, 768);
 	CreateWin("Test Game", 800, 600);
-	GetWindow()->EnableVSync(true);
+	GetWindow()->EnableVSync(false);
 	GetWindow()->SetColor(Vector4(0.7f, 0.8f, 1.0f, 1.0f));
 
 	Matrix4x4 pr = Matrix4x4::Orthographic(-8.0f, 8.0f, -4.5f, 4.5f, -1.0f, 1.0f);
@@ -48,6 +51,10 @@ void TestGame::Awake()
 	button->Add(new Sprite(Vector3(0, 0.0f, 0), Vector2(4, 1), Vector4(1.0f, 0.0f, 0.0f, 0.5f)));
 	button->Add(new Sprite(Vector3(0, 0.0f, 0), Vector2(3, 0.5f), Vector4(0.0f, 0.0f, 1.0f, 1)));
 	uiLayer = new FakeUILayer(uiShader);
+	myFont = new Font("arial.ttf", Math::Vector4(1,0,0,1), 32);
+	std::string wtf = "Hi Mom!";
+	myLabel = new Label(wtf, Math::Vector3(-8, -4.5f, 0), *myFont);
+	uiLayer->Submit(myLabel);
 	uiLayer->Submit(buttonContainer);
 }
 
@@ -72,6 +79,13 @@ void TestGame::Update()
 void TestGame::Tick()
 {
 	PRIME_INFO(GetFPS(), " fps \n");
+	myLabel->text = std::to_string(GetFPS()) + " FPS";
+	srand(time(NULL));
+	float random = (float)(rand() % 100) / 100.0f;
+	float random1 = (float)(rand() % 100) / 100.0f;
+	float random2 = (float)(rand() % 100) / 100.0f;
+	//PRIME_WARNING(random, " ", random1, " ", random2, "\n");
+	myFont->color = Vector4(random,random1,random2,1);
 	//PRIME_INFO(Vector2::down, "\n");
 }
 

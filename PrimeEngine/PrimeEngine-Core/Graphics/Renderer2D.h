@@ -2,6 +2,7 @@
 #define PRIME_RENDERER2D_H
 
 #include <vector>
+#include <Graphics/Font.h>
 #include "..\Core\Math.h"
 #include "..\DllExport.h"
 
@@ -47,7 +48,7 @@ namespace PrimeEngine { namespace Graphics {
 
 		virtual void Begin() {}
 		virtual void Submit(const Renderable2D* renderable2D) = 0;
-		virtual void DrawLabel(const std::string& text, const  Math::Vector3& position, const Math::Vector4& color) = 0;
+		virtual void DrawLabel(const std::string& text, const  Math::Vector3& position, const Font& font) = 0;
 		virtual void End() {}
 		virtual void Flush() = 0;
 	};

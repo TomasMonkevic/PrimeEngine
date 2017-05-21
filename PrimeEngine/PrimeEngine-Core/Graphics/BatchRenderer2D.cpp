@@ -42,8 +42,8 @@ namespace PrimeEngine { namespace Graphics {
 		delete[] indecies;
 		glBindVertexArray(0);
 
-		_atlas = ftgl::texture_atlas_new(512, 512, 2); 
-		_font = texture_font_new_from_file(_atlas, 100, "arial.ttf"); //remove hardcoded stuff
+		//_atlas = ftgl::texture_atlas_new(512, 512, 2); 
+		//_font = texture_font_new_from_file(_atlas, 100, "arial.ttf"); //remove hardcoded stuff
 	}
 
 	BatchRenderer2D::~BatchRenderer2D()
@@ -123,17 +123,19 @@ namespace PrimeEngine { namespace Graphics {
 		_indexCount += 6;
 	}
 
-	void BatchRenderer2D::DrawLabel(const std::string& text, const Math::Vector3& position, const Math::Vector4& color)
+	void BatchRenderer2D::DrawLabel(const std::string& text, const  Math::Vector3& position, const Font& font)
 	{
 		using namespace ftgl;
 		float activeTexture = 0.0f;
+
+		//_font = texture_font_new_from_file(_atlas, font.size, font.fontName);
 
 		//find the texture
 		bool isTextureFound = false;
 		unsigned i = 0;
 		while (i < _textureSlots->size())
 		{
-			if ((*_textureSlots)[i] == _atlas->id)
+			if ((*_textureSlots)[i] == font.atlas->id)
 			{
 				activeTexture = (float)(i + 1);
 				isTextureFound = true;
@@ -151,7 +153,7 @@ namespace PrimeEngine { namespace Graphics {
 				Begin();
 				_textureSlots->clear();
 			}
-			_textureSlots->push_back(_atlas->id);
+			_textureSlots->push_back(font.atlas->id);
 			activeTexture = (float)_textureSlots->size();
 		}
 
@@ -163,7 +165,7 @@ namespace PrimeEngine { namespace Graphics {
 		for (int i = 0; i < text.size(); i++)
 		{
 			const char& c = text[i];
-			texture_glyph_t* glyph = texture_font_get_glyph(_font, c);
+			texture_glyph_t* glyph = texture_font_get_glyph(font.font, c);
 
 			if (glyph)
 			{
@@ -175,25 +177,25 @@ namespace PrimeEngine { namespace Graphics {
 				_buffer->position = *_transformationStackBack * Math::Vector3(x0, y0, 0);
 				_buffer->textureCord = Math::Vector2(glyph->s0, glyph->t1);
 				_buffer->texture = activeTexture;
-				_buffer->color = color;
+				_buffer->color = font.color;
 				_buffer++;
 
 				_buffer->position = *_transformationStackBack * Math::Vector3(x0, y1, 0);
 				_buffer->textureCord = Math::Vector2(glyph->s0, glyph->t0);
 				_buffer->texture = activeTexture;
-				_buffer->color = color;
+				_buffer->color = font.color;
 				_buffer++;
 
 				_buffer->position = *_transformationStackBack * Math::Vector3(x1, y1, 0);
 				_buffer->textureCord = Math::Vector2(glyph->s1, glyph->t0);
 				_buffer->texture = activeTexture;
-				_buffer->color = color;
+				_buffer->color = font.color;
 				_buffer++;
 
 				_buffer->position = *_transformationStackBack * Math::Vector3(x1, y0, 0);
 				_buffer->textureCord = Math::Vector2(glyph->s1, glyph->t1);
 				_buffer->texture = activeTexture;
-				_buffer->color = color;
+				_buffer->color = font.color;
 				_buffer++;
 
 				_indexCount += 6;

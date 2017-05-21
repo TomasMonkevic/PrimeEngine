@@ -51,6 +51,7 @@
     <ClInclude Include="Networking\TCPServer.h" />
     <ClInclude Include="Networking\TCPClient.h" />
     <ClInclude Include="Graphics\Label.h" />
+    <ClInclude Include="Graphics\Font.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Input.cpp">
@@ -83,5 +84,6 @@
     <ClCompile Include="Networking\TCPSever.cpp" />
     <ClCompile Include="Networking\TCPClient.cpp" />
     <ClCompile Include="Graphics\Label.cpp" />
+    <ClCompile Include="Graphics\Font.cpp" />
   </ItemGroup>
 </Project>

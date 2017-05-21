@@ -2,10 +2,6 @@ TODO:
 - One file shader
 - Default shader
 - !Refactor file system
-- Test textures with different depths
-- Test texture overfloaing
-- Test batchrenderer perforamance
-- Font rendering
 - Audio
 - Android support
 - Seperate engine components into different headers
@@ -15,4 +11,8 @@ TODO:
 - Implement ViewportToScreen ect. methods
 - Implement custom string class
 - Unify mouse and key presses
-- Improve networking
+
+Tests:
+- Test textures with different depths
+- Test texture overfloaing
+- Test batchrenderer perforamance

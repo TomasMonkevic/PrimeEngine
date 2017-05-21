@@ -3,6 +3,7 @@
 
 #include <DllExport.h>
 #include <Graphics/Renderable2D.h>
+#include <Graphics/Font.h>
 #include <string>
 
 namespace PrimeEngine { namespace Graphics {
@@ -13,10 +14,10 @@ namespace PrimeEngine { namespace Graphics {
 
 	public:
 		std::string text;
-		std::string fontName;
+		Font* font;
 
 	public:
-		Label(const std::string& _text, const std::string& _fontName, const Math::Vector3& position, const Math::Vector4& color);
+		Label(std::string& _text, const Math::Vector3& position, Font& _font);
 		void Submit(Renderer2D* renderer) const override;
 	};
 }}
