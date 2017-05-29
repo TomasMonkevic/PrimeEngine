@@ -1,16 +1,23 @@
 TODO:
+- Fix bug "#6 Logging of numbers doesn't work in Debug mode"
+- Clean memory in LoadImage
 - One file shader
+- Shader manager
 - Default shader
-- !Refactor file system
-- Audio
-- Android support
+- Texture managaer
+- Font manager
+- Refactor file system
 - Seperate engine components into different headers
 - Color class
-- !Fix exception throwing [IN PROGRESS] //Are exception good for engines? Maybe logging system is enough?
 - KeyDown, KeyUp etc
 - Implement ViewportToScreen ect. methods
-- Implement custom string class
+- Audio (Gorila-audio)
 - Unify mouse and key presses
+- Maintenace, code review, bug fixes
+- Cross-platform (Windows, Mac, Linux)
+- Fix exception throwing //Are exception good for engines? Maybe logging system is enough?
+- Implement custom string class
+- Android support
 
 Tests:
 - Test textures with different depths
