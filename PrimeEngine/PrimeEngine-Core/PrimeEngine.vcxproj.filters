@@ -21,7 +21,6 @@
     </ClInclude>
     <ClInclude Include="Math\Vector4.h" />
     <ClInclude Include="Math\Matrix4x4.h" />
-    <ClInclude Include="Core\Math.h" />
     <ClInclude Include="Graphics\Window.h">
       <Filter>Graphics</Filter>
     </ClInclude>
@@ -52,6 +51,7 @@
     <ClInclude Include="Networking\TCPClient.h" />
     <ClInclude Include="Graphics\Label.h" />
     <ClInclude Include="Graphics\Font.h" />
+    <ClInclude Include="Math\Math.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Input.cpp">

@@ -1,5 +1,4 @@
 TODO:
-- Fix bug "#6 Logging of numbers doesn't work in Debug mode"
 - Clean memory in LoadImage
 - One file shader
 - Shader manager
@@ -7,7 +6,6 @@ TODO:
 - Texture managaer
 - Font manager
 - Refactor file system
-- Seperate engine components into different headers
 - Color class
 - KeyDown, KeyUp etc
 - Implement ViewportToScreen ect. methods

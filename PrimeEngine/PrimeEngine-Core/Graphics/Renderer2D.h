@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <Graphics/Font.h>
-#include "..\Core\Math.h"
+#include <Math/Math.h>
 #include "..\DllExport.h"
 
 namespace PrimeEngine { namespace Graphics {

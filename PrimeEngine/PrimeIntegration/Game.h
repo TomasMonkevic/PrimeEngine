@@ -8,7 +8,7 @@
 #include <Utilities\Time.h>
 #include <Utilities\Log.h>
 
-#include <Core\Math.h>
+#include <Math/Math.h>
 #include <Input.h>
 #include <PrimeException.h>
 

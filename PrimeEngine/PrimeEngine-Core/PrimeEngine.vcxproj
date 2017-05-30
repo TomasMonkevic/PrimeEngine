@@ -37,7 +37,7 @@
     <ClInclude Include="Graphics\Sprite.h" />
     <ClInclude Include="Graphics\Texture.h" />
     <ClInclude Include="Input.h" />
-    <ClInclude Include="Core\Math.h" />
+    <ClInclude Include="Math\Math.h" />
     <ClInclude Include="Math\MathFunc.h" />
     <ClInclude Include="Math\Matrix4x4.h" />
     <ClInclude Include="Math\Vector2.h" />

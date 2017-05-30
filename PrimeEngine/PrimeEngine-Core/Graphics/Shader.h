@@ -3,7 +3,7 @@
 
 #include <GL\glew.h>
 #include "..\Utilities\File.h"
-#include "..\Core\Math.h"
+#include <Math/Math.h>
 #include "..\DllExport.h"
 #include <map>
 

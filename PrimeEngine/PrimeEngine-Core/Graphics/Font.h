@@ -1,7 +1,7 @@
 #ifndef PRIME_ENGINE
 #define PRIME_ENGINE
 
-#include <Core/Math.h>
+#include <Math/Math.h>
 #include <DllExport.h>
 #include <freetype-gl\freetype-gl.h>
 #include <string>

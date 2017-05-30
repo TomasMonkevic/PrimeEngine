@@ -2,7 +2,7 @@
 #define PRIME_RENDERABLE2D
 
 #include <GL\glew.h>
-#include "..\Core\Math.h"
+#include <Math/Math.h>
 #include "Renderer2D.h"
 #include "Texture.h"
 #include "..\DllExport.h"

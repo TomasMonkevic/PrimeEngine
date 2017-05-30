@@ -2,7 +2,7 @@
 #define CAMERA_H
 
 #include <GL\glew.h>
-#include "..\Core\Math.h"
+#include <Math/Math.h>
 #include "Shader.h"
 #include "..\DllExport.h"
 

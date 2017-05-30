@@ -3,6 +3,7 @@
 
 //prime types
 #include <Math/Vector3.h>
+#include <Math/Vector4.h>
 
 #include <string>
 #include <cstdio>
@@ -51,7 +52,10 @@ namespace PrimeEngine
 	template<typename T>
 	static const char* ToString(const T& number)
 	{
-		return std::to_string(number).c_str();
+		std::string formated = std::to_string(number);
+		memcpy(_formatBuffer, formated.c_str(), formated.length());
+		const char* rez = _formatBuffer;
+		return rez;
 	}
 
 	template<>
@@ -81,7 +85,15 @@ namespace PrimeEngine
 	template<>
 	static const char* ToString<Math::Vector3>(const Math::Vector3& vec)
 	{
-		sprintf_s(_formatBuffer, "(%f, %f, %f)\n", vec.x, vec.y, vec.z);
+		sprintf_s(_formatBuffer, "(%f, %f, %f)", vec.x, vec.y, vec.z);
+		const char* rez = _formatBuffer;
+		return rez;
+	}
+
+	template<>
+	static const char* ToString<Math::Vector4>(const Math::Vector4& vec)
+	{
+		sprintf_s(_formatBuffer, "(%f, %f, %f, %f)", vec.x, vec.y, vec.z, vec.w);
 		const char* rez = _formatBuffer;
 		return rez;
 	}
@@ -114,6 +126,7 @@ namespace PrimeEngine
 		PrintInternal(position, std::forward<T>(message)...);
 		PlatformPrint(level, _buffer);
 		memset(_buffer, 0, position);
+		memset(_formatBuffer, 0, position);
 	}
 }
 
