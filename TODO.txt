@@ -1,5 +1,4 @@
 TODO:
-- Clean memory in LoadImage
 - One file shader
 - Shader manager
 - Default shader
@@ -20,4 +19,5 @@ TODO:
 Tests:
 - Test textures with different depths
 - Test texture overfloaing
+- Test texture deletion
 - Test batchrenderer perforamance
