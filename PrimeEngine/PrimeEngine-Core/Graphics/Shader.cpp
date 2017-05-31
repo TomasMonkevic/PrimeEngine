@@ -10,6 +10,13 @@ namespace PrimeEngine { namespace Graphics {
 		_shaderID = LoadShader();
 	}
 
+	Shader::Shader(const char* shaderFilePath) :
+		_shaderFilePath(shaderFilePath)
+	{
+		_uniformLocation = new std::map<const GLchar*, GLint>;
+		_shaderID = LoadShader();
+	}
+
 	Shader::~Shader()
 	{
 		delete _uniformLocation;
@@ -66,6 +73,11 @@ namespace PrimeEngine { namespace Graphics {
 		glUniform1iv(GetLocation(name), size, values);
 	}
 
+	void Shader::ParseShaderFile(std::string& shaderFile, char* vertexShader, char* fragmentShader)
+	{
+
+	}
+
 	GLuint Shader::LoadShader()
 	{
 		GLuint program = glCreateProgram();
@@ -74,9 +86,12 @@ namespace PrimeEngine { namespace Graphics {
 
 		std::string vertexSourceString = PrimeEngine::File::ReadFile(_vertexShaderPath);
 		std::string fragmentSourceString = PrimeEngine::File::ReadFile(_fragmentShaderPath);
+		//std::string shaderFileString = PrimeEngine::File::ReadFile(_shaderFilePath);
 
 		const char* vertexSource = vertexSourceString.c_str();
 		const char* fragmentSource = fragmentSourceString.c_str();
+
+		//ParseShaderFile(shaderFileString, vertexSource, fragmentSource);
 
 		glShaderSource(vertexShader, 1, &vertexSource, NULL);
 		glCompileShader(vertexShader);

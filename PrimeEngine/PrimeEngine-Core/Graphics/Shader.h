@@ -14,14 +14,16 @@ namespace PrimeEngine { namespace Graphics {
 	private:
 		GLuint _shaderID;
 		std::map<const GLchar*, GLint>* _uniformLocation;
-		const char *_vertexShaderPath, *_fragmentShaderPath;
+		const char *_vertexShaderPath, *_fragmentShaderPath, *_shaderFilePath;
 	public:
 
 	private:
 		GLuint LoadShader();
 		GLint GetLocation(const GLchar* name);
+		void ParseShaderFile(std::string& shaderFile, char* vertexShader, char* fragmentShader);
 	public:
 		Shader(const char* vertexShaderPath, const char* fragmentShaderPath);
+		Shader(const char* shaderFilePath);
 		~Shader();
 
 		void SetUniform(const GLchar* name, const Math::Matrix4x4& matrix);

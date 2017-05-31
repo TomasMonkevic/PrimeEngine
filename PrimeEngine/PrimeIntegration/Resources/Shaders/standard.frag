@@ -1,9 +1,5 @@
 #version 330 core
 
-layout (location = 0) out vec4 color;
-
-uniform vec2 lightPosition; //temp
-
 in data
 {
 	vec4 position;
@@ -11,6 +7,10 @@ in data
 	vec2 texCord;
 	float texture;
 } fs_in;
+
+layout (location = 0) out vec4 color;
+
+uniform vec2 lightPosition; //temp
 
 uniform sampler2D textures[8];
 
