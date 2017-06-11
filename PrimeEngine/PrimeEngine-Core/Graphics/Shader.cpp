@@ -1,5 +1,6 @@
 #include "Shader.h"
 #include "../PrimeException.h"
+#include <Utilities/Log.h>
 
 namespace PrimeEngine { namespace Graphics {
 
@@ -73,9 +74,55 @@ namespace PrimeEngine { namespace Graphics {
 		glUniform1iv(GetLocation(name), size, values);
 	}
 
-	void Shader::ParseShaderFile(std::string& shaderFile, char* vertexShader, char* fragmentShader)
+	void Shader::ParseShaderFile(std::string& shaderFile, char** vertexSource, char** fragmentSource)
 	{
+		int globalPos = 0, temp;
+		std::string version;
+		globalPos = shaderFile.find(VERSION_MACRO, globalPos);
+		if (globalPos != shaderFile.npos)
+		{
+			temp = globalPos;
+			globalPos = shaderFile.find(END_MACRO, globalPos + 1);
+			if (globalPos != shaderFile.npos)
+			{
+				version = shaderFile.substr(temp, globalPos);
+			}
+		}
+		version.replace(0, 1, "#");
+		version += '\n';
 
+		std::string vertex, fragment;
+
+		globalPos = shaderFile.find(VERTEX_MACRO, globalPos); //move command recognision to a seperate function
+		if (globalPos != shaderFile.npos)
+		{
+			temp = globalPos;
+			globalPos = shaderFile.find(END_MACRO, globalPos + 1);
+			if (globalPos != shaderFile.npos)
+			{
+				vertex = shaderFile.substr(temp + strlen(VERTEX_MACRO), globalPos - strlen(VERTEX_MACRO) - temp);
+			}
+		}
+
+		globalPos = shaderFile.find(FRAGMENT_MACRO, globalPos);
+		if (globalPos != shaderFile.npos)
+		{
+			temp = globalPos;
+			globalPos = shaderFile.find(END_MACRO, globalPos + 1);
+			if (globalPos != shaderFile.npos)
+			{
+				fragment = shaderFile.substr(temp + strlen(FRAGMENT_MACRO), globalPos - strlen(FRAGMENT_MACRO) - temp);
+			}
+		}
+
+		vertex.insert(0, version);
+		fragment.insert(0, version);
+
+		*vertexSource = new char[vertex.length() + 1];
+		*fragmentSource = new char[fragment.length() + 1];
+
+		strcpy_s(*vertexSource, vertex.length() + 1,vertex.c_str());
+		strcpy_s(*fragmentSource, fragment.length() + 1, fragment.c_str());
 	}
 
 	GLuint Shader::LoadShader()
@@ -84,14 +131,14 @@ namespace PrimeEngine { namespace Graphics {
 		GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
 		GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 
-		std::string vertexSourceString = PrimeEngine::File::ReadFile(_vertexShaderPath);
-		std::string fragmentSourceString = PrimeEngine::File::ReadFile(_fragmentShaderPath);
-		//std::string shaderFileString = PrimeEngine::File::ReadFile(_shaderFilePath);
+		//std::string vertexSourceString = PrimeEngine::File::ReadFile(_vertexShaderPath);
+		//std::string fragmentSourceString = PrimeEngine::File::ReadFile(_fragmentShaderPath);
+		std::string shaderFileString = PrimeEngine::File::ReadFile(_shaderFilePath);
 
-		const char* vertexSource = vertexSourceString.c_str();
-		const char* fragmentSource = fragmentSourceString.c_str();
+		char* vertexSource = NULL; //vertexSourceString.c_str();
+		char* fragmentSource = NULL; //fragmentSourceString.c_str();
 
-		//ParseShaderFile(shaderFileString, vertexSource, fragmentSource);
+		ParseShaderFile(shaderFileString, &vertexSource, &fragmentSource);
 
 		glShaderSource(vertexShader, 1, &vertexSource, NULL);
 		glCompileShader(vertexShader);
@@ -105,10 +152,11 @@ namespace PrimeEngine { namespace Graphics {
 			char* error = new char[lenght + 1];
 			glGetShaderInfoLog(vertexShader, lenght, &lenght, error);
 			glDeleteShader(vertexShader);
-			char* errorMsg = new char[sizeof(error) + 100];
-			sprintf_s(errorMsg, sizeof(error) + 100, "Failed to compile vertex shader:\n%s \n", error);
-			PrimeException errorCompiling(errorMsg, -1);
-			throw errorCompiling;
+			PRIME_ERROR("Failed to compile vertex shader:\n", error,"\n");
+			//char* errorMsg = new char[sizeof(error) + 100];
+			//sprintf_s(errorMsg, sizeof(error) + 100, "Failed to compile vertex shader:\n%s \n", error);
+			//PrimeException errorCompiling(errorMsg, -1);
+			//throw errorCompiling;
 		}
 
 		glShaderSource(fragmentShader, 1, &fragmentSource, NULL);
@@ -122,10 +170,11 @@ namespace PrimeEngine { namespace Graphics {
 			char* error = new char[lenght + 1];
 			glGetShaderInfoLog(fragmentShader, lenght, &lenght, error);
 			glDeleteShader(fragmentShader);
-			char* errorMsg = new char[sizeof(error) + 100];
-			sprintf_s(errorMsg, sizeof(error) + 100, "Failed to compile fragment shader:\n%s \n", error);
-			PrimeException errorCompiling(errorMsg, -1);
-			throw errorCompiling;
+			PRIME_ERROR("Failed to compile fragment shader:\n", error, "\n"); //const char type not supported
+			//char* errorMsg = new char[sizeof(error) + 100];
+			//sprintf_s(errorMsg, sizeof(error) + 100, "Failed to compile fragment shader:\n%s \n", error);
+			//PrimeException errorCompiling(errorMsg, -1);
+			//throw errorCompiling;
 		}
 
 		glAttachShader(program, vertexShader);

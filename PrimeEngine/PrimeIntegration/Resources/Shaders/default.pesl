@@ -1,4 +1,6 @@
-#version 330 core
+$version 330/$
+
+$vertex
 
 layout (location = 0) in vec4 position;
 layout (location = 1) in vec4 color;
@@ -9,15 +11,13 @@ uniform mat4 pr_matrix;
 uniform mat4 view_matrix = mat4(1.0f);
 uniform mat4 model_matrix = mat4(1.0f);
 
-#data
 out data
 {
 	vec4 position;
 	vec4 color; //only color needed
 	vec2 texCord;
 	float texture;
-};
-#end
+} dataOut;
 
 void main()
 {
@@ -26,9 +26,17 @@ void main()
 	dataOut.color = color;
 	dataOut.texCord = textureCord;
 	dataOut.texture = texture;
-}
+}/$
 
-#fragment
+$fragment
+
+in data
+{
+	vec4 position;
+	vec4 color; //only color needed
+	vec2 texCord;
+	float texture;
+} dataIn;
 
 layout (location = 0) out vec4 color;
 
@@ -48,4 +56,4 @@ uniform sampler2D textures[8];
 	{
 		color = dataIn.color;
 	}
- }
+ }/$

@@ -7,6 +7,11 @@
 #include "..\DllExport.h"
 #include <map>
 
+#define VERSION_MACRO		"$version"
+#define FRAGMENT_MACRO		"$fragment"
+#define VERTEX_MACRO		"$vertex"
+#define END_MACRO			"/$"
+
 namespace PrimeEngine { namespace Graphics {
 
 	class PRIMEENGINEAPI Shader
@@ -20,7 +25,7 @@ namespace PrimeEngine { namespace Graphics {
 	private:
 		GLuint LoadShader();
 		GLint GetLocation(const GLchar* name);
-		void ParseShaderFile(std::string& shaderFile, char* vertexShader, char* fragmentShader);
+		void ParseShaderFile(std::string& shaderFile, char** vertexSource, char** fragmentSource);
 	public:
 		Shader(const char* vertexShaderPath, const char* fragmentShaderPath);
 		Shader(const char* shaderFilePath);

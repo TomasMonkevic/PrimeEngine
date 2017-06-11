@@ -18,8 +18,11 @@ void TestGame::Awake()
 	Matrix4x4 pr = Matrix4x4::Orthographic(-8.0f, 8.0f, -4.5f, 4.5f, -1.0f, 1.0f);
 	//Matrix4x4 pr = Matrix4x4::Perspective(45.0f, 16.0f / 9.0f, -1.5f, 1.5f);
 
-	gameShader = new Shader("Resources\\Shaders\\standard.vert", "Resources\\Shaders\\standard.frag");
-	uiShader = new Shader("Resources\\Shaders\\standard.vert", "Resources\\Shaders\\standard.frag");
+	//gameShader = new Shader("Resources\\Shaders\\standard.vert", "Resources\\Shaders\\standard.frag");
+	//uiShader = new Shader("Resources\\Shaders\\standard.vert", "Resources\\Shaders\\standard.frag");
+
+	gameShader = new Shader("Resources\\Shaders\\default.pesl");
+	uiShader = new Shader("Resources\\Shaders\\default.pesl");
 
 	mainCamera = new Camera(gameShader, pr);
 
