@@ -1,21 +1,22 @@
 TODO:
-- Shader manager
-- Default shader
 - Texture managaer
 - Font manager
 - Refactor file system
+- Change all header gruards to #pragma once
 - Color class
 - KeyDown, KeyUp etc
 - Implement ViewportToScreen ect. methods
 - Audio (Gorila-audio)
 - Unify mouse and key presses
+- Base class for all prime engine entities
+- Fix exception throwing //Are exception good for engines? Maybe logging system is enough?
 - Maintenace, code review, bug fixes
 - Cross-platform (Windows, Mac, Linux)
-- Fix exception throwing //Are exception good for engines? Maybe logging system is enough?
 - Implement custom string class
 - Android support
 
 Tests:
+- 2h testing session (all issues should be logged in bitbucket)
 - Test textures with different depths
 - Test texture overfloaing
 - Test texture deletion

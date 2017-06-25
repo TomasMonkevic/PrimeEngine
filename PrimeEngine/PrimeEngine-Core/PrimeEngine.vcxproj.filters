@@ -25,7 +25,6 @@
       <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Utilities\File.h" />
-    <ClInclude Include="Graphics\Shader.h" />
     <ClInclude Include="Graphics\Buffers\VertexBuffer.h" />
     <ClInclude Include="Graphics\Buffers\IndexBuffer.h" />
     <ClInclude Include="Graphics\Buffers\VertexArray.h" />
@@ -52,6 +51,8 @@
     <ClInclude Include="Graphics\Label.h" />
     <ClInclude Include="Graphics\Font.h" />
     <ClInclude Include="Math\Math.h" />
+    <ClInclude Include="Graphics\Shader\Shader.h" />
+    <ClInclude Include="Graphics\Shader\ShaderManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Input.cpp">
@@ -65,7 +66,6 @@
     <ClCompile Include="Graphics\Window.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\Shader.cpp" />
     <ClCompile Include="Graphics\Buffers\VertexBuffer.cpp" />
     <ClCompile Include="Graphics\Buffers\IndexBuffer.cpp" />
     <ClCompile Include="Graphics\Buffers\VertexArray.cpp" />
@@ -85,5 +85,10 @@
     <ClCompile Include="Networking\TCPClient.cpp" />
     <ClCompile Include="Graphics\Label.cpp" />
     <ClCompile Include="Graphics\Font.cpp" />
+    <ClCompile Include="Graphics\Shader\Shader.cpp" />
+    <ClCompile Include="Graphics\Shader\ShaderManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Graphics\Shader\Source\Default.pesl" />
   </ItemGroup>
 </Project>

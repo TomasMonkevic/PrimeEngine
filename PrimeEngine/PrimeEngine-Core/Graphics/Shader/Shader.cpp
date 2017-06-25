@@ -1,21 +1,21 @@
 #include "Shader.h"
-#include "../PrimeException.h"
 #include <Utilities/Log.h>
 
 namespace PrimeEngine { namespace Graphics {
 
-	Shader::Shader(const char* vertexShaderPath, const char* fragmentShaderPath) :
-		_vertexShaderPath(vertexShaderPath), _fragmentShaderPath(fragmentShaderPath)
-	{
-		_uniformLocation = new std::map<const GLchar*, GLint>;
-		_shaderID = LoadShader();
-	}
+	const char* Shader::default =
+	#include "Source\Default.pesl"
+	;
 
-	Shader::Shader(const char* shaderFilePath) :
-		_shaderFilePath(shaderFilePath)
+	Shader::Shader(const char* shaderFile, bool isSource)
 	{
 		_uniformLocation = new std::map<const GLchar*, GLint>;
-		_shaderID = LoadShader();
+
+		std::string shaderFileString = isSource ? shaderFile : PrimeEngine::File::ReadFile(shaderFile);
+		char* vertexSource = NULL;
+		char* fragmentSource = NULL;
+		ParseShaderFile(shaderFileString, &vertexSource, &fragmentSource);
+		_shaderID = LoadShader(vertexSource, fragmentSource);
 	}
 
 	Shader::~Shader()
@@ -74,7 +74,7 @@ namespace PrimeEngine { namespace Graphics {
 		glUniform1iv(GetLocation(name), size, values);
 	}
 
-	void Shader::ParseShaderFile(std::string& shaderFile, char** vertexSource, char** fragmentSource)
+	void Shader::ParseShaderFile(std::string& shaderFile, char** vertexSourceOut, char** fragmentSourceOut)
 	{
 		int globalPos = 0, temp;
 		std::string version;
@@ -85,7 +85,7 @@ namespace PrimeEngine { namespace Graphics {
 			globalPos = shaderFile.find(END_MACRO, globalPos + 1);
 			if (globalPos != shaderFile.npos)
 			{
-				version = shaderFile.substr(temp, globalPos);
+				version = shaderFile.substr(temp, globalPos - temp);
 			}
 		}
 		version.replace(0, 1, "#");
@@ -118,27 +118,18 @@ namespace PrimeEngine { namespace Graphics {
 		vertex.insert(0, version);
 		fragment.insert(0, version);
 
-		*vertexSource = new char[vertex.length() + 1];
-		*fragmentSource = new char[fragment.length() + 1];
+		*vertexSourceOut = new char[vertex.length() + 1];
+		*fragmentSourceOut = new char[fragment.length() + 1];
 
-		strcpy_s(*vertexSource, vertex.length() + 1,vertex.c_str());
-		strcpy_s(*fragmentSource, fragment.length() + 1, fragment.c_str());
+		strcpy_s(*vertexSourceOut, vertex.length() + 1,vertex.c_str());
+		strcpy_s(*fragmentSourceOut, fragment.length() + 1, fragment.c_str());
 	}
 
-	GLuint Shader::LoadShader()
+	GLuint Shader::LoadShader(char* vertexSource, char* fragmentSource)
 	{
 		GLuint program = glCreateProgram();
 		GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
 		GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-
-		//std::string vertexSourceString = PrimeEngine::File::ReadFile(_vertexShaderPath);
-		//std::string fragmentSourceString = PrimeEngine::File::ReadFile(_fragmentShaderPath);
-		std::string shaderFileString = PrimeEngine::File::ReadFile(_shaderFilePath);
-
-		char* vertexSource = NULL; //vertexSourceString.c_str();
-		char* fragmentSource = NULL; //fragmentSourceString.c_str();
-
-		ParseShaderFile(shaderFileString, &vertexSource, &fragmentSource);
 
 		glShaderSource(vertexShader, 1, &vertexSource, NULL);
 		glCompileShader(vertexShader);

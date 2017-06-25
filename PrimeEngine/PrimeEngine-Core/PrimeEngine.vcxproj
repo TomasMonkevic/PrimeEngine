@@ -31,7 +31,8 @@
     <ClInclude Include="Graphics\Layers\Layer.h" />
     <ClInclude Include="Graphics\Renderable2D.h" />
     <ClInclude Include="Graphics\Renderer2D.h" />
-    <ClInclude Include="Graphics\Shader.h" />
+    <ClInclude Include="Graphics\Shader\Shader.h" />
+    <ClInclude Include="Graphics\Shader\ShaderManager.h" />
     <ClInclude Include="Graphics\SimpleRenderer2D.h" />
     <ClInclude Include="Graphics\SimpleSprite.h" />
     <ClInclude Include="Graphics\Sprite.h" />
@@ -69,7 +70,8 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="Graphics\Shader.cpp" />
+    <ClCompile Include="Graphics\Shader\Shader.cpp" />
+    <ClCompile Include="Graphics\Shader\ShaderManager.cpp" />
     <ClCompile Include="Graphics\SimpleRenderer2D.cpp" />
     <ClCompile Include="Graphics\SimpleSprite.cpp" />
     <ClCompile Include="Graphics\Sprite.cpp" />
@@ -85,6 +87,9 @@
     <ClCompile Include="PrimeEngine.cpp" />
     <ClCompile Include="PrimeException.cpp" />
     <ClCompile Include="Utilities\Time.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Graphics\Shader\Source\Default.pesl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{0CE5EF6F-7D71-4E54-8926-AC390F4F3C0F}</ProjectGuid>
