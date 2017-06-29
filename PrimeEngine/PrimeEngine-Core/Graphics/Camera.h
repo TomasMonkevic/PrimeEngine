@@ -3,8 +3,8 @@
 
 #include <GL\glew.h>
 #include <Math/Math.h>
-#include "Shader.h"
-#include "..\DllExport.h"
+#include <Graphics\Shader\Shader.h>
+#include <DllExport.h>
 
 namespace PrimeEngine { namespace Graphics {
 

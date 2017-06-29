@@ -2,9 +2,9 @@
 #define PRIME_SHADER
 
 #include <GL\glew.h>
-#include "..\Utilities\File.h"
+#include <Utilities\File.h>
 #include <Math/Math.h>
-#include "..\DllExport.h"
+#include <DllExport.h>
 #include <map>
 
 #define VERSION_MACRO		"$version"
@@ -19,16 +19,14 @@ namespace PrimeEngine { namespace Graphics {
 	private:
 		GLuint _shaderID;
 		std::map<const GLchar*, GLint>* _uniformLocation;
-		const char *_vertexShaderPath, *_fragmentShaderPath, *_shaderFilePath;
 	public:
-
+		static const char* default;
 	private:
-		GLuint LoadShader();
+		GLuint LoadShader(char* vertexSource, char* fragmentSource);
 		GLint GetLocation(const GLchar* name);
 		void ParseShaderFile(std::string& shaderFile, char** vertexSource, char** fragmentSource);
 	public:
-		Shader(const char* vertexShaderPath, const char* fragmentShaderPath);
-		Shader(const char* shaderFilePath);
+		Shader(const char* shaderFilePath, bool isSource = false);
 		~Shader();
 
 		void SetUniform(const GLchar* name, const Math::Matrix4x4& matrix);

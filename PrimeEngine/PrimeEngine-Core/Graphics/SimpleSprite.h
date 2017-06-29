@@ -4,9 +4,9 @@
 #include "Buffers\IndexBuffer.h"
 #include "Buffers\VertexBuffer.h"
 #include "Buffers\VertexArray.h"
-#include "Shader.h"
+#include <Graphics\Shader\Shader.h>
 #include "Renderable2D.h"
-#include "..\DllExport.h"
+#include <DllExport.h>
 
 namespace PrimeEngine { namespace Graphics {
 

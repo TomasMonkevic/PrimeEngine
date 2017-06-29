@@ -13,7 +13,7 @@
 #include <PrimeException.h>
 
 #include <Graphics\Window.h>
-#include <Graphics\Shader.h>
+#include <Graphics\Shader\Shader.h>
 #include <Graphics\Camera.h>
 #include <Graphics\SimpleSprite.h>
 #include <Graphics\Sprite.h>
@@ -58,7 +58,6 @@ class TestGame : public PrimeEngineBase
 {
 private:
 	float speed = 10.0f;
-	Shader *gameShader, *uiShader;
 	GameLayer* gameLayer;
 	FakeUILayer* uiLayer;
 	Sprite *sprite1;
