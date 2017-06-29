@@ -73,6 +73,7 @@ namespace PrimeEngine
 			isInstanceCreated();
 			glfwInit();
 			glfwWindowHint(GLFW_RESIZABLE, GL_TRUE); //for now always is resizable
+			glfwWindowHint(GLFW_SAMPLES, 4);
 			//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
 			if (_isFullScreen)
@@ -115,6 +116,8 @@ namespace PrimeEngine
 
 			glEnable(GL_BLEND);
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+			glEnable(GL_MULTISAMPLE);
 
 			PRIME_INFO(glGetString(GL_VERSION), "\n");
 			PRIME_INFO(glGetString(GL_VENDOR), "\n");

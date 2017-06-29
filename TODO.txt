@@ -6,9 +6,14 @@ TODO:
 - Refactor file system
 - Color class
 - KeyDown, KeyUp etc
+- Events
+- Unify mouse and key presses
+- UI
+    - Button
+	- Text
+	- Slider
 - Implement ViewportToScreen ect. methods
 - Audio (Gorila-audio)
-- Unify mouse and key presses
 - Maintenace, code review, bug fixes
 - Cross-platform (Windows, Mac, Linux)
 - Fix exception throwing //Are exception good for engines? Maybe logging system is enough?
