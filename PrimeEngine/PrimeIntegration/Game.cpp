@@ -19,7 +19,7 @@ void TestGame::Awake()
 	Matrix4x4 pr = Matrix4x4::Orthographic(-8.0f, 8.0f, -4.5f, 4.5f, -1.0f, 1.0f);
 	//Matrix4x4 pr = Matrix4x4::Perspective(45.0f, 16.0f / 9.0f, -1.5f, 1.5f);
 
-	mainCamera = new Camera(ShaderManager::Instance()->CreateShader("gameShader", Shader::default), pr);
+	mainCamera = new Camera(ShaderManagerI->CreateShader("gameShader", Shader::default), pr);
 
 	//Vector3 cameraPosition(Vector3(9, 4.5f, -6.0f)); //projection
 	Vector3 cameraPosition(Vector3(0, 0, 0.0f)); //ortho
@@ -48,7 +48,7 @@ void TestGame::Awake()
 	buttonContainer->Add(uiEl);
 	button->Add(new Sprite(Vector3(0, 0.0f, 0), Vector2(4, 1), Vector4(1.0f, 0.0f, 0.0f, 0.5f)));
 	button->Add(new Sprite(Vector3(0, 0.0f, 0), Vector2(3, 0.5f), Vector4(0.0f, 0.0f, 1.0f, 1)));
-	uiLayer = new FakeUILayer(ShaderManager::Instance()->CreateShader("uiShader", Shader::default));
+	uiLayer = new FakeUILayer(ShaderManagerI->CreateShader("uiShader", Shader::default));
 	myFont = new Font("Resources\\arial.ttf", Math::Vector4(1,0,0,1), 32);
 	std::string wtf = "Hi Mom!";
 	myLabel = new Label(wtf, Math::Vector3(-8, -4.5f, 0), *myFont);

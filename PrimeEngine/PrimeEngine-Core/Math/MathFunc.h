@@ -7,7 +7,7 @@ namespace PrimeEngine { namespace Math {
 
 	inline float Abs(float value)
 	{
-		return value >= 0 ? value : value * -1;
+		return value >= 0 ? value : -value;
 	}
 
 	inline bool AreEqual(float left, float right, float errorTolerance = 0.0001f)

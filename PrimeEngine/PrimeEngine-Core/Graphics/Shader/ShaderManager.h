@@ -4,6 +4,8 @@
 #include <unordered_map>
 #include <DllExport.h>
 
+#define ShaderManagerI ShaderManager::Instance()
+
 namespace PrimeEngine { namespace Graphics {
 
 	class PRIMEENGINEAPI ShaderManager
