@@ -2,7 +2,7 @@
 
 namespace PrimeEngine { namespace Graphics {
 
-	SimpleSprite::SimpleSprite(const Math::Vector3& position, const Math::Vector2& size, const Math::Vector4& color, Shader& shader)
+	SimpleSprite::SimpleSprite(const Math::Vector3& position, const Math::Vector2& size, const Color& color, Shader& shader)
 		: Renderable2D(position, size, NULL, color), _shader(shader)
 	{
 		_vertexArray = new VertexArray();
@@ -15,10 +15,10 @@ namespace PrimeEngine { namespace Graphics {
 		};
 
 		GLfloat colors[] = {
-			color.x, color.y, color.z, color.w,
-			color.x, color.y, color.z, color.w,
-			color.x, color.y, color.z, color.w,
-			color.x, color.y, color.z, color.w
+			color[0], color[1], color[2], color[3],
+			color[0], color[1], color[2], color[3],
+			color[0], color[1], color[2], color[3],
+			color[0], color[1], color[2], color[3]
 		};
 
 		GLushort indices[] = {

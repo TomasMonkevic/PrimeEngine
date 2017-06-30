@@ -4,6 +4,7 @@
 #include "Buffers\IndexBuffer.h"
 #include "Buffers\VertexBuffer.h"
 #include "Buffers\VertexArray.h"
+#include "Color.h"
 #include <Graphics\Shader\Shader.h>
 #include "Renderable2D.h"
 #include <DllExport.h>
@@ -17,7 +18,7 @@ namespace PrimeEngine { namespace Graphics {
 		VertexArray* _vertexArray;
 		IndexBuffer* _indexBuffer;
 	public:
-		SimpleSprite(const Math::Vector3& position, const Math::Vector2& size, const Math::Vector4& color, Shader& shader);
+		SimpleSprite(const Math::Vector3& position, const Math::Vector2& size, const Color& color, Shader& shader);
 		~SimpleSprite() override;
 
 		inline const VertexArray* GetVertexArray() const

@@ -2,6 +2,7 @@
 #define SPRITE_H
 
 #include "Renderable2D.h"
+#include "Color.h"
 #include "..\DllExport.h"
 
 namespace PrimeEngine { namespace Graphics {
@@ -11,8 +12,8 @@ namespace PrimeEngine { namespace Graphics {
 	private:
 
 	public:
-		Sprite(const Math::Vector3& position, const Math::Vector2& size, const Math::Vector4& color);
-		Sprite(const Math::Vector3& position, const Math::Vector2& size, Texture* texture, const Math::Vector4& color = Math::Vector4(1, 1, 1, 0));
+		Sprite(const Math::Vector3& position, const Math::Vector2& size, const Color& color);
+		Sprite(const Math::Vector3& position, const Math::Vector2& size, Texture* texture, const Color& color = Color(1.0f, 1.0f, 1.0f, 0.0f));
 		~Sprite() override;
 	};
 }}

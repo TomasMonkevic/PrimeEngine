@@ -13,8 +13,8 @@ void TestGame::Awake()
 
 	//CreateWin("Tik Tac Toe", 1366, 768);
 	CreateWin("Test Game", 800, 600);
-	GetWindow()->EnableVSync(true);
-	GetWindow()->SetColor(Vector4(0.7f, 0.8f, 1.0f, 1.0f));
+	GetWindow()->EnableVSync(false);
+	GetWindow()->SetColor(Color(0.7f, 0.8f, 1.0f, 1.0f));
 
 	Matrix4x4 pr = Matrix4x4::Orthographic(-8.0f, 8.0f, -4.5f, 4.5f, -1.0f, 1.0f);
 	//Matrix4x4 pr = Matrix4x4::Perspective(45.0f, 16.0f / 9.0f, -1.5f, 1.5f);
@@ -25,12 +25,12 @@ void TestGame::Awake()
 	Vector3 cameraPosition(Vector3(0, 0, 0.0f)); //ortho
 	mainCamera->SetPosition(cameraPosition);
 
-	Sprite* backGround = new Sprite(Vector3(5, 4.5f, 0.1f), Vector2(100, 100), Vector4(1, 0.5f, 0, 1.0f));
+	Sprite* backGround = new Sprite(Vector3(5, 4.5f, 0.1f), Vector2(100, 100), Color(1, 0.5f, 0, 1.0f));
 	texture = new Texture("Resources\\Textures\\Sparkles.png");
 	texture2 = new Texture("Resources\\Textures\\textur2.png");
 	texture3 = new Texture("Resources\\Textures\\1.jpg");
 	//Texture* texture4 = new Texture("Resources\\Textures\\bc.png"); //openGL doesn't like this texture
-	sprite1 = new Sprite(Vector3(0, -0.5f, 0.1f), Vector2(5, 5), texture, Vector4(0,0,1,0.0f));
+	sprite1 = new Sprite(Vector3(0, -0.5f, 0.1f), Vector2(5, 5), texture, Color(0,0,1,0.0f));
 	Sprite* sprite2 = new Sprite(Vector3(5, -0.5f, 0.1f), Vector2(1, 1), NULL);
 	Sprite* sprite3 = new Sprite(Vector3(0, -0.5f, 0.1f), Vector2(2, 2), texture2);
 	//PRIME_WARNING(sprite2->GetPosition());
@@ -43,7 +43,7 @@ void TestGame::Awake()
 
 	buttonContainer = new Group(Vector3(-6, 0, 0), Vector2(10, 10));
 	button = new Group(Vector3(0, 1.5f, 0), Vector2(10, 10));
-	Sprite* uiEl = new Sprite(Vector3(0, 0, 0), Vector2(4, 1), Vector4(1.0f, 0.0f, 0.0f, 0.5f));
+	Sprite* uiEl = new Sprite(Vector3(0, 0, 0), Vector2(4, 1), Color(1.0f, 0.0f, 0.0f, 0.5f));
 	buttonContainer->Add(button);
 	buttonContainer->Add(uiEl);
 	button->Add(new Sprite(Vector3(0, 0.0f, 0), Vector2(4, 1), Vector4(1.0f, 0.0f, 0.0f, 0.5f)));
@@ -83,7 +83,7 @@ void TestGame::Tick()
 	float random1 = (float)(rand() % 100) / 100.0f;
 	float random2 = (float)(rand() % 100) / 100.0f;
 	//PRIME_WARNING(random, " ", random1, " ", random2, "\n");
-	myFont->color = Vector4(random,random1,random2,1);
+	myFont->color = Color(random,random1,random2);
 	PRIME_INFO(myFont->color, "\n");
 }
 

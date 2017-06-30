@@ -53,6 +53,7 @@
     <ClInclude Include="Math\Math.h" />
     <ClInclude Include="Graphics\Shader\Shader.h" />
     <ClInclude Include="Graphics\Shader\ShaderManager.h" />
+    <ClInclude Include="Graphics\Color.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Input.cpp">
@@ -87,6 +88,7 @@
     <ClCompile Include="Graphics\Font.cpp" />
     <ClCompile Include="Graphics\Shader\Shader.cpp" />
     <ClCompile Include="Graphics\Shader\ShaderManager.cpp" />
+    <ClCompile Include="Graphics\Color.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Graphics\Shader\Source\Default.pesl" />

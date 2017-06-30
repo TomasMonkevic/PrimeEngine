@@ -4,6 +4,7 @@
 //prime types
 #include <Math/Vector3.h>
 #include <Math/Vector4.h>
+#include <Graphics\Color.h>
 
 #include <string>
 #include <cstdio>
@@ -94,6 +95,14 @@ namespace PrimeEngine
 	static const char* ToString<Math::Vector4>(const Math::Vector4& vec)
 	{
 		sprintf_s(_formatBuffer, "(%f, %f, %f, %f)", vec.x, vec.y, vec.z, vec.w);
+		const char* rez = _formatBuffer;
+		return rez;
+	}
+
+	template<>
+	static const char* ToString<Graphics::Color>(const Graphics::Color& col)
+	{
+		sprintf_s(_formatBuffer, "(%f, %f, %f, %f)", col[0], col[1], col[2], col[3]);
 		const char* rez = _formatBuffer;
 		return rez;
 	}

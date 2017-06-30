@@ -20,7 +20,7 @@ namespace PrimeEngine { namespace Graphics {
 		glEnableVertexAttribArray(SHADER_TEXTURE_INDEX);
 
 		glVertexAttribPointer(SHADER_POSITION_INDEX, 3, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, NULL);
-		glVertexAttribPointer(SHADER_COLOR_INDEX, 4, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(VertexData, VertexData::color)));
+		glVertexAttribPointer(SHADER_COLOR_INDEX, 4, GL_UNSIGNED_BYTE, GL_TRUE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(VertexData, VertexData::color32)));
 		glVertexAttribPointer(SHADER_TEXTURE_CORD_INDEX, 2, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(VertexData, VertexData::textureCord)));
 		glVertexAttribPointer(SHADER_TEXTURE_INDEX, 1, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(VertexData, VertexData::texture)));
 
@@ -61,7 +61,7 @@ namespace PrimeEngine { namespace Graphics {
 
 	void BatchRenderer2D::Submit(const Renderable2D* renderable2D)
 	{
-		const Math::Vector4& color = renderable2D->GetColor();
+		const Color& color = renderable2D->GetColor();
 		const Math::Vector2& size = renderable2D->GetSize();
 		const GLuint textureId = renderable2D->GetTextureId();
 		float activeTexture = 0.0f;
@@ -97,25 +97,25 @@ namespace PrimeEngine { namespace Graphics {
 		}
 
 		_buffer->position = *_transformationStackBack * renderable2D->GetModelMatrix() * Math::Vector3(-size.x / 2.0f, size.y / 2.0f, 0);
-		_buffer->color = color;
+		_buffer->color32 = color.ToColor32();
 		_buffer->textureCord = renderable2D->GetTextureCords(0);
 		_buffer->texture = activeTexture;
 		_buffer++;
 
 		_buffer->position = *_transformationStackBack * renderable2D->GetModelMatrix() * Math::Vector3(size.x / 2.0f,  size.y / 2.0f, 0);
-		_buffer->color = color;
+		_buffer->color32 = color.ToColor32();
 		_buffer->textureCord = renderable2D->GetTextureCords(1);
 		_buffer->texture = activeTexture;
 		_buffer++;
 
 		_buffer->position = *_transformationStackBack * renderable2D->GetModelMatrix() * Math::Vector3(size.x / 2.0f, -size.y / 2.0f, 0);
-		_buffer->color = color;
+		_buffer->color32 = color.ToColor32();
 		_buffer->textureCord = renderable2D->GetTextureCords(2);
 		_buffer->texture = activeTexture;
 		_buffer++;
 
 		_buffer->position = *_transformationStackBack * renderable2D->GetModelMatrix() * Math::Vector3(-size.x / 2.0f, -size.y / 2.0f, 0);
-		_buffer->color = color;
+		_buffer->color32 = color.ToColor32();
 		_buffer->textureCord = renderable2D->GetTextureCords(3);
 		_buffer->texture = activeTexture;
 		_buffer++;
@@ -177,25 +177,25 @@ namespace PrimeEngine { namespace Graphics {
 				_buffer->position = *_transformationStackBack * Math::Vector3(x0, y0, 0);
 				_buffer->textureCord = Math::Vector2(glyph->s0, glyph->t1);
 				_buffer->texture = activeTexture;
-				_buffer->color = font.color;
+				_buffer->color32 = font.color.ToColor32();
 				_buffer++;
 
 				_buffer->position = *_transformationStackBack * Math::Vector3(x0, y1, 0);
 				_buffer->textureCord = Math::Vector2(glyph->s0, glyph->t0);
 				_buffer->texture = activeTexture;
-				_buffer->color = font.color;
+				_buffer->color32 = font.color.ToColor32();
 				_buffer++;
 
 				_buffer->position = *_transformationStackBack * Math::Vector3(x1, y1, 0);
 				_buffer->textureCord = Math::Vector2(glyph->s1, glyph->t0);
 				_buffer->texture = activeTexture;
-				_buffer->color = font.color;
+				_buffer->color32 = font.color.ToColor32();
 				_buffer++;
 
 				_buffer->position = *_transformationStackBack * Math::Vector3(x1, y0, 0);
 				_buffer->textureCord = Math::Vector2(glyph->s1, glyph->t1);
 				_buffer->texture = activeTexture;
-				_buffer->color = font.color;
+				_buffer->color32 = font.color.ToColor32();
 				_buffer++;
 
 				_indexCount += 6;

@@ -3,6 +3,7 @@
 
 #include <GL\glew.h>
 #include <GLFW\glfw3.h>
+#include "Color.h"
 #include "..\Math\Vector4.h"
 #include "..\Math\Vector2.h"
 #include "..\DllExport.h"
@@ -20,7 +21,7 @@ namespace PrimeEngine
 			GLFWwindow* _window;
 			static Window* instance;
 			bool _isFullScreen;
-			Math::Vector4 _color = Math::Vector4::one;
+			Color _color = Color::white;
 		private:
 			Window(const char* title, int width, int height);
 			Window(const char* title);
@@ -35,13 +36,13 @@ namespace PrimeEngine
 				return instance; 
 			}
 
-			inline void SetColor(const Math::Vector4& color)
+			inline void SetColor(const Color& color)
 			{
 				isInstanceCreated();
 				_color = color;
 			}
 
-			inline const Math::Vector4& GetColor() const
+			inline const Color& GetColor() const
 			{
 				return _color;
 			}
