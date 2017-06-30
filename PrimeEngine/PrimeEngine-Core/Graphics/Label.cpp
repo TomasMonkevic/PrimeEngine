@@ -3,7 +3,7 @@
 namespace PrimeEngine { namespace Graphics {
 
 	Label::Label(std::string& _text, const Math::Vector3& position, Font& _font)
-		: Renderable2D(position, Math::Vector2::one, NULL, Math::Vector4::one), text(_text)
+		: Renderable2D(position, Math::Vector2::one, NULL, Color::white), text(_text)
 	{
 		font = &_font;
 	}

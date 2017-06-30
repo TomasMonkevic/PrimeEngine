@@ -3,6 +3,7 @@
 
 #include <GL\glew.h>
 #include <Math/Math.h>
+#include "Color.h"
 #include "Renderer2D.h"
 #include "Texture.h"
 #include "..\DllExport.h"
@@ -12,7 +13,7 @@ namespace PrimeEngine { namespace Graphics {
 	struct VertexData
 	{
 		Math::Vector3 position;
-		Math::Vector4 color;
+		unsigned color32;
 		Math::Vector2 textureCord;
 		float texture;
 	};
@@ -25,7 +26,7 @@ namespace PrimeEngine { namespace Graphics {
 		Math::Vector3 _scale = Math::Vector3::one;
 
 		Math::Vector2 _size;
-		Math::Vector4 _color = Math::Vector4::one;
+		Color _color = Color::white;
 		Math::Vector2 _textureCord[4];
 		Texture* _texture;
 
@@ -39,7 +40,7 @@ namespace PrimeEngine { namespace Graphics {
 		}
 
 	public:
-		Renderable2D(const Math::Vector3& position, const Math::Vector2& size, Texture* texture, const Math::Vector4& color) //change the same as sprite constructor
+		Renderable2D(const Math::Vector3& position, const Math::Vector2& size, Texture* texture, const Color& color) //change the same as sprite constructor
 			: _position(position), _size(size), _texture(texture), _color(color)
 		{
 			SetTextureCords();
@@ -85,7 +86,7 @@ namespace PrimeEngine { namespace Graphics {
 			return _size;
 		}
 
-		inline const Math::Vector4& GetColor() const
+		inline const Color& GetColor() const
 		{
 			return _color;
 		}

@@ -73,7 +73,7 @@ namespace PrimeEngine
 			isInstanceCreated();
 			glfwInit();
 			glfwWindowHint(GLFW_RESIZABLE, GL_TRUE); //for now always is resizable
-			glfwWindowHint(GLFW_SAMPLES, 4);
+			//glfwWindowHint(GLFW_SAMPLES, 4);
 			//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
 			if (_isFullScreen)
@@ -117,7 +117,7 @@ namespace PrimeEngine
 			glEnable(GL_BLEND);
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-			glEnable(GL_MULTISAMPLE);
+			//glEnable(GL_MULTISAMPLE);
 
 			PRIME_INFO(glGetString(GL_VERSION), "\n");
 			PRIME_INFO(glGetString(GL_VENDOR), "\n");
@@ -145,7 +145,7 @@ namespace PrimeEngine
 
 		void Window::Clear() const
 		{
-			glClearColor(_color.x, _color.y, _color.z, _color.w);
+			glClearColor(_color[0], _color[1], _color[2], _color[3]);
 			glClear(GL_COLOR_BUFFER_BIT);
 		}
 	}

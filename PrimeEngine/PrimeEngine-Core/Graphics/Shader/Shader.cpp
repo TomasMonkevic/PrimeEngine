@@ -16,6 +16,8 @@ namespace PrimeEngine { namespace Graphics {
 		char* fragmentSource = NULL;
 		ParseShaderFile(shaderFileString, &vertexSource, &fragmentSource);
 		_shaderID = LoadShader(vertexSource, fragmentSource);
+		delete vertexSource;
+		delete fragmentSource;
 	}
 
 	Shader::~Shader()

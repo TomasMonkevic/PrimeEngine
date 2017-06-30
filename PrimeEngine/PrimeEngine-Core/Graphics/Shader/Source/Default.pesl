@@ -24,7 +24,10 @@ void main()
 {
 	gl_Position = pr_matrix * view_matrix * model_matrix * position;
 	dataOut.position = model_matrix * position;
-	dataOut.color = color;
+	dataOut.color = color;// >> 24;
+	//dataOut.color.y = (color & 0x00FF0000) >> 16;
+	//dataOut.color.z = (color & 0x0000FF00) >> 8;
+	//dataOut.color.w = (color & 0x000000FF);
 	dataOut.texCord = textureCord;
 	dataOut.texture = texture;
 }/$
