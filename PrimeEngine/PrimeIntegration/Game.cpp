@@ -28,7 +28,7 @@ void TestGame::Awake()
 	Sprite* backGround = new Sprite(Vector3(5, 4.5f, 0.1f), Vector2(100, 100), Color(1, 0.5f, 0, 1.0f));
 	texture = new Texture("Resources\\Textures\\Sparkles.png");
 	texture2 = new Texture("Resources\\Textures\\textur2.png");
-	texture3 = new Texture("Resources\\Textures\\1.jpg");
+	//texture3 = new Texture("Resources\\Textures\\1.jpg");
 	//Texture* texture4 = new Texture("Resources\\Textures\\bc.png"); //openGL doesn't like this texture
 	sprite1 = new Sprite(Vector3(0, -0.5f, 0.1f), Vector2(5, 5), texture, Color(0,0,1,0.0f));
 	Sprite* sprite2 = new Sprite(Vector3(5, -0.5f, 0.1f), Vector2(1, 1), NULL);
@@ -46,10 +46,10 @@ void TestGame::Awake()
 	Sprite* uiEl = new Sprite(Vector3(0, 0, 0), Vector2(4, 1), Color(1.0f, 0.0f, 0.0f, 0.5f));
 	buttonContainer->Add(button);
 	buttonContainer->Add(uiEl);
-	button->Add(new Sprite(Vector3(0, 0.0f, 0), Vector2(4, 1), Vector4(1.0f, 0.0f, 0.0f, 0.5f)));
-	button->Add(new Sprite(Vector3(0, 0.0f, 0), Vector2(3, 0.5f), Vector4(0.0f, 0.0f, 1.0f, 1)));
+	button->Add(new Sprite(Vector3(0, 0.0f, 0), Vector2(4, 1), Color(1.0f, 0.0f, 0.0f, 0.5f)));
+	button->Add(new Sprite(Vector3(0, 0.0f, 0), Vector2(3, 0.5f), Color(0.0f, 0.0f, 1.0f)));
 	uiLayer = new FakeUILayer(ShaderManagerI->CreateShader("uiShader", Shader::default));
-	myFont = new Font("Resources\\arial.ttf", Math::Vector4(1,0,0,1), 32);
+	myFont = new Font("Resources\\arial.ttf", Color(1.0f, 0.0f, 0.0f), 32);
 	std::string wtf = "Hi Mom!";
 	myLabel = new Label(wtf, Math::Vector3(-8, -4.5f, 0), *myFont);
 	uiLayer->Submit(myLabel);

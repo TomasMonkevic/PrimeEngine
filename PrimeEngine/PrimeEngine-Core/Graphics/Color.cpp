@@ -24,10 +24,10 @@ namespace PrimeEngine { namespace Graphics {
 
 	const unsigned Color::ToColor32() const
 	{
-		unsigned r = _r * 255;
-		unsigned g = _g * 255;
-		unsigned b = _b * 255;
-		unsigned a = _a * 255;
+		unsigned r = unsigned(_r * 255.0f);
+		unsigned g = unsigned(_g * 255.0f);
+		unsigned b = unsigned(_b * 255.0f);
+		unsigned a = unsigned(_a * 255.0f);
 		
 		//does endianess matter?
 		return (a << 8 * 3) | (b << 8 * 2) | (g << 8 * 1) | r;

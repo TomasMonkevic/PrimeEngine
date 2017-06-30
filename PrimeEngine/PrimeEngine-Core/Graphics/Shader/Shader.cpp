@@ -78,7 +78,7 @@ namespace PrimeEngine { namespace Graphics {
 
 	void Shader::ParseShaderFile(std::string& shaderFile, char** vertexSourceOut, char** fragmentSourceOut)
 	{
-		int globalPos = 0, temp;
+		std::size_t globalPos = 0, temp;
 		std::string version;
 		globalPos = shaderFile.find(VERSION_MACRO, globalPos);
 		if (globalPos != shaderFile.npos)
