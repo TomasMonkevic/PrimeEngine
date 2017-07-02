@@ -14,8 +14,7 @@ uniform mat4 model_matrix = mat4(1.0f);
 
 out data
 {
-	vec4 position;
-	vec4 color; //only color needed
+	vec4 color;
 	vec2 texCord;
 	float texture;
 } dataOut;
@@ -23,11 +22,7 @@ out data
 void main()
 {
 	gl_Position = pr_matrix * view_matrix * model_matrix * position;
-	dataOut.position = model_matrix * position;
-	dataOut.color = color;// >> 24;
-	//dataOut.color.y = (color & 0x00FF0000) >> 16;
-	//dataOut.color.z = (color & 0x0000FF00) >> 8;
-	//dataOut.color.w = (color & 0x000000FF);
+	dataOut.color = color;
 	dataOut.texCord = textureCord;
 	dataOut.texture = texture;
 }/$
@@ -36,8 +31,7 @@ $fragment
 
 in data
 {
-	vec4 position;
-	vec4 color; //only color needed
+	vec4 color;
 	vec2 texCord;
 	float texture;
 } dataIn;
@@ -52,9 +46,7 @@ uniform sampler2D textures[8];
 	{
 		int textureId = int(dataIn.texture - 0.5);
 		vec4 textureColor = texture(textures[textureId], dataIn.texCord);
-		if(textureColor.a < 0.1)
-			discard;
-		color = mix(textureColor, dataIn.color, dataIn.color.w);
+		color = textureColor * dataIn.color;
 	}
 	else
 	{

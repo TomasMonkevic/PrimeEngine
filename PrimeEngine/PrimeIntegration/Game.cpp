@@ -13,6 +13,7 @@ void TestGame::Awake()
 
 	//CreateWin("Tik Tac Toe", 1366, 768);
 	CreateWin("Test Game", 800, 600);
+	//CreateWin("PrimeEngine");
 	GetWindow()->EnableVSync(false);
 	GetWindow()->SetColor(Color(0.7f, 0.8f, 1.0f, 1.0f));
 
@@ -30,7 +31,7 @@ void TestGame::Awake()
 	texture2 = new Texture("Resources\\Textures\\textur2.png");
 	//texture3 = new Texture("Resources\\Textures\\1.jpg");
 	//Texture* texture4 = new Texture("Resources\\Textures\\bc.png"); //openGL doesn't like this texture
-	sprite1 = new Sprite(Vector3(0, -0.5f, 0.1f), Vector2(5, 5), texture, Color(0,0,1,0.0f));
+	sprite1 = new Sprite(Vector3(0, -0.5f, 0.1f), Vector2(5, 5), texture, Color(0.55f,0.55f,1,1.0f));
 	Sprite* sprite2 = new Sprite(Vector3(5, -0.5f, 0.1f), Vector2(1, 1), NULL);
 	Sprite* sprite3 = new Sprite(Vector3(0, -0.5f, 0.1f), Vector2(2, 2), texture2);
 	//PRIME_WARNING(sprite2->GetPosition());
@@ -49,7 +50,7 @@ void TestGame::Awake()
 	button->Add(new Sprite(Vector3(0, 0.0f, 0), Vector2(4, 1), Color(1.0f, 0.0f, 0.0f, 0.5f)));
 	button->Add(new Sprite(Vector3(0, 0.0f, 0), Vector2(3, 0.5f), Color(0.0f, 0.0f, 1.0f)));
 	uiLayer = new FakeUILayer(ShaderManagerI->CreateShader("uiShader", Shader::default));
-	myFont = new Font("Resources\\arial.ttf", Color(1.0f, 0.0f, 0.0f), 32);
+	myFont = new Font("Resources\\arial.ttf", Color(1.0f, 1.0f, 1.0f), 64);
 	std::string wtf = "Hi Mom!";
 	myLabel = new Label(wtf, Math::Vector3(-8, -4.5f, 0), *myFont);
 	uiLayer->Submit(myLabel);
@@ -83,7 +84,7 @@ void TestGame::Tick()
 	float random1 = (float)(rand() % 100) / 100.0f;
 	float random2 = (float)(rand() % 100) / 100.0f;
 	//PRIME_WARNING(random, " ", random1, " ", random2, "\n");
-	myFont->color = Color(random,random1,random2);
+	//myFont->color = Color(random,random1,random2);
 	PRIME_INFO(myFont->color, "\n");
 }
 

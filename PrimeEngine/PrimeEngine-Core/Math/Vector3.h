@@ -1,7 +1,6 @@
-#ifndef PRIMEENGINE_VECTOR3
-#define PRIMEENGINE_VECTOR3
+#pragma once
 
-#include "..\DllExport.h"
+#include <DllExport.h>
 #include "MathFunc.h"
 #include <iostream>
 
@@ -50,6 +49,4 @@ namespace PrimeEngine {	namespace Math {
 		}
 	};
 }}
-
-#endif // !PRIMEENGINE_VECTOR3
 

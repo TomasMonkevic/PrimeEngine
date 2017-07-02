@@ -6,6 +6,7 @@
 #include <Math/Vector4.h>
 #include <Graphics\Color.h>
 
+
 #include <string>
 #include <cstdio>
 #include <Windows.h> //later move to platform specific folder
@@ -24,12 +25,13 @@ namespace std
 	template<typename T>
 	static string to_string(const T& arg)
 	{
-		return string("Type not suported");
+		return string("[Unsupported type (") + typeid(T).name() + string(")!] (to_string)");
 	}
 }
 
 namespace PrimeEngine 
 {
+
 	static void PlatformPrint(unsigned level, const char* message) //needs to be in a seperate file - platform specific
 	{
 		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -46,8 +48,10 @@ namespace PrimeEngine
 		SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 	}
 
-	static char _buffer[1024 * 10];
-	static char _formatBuffer[1024 * 10];
+	static const std::size_t BUFFER_SIZE = 1024 * 10;
+
+	static char* const _buffer			= (char*)calloc(BUFFER_SIZE, sizeof(char));
+	static char* const _formatBuffer	= (char*)calloc(BUFFER_SIZE, sizeof(char));
 
 	#pragma region ToString functions
 	template<typename T>
@@ -86,25 +90,22 @@ namespace PrimeEngine
 	template<>
 	static const char* ToString<Math::Vector3>(const Math::Vector3& vec)
 	{
-		sprintf_s(_formatBuffer, "(%f, %f, %f)", vec.x, vec.y, vec.z);
-		const char* rez = _formatBuffer;
-		return rez;
+		sprintf_s(_formatBuffer, BUFFER_SIZE,"(%f, %f, %f)", vec.x, vec.y, vec.z);
+		return _formatBuffer;
 	}
 
 	template<>
 	static const char* ToString<Math::Vector4>(const Math::Vector4& vec)
 	{
-		sprintf_s(_formatBuffer, "(%f, %f, %f, %f)", vec.x, vec.y, vec.z, vec.w);
-		const char* rez = _formatBuffer;
-		return rez;
+		sprintf_s(_formatBuffer, BUFFER_SIZE, "(%f, %f, %f, %f)", vec.x, vec.y, vec.z, vec.w);
+		return _formatBuffer;
 	}
 
 	template<>
 	static const char* ToString<Graphics::Color>(const Graphics::Color& col)
 	{
-		sprintf_s(_formatBuffer, "(%f, %f, %f, %f)", col[0], col[1], col[2], col[3]);
-		const char* rez = _formatBuffer;
-		return rez;
+		sprintf_s(_formatBuffer, BUFFER_SIZE, "(%f, %f, %f, %f)", col[0], col[1], col[2], col[3]);
+		return _formatBuffer;
 	}
 	#pragma endregion
 
@@ -120,6 +121,7 @@ namespace PrimeEngine
 	static void PrintInternal(unsigned& position, First&& first, T&&... args)
 	{
 		const char* formated = ToString(first);
+		//if buffer is overfload -> reallocate
 		memcpy(&_buffer[position], formated, strlen(formated));
 		position += strlen(formated);
 		if (sizeof...(args))

@@ -32,5 +32,4 @@ namespace PrimeEngine { namespace Graphics {
 		//does endianess matter?
 		return (a << 8 * 3) | (b << 8 * 2) | (g << 8 * 1) | r;
 	}
-
 }}

@@ -18,7 +18,7 @@ namespace PrimeEngine { namespace Graphics {
 		Color(const char* hexColor);
 
 		const unsigned ToColor32() const;
-		inline const float operator[](unsigned index) const
+		inline const float& operator[](unsigned index) const
 		{
 			switch (index)
 			{
@@ -31,7 +31,26 @@ namespace PrimeEngine { namespace Graphics {
 			case 3:
 				return _a;
 			default:
-				return -1;
+				//error
+				return _r;
+			}
+		}
+
+		inline float& operator[](unsigned index)
+		{
+			switch (index)
+			{
+			case 0:
+				return _r;
+			case 1:
+				return _g;
+			case 2:
+				return _b;
+			case 3:
+				return _a;
+			default:
+				//error
+				return _r;
 			}
 		}
 	};

@@ -10,7 +10,7 @@ TODO:
 - UI
     - Button
 	- Text
-	- Slider
+	- Sliderz
 - Implement ViewportToScreen ect. methods
 - Audio (Gorila-audio)
 - Base class for all prime engine entities
