@@ -20,7 +20,7 @@
 #include <Graphics\SimpleRenderer2D.h>
 #include <Graphics\BatchRenderer2D.h>
 #include <Graphics\Layers\Layer.h>
-#include <Graphics\Layers\Group.h>
+//#include <Graphics\Layers\Group.h>
 #include <Graphics\Texture.h>
 
 using namespace PrimeEngine;
