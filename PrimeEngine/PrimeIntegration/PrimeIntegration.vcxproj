@@ -83,15 +83,15 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(ProjectDir)..\..\Build\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(ProjectDir)..\..\Build\bin\TestGame\$(Platform)\$(Configuration)\</IntDir>
-    <IncludePath>$(ProjectDir)..\..\PrimeEngine\PrimeEngine\;$(ProjectDir)..\..\PrimeEngine\Dependencies\OpenGL\include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)..\..\PrimeEngine\Dependencies\OpenGL\lib;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
+    <IntDir>$(ProjectDir)..\..\Build\bin\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+    <IncludePath>$(SolutionDir)\PrimeEngine-Core;$(SolutionDir)\Dependencies\OpenGL\include;$(SolutionDir)\Dependencies\FreeImage\Dist\x32;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)\Dependencies\FreeType</IncludePath>
+    <LibraryPath>$(SolutionDir)..\Build\$(Platform)\$(Configuration)\;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(ProjectDir)..\..\Build\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(ProjectDir)..\..\Build\bin\TestGame\$(Platform)\$(Configuration)\</IntDir>
-    <IncludePath>$(ProjectDir)..\..\PrimeEngine\PrimeEngine\;$(ProjectDir)..\..\PrimeEngine\Dependencies\OpenGL\include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)..\..\Build\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrimeEngine\Dependencies\OpenGL\lib;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
+    <IntDir>$(ProjectDir)..\..\Build\bin\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+    <IncludePath>$(SolutionDir)\PrimeEngine-Core;$(SolutionDir)\Dependencies\OpenGL\include;$(SolutionDir)\Dependencies\FreeImage\Dist\x32;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)\Dependencies\FreeType</IncludePath>
+    <LibraryPath>$(SolutionDir)..\Build\$(Platform)\$(Configuration)\;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(ProjectDir)..\..\Build\$(Platform)\$(Configuration)\</OutDir>
@@ -110,14 +110,29 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\PrimeEngine\PrimeEngine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>FREEIMAGE_LIB;PRIME_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Ws2_32.lib;PrimeEngine.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>PrimeEngine.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OptimizeReferences>false</OptimizeReferences>
     </Link>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+    <PreLinkEvent>
+      <Command>
+      </Command>
+    </PreLinkEvent>
+    <PostBuildEvent>
+      <Command>rd /S /Q "$(ProjectDir)..\..\Build\$(Platform)\$(Configuration)\Resources"
+mkdir "$(ProjectDir)..\..\Build\$(Platform)\$(Configuration)\Resources"
+xcopy $(ProjectDir)Resources "$(ProjectDir)..\..\Build\$(Platform)\$(Configuration)\Resources" /E /Y</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -155,14 +170,21 @@ xcopy $(ProjectDir)Resources "$(ProjectDir)..\..\Build\$(Platform)\$(Configurati
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PreprocessorDefinitions>FREEIMAGE_LIB;PRIME_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>Ws2_32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>PrimeEngine.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <PostBuildEvent>
+      <Command>rd /S /Q "$(ProjectDir)..\..\Build\$(Platform)\$(Configuration)\Resources"
+mkdir "$(ProjectDir)..\..\Build\$(Platform)\$(Configuration)\Resources"
+xcopy $(ProjectDir)Resources "$(ProjectDir)..\..\Build\$(Platform)\$(Configuration)\Resources" /E /Y</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
