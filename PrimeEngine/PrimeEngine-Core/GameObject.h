@@ -1,28 +1,52 @@
 #pragma once
 
 #include <DllExport.h>
-#include <Components\Component.h>
+//#include <Components\Component.h>
+#include <Components\Transform.h>
 #include <Math\Math.h>
 #include <vector>
+#include <Utilities\Log.h>
 
 namespace PrimeEngine {
-
-	class Transform;
 
 	class PRIMEENGINEAPI GameObject 
 	{
 	private:
-		std::vector<Component> _components;
+		std::vector<Component*>* _components;
 		//transform component is mandatory
 	public:
-		void Init(); //create transform component
-		GameObject();
-		GameObject(const Math::Vector3& position);
+		explicit GameObject();
+		explicit GameObject(const Math::Vector3& position);
+		~GameObject();
 
-		void AddComponent(const Component& component); //generic
-		void GetComponent(); //should be generic
-		void GetComponents(); //should be generic
+		//Takes control over components. Always use new
+		void AddComponent(Component* component) //make move?
+		{
+			_components->push_back(component);
+		}
 
-		Transform& Transform();
+		template<typename T>
+		T* GetComponent() const
+		{
+			for (int i = 0; i < (*_components).size(); i++)
+			{
+				//PRIME_INFO(typeid(T).name(), " ", typeid(*((*_components)[i])).name(), "\n");
+				if (typeid(T) == typeid(*((*_components)[i])))
+				{
+					//casting isn't good
+					//change to a std casting
+					return (T*)(*_components)[i];
+				}
+			}
+			return NULL;
+		}
+		//void GetComponents(); //should be generic
+
+		inline Transform& GetTransform()
+		{
+			//transform is always there at index 0
+			//change to a std casting
+			return *((Transform*)((*_components)[0]));
+		}
 	};
 }

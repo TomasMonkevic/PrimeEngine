@@ -1,6 +1,7 @@
 #include "BatchRenderer2D.h"
 #include <Utilities/Log.h>
 #include <Graphics\Window.h>
+//#include <Graphics\Sprite.h>
 
 namespace PrimeEngine { namespace Graphics {
 
@@ -60,7 +61,7 @@ namespace PrimeEngine { namespace Graphics {
 		_buffer = (VertexData*)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
 	}
 
-	void BatchRenderer2D::Submit(const Renderable2D* renderable2D)
+	void BatchRenderer2D::Submit(const Sprite* renderable2D)
 	{
 		const Color& color = renderable2D->GetColor();
 		const Math::Vector2& size = renderable2D->GetSize();
@@ -97,25 +98,25 @@ namespace PrimeEngine { namespace Graphics {
 			}
 		}
 
-		_buffer->position = *_transformationStackBack * renderable2D->GetModelMatrix() * Math::Vector3(-size.x / 2.0f, size.y / 2.0f, 0);
+		_buffer->position = *_transformationStackBack /* * renderable2D->GetModelMatrix()*/ * Math::Vector3(-size.x / 2.0f, size.y / 2.0f, 0);
 		_buffer->color32 = color.ToColor32();
 		_buffer->textureCord = renderable2D->GetTextureCords(0);
 		_buffer->texture = activeTexture;
 		_buffer++;
 
-		_buffer->position = *_transformationStackBack * renderable2D->GetModelMatrix() * Math::Vector3(size.x / 2.0f,  size.y / 2.0f, 0);
+		_buffer->position = *_transformationStackBack /* * renderable2D->GetModelMatrix()*/ * Math::Vector3(size.x / 2.0f,  size.y / 2.0f, 0);
 		_buffer->color32 = color.ToColor32();
 		_buffer->textureCord = renderable2D->GetTextureCords(1);
 		_buffer->texture = activeTexture;
 		_buffer++;
 
-		_buffer->position = *_transformationStackBack * renderable2D->GetModelMatrix() * Math::Vector3(size.x / 2.0f, -size.y / 2.0f, 0);
+		_buffer->position = *_transformationStackBack /* * renderable2D->GetModelMatrix()*/ * Math::Vector3(size.x / 2.0f, -size.y / 2.0f, 0);
 		_buffer->color32 = color.ToColor32();
 		_buffer->textureCord = renderable2D->GetTextureCords(2);
 		_buffer->texture = activeTexture;
 		_buffer++;
 
-		_buffer->position = *_transformationStackBack * renderable2D->GetModelMatrix() * Math::Vector3(-size.x / 2.0f, -size.y / 2.0f, 0);
+		_buffer->position = *_transformationStackBack /* * renderable2D->GetModelMatrix()*/ * Math::Vector3(-size.x / 2.0f, -size.y / 2.0f, 0);
 		_buffer->color32 = color.ToColor32();
 		_buffer->textureCord = renderable2D->GetTextureCords(3);
 		_buffer->texture = activeTexture;

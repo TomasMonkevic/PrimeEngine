@@ -26,35 +26,43 @@ void TestGame::Awake()
 	Vector3 cameraPosition(Vector3(0, 0, 0.0f)); //ortho
 	mainCamera->SetPosition(cameraPosition);
 
-	Sprite* backGround = new Sprite(Vector3(5, 4.5f, 0.1f), Vector2(100, 100), Color(1, 0.5f, 0, 1.0f));
+	//Sprite* backGround = new Sprite(Vector3(5, 4.5f, 0.1f), Vector2(100, 100), Color(1, 0.5f, 0, 1.0f));
 	texture = new Texture("Resources\\Textures\\Sparkles.png");
 	texture2 = new Texture("Resources\\Textures\\textur2.png");
 	//texture3 = new Texture("Resources\\Textures\\1.jpg");
 	//Texture* texture4 = new Texture("Resources\\Textures\\bc.png"); //openGL doesn't like this texture
-	sprite1 = new Sprite(Vector3(0, -0.5f, 0.1f), Vector2(5, 5), texture, Color(0.55f,0.55f,1,1.0f));
-	Sprite* sprite2 = new Sprite(Vector3(5, -0.5f, 0.1f), Vector2(1, 1), NULL);
-	Sprite* sprite3 = new Sprite(Vector3(0, -0.5f, 0.1f), Vector2(2, 2), texture2);
+	//sprite1 = new Sprite(Vector3(0, -0.5f, 0.1f), Vector2(5, 5), texture, Color(0.55f,0.55f,1,1.0f));
+	//Sprite* sprite2 = new Sprite(Vector3(5, -0.5f, 0.1f), Vector2(1, 1), NULL);
+	//Sprite* sprite3 = new Sprite(Vector3(0, -0.5f, 0.1f), Vector2(2, 2), texture2);
 	//PRIME_WARNING(sprite2->GetPosition());
 
 	gameLayer = new GameLayer(mainCamera);
-	gameLayer->Submit(backGround);
-	gameLayer->Submit(sprite3);
-	gameLayer->Submit(sprite2);
-	gameLayer->Submit(sprite1);
+	//gameLayer->Submit(backGround);
+	//gameLayer->Submit(sprite3);
+	//gameLayer->Submit(sprite2);
+	//gameLayer->Submit(sprite1);
 
-	buttonContainer = new Group(Vector3(-6, 0, 0), Vector2(10, 10));
-	button = new Group(Vector3(0, 1.5f, 0), Vector2(10, 10));
-	Sprite* uiEl = new Sprite(Vector3(0, 0, 0), Vector2(4, 1), Color(1.0f, 0.0f, 0.0f, 0.5f));
-	buttonContainer->Add(button);
-	buttonContainer->Add(uiEl);
-	button->Add(new Sprite(Vector3(0, 0.0f, 0), Vector2(4, 1), Color(1.0f, 0.0f, 0.0f, 0.5f)));
-	button->Add(new Sprite(Vector3(0, 0.0f, 0), Vector2(3, 0.5f), Color(0.0f, 0.0f, 1.0f)));
+	//buttonContainer = new Group(Vector3(-6, 0, 0), Vector2(10, 10));
+	//button = new Group(Vector3(0, 1.5f, 0), Vector2(10, 10));
+	//Sprite* uiEl = new Sprite(Vector3(0, 0, 0), Vector2(4, 1), Color(1.0f, 0.0f, 0.0f, 0.5f));
+	//buttonContainer->Add(button);
+	//buttonContainer->Add(uiEl);
+	//button->Add(new Sprite(Vector3(0, 0.0f, 0), Vector2(4, 1), Color(1.0f, 0.0f, 0.0f, 0.5f)));
+	//button->Add(new Sprite(Vector3(0, 0.0f, 0), Vector2(3, 0.5f), Color(0.0f, 0.0f, 1.0f)));
 	uiLayer = new FakeUILayer(ShaderManagerI->CreateShader("uiShader", Shader::default));
 	myFont = new Font("Resources\\arial.ttf", Color(1.0f, 1.0f, 1.0f), 64);
 	std::string wtf = "Hi Mom!";
-	myLabel = new Label(wtf, Math::Vector3(-8, -4.5f, 0), *myFont);
-	uiLayer->Submit(myLabel);
-	uiLayer->Submit(buttonContainer);
+	//myLabel = new Label(wtf, Math::Vector3(-8, -4.5f, 0), *myFont);
+	//uiLayer->Submit(myLabel);
+	//uiLayer->Submit(buttonContainer);
+	player = new GameObject();
+	player->AddComponent(new Sprite(Vector2(3, 0.5f), Color(1.0f, 0.0f, 0.0f)));
+	uiLayer->Submit(player);
+	//Transform* trans = player.GetComponent<Transform>();
+	PRIME_WARNING(player->GetTransform().GetPosition(), "\n");
+	//player.GetTransform().SetPosition(Math::Vector3::one);
+	//player.GetTransform().
+	//PRIME_WARNING(player.GetTransform().GetPosition(), "\n");
 }
 
 void TestGame::Update()
@@ -65,10 +73,10 @@ void TestGame::Update()
 	//gameShader->SetUniform("lightPosition", Vector2(opa.x, opa.y));
 	//uiShader->SetUniform("lightPosition", Vector2(opa2.x, opa2.y));
 	//Rotate ui
-	buttonContainer->Rotate(GetDeltaTime(), Vector3::forward);
-	button->Rotate(GetDeltaTime(), Vector3::left);
+	//buttonContainer->Rotate(GetDeltaTime(), Vector3::forward);
+	//button->Rotate(GetDeltaTime(), Vector3::left);
 
-	sprite1->Rotate(GetDeltaTime(), Vector3::forward);
+	//sprite1->Rotate(GetDeltaTime(), Vector3::forward);
 	if (InputPC::KeyPressed(256)) //esc
 	{
 		GetWindow()->Close();
@@ -78,14 +86,14 @@ void TestGame::Update()
 void TestGame::Tick()
 {
 	PRIME_INFO(GetFPS(), " fps \n");
-	myLabel->text = std::to_string(GetFPS()) + " FPS";
-	srand(time(NULL));
-	float random = (float)(rand() % 100) / 100.0f;
-	float random1 = (float)(rand() % 100) / 100.0f;
-	float random2 = (float)(rand() % 100) / 100.0f;
+	//myLabel->text = std::to_string(GetFPS()) + " FPS";
+	//srand(time(NULL));
+	//float random = (float)(rand() % 100) / 100.0f;
+	//float random1 = (float)(rand() % 100) / 100.0f;
+	//float random2 = (float)(rand() % 100) / 100.0f;
 	//PRIME_WARNING(random, " ", random1, " ", random2, "\n");
 	//myFont->color = Color(random,random1,random2);
-	PRIME_INFO(myFont->color, "\n");
+	//PRIME_INFO(myFont->color, "\n");
 }
 
 void TestGame::Render()

@@ -5,10 +5,11 @@
 #include <Graphics/Font.h>
 #include <Math/Math.h>
 #include "..\DllExport.h"
+#include <Graphics\Sprite.h>
 
 namespace PrimeEngine { namespace Graphics {
 
-	class Renderable2D;
+	//class Sprite;
 	class Label;
 
 	class PRIMEENGINEAPI Renderer2D
@@ -47,7 +48,7 @@ namespace PrimeEngine { namespace Graphics {
 		}
 
 		virtual void Begin() {}
-		virtual void Submit(const Renderable2D* renderable2D) = 0;
+		virtual void Submit(const Sprite* renderable2D) = 0;
 		virtual void DrawLabel(const std::string& text, const  Math::Vector3& position, const Font& font) = 0;
 		virtual void End() {}
 		virtual void Flush() = 0;

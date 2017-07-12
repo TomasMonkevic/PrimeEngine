@@ -8,7 +8,7 @@ namespace PrimeEngine {
 
 	class PRIMEENGINEAPI Transform : public Component
 	{
-	public:
+	private:
 		//vector of child Transforms
 
 		Math::Vector3 _position;
@@ -16,6 +16,10 @@ namespace PrimeEngine {
 		Math::Vector3 _scale = Math::Vector3::one;
 
 	public:
+		Transform();
+		Transform(const Math::Vector3& position);
+		~Transform() override;
+
 		void AddChild();
 		void RemoveChild();
 

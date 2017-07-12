@@ -6,6 +6,9 @@ namespace PrimeEngine {
 
 	class PRIMEENGINEAPI Component
 	{
-
+	protected:
+		Component() {}
+	public:
+		virtual ~Component() {}
 	};
 }

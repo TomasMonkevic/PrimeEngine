@@ -3,10 +3,10 @@
 
 #include <freetype-gl\freetype-gl.h>
 #include "Renderer2D.h"
-#include "Renderable2D.h"
 #include <queue>
 #include "Buffers\IndexBuffer.h"
-#include "..\DllExport.h"
+#include <DllExport.h>
+#include <GameObject.h>
 
 #define RENDERER_MAX_OBJECT_COUNT	10000
 #define RENDERER_VERTEX_SIZE		sizeof(VertexData)
@@ -20,6 +20,14 @@
 #define SHADER_TEXTURE_INDEX		3
 
 namespace PrimeEngine { namespace Graphics {
+
+	struct VertexData
+	{
+		Math::Vector3 position;
+		unsigned color32;
+		Math::Vector2 textureCord;
+		float texture;
+	};
 
 	class PRIMEENGINEAPI BatchRenderer2D : public Renderer2D
 	{
@@ -37,7 +45,7 @@ namespace PrimeEngine { namespace Graphics {
 		BatchRenderer2D();
 		~BatchRenderer2D();
 		void Begin();
-		void Submit(const Renderable2D* renderable2D) override;
+		void Submit(const Sprite* renderable2D) override;
 		void DrawLabel(const std::string& text, const  Math::Vector3& position, const Font& font) override;
 		void End();
 		void Flush() override;
