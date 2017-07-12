@@ -19,7 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Components\Component.h" />
+    <ClInclude Include="Components\Transform.h" />
     <ClInclude Include="DllExport.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="Graphics\BatchRenderer2D.h" />
     <ClInclude Include="Graphics\Buffers\IndexBuffer.h" />
     <ClInclude Include="Graphics\Buffers\VertexArray.h" />
@@ -27,15 +30,10 @@
     <ClInclude Include="Graphics\Camera.h" />
     <ClInclude Include="Graphics\Color.h" />
     <ClInclude Include="Graphics\Font.h" />
-    <ClInclude Include="Graphics\Label.h" />
-    <ClInclude Include="Graphics\Layers\Group.h" />
     <ClInclude Include="Graphics\Layers\Layer.h" />
-    <ClInclude Include="Graphics\Renderable2D.h" />
     <ClInclude Include="Graphics\Renderer2D.h" />
     <ClInclude Include="Graphics\Shader\Shader.h" />
     <ClInclude Include="Graphics\Shader\ShaderManager.h" />
-    <ClInclude Include="Graphics\SimpleRenderer2D.h" />
-    <ClInclude Include="Graphics\SimpleSprite.h" />
     <ClInclude Include="Graphics\Sprite.h" />
     <ClInclude Include="Graphics\Texture.h" />
     <ClInclude Include="Input.h" />
@@ -57,6 +55,8 @@
     <ClInclude Include="Utilities\Time.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Components\Transform.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Graphics\BatchRenderer2D.cpp" />
     <ClCompile Include="Graphics\Buffers\IndexBuffer.cpp" />
     <ClCompile Include="Graphics\Buffers\VertexArray.cpp" />
@@ -64,8 +64,6 @@
     <ClCompile Include="Graphics\Camera.cpp" />
     <ClCompile Include="Graphics\Color.cpp" />
     <ClCompile Include="Graphics\Font.cpp" />
-    <ClCompile Include="Graphics\Label.cpp" />
-    <ClCompile Include="Graphics\Layers\Group.cpp" />
     <ClCompile Include="Graphics\Layers\Layer.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
@@ -74,8 +72,6 @@
     </ClCompile>
     <ClCompile Include="Graphics\Shader\Shader.cpp" />
     <ClCompile Include="Graphics\Shader\ShaderManager.cpp" />
-    <ClCompile Include="Graphics\SimpleRenderer2D.cpp" />
-    <ClCompile Include="Graphics\SimpleSprite.cpp" />
     <ClCompile Include="Graphics\Sprite.cpp" />
     <ClCompile Include="Graphics\Texture.cpp" />
     <ClCompile Include="Input.cpp" />

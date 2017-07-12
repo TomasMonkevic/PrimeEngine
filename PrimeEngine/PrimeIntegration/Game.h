@@ -15,13 +15,12 @@
 #include <Graphics\Window.h>
 #include <Graphics\Shader\Shader.h>
 #include <Graphics\Camera.h>
-#include <Graphics\SimpleSprite.h>
 #include <Graphics\Sprite.h>
-#include <Graphics\SimpleRenderer2D.h>
 #include <Graphics\BatchRenderer2D.h>
 #include <Graphics\Layers\Layer.h>
-#include <Graphics\Layers\Group.h>
 #include <Graphics\Texture.h>
+
+#include <GameObject.h>
 
 using namespace PrimeEngine;
 using namespace Math;
@@ -61,13 +60,14 @@ private:
 	GameLayer* gameLayer;
 	FakeUILayer* uiLayer;
 	Sprite *sprite1;
-	Group *button, *buttonContainer;
+	//Group *button, *buttonContainer;
 	Camera* mainCamera;
 	Texture* texture;
 	Texture* texture2;
 	Texture* texture3;
 	Font* myFont;
-	Label* myLabel;
+	GameObject* player;
+	//Label* myLabel;
 
 public:
 	~TestGame() 
@@ -75,8 +75,9 @@ public:
 		delete uiLayer;
 		//delete gameLayer;
 		delete sprite1;
-		delete button;
-		delete buttonContainer;
+		delete player;
+		//delete button;
+		//delete buttonContainer;
 	}
 	void Awake() override;
 	void Update() override;

@@ -5,6 +5,7 @@
 #include "../Camera.h"
 #include "../Renderer2D.h"
 #include "../BatchRenderer2D.h"
+#include <GameObject.h>
 
 namespace PrimeEngine { namespace Graphics {
 
@@ -12,7 +13,7 @@ namespace PrimeEngine { namespace Graphics {
 	{
 	protected:
 		Renderer2D* _renderer;
-		std::vector<Renderable2D*>* _renderables;
+		std::vector<GameObject*>* _renderables;
 
 	public:
 		Camera* camera;
@@ -23,8 +24,8 @@ namespace PrimeEngine { namespace Graphics {
 	public:
 		virtual ~Layer();
 
-		void Submit(Renderable2D* renderable);
-		void Remove(Renderable2D* renderable);
+		void Submit(GameObject* renderable);
+		void Remove(GameObject* renderable);
 		void Render();
 	};
 }}

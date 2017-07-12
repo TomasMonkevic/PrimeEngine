@@ -30,30 +30,28 @@
     <ClInclude Include="Graphics\Buffers\VertexArray.h" />
     <ClInclude Include="Math\Vector2.h" />
     <ClInclude Include="Math\MathFunc.h" />
-    <ClInclude Include="Graphics\Renderable2D.h" />
     <ClInclude Include="Graphics\Renderer2D.h" />
-    <ClInclude Include="Graphics\SimpleRenderer2D.h" />
     <ClInclude Include="Utilities\Time.h" />
     <ClInclude Include="Graphics\Camera.h" />
     <ClInclude Include="PrimeEngine.h" />
     <ClInclude Include="Networking\NetworkEntity.h" />
     <ClInclude Include="PrimeException.h" />
     <ClInclude Include="Graphics\BatchRenderer2D.h" />
-    <ClInclude Include="Graphics\SimpleSprite.h" />
     <ClInclude Include="Graphics\Sprite.h" />
     <ClInclude Include="Graphics\Layers\Layer.h" />
-    <ClInclude Include="Graphics\Layers\Group.h" />
     <ClInclude Include="Graphics\Texture.h" />
     <ClInclude Include="Utilities\ImageLoader.h" />
     <ClInclude Include="Utilities\Log.h" />
     <ClInclude Include="Networking\TCPServer.h" />
     <ClInclude Include="Networking\TCPClient.h" />
-    <ClInclude Include="Graphics\Label.h" />
     <ClInclude Include="Graphics\Font.h" />
     <ClInclude Include="Math\Math.h" />
     <ClInclude Include="Graphics\Shader\Shader.h" />
     <ClInclude Include="Graphics\Shader\ShaderManager.h" />
     <ClInclude Include="Graphics\Color.h" />
+    <ClInclude Include="Components\Component.h" />
+    <ClInclude Include="Components\Transform.h" />
+    <ClInclude Include="GameObject.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Input.cpp">
@@ -71,24 +69,22 @@
     <ClCompile Include="Graphics\Buffers\IndexBuffer.cpp" />
     <ClCompile Include="Graphics\Buffers\VertexArray.cpp" />
     <ClCompile Include="Math\Vector2.cpp" />
-    <ClCompile Include="Graphics\SimpleRenderer2D.cpp" />
     <ClCompile Include="Utilities\Time.cpp" />
     <ClCompile Include="Graphics\Camera.cpp" />
     <ClCompile Include="PrimeException.cpp" />
     <ClCompile Include="Graphics\BatchRenderer2D.cpp" />
-    <ClCompile Include="Graphics\SimpleSprite.cpp" />
     <ClCompile Include="Graphics\Sprite.cpp" />
     <ClCompile Include="Graphics\Layers\Layer.cpp" />
-    <ClCompile Include="Graphics\Layers\Group.cpp" />
     <ClCompile Include="Graphics\Texture.cpp" />
     <ClCompile Include="PrimeEngine.cpp" />
     <ClCompile Include="Networking\TCPSever.cpp" />
     <ClCompile Include="Networking\TCPClient.cpp" />
-    <ClCompile Include="Graphics\Label.cpp" />
     <ClCompile Include="Graphics\Font.cpp" />
     <ClCompile Include="Graphics\Shader\Shader.cpp" />
     <ClCompile Include="Graphics\Shader\ShaderManager.cpp" />
     <ClCompile Include="Graphics\Color.cpp" />
+    <ClCompile Include="Components\Transform.cpp" />
+    <ClCompile Include="GameObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Graphics\Shader\Source\Default.pesl" />
