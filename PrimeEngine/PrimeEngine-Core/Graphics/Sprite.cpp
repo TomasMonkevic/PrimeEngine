@@ -13,10 +13,6 @@ namespace PrimeEngine { namespace Graphics {
 		: _size(size), _texture(texture), _color(color)
 	{
 		SetTextureCords();
-		if (!texture)
-		{
-			_color = Color::white;
-		}
 	}
 
 	Sprite::~Sprite()
