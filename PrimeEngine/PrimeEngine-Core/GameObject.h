@@ -22,6 +22,7 @@ namespace PrimeEngine {
 		//Takes control over components. Always use new
 		void AddComponent(Component* component) //make move?
 		{
+			component->_gameObject = this;
 			_components->push_back(component);
 		}
 

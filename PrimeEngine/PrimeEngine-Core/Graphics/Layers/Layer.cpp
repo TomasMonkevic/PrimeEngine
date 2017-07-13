@@ -53,6 +53,7 @@ namespace PrimeEngine { namespace Graphics {
 			{
 				sprite->Submit(_renderer);
 			}
+			//needs to be: gameObject->Submit(_renderer);
 		}
 		_renderer->End();
 		camera->Render();

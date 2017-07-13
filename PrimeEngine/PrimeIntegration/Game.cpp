@@ -56,7 +56,7 @@ void TestGame::Awake()
 	//uiLayer->Submit(myLabel);
 	//uiLayer->Submit(buttonContainer);
 	player = new GameObject();
-	player->AddComponent(new Sprite(Vector2(3, 0.5f), Color(1.0f, 0.0f, 0.0f)));
+	player->AddComponent(new Sprite (Vector2(2, 2), texture2));
 	uiLayer->Submit(player);
 	//Transform* trans = player.GetComponent<Transform>();
 	PRIME_WARNING(player->GetTransform().GetPosition(), "\n");
@@ -75,8 +75,11 @@ void TestGame::Update()
 	//Rotate ui
 	//buttonContainer->Rotate(GetDeltaTime(), Vector3::forward);
 	//button->Rotate(GetDeltaTime(), Vector3::left);
-
 	//sprite1->Rotate(GetDeltaTime(), Vector3::forward);
+	if (InputPC::KeyPressed('W')) //esc
+	{
+		player->GetTransform().SetPosition(player->GetTransform().GetPosition() + Vector3::up * GetDeltaTime());
+	}
 	if (InputPC::KeyPressed(256)) //esc
 	{
 		GetWindow()->Close();

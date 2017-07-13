@@ -11,7 +11,7 @@ namespace PrimeEngine {
 	GameObject::GameObject(const Math::Vector3& position)
 	{
 		_components = new std::vector<Component*>;
-		(*_components).push_back(new Transform(position));
+		AddComponent(new Transform(position));
 	}
 
 	GameObject::~GameObject()
