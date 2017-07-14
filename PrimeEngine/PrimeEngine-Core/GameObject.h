@@ -6,6 +6,7 @@
 #include <Math\Math.h>
 #include <vector>
 #include <Utilities\Log.h>
+#include <Graphics\Renderer2D.h>
 
 namespace PrimeEngine {
 
@@ -13,11 +14,15 @@ namespace PrimeEngine {
 	{
 	private:
 		std::vector<Component*>* _components;
+		std::vector<GameObject*>* _children;
 		//transform component is mandatory
 	public:
 		explicit GameObject();
 		explicit GameObject(const Math::Vector3& position);
 		~GameObject();
+
+		void Add(GameObject* child);
+		void Submit(Graphics::Renderer2D* renderer) const;
 
 		//Takes control over components. Always use new
 		void AddComponent(Component* component) //make move?
@@ -43,7 +48,7 @@ namespace PrimeEngine {
 		}
 		//void GetComponents(); //should be generic
 
-		inline Transform& GetTransform()
+		inline Transform& GetTransform() const
 		{
 			//transform is always there at index 0
 			//change to a std casting

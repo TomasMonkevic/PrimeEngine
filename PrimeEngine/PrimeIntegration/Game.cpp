@@ -14,7 +14,7 @@ void TestGame::Awake()
 	//CreateWin("Tik Tac Toe", 1366, 768);
 	CreateWin("Test Game", 800, 600);
 	//CreateWin("PrimeEngine");
-	GetWindow()->EnableVSync(false);
+	GetWindow()->EnableVSync(true);
 	GetWindow()->SetColor(Color(0.7f, 0.8f, 1.0f, 1.0f));
 
 	Matrix4x4 pr = Matrix4x4::Orthographic(-8.0f, 8.0f, -4.5f, 4.5f, -1.0f, 1.0f);
@@ -42,19 +42,22 @@ void TestGame::Awake()
 	//gameLayer->Submit(sprite2);
 	//gameLayer->Submit(sprite1);
 
-	//buttonContainer = new Group(Vector3(-6, 0, 0), Vector2(10, 10));
-	//button = new Group(Vector3(0, 1.5f, 0), Vector2(10, 10));
-	//Sprite* uiEl = new Sprite(Vector3(0, 0, 0), Vector2(4, 1), Color(1.0f, 0.0f, 0.0f, 0.5f));
-	//buttonContainer->Add(button);
-	//buttonContainer->Add(uiEl);
-	//button->Add(new Sprite(Vector3(0, 0.0f, 0), Vector2(4, 1), Color(1.0f, 0.0f, 0.0f, 0.5f)));
-	//button->Add(new Sprite(Vector3(0, 0.0f, 0), Vector2(3, 0.5f), Color(0.0f, 0.0f, 1.0f)));
+	buttonContainer = new GameObject(Vector3(-6, 0, 0));
+	buttonContainer->AddComponent(new Sprite(Vector2(4, 1), Color(1.0f, 0.0f, 0.0f, 0.5f)));
+
+	button = new GameObject(Vector3(0, 1.5f, 0));
+	button->AddComponent(new Sprite(Vector2(4, 1), Color(1.0f, 0.0f, 0.0f, 0.5f)));
+	GameObject* eil = new GameObject();
+	eil->AddComponent(new Sprite(Vector2(3, 0.5f), Color(0.0f, 0.0f, 1.0f)));
+	button->Add(eil);
+
+	buttonContainer->Add(button);
 	uiLayer = new FakeUILayer(ShaderManagerI->CreateShader("uiShader", Shader::default));
 	myFont = new Font("Resources\\arial.ttf", Color(1.0f, 1.0f, 1.0f), 64);
 	std::string wtf = "Hi Mom!";
 	//myLabel = new Label(wtf, Math::Vector3(-8, -4.5f, 0), *myFont);
 	//uiLayer->Submit(myLabel);
-	//uiLayer->Submit(buttonContainer);
+	uiLayer->Submit(buttonContainer);
 	player = new GameObject();
 	player->AddComponent(new Sprite (Vector2(2, 2), texture2));
 	uiLayer->Submit(player);
@@ -73,8 +76,8 @@ void TestGame::Update()
 	//gameShader->SetUniform("lightPosition", Vector2(opa.x, opa.y));
 	//uiShader->SetUniform("lightPosition", Vector2(opa2.x, opa2.y));
 	//Rotate ui
-	//buttonContainer->Rotate(GetDeltaTime(), Vector3::forward);
-	//button->Rotate(GetDeltaTime(), Vector3::left);
+	buttonContainer->GetTransform().Rotate(GetDeltaTime(), Vector3::forward);
+	button->GetTransform().Rotate(GetDeltaTime(), Vector3::left);
 	//sprite1->Rotate(GetDeltaTime(), Vector3::forward);
 	if (InputPC::KeyPressed('W')) //esc
 	{

@@ -1,4 +1,5 @@
 #include "Layer.h"
+#include "../Texture.h"
 
 namespace PrimeEngine { namespace Graphics {
 
@@ -48,12 +49,7 @@ namespace PrimeEngine { namespace Graphics {
 		_renderer->Begin();
 		for (const GameObject* renderable : *_renderables)
 		{
-			Sprite* sprite = renderable->GetComponent<Sprite>();
-			if (sprite)
-			{
-				sprite->Submit(_renderer);
-			}
-			//needs to be: gameObject->Submit(_renderer);
+			renderable->Submit(_renderer);
 		}
 		_renderer->End();
 		camera->Render();

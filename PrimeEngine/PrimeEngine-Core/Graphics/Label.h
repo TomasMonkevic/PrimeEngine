@@ -4,21 +4,22 @@
 #include <DllExport.h>
 #include <Graphics/Font.h>
 #include <string>
+#include "Renderer2D.h"
 
 namespace PrimeEngine { namespace Graphics {
 
-	//don't inherit from renderable. inherit from gameObject or even better from UI element
 	class PRIMEENGINEAPI Label
 	{
 	private:
 
 	public:
+		//make private and use getters and setters
 		std::string text;
 		Font* font;
 
 	public:
-		Label(std::string& _text, const Math::Vector3& position, Font& _font);
-		//void Submit(Renderer2D* renderer) const;
+		Label(std::string& _text, Font& _font);
+		void Submit(Renderer2D* renderer) const;
 	};
 }}
 

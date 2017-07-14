@@ -60,13 +60,13 @@ private:
 	GameLayer* gameLayer;
 	FakeUILayer* uiLayer;
 	Sprite *sprite1;
-	//Group *button, *buttonContainer;
 	Camera* mainCamera;
 	Texture* texture;
 	Texture* texture2;
 	Texture* texture3;
 	Font* myFont;
 	GameObject* player;
+	GameObject *button, *buttonContainer;
 	//Label* myLabel;
 
 public:

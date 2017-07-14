@@ -3,14 +3,14 @@
 
 #include <Math/Math.h>
 #include "Color.h"
-//#include "Renderer2D.h"
+#include "Renderer2D.h"
 #include "Texture.h"
 #include <DllExport.h>
 #include <Components\Component.h>
 
 namespace PrimeEngine { namespace Graphics {
 
-	class Renderer2D;
+	//class Renderer2D;
 
 	class PRIMEENGINEAPI Sprite : public Component
 	{

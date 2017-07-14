@@ -4,12 +4,11 @@
 #include <vector>
 #include <Graphics/Font.h>
 #include <Math/Math.h>
-#include "..\DllExport.h"
-#include <Graphics\Sprite.h>
+#include <DllExport.h>
 
 namespace PrimeEngine { namespace Graphics {
 
-	//class Sprite;
+	class Sprite;
 	class Label;
 
 	class PRIMEENGINEAPI Renderer2D

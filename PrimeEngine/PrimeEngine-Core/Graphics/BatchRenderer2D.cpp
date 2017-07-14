@@ -1,7 +1,7 @@
 #include "BatchRenderer2D.h"
 #include <Utilities/Log.h>
 #include <Graphics\Window.h>
-//#include <Graphics\Sprite.h>
+#include <Graphics\Sprite.h>
 
 namespace PrimeEngine { namespace Graphics {
 
