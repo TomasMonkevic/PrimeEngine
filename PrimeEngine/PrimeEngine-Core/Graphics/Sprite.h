@@ -3,7 +3,7 @@
 
 #include <Math/Math.h>
 #include "Color.h"
-#include "Renderer2D.h"
+#include "Renderable.h"
 #include "Texture.h"
 #include <DllExport.h>
 #include <Components\Component.h>
@@ -12,7 +12,7 @@ namespace PrimeEngine { namespace Graphics {
 
 	//class Renderer2D;
 
-	class PRIMEENGINEAPI Sprite : public Component
+	class PRIMEENGINEAPI Sprite : public Renderable
 	{
 	private:
 		Math::Vector2 _size;
@@ -34,7 +34,7 @@ namespace PrimeEngine { namespace Graphics {
 		Sprite(const Math::Vector2& size, Texture* texture, const Color& color = Color(1.0f, 1.0f, 1.0f, 1.0f));
 		~Sprite() override;
 
-		void Submit(Renderer2D* renderer) const;
+		void Submit(Renderer2D* renderer) const override;
 
 		inline const Math::Vector2& GetSize() const
 		{

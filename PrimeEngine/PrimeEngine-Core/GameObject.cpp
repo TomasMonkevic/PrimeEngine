@@ -1,5 +1,5 @@
 #include "GameObject.h"
-#include <Graphics\Sprite.h>
+#include <Graphics\Renderable.h>
 
 namespace PrimeEngine {
 
@@ -13,7 +13,7 @@ namespace PrimeEngine {
 	{
 		_components = new std::vector<Component*>;
 		_children = new std::vector<GameObject*>;
-		AddComponent(new Transform(position));
+		AddComponent<Transform>(new Transform(position));
 	}
 
 	GameObject::~GameObject()
@@ -34,7 +34,7 @@ namespace PrimeEngine {
 
 	void GameObject::Submit(Graphics::Renderer2D* renderer) const
 	{
-		Graphics::Sprite* sprite = GetComponent<Graphics::Sprite>();
+		Graphics::Renderable* sprite = GetComponent<Graphics::Renderable>();
 		if (sprite)
 		{
 			sprite->Submit(renderer);

@@ -52,6 +52,8 @@
     <ClInclude Include="Components\Component.h" />
     <ClInclude Include="Components\Transform.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Graphics\Label.h" />
+    <ClInclude Include="Graphics\Renderable.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Input.cpp">
@@ -85,6 +87,7 @@
     <ClCompile Include="Graphics\Color.cpp" />
     <ClCompile Include="Components\Transform.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Graphics\Label.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Graphics\Shader\Source\Default.pesl" />

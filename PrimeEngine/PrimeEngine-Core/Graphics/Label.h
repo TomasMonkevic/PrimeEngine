@@ -4,11 +4,12 @@
 #include <DllExport.h>
 #include <Graphics/Font.h>
 #include <string>
-#include "Renderer2D.h"
+#include "Renderable.h"
+#include <GameObject.h>
 
 namespace PrimeEngine { namespace Graphics {
 
-	class PRIMEENGINEAPI Label
+	class PRIMEENGINEAPI Label : public Renderable
 	{
 	private:
 
@@ -19,7 +20,7 @@ namespace PrimeEngine { namespace Graphics {
 
 	public:
 		Label(std::string& _text, Font& _font);
-		void Submit(Renderer2D* renderer) const;
+		void Submit(Renderer2D* renderer) const override;
 	};
 }}
 

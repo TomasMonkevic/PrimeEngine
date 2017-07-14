@@ -10,6 +10,6 @@ namespace PrimeEngine { namespace Graphics {
 	void Label::Submit(Renderer2D* renderer) const
 	{
 		//the position here should be global not local
-		renderer->DrawLabel(text, Math::Vector3::zero, *font);
+		renderer->DrawLabel(text, GetGameObject()->GetTransform().GetPosition(), *font);
 	}
 }}

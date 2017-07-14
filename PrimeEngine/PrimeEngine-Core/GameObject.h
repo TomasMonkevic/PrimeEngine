@@ -25,9 +25,19 @@ namespace PrimeEngine {
 		void Submit(Graphics::Renderer2D* renderer) const;
 
 		//Takes control over components. Always use new
+		template<typename T>
 		void AddComponent(Component* component) //make move?
 		{
 			component->_gameObject = this;
+			component->_typeHash = typeid(T).hash_code();
+
+			//component->_typeName = new char[strlen(typeid(T).name())+1];
+			//memset(component->_typeName, 0, strlen(typeid(T).name()) + 1);
+			//strcpy_s(component->_typeName, strlen(typeid(T).name())+1,typeid(T).name());
+
+			//memcpy(component->_typeId, &typeid(T), sizeof(typeid(T)));
+			//component->_typeId = new std::type_info(typeid(T));
+			//component->_typeId = typeid(T);
 			_components->push_back(component);
 		}
 
@@ -37,7 +47,8 @@ namespace PrimeEngine {
 			for (int i = 0; i < (*_components).size(); i++)
 			{
 				//PRIME_INFO(typeid(T).name(), " ", typeid(*((*_components)[i])).name(), "\n");
-				if (typeid(T) == typeid(*((*_components)[i])))
+				//PRIME_INFO(_components->at(i)->GetType(), " ", typeid(T).hash_code(), "\n");
+				if (_components->at(i)->GetType() == typeid(T).hash_code())
 				{
 					//casting isn't good
 					//change to a std casting
