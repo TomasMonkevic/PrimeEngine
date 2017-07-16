@@ -52,6 +52,7 @@ namespace PrimeEngine {
 				{
 					//casting isn't good
 					//change to a std casting
+					//dynamic cast
 					return (T*)(*_components)[i];
 				}
 			}

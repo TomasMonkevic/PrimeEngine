@@ -43,9 +43,6 @@ namespace PrimeEngine { namespace Graphics {
 		_ibo = new IndexBuffer(indecies, RENDERER_INDECIES_SIZE);
 		delete[] indecies;
 		glBindVertexArray(0);
-
-		//_atlas = ftgl::texture_atlas_new(512, 512, 2); 
-		//_font = texture_font_new_from_file(_atlas, 100, "arial.ttf"); //remove hardcoded stuff
 	}
 
 	BatchRenderer2D::~BatchRenderer2D()

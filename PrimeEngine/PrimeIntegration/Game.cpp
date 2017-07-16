@@ -95,13 +95,14 @@ void TestGame::Update()
 void TestGame::Tick()
 {
 	PRIME_INFO(GetFPS(), " fps \n");
-	//myLabel->text = std::to_string(GetFPS()) + " FPS";
-	//srand(time(NULL));
-	//float random = (float)(rand() % 100) / 100.0f;
-	//float random1 = (float)(rand() % 100) / 100.0f;
-	//float random2 = (float)(rand() % 100) / 100.0f;
+	Label* label = static_cast<Label*>(fpsLabel->GetComponent<Renderable>());
+	label->text = std::to_string(GetFPS()) + " FPS";
+	srand(time(NULL));
+	float random = (float)(rand() % 100) / 100.0f;
+	float random1 = (float)(rand() % 100) / 100.0f;
+	float random2 = (float)(rand() % 100) / 100.0f;
 	//PRIME_WARNING(random, " ", random1, " ", random2, "\n");
-	//myFont->color = Color(random,random1,random2);
+	label->font->color = Color(random, random1, random2);
 	//PRIME_INFO(myFont->color, "\n");
 }
 
