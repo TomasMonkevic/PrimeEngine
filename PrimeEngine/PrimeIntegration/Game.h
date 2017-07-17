@@ -65,8 +65,7 @@ private:
 	Texture* texture2;
 	Texture* texture3;
 	Font* myFont;
-	GameObject* player, *fpsLabel;
-	GameObject *button, *buttonContainer;
+	GameObject *player, *fpsLabel, *button, *buttonContainer;
 	//Label* myLabel;
 
 public:

@@ -5,14 +5,7 @@ namespace PrimeEngine
 {
 	namespace Math
 	{
-		const Vector2 Vector2::one = Vector2(1, 1);
-		const Vector2 Vector2::zero = Vector2();
-		const Vector2 Vector2::down = Vector2(0, -1);
-		const Vector2 Vector2::left = Vector2(-1, 0);;
-		const Vector2 Vector2::up = Vector2(0, 1);
-		const Vector2 Vector2::right = Vector2(1, 0);
-
-		Vector2::Vector2() : Vector2(0, 0)
+		Vector2::Vector2() : Vector2(0.0f, 0.0f)
 		{
 		}
 
@@ -32,25 +25,25 @@ namespace PrimeEngine
 			return (left.x * right.x + left.y * right.y);
 		}
 
-		Vector2 Vector2::operator+(const Vector2& right)
+		const Vector2 Vector2::operator+(const Vector2& right)
 		{
 			Vector2 result(x + right.x, y + right.y);
 			return result;
 		}
 
-		Vector2 Vector2::operator-(const Vector2& right)
+		const Vector2 Vector2::operator-(const Vector2& right)
 		{
 			Vector2 result(x - right.x, y - right.y);
 			return result;
 		}
 
-		Vector2 Vector2::operator*(const float scaler)
+		const Vector2 Vector2::operator*(const float scaler)
 		{
 			Vector2 result(x * scaler, y * scaler);
 			return result;
 		}
 
-		Vector2 Vector2::operator/(const float scaler)
+		const Vector2 Vector2::operator/(const float scaler)
 		{
 			Vector2 result(x / scaler, y / scaler);
 			return result;
