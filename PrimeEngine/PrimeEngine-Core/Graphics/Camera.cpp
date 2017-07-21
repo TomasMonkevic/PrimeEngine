@@ -28,7 +28,7 @@ namespace PrimeEngine { namespace Graphics {
 	void Camera::LookAt(const Math::Vector3& target)
 	{
 		_direction = (_position - target).Normalized();
-		_right = Math::Vector3::Cross(Math::Vector3::up, _direction).Normalized();
+		_right = Math::Vector3::Cross(Math::Vector3::up(), _direction).Normalized();
 		_up = Math::Vector3::Cross(_direction, _right).Normalized();
 		Math::Matrix4x4 tempMatrix = Math::Matrix4x4::identity;
 		tempMatrix.SetRow(0, Math::Vector4(_right.x, _right.y, _right.z, 0));

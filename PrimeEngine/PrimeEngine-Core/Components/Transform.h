@@ -13,7 +13,7 @@ namespace PrimeEngine {
 
 		Math::Vector3 _position;
 		Math::Matrix4x4 _rotationMatrix = Math::Matrix4x4::identity; //change to quaternion
-		Math::Vector3 _scale = Math::Vector3::one;
+		Math::Vector3 _scale = Math::Vector3::one();
 
 	public:
 		Transform();

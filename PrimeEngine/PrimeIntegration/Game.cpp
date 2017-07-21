@@ -14,7 +14,7 @@ void TestGame::Awake()
 	//CreateWin("Tik Tac Toe", 1366, 768);
 	CreateWin("Test Game", 800, 600);
 	//CreateWin("PrimeEngine");
-	GetWindow()->EnableVSync(true);
+	GetWindow()->EnableVSync(false);
 	GetWindow()->SetColor(Color(0.7f, 0.8f, 1.0f, 1.0f));
 
 	Matrix4x4 pr = Matrix4x4::Orthographic(-8.0f, 8.0f, -4.5f, 4.5f, -1.0f, 1.0f);
@@ -56,7 +56,7 @@ void TestGame::Awake()
 
 	myFont = new Font("Resources\\arial.ttf", Color(1.0f, 1.0f, 1.0f), 64);
 	std::string wtf = "Hi Mom!";
-	fpsLabel = new GameObject(Vector3(-8.0f, -4.5f, 0.0f));
+	fpsLabel = new GameObject(Vector2(-8.0f, -4.5f));
 	fpsLabel->AddComponent<Renderable>(new Label(wtf, *myFont));
 	uiLayer->Submit(fpsLabel);
 
@@ -79,12 +79,12 @@ void TestGame::Update()
 	//gameShader->SetUniform("lightPosition", Vector2(opa.x, opa.y));
 	//uiShader->SetUniform("lightPosition", Vector2(opa2.x, opa2.y));
 	//Rotate ui
-	buttonContainer->GetTransform().Rotate(GetDeltaTime(), Vector3::forward);
-	button->GetTransform().Rotate(GetDeltaTime(), Vector3::left);
+	buttonContainer->GetTransform().Rotate(GetDeltaTime(), Vector3::forward());
+	button->GetTransform().Rotate(GetDeltaTime(), Vector3::left());
 	//sprite1->Rotate(GetDeltaTime(), Vector3::forward);
 	if (InputPC::KeyPressed('W')) //esc
 	{
-		player->GetTransform().SetPosition(player->GetTransform().GetPosition() + Vector3::up * GetDeltaTime());
+		player->GetTransform().SetPosition(player->GetTransform().GetPosition() + Vector3::up() * GetDeltaTime());
 	}
 	if (InputPC::KeyPressed(256)) //esc
 	{
@@ -110,6 +110,6 @@ void TestGame::Render()
 {
 	gameLayer->Render();
 	uiLayer->Render();
-	mainCamera->LookAt(mainCamera->GetPosition() + Vector3::back);
+	mainCamera->LookAt(mainCamera->GetPosition() + Vector3::back());
 	mainCamera->Render();
 }

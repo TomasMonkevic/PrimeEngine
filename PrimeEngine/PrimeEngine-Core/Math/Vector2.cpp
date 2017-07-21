@@ -14,36 +14,30 @@ namespace PrimeEngine
 		{
 		}
 
-		float Vector2::Magnitude() const
-		{
-			PrimeException indexOutOfRange("Not impelemnted", -1);
-			throw indexOutOfRange;;
-		}
-
-		float Vector2::Dot(const Vector2& left, const Vector2& right)
+		const float Vector2::Dot(const Vector2& left, const Vector2& right)
 		{
 			return (left.x * right.x + left.y * right.y);
 		}
 
-		const Vector2 Vector2::operator+(const Vector2& right)
+		const Vector2 Vector2::operator+(const Vector2& right) const
 		{
 			Vector2 result(x + right.x, y + right.y);
 			return result;
 		}
 
-		const Vector2 Vector2::operator-(const Vector2& right)
+		const Vector2 Vector2::operator-(const Vector2& right) const
 		{
 			Vector2 result(x - right.x, y - right.y);
 			return result;
 		}
 
-		const Vector2 Vector2::operator*(const float scaler)
+		const Vector2 Vector2::operator*(const float scaler) const
 		{
 			Vector2 result(x * scaler, y * scaler);
 			return result;
 		}
 
-		const Vector2 Vector2::operator/(const float scaler)
+		const Vector2 Vector2::operator/(const float scaler) const
 		{
 			Vector2 result(x / scaler, y / scaler);
 			return result;
@@ -78,6 +72,11 @@ namespace PrimeEngine
 		}
 
 		float& Vector2::operator[](unsigned int index)
+		{
+			return const_cast<float&>(static_cast<const Vector2&>(*this)[index]);
+		}
+
+		const float& Vector2::operator[](unsigned int index) const
 		{
 			switch (index)
 			{

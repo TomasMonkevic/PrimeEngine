@@ -17,18 +17,9 @@ namespace Microsoft { namespace VisualStudio { namespace CppUnitTestFramework {
 
 namespace PrimeEngineTests
 {		
-	TEST_CLASS(Vector3Test)
+	TEST_CLASS(Vector3Tests)
 	{
 	public:
-		
-		TEST_METHOD(Vector3ConstructorTest)
-		{
-			float x = 1, y = 2, z = 3;
-			Vector3 vector(x, y, z);
-			Assert::AreEqual(x, vector.x, L"X value doesn't match", LINE_INFO());
-			Assert::AreEqual(y, vector.y, L"Y value doesn't match", LINE_INFO());
-			Assert::AreEqual(z, vector.z, L"Z value doesn't match", LINE_INFO());
-		}
 
 		TEST_METHOD(Vector3AdditionTest)
 		{
@@ -36,7 +27,7 @@ namespace PrimeEngineTests
 			Vector3 v2(2, 3, 4);
 			Vector3 expectedResult(3, 5, 7);
 			Vector3 expectedV1(1, 2, 3);
-			Vector3& result = v1 + v2;
+			Vector3 result = v1 + v2;
 			Assert::AreEqual(expectedResult, result, L"Vectors addition failed!");
 			result.x = 100;
 			Assert::AreEqual(expectedV1, v1, L"Vectors aren't equal!");

@@ -4,7 +4,7 @@
 namespace PrimeEngine {
 
 	Transform::Transform() :
-		Transform(Math::Vector3::zero)
+		Transform(Math::Vector3::zero())
 	{
 
 	}

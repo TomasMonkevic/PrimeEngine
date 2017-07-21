@@ -4,7 +4,7 @@
 namespace PrimeEngine {
 
 	GameObject::GameObject() :
-		GameObject(Math::Vector3::zero)
+		GameObject(Math::Vector3::zero())
 	{
 
 	}

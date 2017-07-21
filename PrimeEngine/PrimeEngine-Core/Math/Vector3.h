@@ -6,40 +6,44 @@
 
 namespace PrimeEngine {	namespace Math {
 
+	class Vector2;
+
 	class PRIMEENGINEAPI Vector3
 	{
 	public:
 		float x, y, z;
 
-		static const Vector3 one;
-		static const Vector3 zero;
-		static const Vector3 back;
-		static const Vector3 down;
-		static const Vector3 left;
-		static const Vector3 forward;
-		static const Vector3 up;
-		static const Vector3 right;
+		static const Vector3 one()		{ return Vector3(1.0f, 1.0f, 1.0f); }
+		static const Vector3 zero()		{ return Vector3(); }
+		static const Vector3 back()		{ return Vector3(0.0f, 0.0f, -1.0f); }
+		static const Vector3 down()		{ return Vector3(0.0f, -1.0f, 0.0f); }
+		static const Vector3 left()		{ return Vector3(-1.0f, 0.0f, 0.0f); }
+		static const Vector3 forward()	{ return Vector3(0.0f, 0.0f, 1.0f); }
+		static const Vector3 up()		{ return Vector3(0.0f, 1.0f, 0.0f); }
+		static const Vector3 right()	{ return Vector3(1.0f, 0.0f, 0.0f); }
 
-		static float Dot(const Vector3& left, const Vector3& right); //TEST
-		static Vector3 Cross(const Vector3& left, const Vector3& right); //TEST
-		static Vector3 Create(const char* string);
+		static const float Dot(const Vector3& left, const Vector3& right); //TEST
+		static const Vector3 Cross(const Vector3& left, const Vector3& right); //TEST
+		static const Vector3 Create(const char* string);
 
-		Vector3();
-		Vector3(float _x, float _y, float _z);
+		explicit Vector3();
+		explicit Vector3(float _x, float _y, float _z);
+		Vector3(const Vector2& vec2);
 
-		float Magnitude() const; //TEST
-		float SqrMagnitude() const; //TEST
-		Vector3 Normalized() const; //TEST
+		inline const float Magnitude() const { return sqrt(SqrMagnitude()); } //TEST
+		inline const float SqrMagnitude() const { return x * x + y * y + z * z; } //TEST
+		const Vector3 Normalized() const; //TEST
 
-		Vector3 operator+(const Vector3& right) const;
-		Vector3 operator-(const Vector3& right) const;
-		Vector3 operator*(const float scaler) const;
-		Vector3 operator/(const float scaler) const;
+		const Vector3 operator+(const Vector3& right) const;
+		const Vector3 operator-(const Vector3& right) const;
+		const Vector3 operator*(const float scaler) const;
+		const Vector3 operator/(const float scaler) const;
 		Vector3& operator+=(const Vector3& right);
 		Vector3& operator-=(const Vector3& right);
 		Vector3& operator*=(const float scaler);
 		Vector3& operator/=(const float scaler);
 		float& operator[](unsigned int index);
+		const float& operator[](unsigned int index) const;
 		bool operator!=(const Vector3& right) const;
 		bool operator==(const Vector3& right) const;
 		friend std::ostream& operator<<(std::ostream& stream, const Vector3& vector)
