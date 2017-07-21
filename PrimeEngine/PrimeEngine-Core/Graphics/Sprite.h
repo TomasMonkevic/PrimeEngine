@@ -30,8 +30,8 @@ namespace PrimeEngine { namespace Graphics {
 		}
 
 	public:
-		Sprite(const Math::Vector2& size, const Color& color);
-		Sprite(const Math::Vector2& size, Texture* texture, const Color& color = Color(1.0f, 1.0f, 1.0f, 1.0f));
+		explicit Sprite(const Math::Vector2& size, const Color& color);
+		explicit Sprite(const Math::Vector2& size, Texture* texture, const Color& color = Color(1.0f, 1.0f, 1.0f, 1.0f));
 		~Sprite() override;
 
 		void Submit(Renderer2D* renderer) const override;

@@ -25,19 +25,9 @@ namespace PrimeEngine {
 		void Submit(Graphics::Renderer2D* renderer) const;
 
 		//Takes control over components. Always use new
-		template<typename T>
 		void AddComponent(Component* component) //make move?
 		{
 			component->_gameObject = this;
-			component->_typeHash = typeid(T).hash_code();
-
-			//component->_typeName = new char[strlen(typeid(T).name())+1];
-			//memset(component->_typeName, 0, strlen(typeid(T).name()) + 1);
-			//strcpy_s(component->_typeName, strlen(typeid(T).name())+1,typeid(T).name());
-
-			//memcpy(component->_typeId, &typeid(T), sizeof(typeid(T)));
-			//component->_typeId = new std::type_info(typeid(T));
-			//component->_typeId = typeid(T);
 			_components->push_back(component);
 		}
 
@@ -50,10 +40,7 @@ namespace PrimeEngine {
 				//PRIME_INFO(_components->at(i)->GetType(), " ", typeid(T).hash_code(), "\n");
 				if (_components->at(i)->GetType() == typeid(T).hash_code())
 				{
-					//casting isn't good
-					//change to a std casting
-					//dynamic cast
-					return (T*)(*_components)[i];
+					return static_cast<T*>((*_components)[i]);
 				}
 			}
 			return NULL;
@@ -63,8 +50,7 @@ namespace PrimeEngine {
 		inline Transform& GetTransform() const
 		{
 			//transform is always there at index 0
-			//change to a std casting
-			return *((Transform*)((*_components)[0]));
+			return static_cast<Transform&>(*_components->at(0));
 		}
 	};
 }

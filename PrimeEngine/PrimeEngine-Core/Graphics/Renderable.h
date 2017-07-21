@@ -9,7 +9,10 @@ namespace PrimeEngine { namespace Graphics {
 	class PRIMEENGINEAPI Renderable : public Component
 	{
 	protected:
-		Renderable() {}
+		explicit Renderable()
+		{
+			AddBaseType<Renderable>();
+		}
 	public:
 		virtual void Submit(Renderer2D* renderer) const = 0;
 	};

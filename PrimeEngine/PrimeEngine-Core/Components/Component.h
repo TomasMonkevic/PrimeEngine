@@ -12,9 +12,16 @@ namespace PrimeEngine {
 		friend class GameObject;
 	private:
 		GameObject* _gameObject;
-		std::size_t _typeHash;
+		std::size_t _typeHash = 0;
 	protected:
-		Component() {}
+		explicit Component() {}
+
+		template<typename T>
+		void AddBaseType()
+		{
+			_typeHash = typeid(T).hash_code();
+		}
+
 	public:
 		virtual ~Component() 
 		{

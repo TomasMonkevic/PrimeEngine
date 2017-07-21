@@ -13,7 +13,7 @@ namespace PrimeEngine {
 	{
 		_components = new std::vector<Component*>;
 		_children = new std::vector<GameObject*>;
-		AddComponent<Transform>(new Transform(position));
+		AddComponent(new Transform(position));
 	}
 
 	GameObject::~GameObject()

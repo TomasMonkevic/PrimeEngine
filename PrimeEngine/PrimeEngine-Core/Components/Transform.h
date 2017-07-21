@@ -16,8 +16,8 @@ namespace PrimeEngine {
 		Math::Vector3 _scale = Math::Vector3::one();
 
 	public:
-		Transform();
-		Transform(const Math::Vector3& position);
+		explicit Transform();
+		explicit Transform(const Math::Vector3& position);
 		~Transform() override;
 
 		void AddChild();

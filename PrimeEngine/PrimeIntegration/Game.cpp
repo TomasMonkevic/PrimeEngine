@@ -43,12 +43,12 @@ void TestGame::Awake()
 	//gameLayer->Submit(sprite1);
 
 	buttonContainer = new GameObject(Vector3(-6, 0, 0));
-	buttonContainer->AddComponent<Renderable>(new Sprite(Vector2(4, 1), Color(1.0f, 0.0f, 0.0f, 0.5f)));
+	buttonContainer->AddComponent(new Sprite(Vector2(4, 1), Color(1.0f, 0.0f, 0.0f, 0.5f)));
 
 	button = new GameObject(Vector3(0, 1.5f, 0));
-	button->AddComponent<Renderable>(new Sprite(Vector2(4, 1), Color(1.0f, 0.0f, 0.0f, 0.5f)));
+	button->AddComponent(new Sprite(Vector2(4, 1), Color(1.0f, 0.0f, 0.0f, 0.5f)));
 	GameObject* eil = new GameObject();
-	eil->AddComponent<Renderable>(new Sprite(Vector2(3, 0.5f), Color(0.0f, 0.0f, 1.0f)));
+	eil->AddComponent(new Sprite(Vector2(3, 0.5f), Color(0.0f, 0.0f, 1.0f)));
 	button->Add(eil);
 
 	buttonContainer->Add(button);
@@ -57,12 +57,12 @@ void TestGame::Awake()
 	myFont = new Font("Resources\\arial.ttf", Color(1.0f, 1.0f, 1.0f), 64);
 	std::string wtf = "Hi Mom!";
 	fpsLabel = new GameObject(Vector2(-8.0f, -4.5f));
-	fpsLabel->AddComponent<Renderable>(new Label(wtf, *myFont));
+	fpsLabel->AddComponent(new Label(wtf, *myFont));
 	uiLayer->Submit(fpsLabel);
 
 	uiLayer->Submit(buttonContainer);
 	player = new GameObject();
-	player->AddComponent<Renderable>(new Sprite (Vector2(2, 2), texture2));
+	player->AddComponent(new Sprite (Vector2(2, 2), texture2));
 	uiLayer->Submit(player);
 	//Transform* trans = player.GetComponent<Transform>();
 	PRIME_WARNING(player->GetTransform().GetPosition(), "\n");
