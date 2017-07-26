@@ -23,6 +23,12 @@ namespace PrimeEngine
 
 		}
 
+		Vector3::Vector3(const Vector4& vec4)
+			: Vector3(vec4.x, vec4.y, vec4.z)
+		{
+
+		}
+
 		const Vector3 Vector3::Normalized() const
 		{
 			float length = Magnitude();

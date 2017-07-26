@@ -54,7 +54,8 @@ namespace PrimeEngine { namespace Math {
 		Matrix4x4& operator*=(const Matrix4x4& right);
 		bool operator==(const Matrix4x4& right) const;
 		bool operator!=(const Matrix4x4& right) const;
-		Vector4& operator[](unsigned int col) const; //Gets matrix columns
+		Vector4& operator[](unsigned int col);
+		const Vector4& operator[](unsigned int col) const; //Gets matrix columns
 		friend std::ostream& operator<<(std::ostream& stream, const Matrix4x4& matrix)
 		{
 			for (int i = 0; i < 4; i++)

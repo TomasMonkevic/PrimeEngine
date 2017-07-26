@@ -1,16 +1,29 @@
 #include "Vector2.h"
+#include "Vector3.h"
+#include "Vector4.h"
 #include "../PrimeException.h"
 
 namespace PrimeEngine
 {
 	namespace Math
 	{
-		Vector2::Vector2() : Vector2(0.0f, 0.0f)
+		Vector2::Vector2()
+			: Vector2(0.0f, 0.0f)
 		{
 		}
 
-		Vector2::Vector2(float _x, float _y) :
-			x(_x), y(_y)
+		Vector2::Vector2(float _x, float _y) 
+			: x(_x), y(_y)
+		{
+		}
+
+		Vector2::Vector2(const Vector3& vec3)
+			: Vector2(vec3.x, vec3.y)
+		{
+		}
+
+		Vector2::Vector2(const Vector4& vec4)
+			: Vector2(vec4.x, vec4.y)
 		{
 		}
 

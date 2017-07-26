@@ -280,7 +280,12 @@ namespace PrimeEngine { namespace Math {
 		return !(*this == right);
 	}
 
-	Vector4& Matrix4x4::operator[](unsigned int col) const
+	Vector4& Matrix4x4::operator[](unsigned int col)
+	{
+		return const_cast<Vector4&>(static_cast<const Matrix4x4&>(*this)[col]);
+	}
+
+	const Vector4& Matrix4x4::operator[](unsigned int col) const
 	{
 		if (col >= 4)
 		{

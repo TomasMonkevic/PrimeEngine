@@ -6,6 +6,9 @@
 
 namespace PrimeEngine { namespace Math {
 
+	class Vector4;
+	class Vector3;
+
 	class PRIMEENGINEAPI Vector2
 	{
 	public:
@@ -22,9 +25,8 @@ namespace PrimeEngine { namespace Math {
 
 		explicit Vector2();
 		explicit Vector2(float _x, float _y);
-
-		//operator Vector3() const { return Vector3(x, y, 0.0f); }
-		//operator Vector4() const { return Vector4(x, y, 0.0f, 0.0f); }
+		Vector2(const Vector3& vec3);
+		Vector2(const Vector4& vec4);
 
 		inline const float Magnitude() const { return sqrt(SqrMagnitude()); }
 		inline const float SqrMagnitude() const { return x * x + y * y; }
