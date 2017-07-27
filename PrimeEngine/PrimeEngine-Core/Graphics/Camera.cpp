@@ -30,7 +30,7 @@ namespace PrimeEngine { namespace Graphics {
 		_direction = (_position - target).Normalized();
 		_right = Math::Vector3::Cross(Math::Vector3::up(), _direction).Normalized();
 		_up = Math::Vector3::Cross(_direction, _right).Normalized();
-		Math::Matrix4x4 tempMatrix = Math::Matrix4x4::identity;
+		Math::Matrix4x4 tempMatrix = Math::Matrix4x4::identity();
 		tempMatrix.SetRow(0, Math::Vector4(_right.x, _right.y, _right.z, 0));
 		tempMatrix.SetRow(1, Math::Vector4(_up.x, _up.y, _up.z, 0));
 		tempMatrix.SetRow(2, Math::Vector4(_direction.x, _direction.y, _direction.z, 0));

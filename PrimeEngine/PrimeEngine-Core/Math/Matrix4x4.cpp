@@ -1,10 +1,9 @@
 #include "Matrix4x4.h"
+#include "Vector4.h"
+#include "Vector3.h"
 #include "../PrimeException.h"
 
 namespace PrimeEngine { namespace Math {
-
-	const Matrix4x4 Matrix4x4::identity = Matrix4x4(1);
-	const Matrix4x4 Matrix4x4::zero = Matrix4x4();
 
 	Matrix4x4::Matrix4x4()
 	{
@@ -17,7 +16,8 @@ namespace PrimeEngine { namespace Math {
 		}
 	}
 
-	Matrix4x4::Matrix4x4(float diagonalValue) : Matrix4x4()
+	Matrix4x4::Matrix4x4(float diagonalValue) 
+		: Matrix4x4()
 	{
 		_matrix[0][0] = diagonalValue;
 		_matrix[1][1] = diagonalValue;
@@ -36,7 +36,7 @@ namespace PrimeEngine { namespace Math {
 		}
 	}
 
-	inline float* Matrix4x4::Minor(int col, int row, int size, float elements[]) const
+	inline float* Matrix4x4::Minor(int col, int row, int size, const float elements[]) const
 	{
 		float* temp = new float[(size - 1) * (size - 1)];
 		int tempI = 0;
@@ -51,7 +51,7 @@ namespace PrimeEngine { namespace Math {
 		return temp;
 	}
 
-	float Matrix4x4::Det(int size, float elements[]) const
+	float Matrix4x4::Det(int size, const float elements[]) const
 	{
 		if (size == 1)
 		{
@@ -75,14 +75,9 @@ namespace PrimeEngine { namespace Math {
 		}
 	}
 
-	float Matrix4x4::Determinant() const
-	{
-		return Det(4, GetElements());
-	}
-
 	Matrix4x4 Matrix4x4::Transpose() const
 	{
-		return Matrix4x4::zero;
+		return Matrix4x4::zero();
 	}
 
 	Matrix4x4 Matrix4x4::Scale(float scaler) const
@@ -136,43 +131,45 @@ namespace PrimeEngine { namespace Math {
 		_matrix[3][row] = value.w;
 	}
 
-	Matrix4x4& Matrix4x4::Multiply(Matrix4x4 left, const Matrix4x4& right)
+	const Matrix4x4 Matrix4x4::Multiply(const Matrix4x4& left, const Matrix4x4& right)
 	{
+		Matrix4x4 result = left;
 		for (int i = 0; i < 4; i++)
 		{
-			Vector4 row = left.GetRow(i); //think about this;
+			const Vector4& row = result.GetRow(i); //think about this;
 			for (int j = 0; j < 4; j++)
 			{
-				Vector4 column = right[j];
-				left._matrix[j][i] = Vector4::Dot(row, column);
+				const Vector4& column = right[j];
+				result._matrix[j][i] = Vector4::Dot(row, column);
 			}
 		}
-		return left;
+		return result;
 	}
 
-	Vector4& Matrix4x4::Multiply(const Matrix4x4& left, Vector4 right)
+	const Vector4 Matrix4x4::Multiply(const Matrix4x4& left, const Vector4& right)
 	{
-		Vector4 col = right;
+		Vector4 result = right;
 		for (int i = 0; i < 4; i++)
 		{
-			Vector4 row = left.GetRow(i);
-			right[i] = Vector4::Dot(row, col);
+			const Vector4& row = left.GetRow(i);
+			result[i] = Vector4::Dot(row, right);
 		}
-		return right;
+		return result;
 	}
 
-	Vector3& Matrix4x4::Multiply(const Matrix4x4& left, Vector3 right)
+	const Vector3 Matrix4x4::Multiply(const Matrix4x4& left, const Vector3& right)
 	{
-		Vector4 col(right.x, right.y, right.z, 1); //implement vector conversation
+		Vector3 result = right;
+		const Vector4& col = right;
 		for (int i = 0; i < 3; i++)
 		{
-			Vector4 row = left.GetRow(i);
-			right[i] = Vector4::Dot(row, col);
+			const Vector4& row = left.GetRow(i);
+			result[i] = Vector4::Dot(row, col);
 		}
-		return right;
+		return result;
 	}
 
-	Matrix4x4 Matrix4x4::Orthographic(float left, float right, float bottom, float top, float zNear, float zFar)
+	const Matrix4x4 Matrix4x4::Orthographic(float left, float right, float bottom, float top, float zNear, float zFar)
 	{
 		Matrix4x4 result(new float[4][4]{
 			{ 2.0f / (right - left), 0, 0, (right + left) / (left - right)},
@@ -183,7 +180,7 @@ namespace PrimeEngine { namespace Math {
 		return result;
 	}
 
-	Matrix4x4 Matrix4x4::Perspective(float fov, float aspectRatio, float zNear, float zFar)
+	const Matrix4x4 Matrix4x4::Perspective(float fov, float aspectRatio, float zNear, float zFar)
 	{
 		Matrix4x4 result(new float[4][4]{
 			{ (1 / tan(fov / 2)) / aspectRatio, 0, 0, 0 },
@@ -194,27 +191,27 @@ namespace PrimeEngine { namespace Math {
 		return result;
 	}
 
-	Matrix4x4 Matrix4x4::Transform(const Vector3& translation)
+	const Matrix4x4 Matrix4x4::Transform(const Vector3& translation)
 	{
-		Matrix4x4 result = Matrix4x4::identity;
+		Matrix4x4 result = Matrix4x4::identity();
 		result[3][0] = translation.x;
 		result[3][1] = translation.y;
 		result[3][2] = translation.z;
 		return result;
 	}
 
-	Matrix4x4 Matrix4x4::Scale(const Vector3& scaler)
+	const Matrix4x4 Matrix4x4::Scale(const Vector3& scaler)
 	{
-		Matrix4x4 result = Matrix4x4::identity;
+		Matrix4x4 result = Matrix4x4::identity();
 		result[0][0] = scaler.x;
 		result[1][1] = scaler.y;
 		result[2][2] = scaler.z;
 		return result;
 	}
 
-	Matrix4x4 Matrix4x4::Rotate(float angle, const Vector3& axis)
+	const Matrix4x4 Matrix4x4::Rotate(float angle, const Vector3& axis)
 	{
-		Matrix4x4 result = Matrix4x4::identity;
+		Matrix4x4 result = Matrix4x4::identity();
 		float angleCos = cos(angle);
 		float angleSin = sin(angle);
 		float angleCos1 = 1 - cos(angle);
@@ -232,24 +229,24 @@ namespace PrimeEngine { namespace Math {
 		return result;
 	}
 
-	Matrix4x4 Matrix4x4::TRS(const Vector3& position, const Matrix4x4& rotationMatrix, const Vector3& scaler)
+	const Matrix4x4 Matrix4x4::TRS(const Vector3& position, const Matrix4x4& rotationMatrix, const Vector3& scaler)
 	{
-		Matrix4x4 result = Matrix4x4::identity;
+		Matrix4x4 result = Matrix4x4::identity();
 		result = Matrix4x4::Transform(position) * rotationMatrix * Matrix4x4::Scale(scaler);
 		return result;
 	}
 
-	Matrix4x4 Matrix4x4::operator*(const Matrix4x4& right) const
+	const Matrix4x4 Matrix4x4::operator*(const Matrix4x4& right) const
 	{
 		return Multiply(*this, right);
 	}
 
-	Vector4& Matrix4x4::operator*(Vector4 right) const
+	const Vector4 Matrix4x4::operator*(const Vector4& right) const
 	{
 		return Multiply(*this, right);
 	}
 
-	Vector3& Matrix4x4::operator*(Vector3 right) const
+	const Vector3 Matrix4x4::operator*(const Vector3& right) const
 	{
 		return Multiply(*this, right);
 	}

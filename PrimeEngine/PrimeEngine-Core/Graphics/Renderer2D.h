@@ -21,7 +21,7 @@ namespace PrimeEngine { namespace Graphics {
 		Renderer2D()
 		{
 			_transformationStack = new std::vector<Math::Matrix4x4>;
-			_transformationStack->push_back(Math::Matrix4x4::identity);
+			_transformationStack->push_back(Math::Matrix4x4::identity());
 			_transformationStackBack = &(_transformationStack->back());
 		}
 

@@ -74,7 +74,7 @@ namespace PrimeEngineTests
 				{  2, 5, 4, 7 },
 				{  3, 7, 5, 9 },
 			});
-			Assert::AreEqual(Matrix4x4::identity, testMatrix * testMatrix.Inverse(), L"Incorrect inverese matrix", LINE_INFO());
+			Assert::AreEqual(Matrix4x4::identity(), testMatrix * testMatrix.Inverse(), L"Incorrect inverese matrix", LINE_INFO());
 		}
 	};
 }
