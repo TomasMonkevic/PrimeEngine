@@ -27,8 +27,6 @@ void TestGame::Awake()
 	mainCamera->SetPosition(cameraPosition);
 
 	//Sprite* backGround = new Sprite(Vector3(5, 4.5f, 0.1f), Vector2(100, 100), Color(1, 0.5f, 0, 1.0f));
-	texture = new Texture("Resources\\Textures\\Sparkles.png");
-	texture2 = new Texture("Resources\\Textures\\textur2.png");
 	//texture3 = new Texture("Resources\\Textures\\1.jpg");
 	//Texture* texture4 = new Texture("Resources\\Textures\\bc.png"); //openGL doesn't like this texture
 	//sprite1 = new Sprite(Vector3(0, -0.5f, 0.1f), Vector2(5, 5), texture, Color(0.55f,0.55f,1,1.0f));
@@ -62,7 +60,7 @@ void TestGame::Awake()
 
 	uiLayer->Submit(buttonContainer);
 	player = new GameObject();
-	player->AddComponent(new Sprite (Vector2(2, 2), texture2));
+	player->AddComponent(new Sprite (Vector2(2, 2), "Resources\\Textures\\textur2.png"));
 	uiLayer->Submit(player);
 	//Transform* trans = player.GetComponent<Transform>();
 	PRIME_WARNING(player->GetTransform().GetPosition(), "\n");

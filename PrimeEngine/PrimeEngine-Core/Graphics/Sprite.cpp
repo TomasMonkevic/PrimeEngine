@@ -9,15 +9,16 @@ namespace PrimeEngine { namespace Graphics {
 
 	}
 
-	Sprite::Sprite(const Math::Vector2& size, Texture* texture, const Color& color)
-		: _size(size), _texture(texture), _color(color)
+	Sprite::Sprite(const Math::Vector2& size, const char* texturePath, const Color& color)
+		: _size(size), _color(color)
 	{
+		_texture = texturePath ? new Texture(texturePath) : NULL;
 		SetTextureCords();
 	}
 
 	Sprite::~Sprite()
 	{
-
+		delete _texture;
 	}
 
 	void Sprite::Submit(Renderer2D* renderer) const

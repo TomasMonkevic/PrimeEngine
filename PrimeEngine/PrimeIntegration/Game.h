@@ -61,9 +61,6 @@ private:
 	FakeUILayer* uiLayer;
 	Sprite *sprite1;
 	Camera* mainCamera;
-	Texture* texture;
-	Texture* texture2;
-	Texture* texture3;
 	Font* myFont;
 	GameObject *player, *fpsLabel, *button, *buttonContainer;
 	//Label* myLabel;
@@ -75,8 +72,9 @@ public:
 		//delete gameLayer;
 		delete sprite1;
 		delete player;
-		//delete button;
-		//delete buttonContainer;
+		delete button;
+		delete fpsLabel;
+		delete buttonContainer;
 	}
 	void Awake() override;
 	void Update() override;
