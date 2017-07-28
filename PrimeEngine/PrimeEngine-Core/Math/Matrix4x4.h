@@ -3,10 +3,10 @@
 #include <DllExport.h>
 #include <iostream>
 #include "MathFunc.h"
+#include "Vector4.h"
 
 namespace PrimeEngine { namespace Math {
 		
-	class Vector4;
 	class Vector3;
 
 	class PRIMEENGINEAPI Matrix4x4

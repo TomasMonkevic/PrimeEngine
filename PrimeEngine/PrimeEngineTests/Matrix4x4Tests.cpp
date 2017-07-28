@@ -9,14 +9,14 @@ using namespace PrimeEngine::Math;
 namespace Microsoft { namespace VisualStudio { namespace CppUnitTestFramework {
 
 	template<>
-	static std::wstring ToString<PrimeEngine::Math::Matrix4x4>(const PrimeEngine::Math::Matrix4x4& matrix)
+	static std::wstring ToString<Matrix4x4>(const Matrix4x4& matrix)
 	{
 		std::wstring matrixToString = L"\0";
 		for (int i = 0; i < 4; i++)
 		{
 			for (int j = 0; j < 4; j++)
 			{
-				matrixToString += std::to_wstring(matrix[i][j]) + L" ";
+				matrixToString += std::to_wstring((matrix[i])[j]) + L" ";
 			}
 			matrixToString += L"\n";
 		}
