@@ -32,6 +32,7 @@
     <ClInclude Include="Graphics\Font.h" />
     <ClInclude Include="Graphics\Label.h" />
     <ClInclude Include="Graphics\Layers\Layer.h" />
+    <ClInclude Include="Graphics\Layers\UILayer.h" />
     <ClInclude Include="Graphics\Renderable.h" />
     <ClInclude Include="Graphics\Renderer2D.h" />
     <ClInclude Include="Graphics\Shader\Shader.h" />
@@ -73,6 +74,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Graphics\Layers\UILayer.cpp" />
     <ClCompile Include="Graphics\Shader\Shader.cpp" />
     <ClCompile Include="Graphics\Shader\ShaderManager.cpp" />
     <ClCompile Include="Graphics\Sprite.cpp" />

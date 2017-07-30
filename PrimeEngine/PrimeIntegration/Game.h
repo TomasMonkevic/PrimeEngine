@@ -32,17 +32,6 @@ using std::cout;
 using std::cin;
 using std::endl;
 
-class FakeUILayer : public Layer
-{
-public:
-	FakeUILayer(Shader* shader) :
-		Layer(new BatchRenderer2D(), new Camera(shader, Matrix4x4::Orthographic(-8.0f, 8.0f, -4.5f, 4.5f, -1.0f, 1.0f)))
-	{
-		camera->SetPosition(Vector3::zero());
-		camera->LookAt(camera->GetPosition() + Vector3::back());
-	}
-};
-
 class GameLayer : public Layer
 {
 public:

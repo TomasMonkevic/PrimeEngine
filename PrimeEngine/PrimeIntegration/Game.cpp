@@ -106,7 +106,7 @@ void TestGame::Tick()
 
 void TestGame::Render()
 {
-	gameLayer->Render();
+	//gameLayer->Render();
 	uiLayer->Render();
 	mainCamera->LookAt(mainCamera->GetPosition() + Vector3::back());
 	mainCamera->Render();
