@@ -6,7 +6,7 @@ namespace PrimeEngine { namespace Graphics {
 	Layer::Layer(Renderer2D* renderer, Camera* _camera)
 		: _renderer(renderer), camera(_camera)
 	{
-		_renderables = new std::vector<GameObject*>;
+		_renderables = new std::vector<Object*>;
 		GLint texIds[MAX_TEXTURE_COUNT]; //should be moved somewhere else?
 		for (unsigned i = 0; i < MAX_TEXTURE_COUNT; i++)
 		{
@@ -26,16 +26,16 @@ namespace PrimeEngine { namespace Graphics {
 		delete camera;
 	}
 
-	void Layer::Submit(GameObject* renderable)
+	void Layer::Submit(Object* object)
 	{
-		_renderables->push_back(renderable);
+		_renderables->push_back(object);
 	}
 
-	void Layer::Remove(GameObject* renderable)
+	void Layer::Remove(Object* object)
 	{
 		for (std::size_t i = 0; i < _renderables->size(); i++)
 		{
-			if ((*_renderables)[i] == renderable)
+			if ((*_renderables)[i] == object)
 			{
 				_renderables->erase(_renderables->begin() + i);
 				return;
@@ -47,7 +47,7 @@ namespace PrimeEngine { namespace Graphics {
 	{
 		camera->_shader->Enable();
 		_renderer->Begin();
-		for (const GameObject* renderable : *_renderables)
+		for (const Object* renderable : *_renderables)
 		{
 			renderable->Submit(_renderer);
 		}

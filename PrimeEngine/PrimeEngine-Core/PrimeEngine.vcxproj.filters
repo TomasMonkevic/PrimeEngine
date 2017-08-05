@@ -55,6 +55,10 @@
     <ClInclude Include="Graphics\Label.h" />
     <ClInclude Include="Graphics\Renderable.h" />
     <ClInclude Include="Graphics\Layers\UILayer.h" />
+    <ClInclude Include="UI\UIObject.h" />
+    <ClInclude Include="Graphics\Layers\GameLayer.h" />
+    <ClInclude Include="Components\Object.h" />
+    <ClInclude Include="UI\Text.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Input.cpp">
@@ -90,6 +94,8 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Graphics\Label.cpp" />
     <ClCompile Include="Graphics\Layers\UILayer.cpp" />
+    <ClCompile Include="Graphics\Layers\GameLayer.cpp" />
+    <ClCompile Include="UI\Text.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Graphics\Shader\Source\Default.pesl" />

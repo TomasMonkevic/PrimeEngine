@@ -13,6 +13,7 @@
 *.user
 *.suo
 
+.vs/
 Build/
 PrimeEngine/.vs/
 PrimeEngine/PrimeEngine.VC.VC.opendb

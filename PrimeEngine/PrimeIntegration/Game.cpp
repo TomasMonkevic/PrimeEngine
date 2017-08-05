@@ -14,7 +14,7 @@ void TestGame::Awake()
 	//CreateWin("Tik Tac Toe", 1366, 768);
 	CreateWin("Test Game", 800, 600);
 	//CreateWin("PrimeEngine");
-	GetWindow()->EnableVSync(false);
+	GetWindow()->EnableVSync(true);
 	GetWindow()->SetColor(Color(0.7f, 0.8f, 1.0f, 1.0f));
 
 	Matrix4x4 pr = Matrix4x4::Orthographic(-8.0f, 8.0f, -4.5f, 4.5f, -1.0f, 1.0f);
@@ -35,6 +35,7 @@ void TestGame::Awake()
 	//PRIME_WARNING(sprite2->GetPosition());
 
 	gameLayer = new GameLayer(mainCamera);
+	uiLayer = new UILayer(ShaderManagerI->CreateShader("uiShader", Shader::default));
 	//gameLayer->Submit(backGround);
 	//gameLayer->Submit(sprite3);
 	//gameLayer->Submit(sprite2);
@@ -50,18 +51,21 @@ void TestGame::Awake()
 	button->Add(eil);
 
 	buttonContainer->Add(button);
-	uiLayer = new FakeUILayer(ShaderManagerI->CreateShader("uiShader", Shader::default));
 
 	myFont = new Font("Resources\\arial.ttf", Color(1.0f, 1.0f, 1.0f), 64);
 	std::string wtf = "Hi Mom!";
-	fpsLabel = new GameObject(Vector2(-8.0f, -4.5f));
-	fpsLabel->AddComponent(new Label(wtf, *myFont));
-	uiLayer->Submit(fpsLabel);
+	//fpsLabel = new GameObject(Vector2(-8.0f, -4.5f));
+	//fpsLabel->AddComponent(new Label(wtf, *myFont));
+	//uiLayer->Submit(fpsLabel);
+	//gameLayer->Submit(fpsLabel);
+	testText = new UI::Text(wtf, *myFont);
+	uiLayer->Submit(testText);
 
-	uiLayer->Submit(buttonContainer);
+	//uiLayer->Submit(buttonContainer);
+	gameLayer->Submit(buttonContainer);
 	player = new GameObject();
 	player->AddComponent(new Sprite (Vector2(2, 2), "Resources\\Textures\\textur2.png"));
-	uiLayer->Submit(player);
+	gameLayer->Submit(player);
 	//Transform* trans = player.GetComponent<Transform>();
 	PRIME_WARNING(player->GetTransform().GetPosition(), "\n");
 	//player.GetTransform().SetPosition(Math::Vector3::one);
@@ -82,8 +86,21 @@ void TestGame::Update()
 	//sprite1->Rotate(GetDeltaTime(), Vector3::forward);
 	if (InputPC::KeyPressed('W')) //esc
 	{
-		player->GetTransform().SetPosition(player->GetTransform().GetPosition() + Vector3::up() * GetDeltaTime());
+		player->GetTransform().SetPosition(player->GetTransform().GetPosition() + Vector3::up() * GetDeltaTime() * speed);
 	}
+	else if (InputPC::KeyPressed('S')) //esc
+	{
+		player->GetTransform().SetPosition(player->GetTransform().GetPosition() + Vector3::down() * GetDeltaTime() * speed);
+	}
+	if (InputPC::KeyPressed('A')) //esc
+	{
+		player->GetTransform().SetPosition(player->GetTransform().GetPosition() + Vector3::left() * GetDeltaTime() * speed);
+	}
+	else if (InputPC::KeyPressed('D')) //esc
+	{
+		player->GetTransform().SetPosition(player->GetTransform().GetPosition() + Vector3::right() * GetDeltaTime() * speed);
+	}
+	mainCamera->SetPosition(player->GetTransform().GetPosition());
 	if (InputPC::KeyPressed(256)) //esc
 	{
 		GetWindow()->Close();
@@ -93,20 +110,20 @@ void TestGame::Update()
 void TestGame::Tick()
 {
 	PRIME_INFO(GetFPS(), " fps \n");
-	Label* label = static_cast<Label*>(fpsLabel->GetComponent<Renderable>());
-	label->text = std::to_string(GetFPS()) + " FPS";
+	//Label* label = static_cast<Label*>(fpsLabel->GetComponent<Renderable>());
+	//label->text = std::to_string(GetFPS()) + " FPS";
 	srand(time(NULL));
 	float random = (float)(rand() % 100) / 100.0f;
 	float random1 = (float)(rand() % 100) / 100.0f;
 	float random2 = (float)(rand() % 100) / 100.0f;
 	//PRIME_WARNING(random, " ", random1, " ", random2, "\n");
-	label->font->color = Color(random, random1, random2);
+	//label->font->color = Color(random, random1, random2);
 	//PRIME_INFO(myFont->color, "\n");
 }
 
 void TestGame::Render()
 {
-	//gameLayer->Render();
+	gameLayer->Render();
 	uiLayer->Render();
 	mainCamera->LookAt(mainCamera->GetPosition() + Vector3::back());
 	mainCamera->Render();

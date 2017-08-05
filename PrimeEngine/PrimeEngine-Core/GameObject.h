@@ -1,16 +1,15 @@
 #pragma once
 
 #include <DllExport.h>
-//#include <Components\Component.h>
 #include <Components\Transform.h>
 #include <Math\Math.h>
 #include <vector>
 #include <Utilities\Log.h>
-#include <Graphics\Renderer2D.h>
+#include <Components\Object.h>
 
 namespace PrimeEngine {
 
-	class PRIMEENGINEAPI GameObject 
+	class PRIMEENGINEAPI GameObject : public Object
 	{
 	private:
 		std::vector<Component*>* _components;
@@ -22,7 +21,7 @@ namespace PrimeEngine {
 		~GameObject();
 
 		void Add(GameObject* child);
-		void Submit(Graphics::Renderer2D* renderer) const;
+		void Submit(Graphics::Renderer2D* renderer) const override;
 
 		//Takes control over components. Always use new
 		void AddComponent(Component* component) //make move?

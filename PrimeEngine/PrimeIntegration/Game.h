@@ -17,8 +17,10 @@
 #include <Graphics\Camera.h>
 #include <Graphics\Sprite.h>
 #include <Graphics\BatchRenderer2D.h>
-#include <Graphics\Layers\Layer.h>
+#include <Graphics\Layers\UILayer.h>
+#include <Graphics\Layers\GameLayer.h>
 #include <Graphics\Texture.h>
+#include <UI\Text.h>
 
 #include <GameObject.h>
 
@@ -32,33 +34,23 @@ using std::cout;
 using std::cin;
 using std::endl;
 
-class GameLayer : public Layer
-{
-public:
-	GameLayer(Camera* camera) :
-		Layer(new BatchRenderer2D(), camera)
-	{
-
-	}
-};
-
 class TestGame : public PrimeEngineBase
 {
 private:
 	float speed = 10.0f;
 	GameLayer* gameLayer;
-	FakeUILayer* uiLayer;
+	UILayer* uiLayer;
 	Sprite *sprite1;
 	Camera* mainCamera;
 	Font* myFont;
 	GameObject *player, *fpsLabel, *button, *buttonContainer;
-	//Label* myLabel;
+	UI::Text* testText;
 
 public:
 	~TestGame() 
 	{
-		delete uiLayer;
-		//delete gameLayer;
+		delete testText;
+		delete gameLayer;
 		delete sprite1;
 		delete player;
 		delete button;

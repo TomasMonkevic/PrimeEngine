@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Components\Component.h" />
+    <ClInclude Include="Components\Object.h" />
     <ClInclude Include="Components\Transform.h" />
     <ClInclude Include="DllExport.h" />
     <ClInclude Include="GameObject.h" />
@@ -31,6 +32,7 @@
     <ClInclude Include="Graphics\Color.h" />
     <ClInclude Include="Graphics\Font.h" />
     <ClInclude Include="Graphics\Label.h" />
+    <ClInclude Include="Graphics\Layers\GameLayer.h" />
     <ClInclude Include="Graphics\Layers\Layer.h" />
     <ClInclude Include="Graphics\Layers\UILayer.h" />
     <ClInclude Include="Graphics\Renderable.h" />
@@ -39,6 +41,8 @@
     <ClInclude Include="Graphics\Shader\ShaderManager.h" />
     <ClInclude Include="Graphics\Sprite.h" />
     <ClInclude Include="Graphics\Texture.h" />
+    <ClInclude Include="UI\Text.h" />
+    <ClInclude Include="UI\UIObject.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Math\Math.h" />
     <ClInclude Include="Math\MathFunc.h" />
@@ -68,6 +72,7 @@
     <ClCompile Include="Graphics\Color.cpp" />
     <ClCompile Include="Graphics\Font.cpp" />
     <ClCompile Include="Graphics\Label.cpp" />
+    <ClCompile Include="Graphics\Layers\GameLayer.cpp" />
     <ClCompile Include="Graphics\Layers\Layer.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
@@ -89,6 +94,7 @@
     <ClCompile Include="Networking\TCPSever.cpp" />
     <ClCompile Include="PrimeEngine.cpp" />
     <ClCompile Include="PrimeException.cpp" />
+    <ClCompile Include="UI\Text.cpp" />
     <ClCompile Include="Utilities\Time.cpp" />
   </ItemGroup>
   <ItemGroup>
