@@ -123,8 +123,8 @@ void TestGame::Tick()
 
 void TestGame::Render()
 {
-	gameLayer->Render();
-	uiLayer->Render();
 	mainCamera->LookAt(mainCamera->GetPosition() + Vector3::back());
 	mainCamera->Render();
+	gameLayer->Render();
+	uiLayer->Render();
 }
