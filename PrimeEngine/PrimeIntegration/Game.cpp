@@ -1,8 +1,5 @@
 #define P_LOG_LEVEL 2
 
-#include <Graphics/Font.h>
-#include <Graphics/Label.h>
-#include <Graphics\Shader\ShaderManager.h>
 #include "Game.h"
 #include <time.h>
 

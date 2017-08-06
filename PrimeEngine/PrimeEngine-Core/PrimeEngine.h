@@ -1,59 +1,40 @@
-#ifndef PRIME_ENGINE_H
-#define PRIME_ENGINE_H
-
-#include "Utilities\Time.h"
-#include "Graphics\Window.h"
-#include <FreeImage.h>
-#include "DllExport.h"
-
-namespace PrimeEngine {
-
-	class PRIMEENGINEAPI PrimeEngineBase
-	{
-	private:
-		Graphics::Window* _window;
-		unsigned int _fpsCounter;
-		float _deltaTime, _prevDeltatime = 0;
-
-	private:
-		void Run();
-	protected:
-		virtual void Awake() = 0;
-		virtual void Tick() { };
-		virtual void Update() { };
-		virtual void Render() = 0;
-
-		PrimeEngineBase()
-		{
-
-		}
-
-		virtual ~PrimeEngineBase()
-		{
-			_window->Destroy();
-		}
-
-		void CreateWin(const char* title, int width, int height);
-		void CreateWin(const char* title);
-
-		inline Graphics::Window* GetWindow()
-		{
-			return _window;
-		}
-
-		inline unsigned int GetFPS() const
-		{
-			return _fpsCounter;
-		}
-
-		inline float GetDeltaTime() const
-		{
-			return _deltaTime;
-		}
-
-	public:
-		void Play();
-	};
-}
-
-#endif // !PRIME_ENGINE_H
+#pragma once 
+#include <Graphics\Camera.h>
+#include <Graphics\Color.h>
+#include <Graphics\Font.h>
+#include <Graphics\Label.h>
+#include <Graphics\Renderable.h>
+#include <Graphics\Renderer2D.h>
+#include <Graphics\Sprite.h>
+#include <Graphics\Texture.h>
+#include <Graphics\Window.h>
+#include <Graphics\Buffers\IndexBuffer.h>
+#include <Graphics\Buffers\VertexArray.h>
+#include <Graphics\Buffers\VertexBuffer.h>
+#include <Graphics\Layers\GameLayer.h>
+#include <Graphics\Layers\Layer.h>
+#include <Graphics\Layers\UILayer.h>
+#include <Graphics\Shader\Shader.h>
+#include <Graphics\Shader\ShaderManager.h>
+#include <GameObject.h>
+#include <Input.h>
+#include <PrimeEngineBase.h>
+#include <PrimeException.h>
+#include <Components\Component.h>
+#include <Components\Object.h>
+#include <Components\Transform.h>
+#include <Graphics\BatchRenderer2D.h>
+#include <Math\Math.h>
+#include <Math\MathFunc.h>
+#include <Math\Matrix4x4.h>
+#include <Math\Vector2.h>
+#include <Math\Vector3.h>
+#include <Math\Vector4.h>
+#include <Networking\NetworkEntity.h>
+#include <Networking\TCPClient.h>
+#include <Networking\TCPServer.h>
+#include <UI\Text.h>
+#include <UI\UIObject.h>
+#include <Utilities\ImageLoader.h>
+#include <Utilities\Log.h>
+#include <Utilities\Time.h>

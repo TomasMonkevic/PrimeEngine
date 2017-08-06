@@ -33,7 +33,6 @@
     <ClInclude Include="Graphics\Renderer2D.h" />
     <ClInclude Include="Utilities\Time.h" />
     <ClInclude Include="Graphics\Camera.h" />
-    <ClInclude Include="PrimeEngine.h" />
     <ClInclude Include="Networking\NetworkEntity.h" />
     <ClInclude Include="PrimeException.h" />
     <ClInclude Include="Graphics\BatchRenderer2D.h" />
@@ -59,6 +58,8 @@
     <ClInclude Include="Graphics\Layers\GameLayer.h" />
     <ClInclude Include="Components\Object.h" />
     <ClInclude Include="UI\Text.h" />
+    <ClInclude Include="PrimeEngineBase.h" />
+    <ClInclude Include="PrimeEngine.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Input.cpp">
@@ -83,7 +84,6 @@
     <ClCompile Include="Graphics\Sprite.cpp" />
     <ClCompile Include="Graphics\Layers\Layer.cpp" />
     <ClCompile Include="Graphics\Texture.cpp" />
-    <ClCompile Include="PrimeEngine.cpp" />
     <ClCompile Include="Networking\TCPSever.cpp" />
     <ClCompile Include="Networking\TCPClient.cpp" />
     <ClCompile Include="Graphics\Font.cpp" />
@@ -96,6 +96,7 @@
     <ClCompile Include="Graphics\Layers\UILayer.cpp" />
     <ClCompile Include="Graphics\Layers\GameLayer.cpp" />
     <ClCompile Include="UI\Text.cpp" />
+    <ClCompile Include="PrimeEngineBase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Graphics\Shader\Source\Default.pesl" />

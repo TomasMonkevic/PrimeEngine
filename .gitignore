@@ -15,6 +15,8 @@
 
 .vs/
 Build/
+Tools/.vscode/
+
 PrimeEngine/.vs/
 PrimeEngine/PrimeEngine.VC.VC.opendb
 PrimeEngine/PrimeEngine.VC.db

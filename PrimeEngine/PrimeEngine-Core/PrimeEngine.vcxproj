@@ -41,6 +41,7 @@
     <ClInclude Include="Graphics\Shader\ShaderManager.h" />
     <ClInclude Include="Graphics\Sprite.h" />
     <ClInclude Include="Graphics\Texture.h" />
+    <ClInclude Include="PrimeEngine.h" />
     <ClInclude Include="UI\Text.h" />
     <ClInclude Include="UI\UIObject.h" />
     <ClInclude Include="Input.h" />
@@ -54,7 +55,7 @@
     <ClInclude Include="Networking\TCPClient.h" />
     <ClInclude Include="Networking\NetworkEntity.h" />
     <ClInclude Include="Networking\TCPServer.h" />
-    <ClInclude Include="PrimeEngine.h" />
+    <ClInclude Include="PrimeEngineBase.h" />
     <ClInclude Include="PrimeException.h" />
     <ClInclude Include="Utilities\File.h" />
     <ClInclude Include="Utilities\ImageLoader.h" />
@@ -92,7 +93,7 @@
     <ClCompile Include="Math\Vector3.cpp" />
     <ClCompile Include="Networking\TCPClient.cpp" />
     <ClCompile Include="Networking\TCPSever.cpp" />
-    <ClCompile Include="PrimeEngine.cpp" />
+    <ClCompile Include="PrimeEngineBase.cpp" />
     <ClCompile Include="PrimeException.cpp" />
     <ClCompile Include="UI\Text.cpp" />
     <ClCompile Include="Utilities\Time.cpp" />
