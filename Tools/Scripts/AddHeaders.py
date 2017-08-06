@@ -1,7 +1,7 @@
 import os
 
 #graphics should be first in the include order
-EXEPTIONS = ["PrimeEngine.h", "DllExport.h", "File.h"]
+EXCEPTION_FILES = ["PrimeEngine.h", "DllExport.h", "File.h"]
 PRIME_ENGINE_CORE_PATH = "..\\PrimeEngine\\PrimeEngine-Core"
 OUTPUT_HEADER = "\\PrimeEngine.h"
 
@@ -14,20 +14,22 @@ def ParsePath(root, file):
         stack.append(tail + "\\")
         tail = os.path.split(head)[1]
         head = os.path.split(head)[0]
-    stack.reverse()
-    for element in stack:
-        incPath += element
-    incPath += file
+    while stack:
+        incPath += stack.pop()
+    incPath += (file + ">")
     print(incPath)
-    incPath += ">\n"
+    incPath += "\n"
     return incPath
 
 def GetAllHeaders():
     headerList = []
     for root, dirs, files in os.walk(PRIME_ENGINE_CORE_PATH):
         for file in files:
-            if file.endswith(".h") and file not in EXEPTIONS:
-                headerList.append(ParsePath(root, file))
+            if file.endswith(".h") and file not in EXCEPTION_FILES:
+                if "Graphics" in root:
+                    headerList.insert(0, ParsePath(root, file))
+                else:
+                    headerList.append(ParsePath(root, file))
     return headerList
 
 def WriteHeader(outputFilePath, headers):
@@ -37,4 +39,6 @@ def WriteHeader(outputFilePath, headers):
         file.write(header)
     file.close()
 
+print("Started adding headers...")
 WriteHeader(PRIME_ENGINE_CORE_PATH + OUTPUT_HEADER, GetAllHeaders())
+print("Complete!")
