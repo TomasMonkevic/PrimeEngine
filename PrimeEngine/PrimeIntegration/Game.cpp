@@ -50,18 +50,18 @@ void TestGame::Awake()
 	buttonContainer->Add(button);
 
 	myFont = new Font("Resources\\arial.ttf", Color(1.0f, 1.0f, 1.0f), 64);
-	std::string wtf = "Hi Mom!";
+	std::string wtf = "HE HE HE HE";
 	//fpsLabel = new GameObject(Vector2(-8.0f, -4.5f));
 	//fpsLabel->AddComponent(new Label(wtf, *myFont));
 	//uiLayer->Submit(fpsLabel);
 	//gameLayer->Submit(fpsLabel);
 	testText = new UI::Text(wtf, *myFont);
-	uiLayer->Submit(testText);
+	//uiLayer->Submit(testText);
 
 	//uiLayer->Submit(buttonContainer);
 	gameLayer->Submit(buttonContainer);
 	player = new GameObject();
-	player->AddComponent(new Sprite (Vector2(2, 2), "Resources\\Textures\\textur2.png"));
+	player->AddComponent(new Sprite (Vector2(2, 2), "Resources\\Textures\\pepe.png"));
 	gameLayer->Submit(player);
 	//Transform* trans = player.GetComponent<Transform>();
 	PRIME_WARNING(player->GetTransform().GetPosition(), "\n");

@@ -60,6 +60,7 @@
     <ClInclude Include="UI\Text.h" />
     <ClInclude Include="PrimeEngineBase.h" />
     <ClInclude Include="PrimeEngine.h" />
+    <ClInclude Include="Graphics\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Input.cpp">

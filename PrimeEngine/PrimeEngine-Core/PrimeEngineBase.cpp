@@ -6,7 +6,7 @@ namespace PrimeEngine {
 	{
 		Time timer;
 		_fpsCounter = 0;
-		while (!_window->Closed())
+		while (_window && !_window->Closed())
 		{
 			_window->Clear();
 			Update(); //first frame fps and delta time is 0

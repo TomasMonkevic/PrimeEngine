@@ -12,9 +12,12 @@ namespace PrimeEngine { namespace Graphics {
 
 	}
 
-	Color::Color(unsigned r, unsigned g, unsigned b, unsigned a)
+	Color::Color(int r, int g, int b, int a)
 	{
-
+		_r = float(r / 255.0f);
+		_g = float(g / 255.0f);
+		_b = float(b / 255.0f);
+		_a = float(a / 255.0f);
 	}
 
 	Color::Color(const char* hexColor)

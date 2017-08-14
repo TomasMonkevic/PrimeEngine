@@ -14,7 +14,7 @@ namespace PrimeEngine { namespace Graphics {
 	{
 	private:
 		GLuint _Id;
-		unsigned _width, _height;
+		unsigned int _width, _height;
 		const char* _path;
 
 	private:
