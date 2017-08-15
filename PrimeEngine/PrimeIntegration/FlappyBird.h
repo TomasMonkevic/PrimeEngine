@@ -16,6 +16,7 @@ private:
 
 private:
 	void Gravity(GameObject& obj);
+	void Jump(float height);
 
 public:
 	~FlappyBrid();

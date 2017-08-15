@@ -27,10 +27,8 @@ namespace PrimeEngine { namespace Graphics {
 		void Bind() const;
 		void Unbind() const;
 
-		inline const GLuint GetId() const
-		{
-			return _Id;
-		}
+		inline const Math::Vector2 GetSize() const { return Math::Vector2(_width, _height); }
+		inline const GLuint GetId() const {	return _Id;	}
 	};
 }}
 

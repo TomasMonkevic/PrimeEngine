@@ -81,24 +81,24 @@ void TestGame::Update()
 	buttonContainer->GetTransform().Rotate(GetDeltaTime(), Vector3::forward());
 	button->GetTransform().Rotate(GetDeltaTime(), Vector3::left());
 	//sprite1->Rotate(GetDeltaTime(), Vector3::forward);
-	if (InputPC::KeyPressed('W')) //esc
+	if (InputPC::GetKey('W')) //esc
 	{
 		player->GetTransform().SetPosition(player->GetTransform().GetPosition() + Vector3::up() * GetDeltaTime() * speed);
 	}
-	else if (InputPC::KeyPressed('S')) //esc
+	else if (InputPC::GetKey('S')) //esc
 	{
 		player->GetTransform().SetPosition(player->GetTransform().GetPosition() + Vector3::down() * GetDeltaTime() * speed);
 	}
-	if (InputPC::KeyPressed('A')) //esc
+	if (InputPC::GetKey('A')) //esc
 	{
 		player->GetTransform().SetPosition(player->GetTransform().GetPosition() + Vector3::left() * GetDeltaTime() * speed);
 	}
-	else if (InputPC::KeyPressed('D')) //esc
+	else if (InputPC::GetKey('D')) //esc
 	{
 		player->GetTransform().SetPosition(player->GetTransform().GetPosition() + Vector3::right() * GetDeltaTime() * speed);
 	}
 	mainCamera->SetPosition(player->GetTransform().GetPosition());
-	if (InputPC::KeyPressed(256)) //esc
+	if (InputPC::GetKeyDown(256)) //esc
 	{
 		GetWindow()->Close();
 	}

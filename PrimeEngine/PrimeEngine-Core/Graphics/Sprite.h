@@ -36,6 +36,8 @@ namespace PrimeEngine { namespace Graphics {
 
 		void Submit(Renderer2D* renderer) const override;
 
+		inline const Texture& GetTexture() const { return *_texture; }
+
 		inline const Math::Vector2& GetSize() const
 		{
 			return _size;

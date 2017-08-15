@@ -2,6 +2,8 @@
 
 #include "FlappyBird.h"
 
+#include <thread>
+
 FlappyBrid::~FlappyBrid()
 {
 	delete playingLayer;
@@ -13,10 +15,26 @@ FlappyBrid::~FlappyBrid()
 
 void FlappyBrid::Gravity(GameObject& obj)
 {
-	float groundY = ground->GetTransform().GetPosition().y + 28.0f;
-	float gravity = 9.8f, mass = 50.0f;
+	Sprite* sprite = static_cast<Sprite*>(ground->GetComponent<Renderable>());
+	float groundY = ground->GetTransform().GetPosition().y + sprite->GetSize().y / 2.0f + 30.0f; //TODO remove hard coded stuff should be texture size
+	float gravity = 9.8f, mass = 25.0f;
 	obj.GetTransform().SetPosition(obj.GetTransform().GetPosition() + Vector3::down() * GetDeltaTime() * gravity * mass);
 	obj.GetTransform().SetPosition(Vector2(obj.GetTransform().GetPosition().x, max(groundY, obj.GetTransform().GetPosition().y)));
+
+	obj.GetTransform().Rotate(90.0f * GetDeltaTime() * 0.01f, Vector3::back());
+}
+
+void FlappyBrid::Jump(float height)
+{
+	//PRIME_INFO("On start: ", bird.GetTransform().GetPosition(), "\n");
+	float finish = bird->GetTransform().GetPosition().y + height;
+	while (bird->GetTransform().GetPosition().y < finish)
+	{
+		bird->GetTransform().SetPosition(bird->GetTransform().GetPosition() + Vector3::up() * 20.0f);
+		bird->GetTransform().Rotate(90.0f * 0.001f, Vector3::forward());
+		Sleep(GetDeltaTime() * 1000);
+		//PRIME_INFO(GetDeltaTime(), "\n");
+	}
 }
 
 void FlappyBrid::Awake()
@@ -49,23 +67,28 @@ void FlappyBrid::Awake()
 
 void FlappyBrid::Update()
 {
-	if (InputPC::KeyPressed(32))
+	//PRIME_INFO(GetFPS(), "fps \n");
+	if (InputPC::GetKeyDown(32))
 	{
-		PRIME_INFO("Jump");
-		bird->GetTransform().SetPosition(bird->GetTransform().GetPosition() + Vector3::up() * 100.0f);
+		//TODO should be some kind of animation
+		//bird->GetTransform().SetPosition(bird->GetTransform().GetPosition() + Vector3::up() * 200.0f);
+		std::thread jumpAnim(&FlappyBrid::Jump, this, 150.0f);
+		jumpAnim.detach();
 	}
-	bird->GetTransform().SetPosition(bird->GetTransform().GetPosition() + Vector3::right() * GetDeltaTime() * 50.0f);
+
+	bird->GetTransform().SetPosition(bird->GetTransform().GetPosition() + Vector3::right() * GetDeltaTime() * 70.0f);
+	background->GetTransform().SetPosition(Vector2(bird->GetTransform().GetPosition().x, background->GetTransform().GetPosition().y));
 	Gravity(*bird);
 }
 
 void FlappyBrid::Tick()
 {
-
+	PRIME_INFO(GetFPS(), "fps \n");
 }
 
 void FlappyBrid::Render()
 {
-	mainCamera->LookAt(mainCamera->GetPosition() + Vector3::back()); //TODO move this to engine
 	mainCamera->SetPosition(Vector2(bird->GetTransform().GetPosition().x, mainCamera->GetPosition().y));
+	mainCamera->LookAt(mainCamera->GetPosition() + Vector3::back()); //TODO move this to engine
 	playingLayer->Render();
 }
