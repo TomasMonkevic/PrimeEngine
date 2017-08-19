@@ -78,8 +78,8 @@ void TestGame::Update()
 	//gameShader->SetUniform("lightPosition", Vector2(opa.x, opa.y));
 	//uiShader->SetUniform("lightPosition", Vector2(opa2.x, opa2.y));
 	//Rotate ui
-	buttonContainer->GetTransform().Rotate(GetDeltaTime(), Vector3::forward());
-	button->GetTransform().Rotate(GetDeltaTime(), Vector3::left());
+	//buttonContainer->GetTransform().Rotate(GetDeltaTime(), Vector3::forward());
+	//button->GetTransform().Rotate(GetDeltaTime(), Vector3::left());
 	//sprite1->Rotate(GetDeltaTime(), Vector3::forward);
 	if (InputPC::GetKey('W')) //esc
 	{

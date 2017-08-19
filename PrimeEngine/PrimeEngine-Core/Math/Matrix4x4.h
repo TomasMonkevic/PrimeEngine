@@ -7,6 +7,7 @@
 
 namespace PrimeEngine { namespace Math {
 		
+	class Quaternion;
 	class Vector3;
 
 	class PRIMEENGINEAPI Matrix4x4
@@ -29,8 +30,8 @@ namespace PrimeEngine { namespace Math {
 		static const Matrix4x4 Perspective(float fov, float aspectRatio, float zNear, float zFar); //TODO
 		static const Matrix4x4 Transform(const Vector3& translation);
 		static const Matrix4x4 Scale(const Vector3& scaler); //TEST
-		static const Matrix4x4 Rotate(float angle, const Vector3& axis); //TEST
-		static const Matrix4x4 TRS(const Vector3& position, const Matrix4x4& rotationMatrix, const Vector3& scaler); //change to quaternion
+		//static const Matrix4x4 Rotate(float angle, const Vector3& axis); //TEST
+		static const Matrix4x4 TRS(const Vector3& position, const Quaternion& rotation, const Vector3& scaler); //change to quaternion
 
 		Matrix4x4();
 		Matrix4x4(float diagonalValue);

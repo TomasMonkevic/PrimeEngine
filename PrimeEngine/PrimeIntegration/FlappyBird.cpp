@@ -20,8 +20,14 @@ void FlappyBrid::Gravity(GameObject& obj)
 	float gravity = 9.8f, mass = 25.0f;
 	obj.GetTransform().SetPosition(obj.GetTransform().GetPosition() + Vector3::down() * GetDeltaTime() * gravity * mass);
 	obj.GetTransform().SetPosition(Vector2(obj.GetTransform().GetPosition().x, max(groundY, obj.GetTransform().GetPosition().y)));
-
-	obj.GetTransform().Rotate(90.0f * GetDeltaTime() * 0.01f, Vector3::back());
+	//float rotationZ = 0.0f;
+	if (obj.GetTransform().GetRotation().EulerAngles().z * (180.0f/PI) > -90.0f)
+	{
+		PRIME_INFO(obj.GetTransform().GetRotation().EulerAngles().z * (180.0f / PI), " ", birdRotation, "\n");
+		std::cout << birdRotation << std::endl;
+		obj.GetTransform().Rotate(Quaternion(0.0f, 0.0f, birdRotation));
+		birdRotation -= 5.0f * GetDeltaTime();
+	}
 }
 
 void FlappyBrid::Jump(float height)
@@ -31,7 +37,13 @@ void FlappyBrid::Jump(float height)
 	while (bird->GetTransform().GetPosition().y < finish)
 	{
 		bird->GetTransform().SetPosition(bird->GetTransform().GetPosition() + Vector3::up() * 20.0f);
-		bird->GetTransform().Rotate(90.0f * 0.001f, Vector3::forward());
+
+		if (bird->GetTransform().GetRotation().EulerAngles().z * (180.0f / PI) < 45.0f)
+		{
+			PRIME_INFO("Jump: ", bird->GetTransform().GetRotation().EulerAngles().z * (180.0f / PI), " ", birdRotation, "\n");
+			bird->GetTransform().Rotate(Quaternion(0.0f, 0.0f, birdRotation));
+			birdRotation += 0.01f;
+		}
 		Sleep(GetDeltaTime() * 1000);
 		//PRIME_INFO(GetDeltaTime(), "\n");
 	}
@@ -64,6 +76,9 @@ void FlappyBrid::Awake()
 	playingLayer->Submit(background);
 	playingLayer->Submit(ground);
 	playingLayer->Submit(bird);
+
+	//bird->GetTransform().Rotate(Quaternion(0.0f, 0.0f, -91.0f)); //TEMP!!!!
+	//PRIME_INFO(bird->GetTransform().GetRotation().EulerAngles().z * (180.0f / PI), "\n"); //TEMP!!
 }
 
 void FlappyBrid::Update()

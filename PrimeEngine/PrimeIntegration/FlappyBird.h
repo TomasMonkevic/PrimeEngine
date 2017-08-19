@@ -13,6 +13,7 @@ private:
 	GameLayer* playingLayer;
 	Camera* mainCamera;
 	GameObject *bird, *background, *ground;
+	float birdRotation = 0.0f; //temp
 
 private:
 	void Gravity(GameObject& obj);

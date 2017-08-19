@@ -1,5 +1,6 @@
 #include "Matrix4x4.h"
 #include "Vector3.h"
+#include "Quaternion.h"
 #include "../PrimeException.h"
 
 namespace PrimeEngine { namespace Math {
@@ -208,30 +209,30 @@ namespace PrimeEngine { namespace Math {
 		return result;
 	}
 
-	const Matrix4x4 Matrix4x4::Rotate(float angle, const Vector3& axis)
+	//const Matrix4x4 Matrix4x4::Rotate(float angle, const Vector3& axis)
+	//{
+	//	Matrix4x4 result = Matrix4x4::identity();
+	//	float angleCos = cos(angle);
+	//	float angleSin = sin(angle);
+	//	float angleCos1 = 1 - cos(angle);
+	//	result[0][0] = angleCos + axis.x * axis.x * angleCos1;
+	//	result[0][1] = axis.y * axis.x * angleCos1 + axis.z * angleSin;
+	//	result[0][2] = axis.z * axis.x * angleCos1 - axis.y * angleSin;
+
+	//	result[1][0] = axis.x * axis.y * angleCos1 - axis.z * angleSin;
+	//	result[1][1] = angleCos + axis.y * axis.y * angleCos1;
+	//	result[1][2] = axis.z * axis.y * angleCos1 + axis.x * angleSin;
+
+	//	result[2][0] = axis.x * axis.z * angleCos1 + axis.y * angleSin;
+	//	result[2][1] = axis.y * axis.z * angleCos1 - axis.x * angleSin;
+	//	result[2][2] = angleCos + axis.z * axis.z * angleCos1;
+	//	return result;
+	//}
+
+	const Matrix4x4 Matrix4x4::TRS(const Vector3& position, const Quaternion& rotation, const Vector3& scaler)
 	{
 		Matrix4x4 result = Matrix4x4::identity();
-		float angleCos = cos(angle);
-		float angleSin = sin(angle);
-		float angleCos1 = 1 - cos(angle);
-		result[0][0] = angleCos + axis.x * axis.x * angleCos1;
-		result[0][1] = axis.y * axis.x * angleCos1 + axis.z * angleSin;
-		result[0][2] = axis.z * axis.x * angleCos1 - axis.y * angleSin;
-
-		result[1][0] = axis.x * axis.y * angleCos1 - axis.z * angleSin;
-		result[1][1] = angleCos + axis.y * axis.y * angleCos1;
-		result[1][2] = axis.z * axis.y * angleCos1 + axis.x * angleSin;
-
-		result[2][0] = axis.x * axis.z * angleCos1 + axis.y * angleSin;
-		result[2][1] = axis.y * axis.z * angleCos1 - axis.x * angleSin;
-		result[2][2] = angleCos + axis.z * axis.z * angleCos1;
-		return result;
-	}
-
-	const Matrix4x4 Matrix4x4::TRS(const Vector3& position, const Matrix4x4& rotationMatrix, const Vector3& scaler)
-	{
-		Matrix4x4 result = Matrix4x4::identity();
-		result = Matrix4x4::Transform(position) * rotationMatrix * Matrix4x4::Scale(scaler);
+		result = Matrix4x4::Transform(position) * rotation.RotationMatrix() * Matrix4x4::Scale(scaler);
 		return result;
 	}
 

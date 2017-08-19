@@ -11,7 +11,7 @@ namespace PrimeEngine { namespace Math {
 	public:
 		float x, y, z, w;
 
-		//static const Quaternion identity() { return Quaternion(1.0f, 1.0f, 1.0f); }
+		static const Quaternion identity() { return Quaternion(0.0f, 0.0f, 0.0f, 1.0f); }
 
 		Quaternion();
 		Quaternion(const Vector3& vector, float scalar);
@@ -20,15 +20,18 @@ namespace PrimeEngine { namespace Math {
 		Quaternion(float _x, float _y, float _z, float _w); //raw values
 
 		inline const float Normalized() const { return x * x + y * y + z * z + w * w; }
-		const Vector3 EulerAngles();
-		const Matrix4x4 RotationMatrix();
+		const Quaternion Conjugate() const;
+		const Vector3 EulerAngles() const;
+		const Matrix4x4 RotationMatrix() const;
 
 
 		const Quaternion operator+(const Quaternion& right) const;
 		const Quaternion operator-(const Quaternion& right) const;
+		const Quaternion operator*(const Quaternion& right) const;
 
 		Quaternion& operator+=(const Quaternion& right);
 		Quaternion& operator-=(const Quaternion& right);
+		Quaternion& operator*=(const Quaternion& right);
 
 		float& operator[](unsigned int index);
 		const float& operator[](unsigned int index) const;

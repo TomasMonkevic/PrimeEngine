@@ -12,7 +12,7 @@ namespace PrimeEngine {
 		//vector of child Transforms
 
 		Math::Vector3 _position;
-		Math::Matrix4x4 _rotationMatrix = Math::Matrix4x4::identity(); //change to quaternion
+		Math::Quaternion _rotation = Math::Quaternion::identity(); //change to quaternion
 		Math::Vector3 _scale = Math::Vector3::one();
 
 	public:
@@ -23,9 +23,9 @@ namespace PrimeEngine {
 		void AddChild();
 		void RemoveChild();
 
-		void Rotate(float angle, const Math::Vector3& axis) //change to quaternion
+		void Rotate(const Math::Quaternion& rotation)
 		{
-			_rotationMatrix *= Math::Matrix4x4::Rotate(angle, axis);
+			_rotation += rotation;
 		}
 
 		inline void SetPosition(const Math::Vector3& position)
@@ -38,9 +38,14 @@ namespace PrimeEngine {
 			_scale = scale;
 		}
 
+		inline const Math::Quaternion GetRotation() const
+		{
+			return _rotation;
+		}
+
 		inline const Math::Matrix4x4 GetModelMatrix() const
 		{
-			return Math::Matrix4x4::TRS(_position, _rotationMatrix, _scale);
+			return Math::Matrix4x4::TRS(_position, _rotation, _scale);
 		}
 
 		inline const Math::Vector3& GetPosition() const
