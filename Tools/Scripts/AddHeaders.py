@@ -1,6 +1,5 @@
 import os
 
-#graphics should be first in the include order
 EXCEPTION_FILES = ["PrimeEngine.h", "DllExport.h", "File.h"]
 PRIME_ENGINE_CORE_PATH = "..\\PrimeEngine\\PrimeEngine-Core"
 OUTPUT_HEADER = "\\PrimeEngine.h"

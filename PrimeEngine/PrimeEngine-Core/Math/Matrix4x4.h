@@ -32,9 +32,9 @@ namespace PrimeEngine { namespace Math {
 		static const Matrix4x4 Rotate(float angle, const Vector3& axis); //TEST
 		static const Matrix4x4 TRS(const Vector3& position, const Matrix4x4& rotationMatrix, const Vector3& scaler); //change to quaternion
 
-		explicit Matrix4x4();
-		explicit Matrix4x4(float diagonalValue);
-		explicit Matrix4x4(const float matrix[4][4]);
+		Matrix4x4();
+		Matrix4x4(float diagonalValue);
+		Matrix4x4(const float matrix[4][4]);
 
 		inline float Determinant() const { return Det(4, GetElements()); }
 		Matrix4x4 Transpose() const; //TODO

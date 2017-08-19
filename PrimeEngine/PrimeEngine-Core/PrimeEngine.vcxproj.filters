@@ -61,6 +61,7 @@
     <ClInclude Include="PrimeEngineBase.h" />
     <ClInclude Include="PrimeEngine.h" />
     <ClInclude Include="Graphics\stb_image.h" />
+    <ClInclude Include="Math\Quaternion.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Input.cpp">
@@ -98,6 +99,7 @@
     <ClCompile Include="Graphics\Layers\GameLayer.cpp" />
     <ClCompile Include="UI\Text.cpp" />
     <ClCompile Include="PrimeEngineBase.cpp" />
+    <ClCompile Include="Math\Quaternion.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Graphics\Shader\Source\Default.pesl" />

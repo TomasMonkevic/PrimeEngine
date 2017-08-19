@@ -3,6 +3,7 @@
 
 #include <GL\glew.h>
 #include "..\DllExport.h"
+#include <Math\Vector2.h>
 
 namespace PrimeEngine { namespace Graphics {
 

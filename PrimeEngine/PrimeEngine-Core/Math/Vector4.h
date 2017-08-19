@@ -20,8 +20,8 @@ namespace PrimeEngine { namespace Math {
 		static const float Dot(const Vector4& left, const Vector4& right); //TEST
 		static const Vector4 Create(const char* string); //DEPRECATED
 
-		explicit Vector4();
-		explicit Vector4(float _x, float _y, float _z, float _w);
+		Vector4();
+		Vector4(float _x, float _y, float _z, float _w);
 		Vector4(const Vector2& vec2);
 		Vector4(const Vector3& vec3);
 

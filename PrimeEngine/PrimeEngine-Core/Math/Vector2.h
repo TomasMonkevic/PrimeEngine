@@ -23,8 +23,8 @@ namespace PrimeEngine { namespace Math {
 
 		static const float Dot(const Vector2& left, const Vector2& right); //TEST
 
-		explicit Vector2();
-		explicit Vector2(float _x, float _y);
+		Vector2();
+		Vector2(float _x, float _y);
 		Vector2(const Vector3& vec3);
 		Vector2(const Vector4& vec4);
 
