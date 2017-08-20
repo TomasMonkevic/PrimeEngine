@@ -54,22 +54,24 @@ void FlappyBird::SpawnGround()
 	static float groundPositionX = 0.0f;
 
 	float width = groundPrefab->GetComponent<Sprite>()->GetSize().x;
-	float nextPoint = width / 2.0f;
 
 	//PRIME_INFO(mainCamera->WorldToViewPoint(grounds.back()->GetTransform().GetPosition() + Vector2(width / 2.0f, 0.0f)).x, "\n");
-	if (mainCamera->WorldToViewPoint(grounds.back()->GetTransform().GetPosition()).x > 1.0f)
+	if (mainCamera->WorldToViewPoint(grounds.back()->GetTransform().GetPosition() - Vector2(width / 2.0f, 0.0f)).x <= -1.0f)
 	{
 		//PRIME_INFO(mainCamera->WorldToViewPoint(Vector2(nextPoint, 0.0f)), "\n");
 		PRIME_INFO("OPAAAAAA \n");
 		groundPositionX += width;
-		nextPoint += width / 2.0f;
 		grounds.push_back(new GameObject(*groundPrefab));
 		grounds.back()->GetTransform().SetPosition(Vector2(groundPositionX, grounds.back()->GetTransform().GetPosition().y)); //TODO manipulating objects is a pain, think of something beter
 		playingLayer->Submit(grounds.back());
 	}
-	if (mainCamera->WorldToViewPoint(bird->GetTransform().GetPosition() - Vector2(width / 2.0f, 0.0f)).x <= -1.0f)
+	if (mainCamera->WorldToViewPoint(grounds[0]->GetTransform().GetPosition() - Vector2(width / 2.0f, 0.0f)).x < -2.0f)
 	{
-
+		PRIME_INFO("Deleted \n");
+		playingLayer->Remove(grounds[0]);
+		delete grounds[0];
+		grounds.erase(grounds.begin());
+		//TODO deep copy all pointers in component system
 	}
 }
 
@@ -127,9 +129,10 @@ void FlappyBird::Update()
 
 void FlappyBird::Tick()
 {
+	PRIME_INFO("Size: ", grounds.size(), "\n");
 	PRIME_INFO(GetFPS(), "fps \n");
 	float width = groundPrefab->GetComponent<Sprite>()->GetSize().x;
-	PRIME_INFO("Camera: ", mainCamera->WorldToViewPoint(bird->GetTransform().GetPosition()), "\n");
+	PRIME_INFO("Camera: ", mainCamera->WorldToViewPoint(grounds.back()->GetTransform().GetPosition()), "\n");
 	PRIME_INFO("Brid position: ", bird->GetTransform().GetPosition(), "\n");
 }
 
