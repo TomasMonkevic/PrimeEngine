@@ -15,14 +15,39 @@ namespace PrimeEngine { namespace Graphics {
 		delete _shader;
 	}
 
-	Math::Vector3 Camera::ScreenToWorldPoint(const Math::Vector2& position) const
+	Math::Vector3 Camera::ScreenToWorldPoint(const Math::Vector2& point) const
+	{
+		Math::Vector2 viewPort = ScreenToViewPoint(point);
+		Math::Matrix4x4 viewProjectionInverse = (_projectionMatrix * _viewMatrix).Inverse();
+		Math::Vector3 point3D(viewPort.x, viewPort.y, 0);
+		return Math::Matrix4x4::Multiply(viewProjectionInverse, point3D);
+	}
+
+	Math::Vector2 Camera::ScreenToViewPoint(const Math::Vector2& point) const
 	{
 		Math::Vector2 screenSize = Window::GetWindow()->GetSize();
-		float x = 2.0f * position.x / screenSize.x - 1;
-		float y = -2.0f * position.y / screenSize.y + 1;
-		Math::Matrix4x4 viewProjectionInverse = (_projectionMatrix * _viewMatrix).Inverse();
-		Math::Vector3 point3D(x, y, 0);
-		return Math::Matrix4x4::Multiply(viewProjectionInverse, point3D);
+		return Math::Vector2(2.0f * point.x / screenSize.x - 1, -2.0f * point.y / screenSize.y + 1);
+	}
+
+	Math::Vector2 Camera::ViewportToScreenPoint(const Math::Vector2& point) const
+	{
+		Math::Vector2 screenSize = Window::GetWindow()->GetSize();
+		return Math::Vector2((point.x * (screenSize.x -1)) / 2.0f, (point.y * (screenSize.y + 1)) / -2.0f );
+	}
+
+	Math::Vector3 Camera::ViewportToWorldPoint(const Math::Vector2& point) const
+	{
+		return ScreenToWorldPoint(ViewportToScreenPoint(point));
+	}
+
+	Math::Vector2 Camera::WorldToScreenPoint(const Math::Vector3& point) const
+	{
+		return ViewportToScreenPoint(WorldToViewPoint(point)); //and then viewPort to screen
+	}
+
+	Math::Vector2 Camera::WorldToViewPoint(const Math::Vector3& point) const
+	{
+		return _projectionMatrix * _viewMatrix * point;
 	}
 
 	void Camera::LookAt(const Math::Vector3& target)

@@ -114,7 +114,8 @@ void FlappyBird::Update()
 void FlappyBird::Tick()
 {
 	PRIME_INFO(GetFPS(), "fps \n");
-	//PRIME_INFO("Brid position: ", bird->GetTransform().GetPosition(), "\n");
+	PRIME_INFO("Camera: ", mainCamera->WorldToViewPoint(bird->GetTransform().GetPosition()), "\n");
+	PRIME_INFO("Brid position: ", bird->GetTransform().GetPosition(), "\n");
 }
 
 void FlappyBird::Render()

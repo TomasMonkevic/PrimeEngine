@@ -30,6 +30,7 @@ namespace PrimeEngine {
 			}
 			else if (obj._components->at(i)->IsOfType<Graphics::Sprite>())
 			{
+				//TODO might be problems in copying texture pointer
 				AddComponent(new Graphics::Sprite(*static_cast<Graphics::Sprite*>((*obj._components)[i])));
 			}
 			else if (obj._components->at(i)->IsOfType<Graphics::Label>())

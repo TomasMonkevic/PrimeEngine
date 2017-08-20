@@ -26,7 +26,14 @@ namespace PrimeEngine { namespace Graphics {
 		Camera(Shader* shader, const Math::Matrix4x4& projectionMatrix);
 		~Camera(); //camera should delete shader
 
-		Math::Vector3 ScreenToWorldPoint(const Math::Vector2& position) const;
+		Math::Vector3 ScreenToWorldPoint(const Math::Vector2& point) const; //TEST
+		Math::Vector2 ScreenToViewPoint(const Math::Vector2& point) const; //TEST
+
+		Math::Vector2 ViewportToScreenPoint(const Math::Vector2& point) const; //TEST
+		Math::Vector3 ViewportToWorldPoint(const Math::Vector2& point) const; //TEST
+
+		Math::Vector2 WorldToScreenPoint(const Math::Vector3& point) const; //TEST
+		Math::Vector2 WorldToViewPoint(const Math::Vector3& point) const; //TEST
 
 		void LookAt(const Math::Vector3& target);
 		void Render();

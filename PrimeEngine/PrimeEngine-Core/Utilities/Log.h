@@ -2,6 +2,7 @@
 #define PRIME_LOG
 
 //prime types
+#include <Math/Vector2.h>
 #include <Math/Vector3.h>
 #include <Math/Vector4.h>
 #include <Graphics\Color.h>
@@ -85,6 +86,13 @@ namespace PrimeEngine
 	static const char* ToString<bool>(const bool& b)
 	{
 		return b ? "true" : "false";
+	}
+
+	template<>
+	static const char* ToString<Math::Vector2>(const Math::Vector2& vec)
+	{
+		sprintf_s(_formatBuffer, BUFFER_SIZE, "(%f, %f)", vec.x, vec.y);
+		return _formatBuffer;
 	}
 
 	template<>
