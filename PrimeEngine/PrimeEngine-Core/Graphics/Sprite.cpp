@@ -14,6 +14,7 @@ namespace PrimeEngine { namespace Graphics {
 	{
 		_texture = texturePath ? new Texture(texturePath) : NULL;
 		SetTextureCords();
+		AddType<Sprite>();
 	}
 
 	Sprite::~Sprite()

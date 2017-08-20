@@ -1,6 +1,7 @@
 #pragma once
 
 #include <DllExport.h>
+#include <vector>
 #include <typeinfo>
 
 namespace PrimeEngine {
@@ -11,26 +12,39 @@ namespace PrimeEngine {
 	{
 		friend class GameObject;
 	private:
-		GameObject* _gameObject;
-		std::size_t _typeHash = 0;
+		GameObject* _gameObject = NULL;
+		std::vector<std::size_t>* _types;
 	protected:
-		explicit Component() {}
+		Component() 
+		{
+			_types = new std::vector<std::size_t>();
+		}
 
 		template<typename T>
-		void AddBaseType()
+		void AddType()
 		{
-			_typeHash = typeid(T).hash_code();
+			_types->push_back(typeid(T).hash_code());
 		}
 
 	public:
 		virtual ~Component() 
 		{
+			delete _types;
 		}
 
-		inline const std::size_t GetType() const
+		template<typename T>
+		inline const std::size_t IsOfType() const
 		{
-			return _typeHash;
+			for (unsigned i = 0; i < _types->size(); i++)
+			{
+				if (_types->at(i) == typeid(T).hash_code())
+				{
+					return true;
+				}
+			}
+			return false;
 		}
+
 		inline GameObject* const GetGameObject() const
 		{
 			return _gameObject;

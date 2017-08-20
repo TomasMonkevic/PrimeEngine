@@ -11,7 +11,7 @@ namespace PrimeEngine { namespace Graphics {
 	protected:
 		explicit Renderable()
 		{
-			AddBaseType<Renderable>();
+			AddType<Renderable>();
 		}
 	public:
 		virtual void Submit(Renderer2D* renderer) const = 0;

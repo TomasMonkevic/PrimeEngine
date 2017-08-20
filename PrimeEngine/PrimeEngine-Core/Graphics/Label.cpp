@@ -5,6 +5,7 @@ namespace PrimeEngine { namespace Graphics {
 	Label::Label(const std::string& _text, Font& _font)
 		: font(&_font), text(_text)
 	{
+		AddType<Label>();
 	}
 
 	void Label::Submit(Renderer2D* renderer) const

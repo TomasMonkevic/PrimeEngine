@@ -69,17 +69,22 @@ namespace PrimeEngine { namespace Math {
 
 	const Matrix4x4 Quaternion::RotationMatrix() const
 	{
-		Matrix4x4 mat1(new float[4][4]{
+		//TODO fix the dataShit
+		float mat1Data[4][4] = {
 			{ w, -z,   y, -x },
 			{ z,  w,  -x, -y },
 			{ -y, x,   w, -z },
-			{ x,  y,   z,  w } });
+			{ x,  y,   z,  w } };
 
-		Matrix4x4 mat2(new float[4][4]{
+		float mat2Data[4][4] = {
 			{ w, -z,   y,  x },
 			{ z,  w,  -x,  y },
 			{ -y, x,   w,  z },
-			{ -x,-y,  -z,  w } });
+			{ -x,-y,  -z,  w } };
+
+		Matrix4x4 mat1(mat1Data);
+
+		Matrix4x4 mat2(mat2Data);
 
 		return mat1 * mat2;
 	}

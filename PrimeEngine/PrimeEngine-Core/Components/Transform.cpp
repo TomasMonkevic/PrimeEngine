@@ -12,7 +12,7 @@ namespace PrimeEngine {
 	Transform::Transform(const Math::Vector3& position) :
 		_position(position)
 	{
-		AddBaseType<Transform>();
+		AddType<Transform>();
 	}
 
 	Transform::~Transform()

@@ -7,20 +7,22 @@ using namespace Math;
 using namespace Graphics;
 using namespace Input;
 
-class FlappyBrid : public PrimeEngineBase
+class FlappyBird : public PrimeEngineBase
 {
 private:
 	GameLayer* playingLayer;
 	Camera* mainCamera;
-	GameObject *bird, *background, *ground;
+	GameObject *bird, *background, *groundPrefab;
+	std::vector<GameObject*> grounds;
 	float birdRotation = 0.0f; //temp
 
 private:
 	void Gravity(GameObject& obj);
 	void Jump(float height);
+	void SpawnGround();
 
 public:
-	~FlappyBrid();
+	~FlappyBird();
 
 	void Awake() override;
 	void Update() override;

@@ -25,7 +25,7 @@ namespace PrimeEngine {
 
 		void Rotate(const Math::Quaternion& rotation)
 		{
-			_rotation += rotation;
+			_rotation = rotation;
 		}
 
 		inline void SetPosition(const Math::Vector3& position)
