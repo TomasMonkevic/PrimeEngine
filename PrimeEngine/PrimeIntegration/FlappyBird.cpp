@@ -52,14 +52,24 @@ void FlappyBird::SpawnGround()
 {
 	//TODO dont forget to remove ground from layer and delete it
 	static float groundPositionX = 0.0f;
-	Sprite* sprite = groundPrefab->GetComponent<Sprite>();
-	for (int i = 0; i < 10; i++) //temp
+
+	float width = groundPrefab->GetComponent<Sprite>()->GetSize().x;
+	float nextPoint = width / 2.0f;
+
+	//PRIME_INFO(mainCamera->WorldToViewPoint(grounds.back()->GetTransform().GetPosition() + Vector2(width / 2.0f, 0.0f)).x, "\n");
+	if (mainCamera->WorldToViewPoint(grounds.back()->GetTransform().GetPosition()).x > 1.0f)
 	{
-		grounds.push_back(new GameObject(*groundPrefab)); //TODO make a copy constructor;
-		grounds.back()->GetTransform().SetPosition(Vector2(groundPositionX,grounds.back()->GetTransform().GetPosition().y)); //TODO manipulating objects is a pain, think of something beter
-		PRIME_INFO(groundPositionX, grounds.back()->GetTransform().GetPosition(), "\n");
+		//PRIME_INFO(mainCamera->WorldToViewPoint(Vector2(nextPoint, 0.0f)), "\n");
+		PRIME_INFO("OPAAAAAA \n");
+		groundPositionX += width;
+		nextPoint += width / 2.0f;
+		grounds.push_back(new GameObject(*groundPrefab));
+		grounds.back()->GetTransform().SetPosition(Vector2(groundPositionX, grounds.back()->GetTransform().GetPosition().y)); //TODO manipulating objects is a pain, think of something beter
 		playingLayer->Submit(grounds.back());
-		groundPositionX += sprite->GetSize().x;
+	}
+	if (mainCamera->WorldToViewPoint(bird->GetTransform().GetPosition() - Vector2(width / 2.0f, 0.0f)).x <= -1.0f)
+	{
+
 	}
 }
 
@@ -87,16 +97,20 @@ void FlappyBird::Awake()
 	groundPrefab = new GameObject(Vector2(0.0f, -612.0f));
 	groundPrefab->AddComponent(new Sprite(Vector2(168.0f, 56.0f) * scale, "Resources\\Textures\\ground.png"));
 
+	grounds.push_back(new GameObject(*groundPrefab));
+
 	playingLayer->Submit(background);
+	playingLayer->Submit(grounds[0]);
 	playingLayer->Submit(bird);
 
 	//bird->GetTransform().Rotate(Quaternion(0.0f, 0.0f, -91.0f)); //TEMP!!!!
 	//PRIME_INFO(bird->GetTransform().GetRotation().EulerAngles().z * (180.0f / PI), "\n"); //TEMP!!
-	SpawnGround(); //temp
+	//SpawnGround(); //temp
 }
 
 void FlappyBird::Update()
 {
+	SpawnGround();
 	//PRIME_INFO(GetFPS(), "fps \n");
 	if (InputPC::GetKeyDown(32))
 	{
@@ -114,6 +128,7 @@ void FlappyBird::Update()
 void FlappyBird::Tick()
 {
 	PRIME_INFO(GetFPS(), "fps \n");
+	float width = groundPrefab->GetComponent<Sprite>()->GetSize().x;
 	PRIME_INFO("Camera: ", mainCamera->WorldToViewPoint(bird->GetTransform().GetPosition()), "\n");
 	PRIME_INFO("Brid position: ", bird->GetTransform().GetPosition(), "\n");
 }
