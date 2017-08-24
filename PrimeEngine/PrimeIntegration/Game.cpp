@@ -64,7 +64,7 @@ void TestGame::Awake()
 	player->AddComponent(new Sprite (Vector2(2, 2), "Resources\\Textures\\pepe.png"));
 	gameLayer->Submit(player);
 	//Transform* trans = player.GetComponent<Transform>();
-	PRIME_WARNING(player->GetTransform().GetPosition(), "\n");
+	PRIME_WARNING(player->GetTransform().Position, "\n");
 	//player.GetTransform().SetPosition(Math::Vector3::one);
 	//player.GetTransform().
 	//PRIME_WARNING(player.GetTransform().GetPosition(), "\n");
@@ -81,23 +81,7 @@ void TestGame::Update()
 	//buttonContainer->GetTransform().Rotate(GetDeltaTime(), Vector3::forward());
 	//button->GetTransform().Rotate(GetDeltaTime(), Vector3::left());
 	//sprite1->Rotate(GetDeltaTime(), Vector3::forward);
-	if (InputPC::GetKey('W')) //esc
-	{
-		player->GetTransform().SetPosition(player->GetTransform().GetPosition() + Vector3::up() * GetDeltaTime() * speed);
-	}
-	else if (InputPC::GetKey('S')) //esc
-	{
-		player->GetTransform().SetPosition(player->GetTransform().GetPosition() + Vector3::down() * GetDeltaTime() * speed);
-	}
-	if (InputPC::GetKey('A')) //esc
-	{
-		player->GetTransform().SetPosition(player->GetTransform().GetPosition() + Vector3::left() * GetDeltaTime() * speed);
-	}
-	else if (InputPC::GetKey('D')) //esc
-	{
-		player->GetTransform().SetPosition(player->GetTransform().GetPosition() + Vector3::right() * GetDeltaTime() * speed);
-	}
-	mainCamera->SetPosition(player->GetTransform().GetPosition());
+	mainCamera->SetPosition(player->GetTransform().Position);
 	if (InputPC::GetKeyDown(256)) //esc
 	{
 		GetWindow()->Close();

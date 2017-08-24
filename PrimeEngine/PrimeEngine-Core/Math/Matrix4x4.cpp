@@ -95,6 +95,7 @@ namespace PrimeEngine { namespace Math {
 
 	Matrix4x4 Matrix4x4::Inverse() const
 	{
+		//TODO check if determinant not 0
 		Matrix4x4 temp;
 		for (int col = 0; col < 4; col++)
 		{

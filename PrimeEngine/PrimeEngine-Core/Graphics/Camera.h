@@ -12,7 +12,7 @@ namespace PrimeEngine { namespace Graphics {
 	{
 	private: //Variables
 		Math::Matrix4x4 _projectionMatrix;
-		Math::Matrix4x4 _viewMatrix;
+		Math::Matrix4x4 _viewMatrix = Math::Matrix4x4::identity();
 		Math::Vector3 _position;
 		Math::Vector3 _direction;
 		Math::Vector3 _right;

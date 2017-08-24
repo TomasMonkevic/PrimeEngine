@@ -32,7 +32,7 @@ namespace PrimeEngine { namespace Graphics {
 	Math::Vector2 Camera::ViewportToScreenPoint(const Math::Vector2& point) const
 	{
 		Math::Vector2 screenSize = Window::GetWindow()->GetSize();
-		return Math::Vector2((point.x * (screenSize.x -1)) / 2.0f, (point.y * (screenSize.y + 1)) / -2.0f );
+		return Math::Vector2((screenSize.x * (point.x + 1)) / 2.0f, (screenSize.y * (point.y - 1)) / -2.0f );
 	}
 
 	Math::Vector3 Camera::ViewportToWorldPoint(const Math::Vector2& point) const

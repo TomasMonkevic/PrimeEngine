@@ -20,6 +20,16 @@ namespace PrimeEngine {
 			_types = new std::vector<std::size_t>();
 		}
 
+		Component(const Component& right) //TODO should be explicit?
+		{
+			_gameObject = right._gameObject;
+			_types = new std::vector<std::size_t>(); //TODO copy constructor in vector???
+			for (unsigned i = 0; i < right._types->size(); i++)
+			{
+				_types->push_back(right._types->at(i));
+			}
+		}
+
 		template<typename T>
 		void AddType()
 		{
@@ -27,13 +37,14 @@ namespace PrimeEngine {
 		}
 
 	public:
+
 		virtual ~Component() 
 		{
 			delete _types;
 		}
 
 		template<typename T>
-		inline const std::size_t IsOfType() const
+		const std::size_t IsOfType() const
 		{
 			for (unsigned i = 0; i < _types->size(); i++)
 			{

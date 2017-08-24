@@ -23,7 +23,7 @@ namespace PrimeEngine { namespace Math {
 		inline float* Minor(int col, int row, int size, const float elements[]) const;
 		float Det(int size, const float elements[]) const;
 	public:
-		static const Matrix4x4 Multiply(const Matrix4x4& left, const Matrix4x4& right);
+		static const Matrix4x4 Multiply(const Matrix4x4& left, const Matrix4x4& right); //TODO don't multiply if zero matrix
 		static const Vector4 Multiply(const Matrix4x4& left, const Vector4& right); //TEST
 		static const Vector3 Multiply(const Matrix4x4& left, const Vector3& right); //TEST
 		static const Matrix4x4 Orthographic(float left, float right, float bottom, float top, float zNear, float zFar);

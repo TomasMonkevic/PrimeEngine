@@ -10,6 +10,6 @@ namespace PrimeEngine { namespace Graphics {
 
 	void Label::Submit(Renderer2D* renderer) const
 	{
-		renderer->DrawLabel(text, GetGameObject()->GetTransform().GetPosition(), *font);
+		renderer->DrawLabel(text, GetGameObject()->GetTransform().Position, *font);
 	}
 }}

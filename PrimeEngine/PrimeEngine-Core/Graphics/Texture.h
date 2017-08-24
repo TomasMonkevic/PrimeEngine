@@ -8,7 +8,7 @@
 namespace PrimeEngine { namespace Graphics {
 
 //!!!Not every PC supports 32 uniform textures in a shaderssss
-#define MAX_TEXTURE_COUNT 8 //should be change dynamically
+#define MAX_TEXTURE_COUNT 32 //should be change dynamically
 //glGetIntegerv() with parameters GL_MAX_FRAGMENT_UNIFORM_COMPONENTS and GL_MAX_FRAGMENT_UNIFORM_VECTORS
 
 	class PRIMEENGINEAPI Texture
@@ -29,6 +29,7 @@ namespace PrimeEngine { namespace Graphics {
 		void Unbind() const;
 
 		inline const Math::Vector2 GetSize() const { return Math::Vector2(_width, _height); }
+		inline const char* GetPath() const { return _path; }
 		inline const GLuint GetId() const {	return _Id;	}
 	};
 }}
