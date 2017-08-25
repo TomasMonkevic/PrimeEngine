@@ -11,8 +11,8 @@ namespace PrimeEngine {
 	class PRIMEENGINEAPI PrimeEngineBase
 	{
 	private:
-		Graphics::Window* _window;
-		unsigned int _fpsCounter;
+		Graphics::Window* _window = NULL;
+		unsigned int _fpsCounter = 0;
 		float _deltaTime, _prevDeltatime = 0;
 
 	private:

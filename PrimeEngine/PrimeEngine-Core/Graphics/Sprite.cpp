@@ -14,6 +14,17 @@ namespace PrimeEngine { namespace Graphics {
 	{
 		_texture = texturePath ? new Texture(texturePath) : NULL;
 		SetTextureCords();
+		AddType<Sprite>();
+	}
+
+	Sprite::Sprite(const Sprite& right)
+		: _size(right._size), _color(right._color)
+	{
+		_texture = new Texture(right._texture->GetPath());
+		for (unsigned i = 0; i < 4; i++)
+		{
+			_textureCord[i] = right._textureCord[i];
+		}
 	}
 
 	Sprite::~Sprite()

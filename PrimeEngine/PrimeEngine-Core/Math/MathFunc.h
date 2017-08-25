@@ -1,20 +1,15 @@
-#ifndef MATH_FUNC_H
-#define MATH_FUNC_H
+#pragma once
 
 #include <math.h> //standard math lib
 
 namespace PrimeEngine { namespace Math {
 
-	inline float Abs(float value)
-	{
-		return value >= 0 ? value : -value;
-	}
+	const double PI = 3.14159265;
 
-	inline bool AreEqual(float left, float right, float errorTolerance = 0.0001f)
+	template<typename T>
+	inline bool AreEqual(T left, T right, double errorTolerance = 0.0001)
 	{
-		return Abs(left - right) < errorTolerance ? true : false;
+		return abs(left - right) < errorTolerance ? true : false;
 	}
 
 }}
-
-#endif // !MATH_FUNC_H

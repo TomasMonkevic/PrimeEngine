@@ -10,14 +10,13 @@ namespace PrimeEngine {
 	}
 
 	Transform::Transform(const Math::Vector3& position) :
-		_position(position)
+		Position(position)
 	{
-		AddBaseType<Transform>();
+		AddType<Transform>();
 	}
 
 	Transform::~Transform()
 	{
-		PRIME_WARNING("trans dest is here \n");
 	}
 }
 

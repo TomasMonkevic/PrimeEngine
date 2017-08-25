@@ -40,7 +40,9 @@
     <ClInclude Include="Graphics\Shader\Shader.h" />
     <ClInclude Include="Graphics\Shader\ShaderManager.h" />
     <ClInclude Include="Graphics\Sprite.h" />
+    <ClInclude Include="Graphics\stb_image.h" />
     <ClInclude Include="Graphics\Texture.h" />
+    <ClInclude Include="Math\Quaternion.h" />
     <ClInclude Include="PrimeEngine.h" />
     <ClInclude Include="UI\Text.h" />
     <ClInclude Include="UI\UIObject.h" />
@@ -87,6 +89,7 @@
     <ClCompile Include="Graphics\Texture.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Math\Matrix4x4.cpp" />
+    <ClCompile Include="Math\Quaternion.cpp" />
     <ClCompile Include="Math\Vector2.cpp" />
     <ClCompile Include="Math\Vector4.cpp" />
     <ClCompile Include="Graphics\Window.cpp" />

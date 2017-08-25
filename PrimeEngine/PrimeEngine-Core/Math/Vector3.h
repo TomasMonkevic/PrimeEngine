@@ -27,8 +27,8 @@ namespace PrimeEngine {	namespace Math {
 		static const Vector3 Cross(const Vector3& left, const Vector3& right); //TEST
 		static const Vector3 Create(const char* string); //DEPRECATED
 
-		explicit Vector3();
-		explicit Vector3(float _x, float _y, float _z);
+		Vector3();
+		Vector3(float _x, float _y, float _z);
 		Vector3(const Vector2& vec2);
 		Vector3(const Vector4& vec4);
 

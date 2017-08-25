@@ -19,7 +19,7 @@ namespace PrimeEngine { namespace Graphics {
 		Font* font;
 
 	public:
-		explicit Label(const std::string& _text, Font& _font);
+		Label(const std::string& _text, Font& _font);
 		void Submit(Renderer2D* renderer) const override;
 	};
 }}

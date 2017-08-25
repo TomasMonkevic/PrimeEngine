@@ -1,5 +1,7 @@
 #include "GameObject.h"
 #include <Graphics\Renderable.h>
+#include <Graphics\Sprite.h>
+#include <Graphics\Label.h>
 
 namespace PrimeEngine {
 
@@ -12,8 +14,30 @@ namespace PrimeEngine {
 	GameObject::GameObject(const Math::Vector3& position)
 	{
 		_components = new std::vector<Component*>;
-		_children = new std::vector<GameObject*>;
+		_children = new std::vector<GameObject*>; //TODO should children be in gameObject
 		AddComponent(new Transform(position));
+	}
+
+	GameObject::GameObject(const GameObject& obj)
+	{
+		_components = new std::vector<Component*>;
+		_children = new std::vector<GameObject*>; //TODO should children be in gameObject
+		for (int i = 0; i < obj._components->size(); i++) //for now only copy components
+		{
+			if (obj._components->at(i)->IsOfType<Transform>()) //TODO think about this ugly code
+			{
+				AddComponent(new Transform(*static_cast<Transform*>((*obj._components)[i])));
+			}
+			else if (obj._components->at(i)->IsOfType<Graphics::Sprite>())
+			{
+				//TODO might be problems in copying texture pointer
+				AddComponent(new Graphics::Sprite(*static_cast<Graphics::Sprite*>((*obj._components)[i])));
+			}
+			else if (obj._components->at(i)->IsOfType<Graphics::Label>())
+			{
+				AddComponent(new Graphics::Label(*static_cast<Graphics::Label*>((*obj._components)[i])));
+			}
+		}
 	}
 
 	GameObject::~GameObject()
@@ -23,7 +47,7 @@ namespace PrimeEngine {
 			delete (*_components)[i];
 		}
 		delete _components;
-		//also delete all children???
+		//TODO also delete all children???
 		delete _children;
 	}
 

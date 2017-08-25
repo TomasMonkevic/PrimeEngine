@@ -8,44 +8,29 @@ namespace PrimeEngine {
 
 	class PRIMEENGINEAPI Transform : public Component
 	{
-	private:
+	public:
 		//vector of child Transforms
 
-		Math::Vector3 _position;
-		Math::Matrix4x4 _rotationMatrix = Math::Matrix4x4::identity(); //change to quaternion
-		Math::Vector3 _scale = Math::Vector3::one();
+		Math::Vector3 Position;
+		Math::Quaternion Rotation = Math::Quaternion::identity(); //change to quaternion
+		Math::Vector3 Scale = Math::Vector3::one();
 
 	public:
-		explicit Transform();
-		explicit Transform(const Math::Vector3& position);
+		Transform();
+		Transform(const Math::Vector3& position);
 		~Transform() override;
 
 		void AddChild();
 		void RemoveChild();
 
-		void Rotate(float angle, const Math::Vector3& axis) //change to quaternion
+		void Rotate(const Math::Quaternion& rotation) //TODO change rotation
 		{
-			_rotationMatrix *= Math::Matrix4x4::Rotate(angle, axis);
-		}
-
-		inline void SetPosition(const Math::Vector3& position)
-		{
-			_position = position;
-		}
-
-		inline void SetScale(const Math::Vector3& scale)
-		{
-			_scale = scale;
+			Rotation = rotation;
 		}
 
 		inline const Math::Matrix4x4 GetModelMatrix() const
 		{
-			return Math::Matrix4x4::TRS(_position, _rotationMatrix, _scale);
-		}
-
-		inline const Math::Vector3& GetPosition() const
-		{
-			return _position;
+			return Math::Matrix4x4::TRS(Position, Rotation, Scale);
 		}
 	};
 }
