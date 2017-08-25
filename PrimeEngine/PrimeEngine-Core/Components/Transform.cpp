@@ -17,7 +17,6 @@ namespace PrimeEngine {
 
 	Transform::~Transform()
 	{
-		PRIME_WARNING("trans dest is here \n");
 	}
 }
 
