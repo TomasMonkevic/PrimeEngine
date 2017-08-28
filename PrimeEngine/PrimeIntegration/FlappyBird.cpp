@@ -4,8 +4,11 @@
 
 #include <thread>
 
-#define PIPE_GAP 100.0f
-#define PIPE_SPREAD 300.0f
+#define PIPE_GAP 1100.0f
+#define PIPE_SPREAD 400.0f
+#define PIPE_DELAY 500.0f
+#define PIPE_MIN_Y -100
+#define PIPE_MAX_Y  400
 
 #define BIRD_MASS 55.0f
 #define BIRD_MOVEMENT_SPEED 150.0f
@@ -23,6 +26,12 @@ FlappyBird::~FlappyBird()
 	delete groundPrefab;
 	delete pipeBottomPrefab;
 	delete pipeTopPrefab;
+}
+
+void FlappyBird::Destroy(GameObject* obj)
+{
+	playingLayer->Remove(obj);
+	delete obj;
 }
 
 void FlappyBird::Gravity(GameObject& obj)
@@ -81,8 +90,7 @@ void FlappyBird::SpawnGround()
 	if (mainCamera->WorldToViewPoint(grounds[0]->GetTransform().Position + Vector2(width / 2.0f, 0.0f)).x <= -2.0f)
 	{
 		PRIME_INFO("Ground deleted \n");
-		playingLayer->Remove(grounds[0]);
-		delete grounds[0];
+		Destroy(grounds[0]);
 		grounds.erase(grounds.begin());
 		//TODO deep copy all pointers in component system
 	}
@@ -90,30 +98,39 @@ void FlappyBird::SpawnGround()
 
 void FlappyBird::SpawnPipes()
 {
-	float initialPos = mainCamera->ViewportToWorldPoint(Vector2(1.0f, 0.0f)).x;
+	float initialPos = mainCamera->ViewportToWorldPoint(Vector2(1.0f, 0.0f)).x + PIPE_DELAY;
+	int random = rand() % PIPE_MAX_Y + PIPE_MIN_Y;
+	float posY = mainCamera->ViewportToWorldPoint(Vector2(1.0f, -1.0f)).y + random; //+random pos
 	static float nextPipePosition = initialPos;
 	float width = pipeBottomPrefab->GetComponent<Sprite>()->GetSize().x; 
 
 	if (nextPipePosition == initialPos)
 	{
-		//pipes.push_back(new GameObject(*pipeBottomPrefab));
-		//pipes.back()->GetTransform().Position.x = nextPipePosition;
+		pipes.push_back(new GameObject(*pipeBottomPrefab));
+		pipes.back()->GetTransform().Position.x = nextPipePosition;
+		pipes.back()->GetTransform().Position.y = posY;
+
 		pipes.push_back(new GameObject(*pipeTopPrefab));
 		pipes.back()->GetTransform().Position.x = nextPipePosition;
+		pipes.back()->GetTransform().Position.y = posY + PIPE_GAP;
 	}
 
 	if (mainCamera->WorldToViewPoint(pipes.back()->GetTransform().Position - Vector2(width / 2.0f, 0.0f)).x <= 1.0f)
 	{
 		PRIME_INFO("Pipe spawned! \n");
-		playingLayer->Submit(pipes.back());
+		playingLayer->Submit(pipes[pipes.size() - 1]);
+		playingLayer->Submit(pipes[pipes.size() - 2]);
 		nextPipePosition += PIPE_SPREAD;
 
 		if (nextPipePosition != initialPos)
 		{
-			//pipes.push_back(new GameObject(*pipeBottomPrefab));
-			//pipes.back()->GetTransform().Position.x = nextPipePosition;
+			pipes.push_back(new GameObject(*pipeBottomPrefab));
+			pipes.back()->GetTransform().Position.x = nextPipePosition;
+			pipes.back()->GetTransform().Position.y = posY;
+
 			pipes.push_back(new GameObject(*pipeTopPrefab));
 			pipes.back()->GetTransform().Position.x = nextPipePosition;
+			pipes.back()->GetTransform().Position.y = posY + PIPE_GAP;
 		}
 	}
 
@@ -121,7 +138,10 @@ void FlappyBird::SpawnPipes()
 	{
 		PRIME_INFO("Pipes deleted \n");
 		playingLayer->Remove(pipes[0]);
+		playingLayer->Remove(pipes[1]);
 		delete pipes[0];
+		delete pipes[1];
+		pipes.erase(pipes.begin());
 		pipes.erase(pipes.begin());
 		//TODO deep copy all pointers in component system
 	}
@@ -168,6 +188,7 @@ void FlappyBird::Awake()
 	//bird->GetTransform().Rotate(Quaternion(0.0f, 0.0f, -91.0f)); //TEMP!!!!
 	//PRIME_INFO(bird->GetTransform().GetRotation().EulerAngles().z * (180.0f / PI), "\n"); //TEMP!!
 	//SpawnGround(); //temp
+	srand(time(0));
 }
 
 void FlappyBird::Update()
@@ -175,7 +196,7 @@ void FlappyBird::Update()
 	SpawnGround();
 	SpawnPipes();
 	//PRIME_INFO(GetFPS(), "fps \n");
-	if (InputPC::GetKeyDown(32))
+	if (InputPC::GetKeyDown(32) || InputPC::GetMouseButtonDown(0))
 	{
 		//TODO should be some kind of animation
 		//bird->GetTransform().SetPosition(bird->GetTransform().GetPosition() + Vector3::up() * 200.0f);

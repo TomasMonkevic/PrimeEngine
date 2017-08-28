@@ -17,6 +17,8 @@ private:
 	float birdRotation = 0.0f; //temp
 
 private:
+	void Destroy(GameObject* obj);
+
 	void Gravity(GameObject& obj);
 	void Jump(float height);
 	void SpawnGround();
