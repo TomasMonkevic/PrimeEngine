@@ -4,18 +4,19 @@
 
 #include <thread>
 
-#define PIPE_GAP 1100.0f
-#define PIPE_SPREAD 400.0f
+#define PIPE_GAP 1012.5f
+#define PIPE_SPREAD 385.0f
 #define PIPE_DELAY 500.0f
-#define PIPE_MIN_Y -100
-#define PIPE_MAX_Y  400
+#define PIPE_MIN_Y 0
+#define PIPE_MAX_Y  350
 
-#define BIRD_MASS 55.0f
-#define BIRD_MOVEMENT_SPEED 150.0f
-#define BIRD_ROTATION_SPEED 150.0f
-#define BIRD_JUMP_HEIGHT 175.0f
+#define BIRD_MASS 75.0f
+#define BIRD_MOVEMENT_SPEED 280.5f //170?? //3.5 BL?
+#define BIRD_ROTATION_SPEED 11.0f
+#define BIRD_JUMP_ROTATION_SPEED -500.0f
+#define BIRD_JUMP_HEIGHT 7.0f
 
-#define GRAVITY 9.8f
+#define GRAVITY 20.0f
 
 FlappyBird::~FlappyBird()
 {
@@ -37,43 +38,29 @@ void FlappyBird::Destroy(GameObject* obj)
 void FlappyBird::Gravity(GameObject& obj)
 {
 	Sprite* sprite = groundPrefab->GetComponent<Sprite>();
-	float groundY = groundPrefab->GetTransform().Position.y + sprite->GetSize().y / 2.0f + 30.0f; //TODO remove hard coded stuff should be texture size
-	obj.GetTransform().Position = obj.GetTransform().Position + Vector3::down() * GetDeltaTime() * GRAVITY * BIRD_MASS; //TODO change gravity to accelerate
+	float groundY = groundPrefab->GetTransform().Position.y + sprite->GetSize().y / 2.0f + obj.GetComponent<Sprite>()->GetSize().y / 2.0f;
+
+	//Velocity
+	birdVelocity.y -= GRAVITY * GetDeltaTime();
+	obj.GetTransform().Position += birdVelocity * BIRD_MASS * GetDeltaTime();
+
 	obj.GetTransform().Position.y = max(groundY, obj.GetTransform().Position.y);
-	//float rotationZ = 0.0f;
-	if (obj.GetTransform().Rotation.EulerAngles().z * (180.0f/PI) > -90.0f)
-	{
-		//PRIME_INFO(obj.GetTransform().GetRotation().EulerAngles().z * (180.0f / PI), " ", birdRotation, "\n");
-		//TODO change the rotation to not needing birdRotation. use multiplication
-		obj.GetTransform().Rotate(Quaternion(0.0f, 0.0f, birdRotation));
-		birdRotation -= BIRD_ROTATION_SPEED * GetDeltaTime();
-	}
-}
+	birdVelocity.y = max(groundY, birdVelocity.y);
 
-void FlappyBird::Jump(float height) //TODO try out animation idea (hardcode this function to update)
-{
-	//PRIME_INFO("On start: ", bird.GetTransform().GetPosition(), "\n");
-	float finish = bird->GetTransform().Position.y + height;
-	while (bird->GetTransform().Position.y < finish)
-	{
-		bird->GetTransform().Position = bird->GetTransform().Position + Vector3::up() * 25.0f;
+	//Rotation
+	angularMomentum += BIRD_ROTATION_SPEED * BIRD_MASS * GetDeltaTime();
+	birdRotation -= angularMomentum * GetDeltaTime();
 
-		if (bird->GetTransform().Rotation.EulerAngles().z * (180.0f / PI) < 30.0f)
-		{
-			//PRIME_INFO("Jump: ", bird->GetTransform().GetRotation().EulerAngles().z * (180.0f / PI), " ", birdRotation, "\n");
-			bird->GetTransform().Rotate(Quaternion(0.0f, 0.0f, birdRotation));
-			birdRotation += 20.0f;
-		}
-		Sleep(GetDeltaTime() * 1000);
-		//PRIME_INFO(GetDeltaTime(), "\n");
-	}
+	birdRotation = max(-90.0f, birdRotation);
+	birdRotation = min(20.0f, birdRotation);
+
+	obj.GetTransform().Rotate(Quaternion(0.0f, 0.0f, birdRotation));
 }
 
 void FlappyBird::SpawnGround()
 {
 	//TODO dont forget to remove ground from layer and delete it
 	static float groundPositionX = 0.0f;
-
 	float width = groundPrefab->GetComponent<Sprite>()->GetSize().x;
 
 	//PRIME_INFO(mainCamera->WorldToViewPoint(grounds.back()->GetTransform().GetPosition() + Vector2(width / 2.0f, 0.0f)).x, "\n");
@@ -152,7 +139,7 @@ void FlappyBird::Awake()
 	//Windows setup
 	CreateWin("Flappy Bird", 720, 1280);
 	GetWindow()->EnableVSync(true);
-	GetWindow()->SetColor(Color(84, 192, 201));
+	//GetWindow()->SetColor(Color(84, 192, 201));
 
 	//Setup layer
 	PRIME_INFO(sin(90.0f * (PI/180.0f)), '\n');
@@ -165,10 +152,10 @@ void FlappyBird::Awake()
 	bird = new GameObject();
 	bird->AddComponent(new Sprite(Vector2(17.0f, 12.0f) * scale, "Resources\\Textures\\bird1.png")); //TODO think about scale and sprite size
 
-	background = new GameObject(Vector2(0.0f, -125.0f)); //TODO remove hardcoded values
+	background = new GameObject(Vector2(0.0f, 0.0f)); 
 	background->AddComponent(new Sprite(Vector2(144.0f, 256.0f) * scale, "Resources\\Textures\\dayBg.png"));
 
-	groundPrefab = new GameObject(Vector2(0.0f, -612.0f));
+	groundPrefab = new GameObject(Vector2(0.0f, -499.0f)); //TODO remove hardcoded values
 	groundPrefab->AddComponent(new Sprite(Vector2(168.0f, 56.0f) * scale, "Resources\\Textures\\ground.png"));
 
 	//TODO nest two pipes in one gameOjbect
@@ -187,7 +174,6 @@ void FlappyBird::Awake()
 
 	//bird->GetTransform().Rotate(Quaternion(0.0f, 0.0f, -91.0f)); //TEMP!!!!
 	//PRIME_INFO(bird->GetTransform().GetRotation().EulerAngles().z * (180.0f / PI), "\n"); //TEMP!!
-	//SpawnGround(); //temp
 	srand(time(0));
 }
 
@@ -199,12 +185,11 @@ void FlappyBird::Update()
 	if (InputPC::GetKeyDown(32) || InputPC::GetMouseButtonDown(0))
 	{
 		//TODO should be some kind of animation
-		//bird->GetTransform().SetPosition(bird->GetTransform().GetPosition() + Vector3::up() * 200.0f);
-		std::thread jumpAnim(&FlappyBird::Jump, this, BIRD_JUMP_HEIGHT);
-		jumpAnim.detach();
+		birdVelocity.y = BIRD_JUMP_HEIGHT;
+		angularMomentum = BIRD_JUMP_ROTATION_SPEED;
 	}
 
-	bird->GetTransform().Position = bird->GetTransform().Position + Vector3::right() * GetDeltaTime() * BIRD_MOVEMENT_SPEED;
+	bird->GetTransform().Position.x += GetDeltaTime() * BIRD_MOVEMENT_SPEED;
 	background->GetTransform().Position.x = bird->GetTransform().Position.x;
 	Gravity(*bird);
 }
