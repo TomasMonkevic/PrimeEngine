@@ -12,8 +12,8 @@
 
 #define BIRD_MASS 75.0f
 #define BIRD_MOVEMENT_SPEED 280.5f //170?? //3.5 BL?
-#define BIRD_ROTATION_SPEED 11.0f
-#define BIRD_JUMP_ROTATION_SPEED -500.0f
+#define BIRD_ROTATION_SPEED 14.0f
+#define BIRD_JUMP_ROTATION_SPEED -700.0f
 #define BIRD_JUMP_HEIGHT 7.0f
 
 #define GRAVITY 20.0f
@@ -53,6 +53,9 @@ void FlappyBird::Gravity(GameObject& obj)
 
 	birdRotation = max(-90.0f, birdRotation);
 	birdRotation = min(20.0f, birdRotation);
+
+	angularMomentum = max(-600.0f, angularMomentum);
+	angularMomentum = min(800.0f, angularMomentum);
 
 	obj.GetTransform().Rotate(Quaternion(0.0f, 0.0f, birdRotation));
 }
