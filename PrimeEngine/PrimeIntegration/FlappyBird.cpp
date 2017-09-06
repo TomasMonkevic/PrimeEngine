@@ -10,13 +10,13 @@
 #define PIPE_MIN_Y 0
 #define PIPE_MAX_Y  350
 
-#define BIRD_MASS 75.0f
+#define BIRD_MASS 83.0f
 #define BIRD_MOVEMENT_SPEED 280.5f //170?? //3.5 BL?
-#define BIRD_ROTATION_SPEED 14.0f
+#define BIRD_ROTATION_SPEED 1400.0f
 #define BIRD_JUMP_ROTATION_SPEED -700.0f
-#define BIRD_JUMP_HEIGHT 7.0f
+#define BIRD_JUMP_HEIGHT 8.5f
 
-#define GRAVITY 20.0f
+#define GRAVITY 23.0f
 
 FlappyBird::~FlappyBird()
 {
@@ -48,7 +48,7 @@ void FlappyBird::Gravity(GameObject& obj)
 	birdVelocity.y = max(groundY, birdVelocity.y);
 
 	//Rotation
-	angularMomentum += BIRD_ROTATION_SPEED * BIRD_MASS * GetDeltaTime();
+	angularMomentum += BIRD_ROTATION_SPEED * GetDeltaTime();
 	birdRotation -= angularMomentum * GetDeltaTime();
 
 	birdRotation = max(-90.0f, birdRotation);
@@ -202,7 +202,7 @@ void FlappyBird::Tick()
 	PRIME_INFO("////////////////////////////////////////////////////////////////\n");
 	PRIME_INFO("Grounds size: ", grounds.size(), "\n");
 	PRIME_INFO("Pipes size: ", pipes.size(), "\n");
-	PRIME_INFO(GetFPS(), "fps \n");
+	PRIME_WARNING(GetFPS(), "fps \n");
 	PRIME_INFO("Camera: ", mainCamera->ScreenToWorldPoint(InputPC::GetMousePosition()), "\n");
 	PRIME_INFO("Brid position: ", bird->GetTransform().Position, "\n");
 	PRIME_INFO("////////////////////////////////////////////////////////////////\n");
