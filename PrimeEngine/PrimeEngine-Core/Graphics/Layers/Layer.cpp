@@ -28,7 +28,21 @@ namespace PrimeEngine { namespace Graphics {
 
 	void Layer::Submit(Object* object)
 	{
-		_renderables->push_back(object);
+		if (!_renderables->empty())
+		{
+			for (int i = 0; i < _renderables->size(); i++)
+			{
+				if (object->Priority <= _renderables->at(i)->Priority)
+				{
+					_renderables->insert(_renderables->begin() + i, object);
+					break;
+				}
+			}
+		}
+		else
+		{
+			_renderables->push_back(object);
+		}
 	}
 
 	void Layer::Remove(Object* object)
