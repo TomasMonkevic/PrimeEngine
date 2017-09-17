@@ -22,6 +22,7 @@ namespace PrimeEngine {
 	{
 		_components = new std::vector<Component*>;
 		_children = new std::vector<GameObject*>; //TODO should children be in gameObject
+		Priority = obj.Priority;
 		for (int i = 0; i < obj._components->size(); i++) //for now only copy components
 		{
 			if (obj._components->at(i)->IsOfType<Transform>()) //TODO think about this ugly code

@@ -52,17 +52,17 @@ namespace PrimeEngine { namespace Math {
 		float ysqr = y * y;
 
 		// roll (x-axis rotation)
-		float t0 = +2.0 * (w * x + y * z);
-		float t1 = +1.0 - 2.0 * (x * x + ysqr);
+		float t0 = +2.0f * (w * x + y * z);
+		float t1 = +1.0f - 2.0f * (x * x + ysqr);
 
 		// pitch (y-axis rotation)
-		float t2 = +2.0 * (w * y - z * x);
-		t2 = ((t2 > 1.0) ? 1.0 : t2);
-		t2 = ((t2 < -1.0) ? -1.0 : t2);
+		float t2 = +2.0f * (w * y - z * x);
+		t2 = ((t2 > 1.0f) ? 1.0f : t2);
+		t2 = ((t2 < -1.0f) ? -1.0f : t2);
 
 		// yaw (z-axis rotation)
-		float t3 = +2.0 * (w * z + x * y);
-		float t4 = +1.0 - 2.0 * (ysqr + z * z);
+		float t3 = +2.0f * (w * z + x * y);
+		float t4 = +1.0f - 2.0f * (ysqr + z * z);
 
 		return Vector3(std::atan2(t0, t1), std::asin(t2), std::atan2(t3, t4));
 	}
@@ -113,19 +113,19 @@ namespace PrimeEngine { namespace Math {
 
 	Quaternion& Quaternion::operator+=(const Quaternion& right)
 	{
-		x + right.x;
-		y + right.y;
-		z + right.z;
-		w + right.w;
+		x += right.x;
+		y += right.y;
+		z += right.z;
+		w += right.w;
 		return *this;
 	}
 
 	Quaternion& Quaternion::operator-=(const Quaternion& right)
 	{
-		x - right.x;
-		y - right.y;
-		z - right.z;
-		w - right.w;
+		x -= right.x;
+		y -= right.y;
+		z -= right.z;
+		w -= right.w;
 		return *this;
 	}
 

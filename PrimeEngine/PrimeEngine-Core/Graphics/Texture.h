@@ -15,7 +15,7 @@ namespace PrimeEngine { namespace Graphics {
 	{
 	private:
 		GLuint _Id;
-		unsigned int _width, _height;
+		int _width, _height;
 		const char* _path;
 
 	private:
@@ -28,7 +28,7 @@ namespace PrimeEngine { namespace Graphics {
 		void Bind() const;
 		void Unbind() const;
 
-		inline const Math::Vector2 GetSize() const { return Math::Vector2(_width, _height); }
+		inline const Math::Vector2 GetSize() const { return Math::Vector2((float)_width, (float)_height); }
 		inline const char* GetPath() const { return _path; }
 		inline const GLuint GetId() const {	return _Id;	}
 	};

@@ -39,7 +39,6 @@
     <ClInclude Include="Graphics\Sprite.h" />
     <ClInclude Include="Graphics\Layers\Layer.h" />
     <ClInclude Include="Graphics\Texture.h" />
-    <ClInclude Include="Utilities\ImageLoader.h" />
     <ClInclude Include="Utilities\Log.h" />
     <ClInclude Include="Networking\TCPServer.h" />
     <ClInclude Include="Networking\TCPClient.h" />

@@ -5,7 +5,6 @@
 #include <DllExport.h>
 #include <freetype-gl\freetype-gl.h>
 #include "Color.h"
-#include <string>
 
 namespace PrimeEngine { namespace Graphics {
 
@@ -18,7 +17,7 @@ namespace PrimeEngine { namespace Graphics {
 		ftgl::texture_font_t* font;
 
 		Font::Font();
-		Font(std::string _fontName, const Color& _color, int _size);
+		Font(const char* _fontName, const Color& _color, int _size);
 	};
 }}
 

@@ -60,7 +60,6 @@
     <ClInclude Include="PrimeEngineBase.h" />
     <ClInclude Include="PrimeException.h" />
     <ClInclude Include="Utilities\File.h" />
-    <ClInclude Include="Utilities\ImageLoader.h" />
     <ClInclude Include="Utilities\Log.h" />
     <ClInclude Include="Utilities\Time.h" />
   </ItemGroup>
@@ -157,31 +156,31 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <TargetExt>.dll</TargetExt>
-    <IncludePath>$(SolutionDir)\Dependencies\OpenGL\include;$(SolutionDir)\Dependencies\FreeImage\Dist\x32;$(ProjectDir);$(SolutionDir)\Dependencies\FreeType;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\Dependencies\OpenGL\lib;$(SolutionDir)\Dependencies\FreeImage\Dist\x32;$(SolutionDir)Dependencies\FreeType\$(Platform)\$(Configuration);$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\Dependencies\OpenGL\include;$(ProjectDir);$(SolutionDir)\Dependencies\FreeType;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\Dependencies\OpenGL\lib;$(SolutionDir)Dependencies\FreeType\$(Platform)\$(Configuration);$(LibraryPath)</LibraryPath>
     <OutDir>$(ProjectDir)..\..\Build\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)..\..\Build\bin\PrimeEngine-Core\$(Platform)\$(Configuration)\</IntDir>
     <TargetName>PrimeEngine</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <TargetExt>.dll</TargetExt>
-    <IncludePath>$(SolutionDir)\Dependencies\OpenGL\include;$(SolutionDir)\Dependencies\FreeImage\Dist\$(Platform);$(ProjectDir);$(SolutionDir)\Dependencies\FreeType;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\Dependencies\OpenGL\lib;$(SolutionDir)\Dependencies\FreeImage\Dist\$(Platform);$(SolutionDir)Dependencies\FreeType\$(Platform)\$(Configuration);$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\Dependencies\OpenGL\include;$(ProjectDir);$(SolutionDir)\Dependencies\FreeType;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\Dependencies\OpenGL\lib;$(SolutionDir)Dependencies\FreeType\$(Platform)\$(Configuration);$(LibraryPath)</LibraryPath>
     <OutDir>$(ProjectDir)..\..\Build\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)..\..\Build\bin\PrimeEngine-Core\$(Platform)\$(Configuration)\</IntDir>
     <TargetName>PrimeEngine</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(SolutionDir)\Dependencies\OpenGL\include;$(SolutionDir)\Dependencies\FreeImage\Dist\x32;$(ProjectDir);$(SolutionDir)\Dependencies\FreeType;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\Dependencies\OpenGL\lib;$(SolutionDir)\Dependencies\FreeImage\Dist\x32;$(SolutionDir)Dependencies\FreeType\$(Platform)\$(Configuration);$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\Dependencies\OpenGL\include;$(ProjectDir);$(SolutionDir)\Dependencies\FreeType;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\Dependencies\OpenGL\lib;$(SolutionDir)Dependencies\FreeType\$(Platform)\$(Configuration);$(LibraryPath)</LibraryPath>
     <TargetExt>.dll</TargetExt>
     <OutDir>$(ProjectDir)..\..\Build\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)..\..\Build\bin\PrimeEngine-Core\$(Platform)\$(Configuration)\</IntDir>
     <TargetName>PrimeEngine</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(SolutionDir)\Dependencies\OpenGL\include;$(SolutionDir)\Dependencies\FreeImage\Dist\$(Platform);$(ProjectDir);$(SolutionDir)\Dependencies\FreeType;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\Dependencies\OpenGL\lib;$(SolutionDir)\Dependencies\FreeImage\Dist\$(Platform);$(SolutionDir)Dependencies\FreeType\$(Platform)\$(Configuration);$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\Dependencies\OpenGL\include;$(ProjectDir);$(SolutionDir)\Dependencies\FreeType;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\Dependencies\OpenGL\lib;$(SolutionDir)Dependencies\FreeType\$(Platform)\$(Configuration);$(LibraryPath)</LibraryPath>
     <TargetExt>.dll</TargetExt>
     <OutDir>$(ProjectDir)..\..\Build\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)..\..\Build\bin\PrimeEngine-Core\$(Platform)\$(Configuration)\</IntDir>
@@ -200,7 +199,7 @@
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Ws2_32.lib;glew32s.lib;glfw3.lib;OpenGL32.Lib;FreeType.lib;FreeImageLibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Ws2_32.lib;glew32s.lib;glfw3.lib;OpenGL32.Lib;FreeType.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
       <AdditionalOptions>/ignore:4099 %(AdditionalOptions)</AdditionalOptions>
@@ -227,7 +226,7 @@
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Ws2_32.lib;glew32s.lib;glfw3.lib;OpenGL32.Lib;FreeType.lib;FreeImageLibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Ws2_32.lib;glew32s.lib;glfw3.lib;OpenGL32.Lib;FreeType.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
       <AdditionalOptions>/ignore:4099 %(AdditionalOptions)</AdditionalOptions>
@@ -260,7 +259,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Ws2_32.lib;glew32s.lib;glfw3.lib;OpenGL32.Lib;FreeType.lib;FreeImageLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Ws2_32.lib;glew32s.lib;glfw3.lib;OpenGL32.Lib;FreeType.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
     </Link>
@@ -284,7 +283,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Ws2_32.lib;glew32s.lib;glfw3.lib;OpenGL32.Lib;FreeType.lib;FreeImageLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Ws2_32.lib;glew32s.lib;glfw3.lib;OpenGL32.Lib;FreeType.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
     </Link>

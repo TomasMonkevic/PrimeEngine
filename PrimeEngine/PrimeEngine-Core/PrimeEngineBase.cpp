@@ -41,13 +41,7 @@ namespace PrimeEngine {
 
 	void PrimeEngineBase::Play()
 	{
-#ifdef FREEIMAGE_LIB
-		FreeImage_Initialise();
-#endif
 		Awake();
 		Run();
-#ifdef FREEIMAGE_LIB
-		FreeImage_DeInitialise();
-#endif
 	}
 }
