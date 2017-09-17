@@ -10,7 +10,7 @@ namespace PrimeEngine { namespace UI {
 	{
 	public:
 		explicit Text(Graphics::Font& font);
-		explicit Text(const std::string& text, Graphics::Font& font);
+		Text(const char* text, Graphics::Font& font);
 		~Text() override;
 	};
 }}

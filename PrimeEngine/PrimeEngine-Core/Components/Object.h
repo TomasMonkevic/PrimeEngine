@@ -4,7 +4,7 @@
 
 namespace PrimeEngine {
 
-	class Object 
+	class PRIMEENGINEAPI Object 
 	{
 	public:
 		int Priority = 0;

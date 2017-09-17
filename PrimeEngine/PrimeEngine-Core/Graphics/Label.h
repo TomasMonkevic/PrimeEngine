@@ -3,7 +3,6 @@
 
 #include <DllExport.h>
 #include <Graphics/Font.h>
-#include <string>
 #include "Renderable.h"
 #include <GameObject.h>
 
@@ -15,11 +14,11 @@ namespace PrimeEngine { namespace Graphics {
 
 	public:
 		//make private and use getters and setters
-		std::string text;
+		const char* text;
 		Font* font;
 
 	public:
-		Label(const std::string& _text, Font& _font);
+		Label(const char* _text, Font& _font);
 		void Submit(Renderer2D* renderer) const override;
 	};
 }}

@@ -8,7 +8,7 @@ namespace PrimeEngine { namespace UI {
 
 	}
 
-	Text::Text(const std::string& text, Graphics::Font& font)
+	Text::Text(const char* text, Graphics::Font& font)
 	{
 		_gameObject->AddComponent(new Graphics::Label(text, font));
 	}

@@ -3,7 +3,6 @@
 
 #include "Utilities\Time.h"
 #include "Graphics\Window.h"
-#include <FreeImage.h>
 #include "DllExport.h"
 
 namespace PrimeEngine {

@@ -35,6 +35,5 @@
 #include <Networking\TCPServer.h>
 #include <UI\Text.h>
 #include <UI\UIObject.h>
-#include <Utilities\ImageLoader.h>
 #include <Utilities\Log.h>
 #include <Utilities\Time.h>

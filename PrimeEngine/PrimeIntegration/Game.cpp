@@ -50,12 +50,11 @@ void TestGame::Awake()
 	buttonContainer->Add(button);
 
 	myFont = new Font("Resources\\arial.ttf", Color(1.0f, 1.0f, 1.0f), 64);
-	std::string wtf = "HE HE HE HE";
 	//fpsLabel = new GameObject(Vector2(-8.0f, -4.5f));
 	//fpsLabel->AddComponent(new Label(wtf, *myFont));
 	//uiLayer->Submit(fpsLabel);
 	//gameLayer->Submit(fpsLabel);
-	testText = new UI::Text(wtf, *myFont);
+	testText = new UI::Text("", *myFont);
 	//uiLayer->Submit(testText);
 
 	//uiLayer->Submit(buttonContainer);
