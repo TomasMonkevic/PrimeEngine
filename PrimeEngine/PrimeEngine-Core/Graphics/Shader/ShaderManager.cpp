@@ -11,6 +11,7 @@ namespace PrimeEngine { namespace Graphics {
 
 	ShaderManager::~ShaderManager()
 	{
+		//TODO memory leak delete actual shaders
 		//delete all shaders
 		delete _shaders;
 	}

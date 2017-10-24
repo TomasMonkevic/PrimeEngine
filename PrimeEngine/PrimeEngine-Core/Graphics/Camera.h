@@ -14,9 +14,6 @@ namespace PrimeEngine { namespace Graphics {
 		Math::Matrix4x4 _projectionMatrix;
 		Math::Matrix4x4 _viewMatrix = Math::Matrix4x4::identity();
 		Math::Vector3 _position;
-		Math::Vector3 _direction;
-		Math::Vector3 _right;
-		Math::Vector3 _up;
 	public:
 		Shader* _shader;
 

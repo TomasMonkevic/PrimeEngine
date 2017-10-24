@@ -21,7 +21,7 @@ namespace PrimeEngine { namespace Graphics {
 		glEnableVertexAttribArray(SHADER_TEXTURE_CORD_INDEX);
 		glEnableVertexAttribArray(SHADER_TEXTURE_INDEX);
 
-		glVertexAttribPointer(SHADER_POSITION_INDEX, 3, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, NULL);
+		glVertexAttribPointer(SHADER_POSITION_INDEX, 3, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(VertexData, VertexData::position)));
 		glVertexAttribPointer(SHADER_COLOR_INDEX, 4, GL_UNSIGNED_BYTE, GL_TRUE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(VertexData, VertexData::color32)));
 		glVertexAttribPointer(SHADER_TEXTURE_CORD_INDEX, 2, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(VertexData, VertexData::textureCord)));
 		glVertexAttribPointer(SHADER_TEXTURE_INDEX, 1, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(VertexData, VertexData::texture)));
@@ -121,6 +121,14 @@ namespace PrimeEngine { namespace Graphics {
 		_buffer++;
 
 		_indexCount += 6;
+
+		//if buffer is overflowed render the buffer and move on
+		if (_indexCount >= RENDERER_INDECIES_SIZE)
+		{
+			End();
+			Flush();
+			Begin();
+		}
 	}
 
 	void BatchRenderer2D::DrawLabel(const std::string& text, const  Math::Vector3& position, const Font& font)

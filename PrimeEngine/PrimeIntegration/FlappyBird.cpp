@@ -149,6 +149,8 @@ void FlappyBird::Awake()
 	//TODO make a main camera in gameLayer or return a handle to camera; think about the camera system
 	mainCamera = new Camera(ShaderManagerI->CreateShader("mainShader", Shader::default), Matrix4x4::Orthographic(-360.0f, 360.0f, -640.0f, 640.0f, -1.0f, 1.0f));
 	playingLayer = new GameLayer(mainCamera);
+	//TODO make an error log if existing shader name is used
+	uiLayer = new UILayer(ShaderManagerI->CreateShader("uiShader", Shader::default));
 
 	float scale = 5.0f; //5.0f
 
@@ -175,6 +177,10 @@ void FlappyBird::Awake()
 	pipeTopPrefab->Priority = 2;
 
 	grounds.push_back(new GameObject(*groundPrefab));
+
+	//score text
+	score = new Text("Hello\nNewLine", arial);
+	uiLayer->Submit(score);
 
 	//why doesn't it wokk if bg is first?
 	playingLayer->Submit(grounds[0]);
@@ -219,4 +225,5 @@ void FlappyBird::Render()
 	mainCamera->SetPosition(Vector2(bird->GetTransform().Position.x, mainCamera->GetPosition().y));
 	mainCamera->LookAt(mainCamera->GetPosition() + Vector3::back()); //TODO move this to engine
 	playingLayer->Render();
+	uiLayer->Render();
 }
