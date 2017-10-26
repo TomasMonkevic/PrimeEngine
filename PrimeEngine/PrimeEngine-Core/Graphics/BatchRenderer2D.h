@@ -1,5 +1,4 @@
-#ifndef BATCH_RENDERER2D
-#define BATCH_RENDERER2D
+#pragma once
 
 #include <freetype-gl\freetype-gl.h>
 #include "Renderer2D.h"
@@ -51,5 +50,3 @@ namespace PrimeEngine { namespace Graphics {
 		void Flush() override;
 	};
 }}
-
-#endif // !BATCH_RENDERER2D

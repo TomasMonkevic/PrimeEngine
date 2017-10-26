@@ -1,5 +1,4 @@
-#ifndef VERTEX_BUFFER
-#define VERTEX_BUFFER
+#pragma once
 
 #include <GL\glew.h>
 
@@ -24,5 +23,3 @@ namespace PrimeEngine { namespace Graphics {
 	};
 
 }}
-
-#endif // !VERTEX_BUFFER

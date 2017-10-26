@@ -2,8 +2,6 @@
 
 namespace PrimeEngine { namespace Graphics {
 
-	ShaderManager* ShaderManager::_instance = NULL;
-
 	ShaderManager::ShaderManager()
 	{
 		_shaders = new std::unordered_map<const char*, Shader*>();

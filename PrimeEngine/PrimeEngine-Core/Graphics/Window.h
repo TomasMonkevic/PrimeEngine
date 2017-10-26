@@ -1,5 +1,4 @@
-#ifndef PRIMEENGINE_WINDOW
-#define PRIMEENGINE_WINDOW
+#pragma once
 
 #include <GL\glew.h>
 #include <GLFW\glfw3.h>
@@ -66,4 +65,3 @@ namespace PrimeEngine
 		};
 	}
 }
-#endif // !PRIMEENGINE_WINDOW

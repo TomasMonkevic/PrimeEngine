@@ -1,5 +1,4 @@
-#ifndef PRIME_ENGINE_H
-#define PRIME_ENGINE_H
+#pragma once
 
 #include "Utilities\Time.h"
 #include "Graphics\Window.h"
@@ -54,5 +53,3 @@ namespace PrimeEngine {
 		void Play();
 	};
 }
-
-#endif // !PRIME_ENGINE_H

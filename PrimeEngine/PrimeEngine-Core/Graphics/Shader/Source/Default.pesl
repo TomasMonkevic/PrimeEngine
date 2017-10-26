@@ -1,5 +1,4 @@
-R"(
-$version 330/$
+R"( $version 330 core/$
 
 $vertex
 
@@ -38,7 +37,7 @@ in data
 
 layout (location = 0) out vec4 color;
 
-uniform sampler2D textures[32];
+uniform sampler2D textures[64];
 
  void main()
  {
@@ -52,5 +51,4 @@ uniform sampler2D textures[32];
 	{
 		color = dataIn.color;
 	}
- }/$
- )"
+ }/$ )"

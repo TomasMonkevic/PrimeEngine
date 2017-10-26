@@ -1,5 +1,4 @@
-#ifndef CAMERA_H
-#define CAMERA_H
+#pragma once
 
 #include <GL\glew.h>
 #include <Math/Math.h>
@@ -40,4 +39,3 @@ namespace PrimeEngine { namespace Graphics {
 	};
 
 }}
-#endif // !CAMERA_H

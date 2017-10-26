@@ -1,5 +1,4 @@
-#ifndef PRIME_ENGINE
-#define PRIME_ENGINE
+#pragma once
 
 #include <Math/Math.h>
 #include <DllExport.h>
@@ -20,5 +19,3 @@ namespace PrimeEngine { namespace Graphics {
 		Font(const char* _fontName, const Color& _color, int _size);
 	};
 }}
-
-#endif

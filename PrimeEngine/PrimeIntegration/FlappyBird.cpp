@@ -144,13 +144,11 @@ void FlappyBird::Awake()
 	GetWindow()->EnableVSync(true);
 	//GetWindow()->SetColor(Color(84, 192, 201));
 
-	//Setup layer
-	PRIME_INFO(sin(90.0f * (PI/180.0f)), '\n');
 	//TODO make a main camera in gameLayer or return a handle to camera; think about the camera system
-	mainCamera = new Camera(ShaderManagerI->CreateShader("mainShader", Shader::default), Matrix4x4::Orthographic(-360.0f, 360.0f, -640.0f, 640.0f, -1.0f, 1.0f));
+	mainCamera = new Camera(ShaderManagerI.CreateShader("mainShader", Shader::default), Matrix4x4::Orthographic(-360.0f, 360.0f, -640.0f, 640.0f, -1.0f, 1.0f));
 	playingLayer = new GameLayer(mainCamera);
 	//TODO make an error log if existing shader name is used
-	uiLayer = new UILayer(ShaderManagerI->CreateShader("uiShader", Shader::default));
+	uiLayer = new UILayer(ShaderManagerI.CreateShader("uiShader", Shader::default));
 
 	float scale = 5.0f; //5.0f
 

@@ -1,5 +1,4 @@
-#ifndef SPRITE_H
-#define SPRITE_H
+#pragma once
 
 #include <Math/Math.h>
 #include "Color.h"
@@ -61,5 +60,3 @@ namespace PrimeEngine { namespace Graphics {
 		}
 	};
 }}
-
-#endif // !SPRITE_H

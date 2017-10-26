@@ -1,5 +1,4 @@
-#ifndef VERTEX_ARRAY
-#define VERTEX_ARRAY
+#pragma once
 
 #include <GL\glew.h>
 #include "VertexBuffer.h"
@@ -21,5 +20,3 @@ namespace PrimeEngine { namespace Graphics {
 		void Unbind() const;
 	};
 }}
-
-#endif // !VERTEX_ARRAY

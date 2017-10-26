@@ -1,5 +1,4 @@
-#ifndef PRIME_TIMER_H
-#define PRIME_TIMER_H
+#pragma once
 
 #if PRIME_WINDOWS
 	#include <Windows.h>
@@ -29,5 +28,3 @@ namespace PrimeEngine
 		float Elapsed();
 	};
 }
-#endif // !PRIME_TIMER_H
-

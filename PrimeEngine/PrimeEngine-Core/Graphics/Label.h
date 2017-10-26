@@ -1,5 +1,4 @@
-#ifndef PRIME_LABEL
-#define PRIME_LABEL
+#pragma once
 
 #include <DllExport.h>
 #include <Graphics/Font.h>
@@ -22,5 +21,3 @@ namespace PrimeEngine { namespace Graphics {
 		void Submit(Renderer2D* renderer) const override;
 	};
 }}
-
-#endif // !PRIME_LABEL

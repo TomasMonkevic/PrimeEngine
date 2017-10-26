@@ -1,5 +1,4 @@
-#ifndef MATH_H
-#define MATH_H
+#pragma once
 
 #include "MathFunc.h"
 #include "Vector2.h"
@@ -7,5 +6,3 @@
 #include "Vector4.h"
 #include "Matrix4x4.h"
 #include "Quaternion.h"
-
-#endif // !MATH_H

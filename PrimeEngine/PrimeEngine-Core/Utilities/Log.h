@@ -1,5 +1,4 @@
-#ifndef PRIME_LOG
-#define PRIME_LOG
+#pragma once
 
 //prime types
 #include <Math/Vector2.h>
@@ -89,6 +88,12 @@ namespace PrimeEngine
 	}
 
 	template<>
+	static const char* ToString<char>(const char& c)
+	{
+		return &c;
+	}
+
+	template<>
 	static const char* ToString<Math::Vector2>(const Math::Vector2& vec)
 	{
 		sprintf_s(_formatBuffer, BUFFER_SIZE, "(%f, %f)", vec.x, vec.y);
@@ -166,6 +171,4 @@ namespace PrimeEngine
 #else
 	#define PRIME_INFO(...)
 #endif
-
-#endif // !PRIME_LOG
 

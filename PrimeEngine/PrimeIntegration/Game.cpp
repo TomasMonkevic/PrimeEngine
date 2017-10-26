@@ -17,7 +17,7 @@ void TestGame::Awake()
 	Matrix4x4 pr = Matrix4x4::Orthographic(-8.0f, 8.0f, -4.5f, 4.5f, -1.0f, 1.0f);
 	//Matrix4x4 pr = Matrix4x4::Perspective(45.0f, 16.0f / 9.0f, -1.5f, 1.5f);
 
-	mainCamera = new Camera(ShaderManagerI->CreateShader("gameShader", Shader::default), pr);
+	mainCamera = new Camera(ShaderManagerI.CreateShader("gameShader", Shader::default), pr);
 
 	//Vector3 cameraPosition(Vector3(9, 4.5f, -6.0f)); //projection
 	Vector3 cameraPosition(Vector3(0, 0, 0.0f)); //ortho
@@ -32,7 +32,7 @@ void TestGame::Awake()
 	//PRIME_WARNING(sprite2->GetPosition());
 
 	gameLayer = new GameLayer(mainCamera);
-	uiLayer = new UILayer(ShaderManagerI->CreateShader("uiShader", Shader::default));
+	uiLayer = new UILayer(ShaderManagerI.CreateShader("uiShader", Shader::default));
 	//gameLayer->Submit(backGround);
 	//gameLayer->Submit(sprite3);
 	//gameLayer->Submit(sprite2);
