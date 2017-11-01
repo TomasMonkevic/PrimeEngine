@@ -28,6 +28,10 @@ namespace PrimeEngine { namespace Math {
 		const Quaternion operator+(const Quaternion& right) const;
 		const Quaternion operator-(const Quaternion& right) const;
 		const Quaternion operator*(const Quaternion& right) const;
+		const Quaternion Quaternion::operator*(float scalar) const
+		{
+			return Quaternion(x * scalar, y * scalar, z * scalar, w * scalar);
+		}
 
 		Quaternion& operator+=(const Quaternion& right);
 		Quaternion& operator-=(const Quaternion& right);

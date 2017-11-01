@@ -5,6 +5,7 @@
 #include <Math/Vector3.h>
 #include <Math/Vector4.h>
 #include <Graphics\Color.h>
+#include <Math/Quaternion.h>
 
 
 #include <string>
@@ -90,7 +91,8 @@ namespace PrimeEngine
 	template<>
 	static const char* ToString<char>(const char& c)
 	{
-		return &c;
+		sprintf_s(_formatBuffer, BUFFER_SIZE, "%c", c);
+		return _formatBuffer;
 	}
 
 	template<>
@@ -118,6 +120,13 @@ namespace PrimeEngine
 	static const char* ToString<Graphics::Color>(const Graphics::Color& col)
 	{
 		sprintf_s(_formatBuffer, BUFFER_SIZE, "(%f, %f, %f, %f)", col[0], col[1], col[2], col[3]);
+		return _formatBuffer;
+	}
+
+	template<>
+	static const char* ToString<Math::Quaternion>(const Math::Quaternion& q)
+	{
+		sprintf_s(_formatBuffer, BUFFER_SIZE, "(%f, %f, %f, %f)", q[0], q[1], q[2], q[3]);
 		return _formatBuffer;
 	}
 	#pragma endregion

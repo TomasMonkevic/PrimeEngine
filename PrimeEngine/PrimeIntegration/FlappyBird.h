@@ -21,7 +21,7 @@ private:
 	Font arial = Font("Resources\\arial.ttf", Color(1.0f, 1.0f, 1.0f), 64);
 	Text* score;
 	float angularMomentum = 0.0f;
-	float birdRotation = 0.0f; //temp
+	float birdRotation = 0.0f; //actually it's easier to have this; no need to constantly convert form quaternions to euler angles
 
 private:
 	void Destroy(GameObject* obj);

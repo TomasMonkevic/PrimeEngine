@@ -57,7 +57,7 @@ void FlappyBird::Gravity(GameObject& obj)
 	angularMomentum = max(-600.0f, angularMomentum);
 	angularMomentum = min(800.0f, angularMomentum);
 
-	obj.GetTransform().Rotate(Quaternion(0.0f, 0.0f, birdRotation));
+	obj.GetTransform().Rotation = Quaternion(0.0f, 0.0f, birdRotation);
 }
 
 void FlappyBird::SpawnGround()
