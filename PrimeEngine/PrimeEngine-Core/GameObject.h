@@ -20,7 +20,7 @@ namespace PrimeEngine {
 		GameObject(const Math::Vector3& position);
 		GameObject(const GameObject& obj);
 
-		~GameObject();
+		virtual ~GameObject();
 
 		void Add(GameObject* child);
 		void Submit(Graphics::Renderer2D* renderer) const override;

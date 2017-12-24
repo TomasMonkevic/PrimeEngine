@@ -141,7 +141,7 @@ void FlappyBird::Awake()
 {
 	//Windows setup
 	CreateWin("Flappy Bird", 720, 1280);
-	GetWindow()->EnableVSync(true);
+	GetWindow()->EnableVSync(false);
 	//GetWindow()->SetColor(Color(84, 192, 201));
 
 	//TODO make a main camera in gameLayer or return a handle to camera; think about the camera system
@@ -220,8 +220,8 @@ void FlappyBird::Tick()
 
 void FlappyBird::Render()
 {
-	mainCamera->SetPosition(Vector2(bird->GetTransform().Position.x, mainCamera->GetPosition().y));
-	mainCamera->LookAt(mainCamera->GetPosition() + Vector3::back()); //TODO move this to engine
+	mainCamera->GetTransform().Position.x = bird->GetTransform().Position.x;
+	mainCamera->LookAt(mainCamera->GetTransform().Position + Vector3::forward()); //TODO move this to engine
 	playingLayer->Render();
 	uiLayer->Render();
 }

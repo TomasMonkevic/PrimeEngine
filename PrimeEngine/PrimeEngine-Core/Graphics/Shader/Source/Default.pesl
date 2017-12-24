@@ -37,7 +37,7 @@ in data
 
 layout (location = 0) out vec4 color;
 
-uniform sampler2D textures[64];
+uniform sampler2D textures[32];
 
  void main()
  {

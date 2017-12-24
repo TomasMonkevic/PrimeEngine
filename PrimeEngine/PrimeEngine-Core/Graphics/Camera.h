@@ -3,20 +3,19 @@
 #include <GL\glew.h>
 #include <Math/Math.h>
 #include <Graphics\Shader\Shader.h>
+#include <GameObject.h>
 #include <DllExport.h>
 
 namespace PrimeEngine { namespace Graphics {
 
-	class PRIMEENGINEAPI Camera
+	class PRIMEENGINEAPI Camera : public GameObject
 	{
 	private: //Variables
 		Math::Matrix4x4 _projectionMatrix;
 		Math::Matrix4x4 _viewMatrix = Math::Matrix4x4::identity();
-		Math::Vector3 _position;
 	public:
+		//TODO make private
 		Shader* _shader;
-
-	private: //Methods
 
 	public:
 		Camera(Shader* shader, const Math::Matrix4x4& projectionMatrix);
@@ -33,9 +32,6 @@ namespace PrimeEngine { namespace Graphics {
 
 		void LookAt(const Math::Vector3& target);
 		void Render();
-
-		inline const Math::Vector3& GetPosition() const { return _position; }
-		inline void SetPosition(const Math::Vector3& position) { _position = position; }
 	};
 
 }}
