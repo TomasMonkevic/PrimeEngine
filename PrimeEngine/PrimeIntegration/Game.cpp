@@ -61,14 +61,16 @@ void TestGame::Update()
 	static Vector2 pervMousePos;
 	Vector2 deltaMouse = InputPC::GetMousePosition() - pervMousePos;
 	Vector2 mouseSensitivity(0.015f, 0.015f);
-	mainCamera->GetTransform().Rotate(Quaternion::Rotation(deltaMouse.y * mouseSensitivity.y, Vector3::right())
-	* Quaternion::Rotation(deltaMouse.x * mouseSensitivity.x, Vector3::up()));
-	mainCamera->GetTransform().Rotation.z = 0; //TODO why should I clear this?????
-	Vector3 eulerRotation = mainCamera->GetTransform().Rotation.EulerAngles();
-	//PRIME_INFO(ToDegrees(eulerRotation.x)," ", ToDegrees(eulerRotation.y), " ", ToDegrees(eulerRotation.z), '\n');
-	//mouseSensitivity *= 10.0f;
-	//eulerRotation.x += deltaMouse.y * mouseSensitivity.y;
-	//mainCamera->GetTransform().Rotation = Quaternion(eulerRotation.x, eulerRotation.y, eulerRotation.z); //TODO make constructor from vec3
+
+	//TODO magic happens here ///
+	// Yaw happens "over" the current rotation, in global coordinates.
+	Quaternion yaw = Quaternion::Rotation(deltaMouse.x * mouseSensitivity.x, Vector3::up());
+	mainCamera->GetTransform().Rotation = yaw * mainCamera->GetTransform().Rotation; // yaw on the left.
+	// Pitch happens "under" the current rotation, in local coordinates.
+	Quaternion pitch = Quaternion::Rotation(deltaMouse.y * mouseSensitivity.y, Vector3::right());
+	mainCamera->GetTransform().Rotate(pitch); // pitch on the right.
+	//////////////////////////////////////////
+
 	//PRIME_INFO(mainCamera->GetTransform().Rotation, '\n');
 	pervMousePos = InputPC::GetMousePosition();
 
