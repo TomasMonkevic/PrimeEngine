@@ -20,8 +20,8 @@ namespace PrimeEngine {	namespace Math {
 		static const Vector3 down()		{ return Vector3(0.0f, -1.0f, 0.0f); }
 		static const Vector3 left()		{ return Vector3(-1.0f, 0.0f, 0.0f); }
 		static const Vector3 forward()	{ return Vector3(0.0f, 0.0f, 1.0f); }
-		static const Vector3 up()		{ return Vector3(0.0f, 1.0f, 0.0f); }
-		static const Vector3 right()	{ return Vector3(1.0f, 0.0f, 0.0f); }
+		static const Vector3 up()		{ static Vector3 up(0.0f, 1.0f, 0.0f); return up; }
+		static const Vector3 right()	{ static Vector3 right(1.0f, 0.0f, 0.0f); return right; }
 
 		static const float Dot(const Vector3& left, const Vector3& right); //TEST
 		static const Vector3 Cross(const Vector3& left, const Vector3& right); //TEST

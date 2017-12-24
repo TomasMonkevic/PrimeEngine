@@ -1,5 +1,4 @@
-#ifndef NETWORK_ENTITY_H
-#define NETWORK_ENTITY_H
+#pragma once
 
 #include "../DllExport.h"
 
@@ -17,5 +16,3 @@ namespace PrimeEngine { namespace Networking {
 		virtual int GetLastError() = 0;
 	};
 }}
-
-#endif // !NETWORK_ENTITY_H

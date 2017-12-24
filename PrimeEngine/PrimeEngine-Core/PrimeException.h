@@ -1,5 +1,4 @@
-#ifndef PRIME_EXCEPTION_H
-#define PRIME_EXCEPTION_H
+#pragma once
 
 #include "DllExport.h"
 
@@ -17,5 +16,3 @@ namespace PrimeEngine {
 	};
 
 }
-
-#endif // !PRIME_EXCEPTION_H

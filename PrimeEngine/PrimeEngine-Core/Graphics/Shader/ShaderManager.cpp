@@ -2,8 +2,6 @@
 
 namespace PrimeEngine { namespace Graphics {
 
-	ShaderManager* ShaderManager::_instance = NULL;
-
 	ShaderManager::ShaderManager()
 	{
 		_shaders = new std::unordered_map<const char*, Shader*>();
@@ -11,6 +9,7 @@ namespace PrimeEngine { namespace Graphics {
 
 	ShaderManager::~ShaderManager()
 	{
+		//TODO memory leak delete actual shaders
 		//delete all shaders
 		delete _shaders;
 	}

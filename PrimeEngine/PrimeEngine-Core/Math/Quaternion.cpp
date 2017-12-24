@@ -99,16 +99,29 @@ namespace PrimeEngine { namespace Math {
 		return Quaternion(x - right.x, y - right.y, z - right.z, w - right.w);
 	}
 
-	//qq´ = [ww´ - v · v´, v x v´ + wv´ + w´v]
+	const Quaternion Normalize(const Quaternion& quaternion)
+	{
+		float lenSqr, lenInv;
+		lenSqr = quaternion.Normalized();
+		lenInv = rsqrt(lenSqr);
+		return quaternion * lenInv;
+	}
+
+	const Quaternion Quaternion::Rotation(float radians, const Vector3& unitVec)
+	{
+		float angle = radians * 0.5f;
+		return Quaternion((unitVec * sin(angle)), cos(angle));
+	}
+
+	//qqï¿½ = [wwï¿½ - v ï¿½ vï¿½, v x vï¿½ + wvï¿½ + wï¿½v]
 	const Quaternion Quaternion::operator*(const Quaternion& right) const
 	{
-		const Vector3* vectorLeft = (Vector3*)&x;
-		const Vector3* vectorRight = (Vector3*)&right.x;
-
-		float newScalar = (w * right.w) - Vector3::Dot(*vectorLeft, *vectorRight);
-		Vector3 newVector = Vector3::Cross(*vectorLeft, *vectorRight) + *vectorRight * w + *vectorLeft * right.w;
-
-		return Quaternion(newVector, newScalar);
+		return Normalize(Quaternion(
+			(((w * right.x) + (x * right.w)) + (y * right.z)) - (z * right.y),
+			(((w * right.y) + (y * right.w)) + (z * right.x)) - (x * right.z),
+			(((w * right.z) + (z * right.w)) + (x * right.y)) - (y * right.x),
+			(((w * right.w) - (x * right.x)) - (y * right.y)) - (z * right.z)
+		));
 	}
 
 	Quaternion& Quaternion::operator+=(const Quaternion& right)

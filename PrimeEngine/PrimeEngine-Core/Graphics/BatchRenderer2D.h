@@ -1,10 +1,11 @@
-#ifndef BATCH_RENDERER2D
-#define BATCH_RENDERER2D
+#pragma once
 
 #include <freetype-gl\freetype-gl.h>
 #include "Renderer2D.h"
 #include <queue>
 #include "Buffers\IndexBuffer.h"
+#include "Buffers\VertexBuffer.h"
+#include "Buffers\VertexArray.h"
 #include <DllExport.h>
 #include <GameObject.h>
 
@@ -34,8 +35,8 @@ namespace PrimeEngine { namespace Graphics {
 	private:
 		VertexData* _buffer;
 		IndexBuffer* _ibo;
-		GLuint _vao;
-		GLuint _vbo;
+		VertexArray* _vao;
+		VertexBuffer<VertexData>* _vbo;
 		GLsizei _indexCount;
 		std::vector<GLuint>* _textureSlots;
 		//ftgl::texture_atlas_t* _atlas;
@@ -51,5 +52,3 @@ namespace PrimeEngine { namespace Graphics {
 		void Flush() override;
 	};
 }}
-
-#endif // !BATCH_RENDERER2D

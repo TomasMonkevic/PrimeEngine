@@ -1,5 +1,4 @@
-#ifndef PRIME_RENDERER2D_H
-#define PRIME_RENDERER2D_H
+#pragma once
 
 #include <vector>
 #include <Graphics/Font.h>
@@ -53,5 +52,3 @@ namespace PrimeEngine { namespace Graphics {
 		virtual void Flush() = 0;
 	};
 }}
-
-#endif // !PRIME_RENDERER2D_H

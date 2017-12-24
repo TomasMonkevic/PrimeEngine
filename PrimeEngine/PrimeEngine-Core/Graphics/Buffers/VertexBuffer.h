@@ -1,21 +1,38 @@
-#ifndef VERTEX_BUFFER
-#define VERTEX_BUFFER
+#pragma once
 
 #include <GL\glew.h>
 
 namespace PrimeEngine { namespace Graphics {
 
+	template<typename T>
 	class VertexBuffer
 	{
 	private:
 		GLuint _index;
-		GLuint _componentCount;
-	public:
-		VertexBuffer(const GLfloat* data, GLsizei count, GLuint componentCount);
-		~VertexBuffer();
 
-		void Bind() const;
-		void Unbind() const;
+	public:
+		VertexBuffer(const T* data, GLsizei count, GLenum usage)
+		{
+			glGenBuffers(1, &_index);
+			Bind();
+			glBufferData(GL_ARRAY_BUFFER, count * sizeof(T), data, usage);
+			Unbind();
+		}
+
+		~VertexBuffer()
+		{
+			glDeleteBuffers(1, &_index);
+		}
+
+		void Bind() const
+		{
+			glBindBuffer(GL_ARRAY_BUFFER, _index);
+		}
+
+		void Unbind() const
+		{
+			glBindBuffer(GL_ARRAY_BUFFER, 0);
+		}
 
 		inline GLuint GetComponentCount() const
 		{
@@ -24,5 +41,3 @@ namespace PrimeEngine { namespace Graphics {
 	};
 
 }}
-
-#endif // !VERTEX_BUFFER

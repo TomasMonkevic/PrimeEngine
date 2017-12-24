@@ -17,13 +17,10 @@ namespace PrimeEngine { namespace Graphics {
 		ShaderManager();
 	public:
 		~ShaderManager();
-		inline static ShaderManager* Instance()
+		static ShaderManager& Instance()
 		{
-			if (!_instance)
-			{
-				_instance = new ShaderManager();
-			}
-			return _instance;
+			static ShaderManager instance;
+			return instance;
 		}
 
 		Shader* CreateShader(const char* shaderName, const char* shaderFile, bool isSource = true);

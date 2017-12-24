@@ -25,7 +25,7 @@ namespace PrimeEngine {
 
 		void Rotate(const Math::Quaternion& rotation) //TODO change rotation
 		{
-			Rotation = rotation;
+			Rotation *= rotation;
 		}
 
 		inline const Math::Matrix4x4 GetModelMatrix() const

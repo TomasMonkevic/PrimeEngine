@@ -142,6 +142,7 @@ namespace PrimeEngine { namespace Graphics {
 		{
 			GLint lenght;
 			glGetShaderiv(vertexShader, GL_INFO_LOG_LENGTH, &lenght);
+			//TODO memory leak change to alloca
 			char* error = new char[lenght + 1];
 			glGetShaderInfoLog(vertexShader, lenght, &lenght, error);
 			glDeleteShader(vertexShader);

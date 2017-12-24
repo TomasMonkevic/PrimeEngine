@@ -1,9 +1,7 @@
-#ifndef VERTEX_ARRAY
-#define VERTEX_ARRAY
+#pragma once
 
 #include <GL\glew.h>
 #include "VertexBuffer.h"
-#include <vector>
 
 namespace PrimeEngine { namespace Graphics {
 
@@ -11,15 +9,19 @@ namespace PrimeEngine { namespace Graphics {
 	{
 	private:
 		GLuint _Id;
-		std::vector<VertexBuffer*> _buffers;
+
 	public:
 		VertexArray();
 		~VertexArray();
 
-		void AddBuffer(VertexBuffer* buffer, GLuint index);
+		template<typename T>
+		void AddAttribute(GLuint index, GLint componentCount, GLenum type, bool isNormalized, const GLvoid* offset)
+		{
+			glEnableVertexAttribArray(index);
+			glVertexAttribPointer(index, componentCount, type, isNormalized, sizeof(T), offset);
+		}
+
 		void Bind() const;
 		void Unbind() const;
 	};
 }}
-
-#endif // !VERTEX_ARRAY

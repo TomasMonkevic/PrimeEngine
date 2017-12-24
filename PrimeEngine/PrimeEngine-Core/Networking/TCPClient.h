@@ -1,5 +1,4 @@
-#ifndef NETWORK_CLIENT_H
-#define NETWORK_CLIENT_H
+#pragma once
 
 #include <stdlib.h> 
 #include "NetworkEntity.h"
@@ -22,6 +21,3 @@ namespace PrimeEngine { namespace Networking {
 		int GetLastError() override;
 	};
 }}
-
-#endif // !NETWORK_CLIENT_H
-

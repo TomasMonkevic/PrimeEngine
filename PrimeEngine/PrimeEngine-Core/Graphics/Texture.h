@@ -1,5 +1,4 @@
-#ifndef PRIME_TEXTURE
-#define PRIME_TEXTURE
+#pragma once
 
 #include <GL\glew.h>
 #include "..\DllExport.h"
@@ -33,5 +32,3 @@ namespace PrimeEngine { namespace Graphics {
 		inline const GLuint GetId() const {	return _Id;	}
 	};
 }}
-
-#endif //!PRIME_TEXTURE

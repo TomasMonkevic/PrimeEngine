@@ -9,24 +9,19 @@ namespace PrimeEngine { namespace Graphics {
 	{
 		_indexCount = 0;
 		_textureSlots = new std::vector<GLuint>;
-		glGenVertexArrays(1, &_vao);
-		glGenBuffers(1, &_vbo);
+		_vbo = new VertexBuffer<VertexData>(NULL, RENDERER_BUFFER_SIZE, GL_DYNAMIC_DRAW);
+		_vbo->Bind();
 
-		glBindVertexArray(_vao);
-		glBindBuffer(GL_ARRAY_BUFFER, _vbo);
-		glBufferData(GL_ARRAY_BUFFER, RENDERER_BUFFER_SIZE, NULL, GL_DYNAMIC_DRAW);
+		_vao = new VertexArray();
+		_vao->Bind();
 
-		glEnableVertexAttribArray(SHADER_POSITION_INDEX);
-		glEnableVertexAttribArray(SHADER_COLOR_INDEX);
-		glEnableVertexAttribArray(SHADER_TEXTURE_CORD_INDEX);
-		glEnableVertexAttribArray(SHADER_TEXTURE_INDEX);
+		_vao->AddAttribute<VertexData>(SHADER_POSITION_INDEX, 3, GL_FLOAT, false, (const GLvoid*)(offsetof(VertexData, VertexData::position)));
+		_vao->AddAttribute<VertexData>(SHADER_COLOR_INDEX, 4, GL_UNSIGNED_BYTE, true, (const GLvoid*)(offsetof(VertexData, VertexData::color32)));
+		_vao->AddAttribute<VertexData>(SHADER_TEXTURE_CORD_INDEX, 2, GL_FLOAT, false, (const GLvoid*)(offsetof(VertexData, VertexData::textureCord)));
+		_vao->AddAttribute<VertexData>(SHADER_TEXTURE_INDEX, 1, GL_FLOAT, false, (const GLvoid*)(offsetof(VertexData, VertexData::texture)));
 
-		glVertexAttribPointer(SHADER_POSITION_INDEX, 3, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, NULL);
-		glVertexAttribPointer(SHADER_COLOR_INDEX, 4, GL_UNSIGNED_BYTE, GL_TRUE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(VertexData, VertexData::color32)));
-		glVertexAttribPointer(SHADER_TEXTURE_CORD_INDEX, 2, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(VertexData, VertexData::textureCord)));
-		glVertexAttribPointer(SHADER_TEXTURE_INDEX, 1, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(VertexData, VertexData::texture)));
-
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		_vbo->Unbind();
+		_vao->Unbind();
 
 		GLushort* indecies = new GLushort[RENDERER_INDECIES_SIZE];
 		int offset = 0;
@@ -42,19 +37,19 @@ namespace PrimeEngine { namespace Graphics {
 		}
 		_ibo = new IndexBuffer(indecies, RENDERER_INDECIES_SIZE);
 		delete[] indecies;
-		glBindVertexArray(0);
 	}
 
 	BatchRenderer2D::~BatchRenderer2D()
 	{
 		delete _ibo;
 		delete _textureSlots;
-		glDeleteBuffers(1, &_vbo);
+		delete _vbo;
+		delete _vao;
 	}
 
 	void BatchRenderer2D::Begin()
 	{
-		glBindBuffer(GL_ARRAY_BUFFER, _vbo);
+		_vbo->Bind();
 		_buffer = (VertexData*)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
 	}
 
@@ -121,6 +116,14 @@ namespace PrimeEngine { namespace Graphics {
 		_buffer++;
 
 		_indexCount += 6;
+
+		//if buffer is overflowed render the buffer and move on
+		if (_indexCount >= RENDERER_INDECIES_SIZE)
+		{
+			End();
+			Flush();
+			Begin();
+		}
 	}
 
 	void BatchRenderer2D::DrawLabel(const std::string& text, const  Math::Vector3& position, const Font& font)
@@ -207,7 +210,7 @@ namespace PrimeEngine { namespace Graphics {
 	void BatchRenderer2D::End()
 	{
 		glUnmapBuffer(GL_ARRAY_BUFFER);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		_vbo->Unbind();
 	}
 
 	void BatchRenderer2D::Flush()
@@ -218,11 +221,11 @@ namespace PrimeEngine { namespace Graphics {
 			glBindTexture(GL_TEXTURE_2D, (*_textureSlots)[i]);
 		}
 
-		glBindVertexArray(_vao);
+		_vao->Bind();
 		_ibo->Bind();
 		glDrawElements(GL_TRIANGLES, _indexCount, GL_UNSIGNED_SHORT, NULL);
 		_ibo->Unbind();
-		glBindVertexArray(0);
+		_vao->Unbind();
 		_indexCount = 0;
 	}
 }}

@@ -1,5 +1,4 @@
-#ifndef INDEX_BUFFER
-#define INDEX_BUFFER
+#pragma once
 
 #include <GL\glew.h>
 
@@ -23,5 +22,3 @@ namespace PrimeEngine { namespace Graphics {
 		}
 	};
 }}
-
-#endif // !INDEX_BUFFER

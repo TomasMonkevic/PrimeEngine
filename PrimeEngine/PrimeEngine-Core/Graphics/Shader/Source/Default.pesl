@@ -1,5 +1,4 @@
-R"(
-$version 330/$
+R"( $version 330 core/$
 
 $vertex
 
@@ -52,5 +51,4 @@ uniform sampler2D textures[32];
 	{
 		color = dataIn.color;
 	}
- }/$
- )"
+ }/$ )"

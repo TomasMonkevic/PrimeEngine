@@ -1,5 +1,4 @@
-#ifndef PRIME_DLL_EXPORT
-#define PRIME_DLL_EXPORT
+#pragma once
 
 #if PRIME_WINDOWS
 	#if _PRIME_ENGINE
@@ -14,6 +13,3 @@
 #if PRIME_WINDOWS || PRIME_LINUX || PRIME_OSX
 	#define PRIME_STANDALONE
 #endif
-
-#endif // PRIME_DLL_EXPORT
-

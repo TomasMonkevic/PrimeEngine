@@ -1,3 +1,5 @@
+#pragma once
+
 #include <PrimeEngine.h>
 
 using namespace PrimeEngine;
@@ -13,25 +15,15 @@ using std::endl;
 class TestGame : public PrimeEngineBase
 {
 private:
-	float speed = 10.0f;
 	GameLayer* gameLayer;
-	UILayer* uiLayer;
-	Sprite *sprite1;
 	Camera* mainCamera;
-	Font* myFont;
-	GameObject *player, *fpsLabel, *button, *buttonContainer;
-	UI::Text* testText;
+	GameObject *player;
 
 public:
 	~TestGame() 
 	{
-		delete testText;
 		delete gameLayer;
-		delete sprite1;
 		delete player;
-		delete button;
-		delete fpsLabel;
-		delete buttonContainer;
 	}
 	void Awake() override;
 	void Update() override;

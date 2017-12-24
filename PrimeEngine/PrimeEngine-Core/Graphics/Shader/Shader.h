@@ -1,5 +1,4 @@
-#ifndef PRIME_SHADER
-#define PRIME_SHADER
+#pragma once
 
 #include <GL\glew.h>
 #include <Utilities\File.h>
@@ -43,4 +42,3 @@ namespace PrimeEngine { namespace Graphics {
 	};
 
 }}
-#endif // !PRIME_SHADER
