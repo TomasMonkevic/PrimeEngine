@@ -107,6 +107,12 @@ namespace PrimeEngine { namespace Math {
 		return quaternion * lenInv;
 	}
 
+	const Quaternion Quaternion::Rotation(float radians, const Vector3& unitVec)
+	{
+		float angle = radians * 0.5f;
+		return Quaternion((unitVec * sin(angle)), cos(angle));
+	}
+
 	//qq´ = [ww´ - v · v´, v x v´ + wv´ + w´v]
 	const Quaternion Quaternion::operator*(const Quaternion& right) const
 	{

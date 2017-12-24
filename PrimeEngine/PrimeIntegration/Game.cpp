@@ -22,6 +22,7 @@ void TestGame::Awake()
 	Vector3 cameraPosition(Vector3(0.0f, 0.0f, -10.0f)); //projection
 	//Vector3 cameraPosition(Vector3(0, 0, 0.0f)); //ortho
 	mainCamera->GetTransform().Position = cameraPosition;
+	//mainCamera->LookAt(mainCamera->GetTransform().Position + Vector3::forward());
 
 	gameLayer = new GameLayer(mainCamera);
 
@@ -57,16 +58,20 @@ void TestGame::Update()
 	{
 		mainCamera->GetTransform().Position.y -= cameraSpeed * GetDeltaTime();
 	}
-	mainCamera->LookAt(mainCamera->GetTransform().Position + Vector3::forward());
 	static Vector2 pervMousePos;
 	Vector2 deltaMouse = InputPC::GetMousePosition() - pervMousePos;
-	const float mouseX_Sensitivity = 2.5f;
-	const float mouseY_Sensitivity = 2.5f;
-	//note that yaw and pitch must be converted to radians.
-	//this is done in UpdateView() by glm::rotate
-	//mainCamera->GetTransform().Rotation.ro mouseX_Sensitivity * deltaMouse.x
-	//pitch += mouseY_Sensitivity * deltaMouse.y;
+	Vector2 mouseSensitivity(0.015f, 0.015f);
+	mainCamera->GetTransform().Rotate(Quaternion::Rotation(deltaMouse.y * mouseSensitivity.y, Vector3::right())
+	* Quaternion::Rotation(deltaMouse.x * mouseSensitivity.x, Vector3::up()));
+	mainCamera->GetTransform().Rotation.z = 0; //TODO why should I clear this?????
+	Vector3 eulerRotation = mainCamera->GetTransform().Rotation.EulerAngles();
+	//PRIME_INFO(ToDegrees(eulerRotation.x)," ", ToDegrees(eulerRotation.y), " ", ToDegrees(eulerRotation.z), '\n');
+	//mouseSensitivity *= 10.0f;
+	//eulerRotation.x += deltaMouse.y * mouseSensitivity.y;
+	//mainCamera->GetTransform().Rotation = Quaternion(eulerRotation.x, eulerRotation.y, eulerRotation.z); //TODO make constructor from vec3
+	//PRIME_INFO(mainCamera->GetTransform().Rotation, '\n');
 	pervMousePos = InputPC::GetMousePosition();
+
 	if (InputPC::GetKeyDown(256)) //esc
 	{
 		GetWindow()->Close();
