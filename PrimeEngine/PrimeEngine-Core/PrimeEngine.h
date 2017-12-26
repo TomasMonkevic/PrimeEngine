@@ -9,6 +9,7 @@
 #include <Graphics\Buffers\IndexBuffer.h>
 #include <Graphics\Window.h>
 #include <Graphics\Texture.h>
+#include <Graphics\stb_image.h>
 #include <Graphics\Sprite.h>
 #include <Graphics\Renderer2D.h>
 #include <Graphics\Renderable.h>
@@ -21,12 +22,15 @@
 #include <Input.h>
 #include <PrimeEngineBase.h>
 #include <PrimeException.h>
+#include <Components\Behaviour.h>
 #include <Components\Component.h>
 #include <Components\Object.h>
 #include <Components\Transform.h>
+#include <Components\Behaviours\FpsCamera.h>
 #include <Math\Math.h>
 #include <Math\MathFunc.h>
 #include <Math\Matrix4x4.h>
+#include <Math\Quaternion.h>
 #include <Math\Vector2.h>
 #include <Math\Vector3.h>
 #include <Math\Vector4.h>

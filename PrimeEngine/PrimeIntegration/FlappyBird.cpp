@@ -221,7 +221,6 @@ void FlappyBird::Tick()
 void FlappyBird::Render()
 {
 	mainCamera->GetTransform().Position.x = bird->GetTransform().Position.x;
-	mainCamera->LookAt(mainCamera->GetTransform().Position + Vector3::forward()); //TODO move this to engine
 	playingLayer->Render();
 	uiLayer->Render();
 }

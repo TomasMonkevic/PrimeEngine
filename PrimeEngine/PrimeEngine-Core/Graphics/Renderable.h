@@ -9,7 +9,7 @@ namespace PrimeEngine { namespace Graphics {
 	class PRIMEENGINEAPI Renderable : public Component
 	{
 	protected:
-		explicit Renderable()
+		Renderable()
 		{
 			AddType<Renderable>();
 		}

@@ -8,8 +8,6 @@ void TestGame::Awake()
 	//make a method in the engine?
 	//ShowWindow(GetConsoleWindow(), SW_HIDE);
 
-	//CreateWin("Tik Tac Toe", 1366, 768);
-	//CreateWin("Test Game", 1366, 768);
 	CreateWin("3D Rendering test");
 	GetWindow()->EnableVSync(true);
 	GetWindow()->SetColor(Color::black);
@@ -22,7 +20,7 @@ void TestGame::Awake()
 	Vector3 cameraPosition(Vector3(0.0f, 0.0f, -10.0f)); //projection
 	//Vector3 cameraPosition(Vector3(0, 0, 0.0f)); //ortho
 	mainCamera->GetTransform().Position = cameraPosition;
-	//mainCamera->LookAt(mainCamera->GetTransform().Position + Vector3::forward());
+	mainCamera->AddComponent(new FpsCamera());
 
 	gameLayer = new GameLayer(mainCamera);
 
@@ -33,47 +31,8 @@ void TestGame::Awake()
 
 void TestGame::Update()
 {
-	float cameraSpeed = 10.0f;
-	if (InputPC::GetKey('A'))
-	{
-		mainCamera->GetTransform().Position.x -= cameraSpeed * GetDeltaTime();
-	}
-	else if (InputPC::GetKey('D'))
-	{
-		mainCamera->GetTransform().Position.x += cameraSpeed * GetDeltaTime();
-	}
-	if (InputPC::GetKey('W'))
-	{
-		mainCamera->GetTransform().Position.z += cameraSpeed * GetDeltaTime();
-	}
-	else if (InputPC::GetKey('S'))
-	{
-		mainCamera->GetTransform().Position.z -= cameraSpeed * GetDeltaTime();
-	}
-	if (InputPC::GetKey('Q'))
-	{
-		mainCamera->GetTransform().Position.y += cameraSpeed * GetDeltaTime();
-	}
-	else if (InputPC::GetKey('E'))
-	{
-		mainCamera->GetTransform().Position.y -= cameraSpeed * GetDeltaTime();
-	}
-	static Vector2 pervMousePos;
-	Vector2 deltaMouse = InputPC::GetMousePosition() - pervMousePos;
-	Vector2 mouseSensitivity(0.015f, 0.015f);
-
-	//TODO magic happens here ///
-	// Yaw happens "over" the current rotation, in global coordinates.
-	Quaternion yaw = Quaternion::Rotation(deltaMouse.x * mouseSensitivity.x, Vector3::up());
-	mainCamera->GetTransform().Rotation = yaw * mainCamera->GetTransform().Rotation; // yaw on the left.
-	// Pitch happens "under" the current rotation, in local coordinates.
-	Quaternion pitch = Quaternion::Rotation(deltaMouse.y * mouseSensitivity.y, Vector3::right());
-	mainCamera->GetTransform().Rotate(pitch); // pitch on the right.
-	//////////////////////////////////////////
-
-	//PRIME_INFO(mainCamera->GetTransform().Rotation, '\n');
-	pervMousePos = InputPC::GetMousePosition();
-
+	//TODO could be called automaticaly when scene is implemented
+	mainCamera->GetComponent<FpsCamera>()->Update(GetDeltaTime());
 	if (InputPC::GetKeyDown(256)) //esc
 	{
 		GetWindow()->Close();

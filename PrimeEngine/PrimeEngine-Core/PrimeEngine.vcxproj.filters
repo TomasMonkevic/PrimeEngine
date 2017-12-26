@@ -61,6 +61,8 @@
     <ClInclude Include="PrimeEngine.h" />
     <ClInclude Include="Graphics\stb_image.h" />
     <ClInclude Include="Math\Quaternion.h" />
+    <ClInclude Include="Components\Behaviour.h" />
+    <ClInclude Include="Components\Behaviours\FpsCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Input.cpp">
@@ -99,6 +101,8 @@
     <ClCompile Include="UI\Text.cpp" />
     <ClCompile Include="PrimeEngineBase.cpp" />
     <ClCompile Include="Math\Quaternion.cpp" />
+    <ClCompile Include="Components\Behaviour.cpp" />
+    <ClCompile Include="Components\Behaviours\FpsCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Graphics\Shader\Source\Default.pesl" />

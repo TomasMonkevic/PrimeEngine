@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Components\Behaviour.h" />
+    <ClInclude Include="Components\Behaviours\FpsCamera.h" />
     <ClInclude Include="Components\Component.h" />
     <ClInclude Include="Components\Object.h" />
     <ClInclude Include="Components\Transform.h" />
@@ -64,6 +66,8 @@
     <ClInclude Include="Utilities\Time.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Components\Behaviour.cpp" />
+    <ClCompile Include="Components\Behaviours\FpsCamera.cpp" />
     <ClCompile Include="Components\Transform.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Graphics\BatchRenderer2D.cpp" />
