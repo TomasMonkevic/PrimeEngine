@@ -25,19 +25,7 @@ namespace PrimeEngine {
 		Priority = obj.Priority;
 		for (int i = 0; i < obj._components->size(); i++) //for now only copy components
 		{
-			if (obj._components->at(i)->IsOfType<Transform>()) //TODO think about this ugly code
-			{
-				AddComponent(new Transform(*static_cast<Transform*>((*obj._components)[i])));
-			}
-			else if (obj._components->at(i)->IsOfType<Graphics::Sprite>())
-			{
-				//TODO might be problems in copying texture pointer
-				AddComponent(new Graphics::Sprite(*static_cast<Graphics::Sprite*>((*obj._components)[i])));
-			}
-			else if (obj._components->at(i)->IsOfType<Graphics::Label>())
-			{
-				AddComponent(new Graphics::Label(*static_cast<Graphics::Label*>((*obj._components)[i])));
-			}
+			AddComponent(obj._components->at(i)->Copy());
 		}
 	}
 

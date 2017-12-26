@@ -18,5 +18,10 @@ namespace PrimeEngine {
 	Transform::~Transform()
 	{
 	}
+
+	Component* Transform::Copy()
+	{
+		return (new Transform(*this));
+	}
 }
 

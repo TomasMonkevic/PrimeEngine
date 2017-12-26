@@ -58,5 +58,7 @@ namespace PrimeEngine { namespace Graphics {
 		{
 			return _texture ? _texture->GetId() : 0;
 		}
+
+		Component* Copy() override;
 	};
 }}

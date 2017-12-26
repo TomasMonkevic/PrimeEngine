@@ -19,5 +19,7 @@ namespace PrimeEngine { namespace Graphics {
 	public:
 		Label(const char* _text, Font& _font);
 		void Submit(Renderer2D* renderer) const override;
+
+		Component* Copy() override;
 	};
 }}

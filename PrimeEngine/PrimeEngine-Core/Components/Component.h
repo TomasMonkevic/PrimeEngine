@@ -60,5 +60,7 @@ namespace PrimeEngine {
 		{
 			return _gameObject;
 		}
+
+		virtual Component* Copy() = 0;
 	};
 }

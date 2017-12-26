@@ -32,5 +32,7 @@ namespace PrimeEngine {
 		{
 			return Math::Matrix4x4::TRS(Position, Rotation, Scale);
 		}
+
+		Component* Copy() override;
 	};
 }

@@ -36,4 +36,9 @@ namespace PrimeEngine { namespace Graphics {
 	{
 		renderer->Submit(this);
 	}
+
+	Component* Sprite::Copy()
+	{
+		return (new Sprite(*this));
+	}
 }}

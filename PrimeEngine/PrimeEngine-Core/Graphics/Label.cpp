@@ -12,4 +12,9 @@ namespace PrimeEngine { namespace Graphics {
 	{
 		renderer->DrawLabel(text, GetGameObject()->GetTransform().Position, *font);
 	}
+
+	Component* Label::Copy()
+	{
+		return (new Label(*this));
+	}
 }}

@@ -9,10 +9,10 @@ void TestGame::Awake()
 	//ShowWindow(GetConsoleWindow(), SW_HIDE);
 
 	//CreateWin("Tik Tac Toe", 1366, 768);
-	CreateWin("Test Game", 800, 600);
-	//CreateWin("PrimeEngine");
+	//CreateWin("Test Game", 1366, 768);
+	CreateWin("3D Rendering test");
 	GetWindow()->EnableVSync(true);
-	GetWindow()->SetColor(Color(0.7f, 0.8f, 1.0f, 1.0f));
+	GetWindow()->SetColor(Color::black);
 
 	//Matrix4x4 pr = Matrix4x4::Orthographic(-8.0f, 8.0f, -4.5f, 4.5f, -1.0f, 1.0f);
 	Matrix4x4 pr = Matrix4x4::Perspective(45.0f, 16.0f / 9.0f, -1.5f, 1.5f);
