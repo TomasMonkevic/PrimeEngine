@@ -8,8 +8,8 @@ void TestGame::Awake()
 	//make a method in the engine?
 	//ShowWindow(GetConsoleWindow(), SW_HIDE);
 
-	//CreateWin("3D Rendering test", 1366, 768);
-	CreateWin("3D Rendering test");
+	CreateWin("3D Rendering test", 1366, 768);
+	//CreateWin("3D Rendering test");
 	GetWindow()->EnableVSync(true);
 	GetWindow()->SetColor(Color::black);
 
@@ -96,8 +96,8 @@ void TestGame::Render()
 	//mainCamera->Render();
 	//gameLayer->Render();
 
-	mainCamera->_shader->Enable();
 	mainCamera->Render();
+	mainCamera->_shader->Enable();
 
 	_vao->Bind();
 	_ibo->Bind();
@@ -105,6 +105,6 @@ void TestGame::Render()
 	_ibo->Unbind();
 	_vao->Unbind();
 
-	//mainCamera->_shader->Disable();
+	mainCamera->_shader->Disable();
 
 }

@@ -9,7 +9,7 @@ namespace PrimeEngine { namespace Graphics {
 		//TODO move to set uniform
 		_shader->Enable();
 		_shader->SetUniform("pr_matrix", _projectionMatrix);
-		//_shader->Disable();
+		_shader->Disable();
 
 	}
 
@@ -71,7 +71,7 @@ namespace PrimeEngine { namespace Graphics {
 		_viewMatrix = GetTransform().GetModelMatrix().Inverse();
 		_shader->Enable();
 		_shader->SetUniform("view_matrix", _viewMatrix);
-		//_shader->Disable();
+		_shader->Disable();
 	}
 
 }}
