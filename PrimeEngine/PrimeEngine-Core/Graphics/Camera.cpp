@@ -6,8 +6,11 @@ namespace PrimeEngine { namespace Graphics {
 	Camera::Camera(Shader* shader, const Math::Matrix4x4& projectionMatrix) :
 		_shader(shader), _projectionMatrix(projectionMatrix)
 	{
+		//TODO move to set uniform
 		_shader->Enable();
 		_shader->SetUniform("pr_matrix", _projectionMatrix);
+		//_shader->Disable();
+
 	}
 
 	Camera::~Camera()
@@ -66,7 +69,9 @@ namespace PrimeEngine { namespace Graphics {
 	void Camera::Render()
 	{
 		_viewMatrix = GetTransform().GetModelMatrix().Inverse();
+		_shader->Enable();
 		_shader->SetUniform("view_matrix", _viewMatrix);
+		//_shader->Disable();
 	}
 
 }}

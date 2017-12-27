@@ -9,16 +9,16 @@ namespace PrimeEngine { namespace Graphics {
 	{
 		_indexCount = 0;
 		_textureSlots = new std::vector<GLuint>;
-		_vbo = new VertexBuffer<VertexData>(NULL, RENDERER_BUFFER_SIZE, GL_DYNAMIC_DRAW);
+		_vbo = new VertexBuffer(NULL, RENDERER_BUFFER_SIZE, GL_DYNAMIC_DRAW);
 		_vbo->Bind();
 
 		_vao = new VertexArray();
 		_vao->Bind();
 
-		_vao->AddAttribute<VertexData>(SHADER_POSITION_INDEX, 3, GL_FLOAT, false, (const GLvoid*)(offsetof(VertexData, VertexData::position)));
-		_vao->AddAttribute<VertexData>(SHADER_COLOR_INDEX, 4, GL_UNSIGNED_BYTE, true, (const GLvoid*)(offsetof(VertexData, VertexData::color32)));
-		_vao->AddAttribute<VertexData>(SHADER_TEXTURE_CORD_INDEX, 2, GL_FLOAT, false, (const GLvoid*)(offsetof(VertexData, VertexData::textureCord)));
-		_vao->AddAttribute<VertexData>(SHADER_TEXTURE_INDEX, 1, GL_FLOAT, false, (const GLvoid*)(offsetof(VertexData, VertexData::texture)));
+		_vao->AddAttribute(SHADER_POSITION_INDEX, 3, GL_FLOAT, false, sizeof(VertexData), (const GLvoid*)(offsetof(VertexData, VertexData::position)));
+		_vao->AddAttribute(SHADER_COLOR_INDEX, 4, GL_UNSIGNED_BYTE, true, sizeof(VertexData), (const GLvoid*)(offsetof(VertexData, VertexData::color32)));
+		_vao->AddAttribute(SHADER_TEXTURE_CORD_INDEX, 2, GL_FLOAT, false, sizeof(VertexData), (const GLvoid*)(offsetof(VertexData, VertexData::textureCord)));
+		_vao->AddAttribute(SHADER_TEXTURE_INDEX, 1, GL_FLOAT, false, sizeof(VertexData), (const GLvoid*)(offsetof(VertexData, VertexData::texture)));
 
 		_vbo->Unbind();
 		_vao->Unbind();

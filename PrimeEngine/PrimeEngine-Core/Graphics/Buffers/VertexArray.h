@@ -2,10 +2,11 @@
 
 #include <GL\glew.h>
 #include "VertexBuffer.h"
+#include <DllExport.h>
 
 namespace PrimeEngine { namespace Graphics {
 
-	class VertexArray
+	class PRIMEENGINEAPI VertexArray
 	{
 	private:
 		GLuint _Id;
@@ -14,11 +15,10 @@ namespace PrimeEngine { namespace Graphics {
 		VertexArray();
 		~VertexArray();
 
-		template<typename T>
-		void AddAttribute(GLuint index, GLint componentCount, GLenum type, bool isNormalized, const GLvoid* offset)
+		void AddAttribute(GLuint index, GLint componentCount, GLenum type, bool isNormalized, GLsizei size,  const GLvoid* offset)
 		{
 			glEnableVertexAttribArray(index);
-			glVertexAttribPointer(index, componentCount, type, isNormalized, sizeof(T), offset);
+			glVertexAttribPointer(index, componentCount, type, isNormalized, size, offset);
 		}
 
 		void Bind() const;

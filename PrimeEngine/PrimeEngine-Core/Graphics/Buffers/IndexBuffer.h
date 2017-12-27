@@ -1,10 +1,11 @@
 #pragma once
 
 #include <GL\glew.h>
+#include <DllExport.h>
 
 namespace PrimeEngine { namespace Graphics {
 
-	class IndexBuffer
+	class PRIMEENGINEAPI IndexBuffer
 	{
 	private:
 		GLuint _Id;

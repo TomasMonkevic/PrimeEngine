@@ -7,6 +7,10 @@ namespace PrimeEngine { namespace Graphics {
 	#include "Source\Default.pesl"
 	;
 
+	const char* Shader::phong =
+	#include "Source\Phong.pesl"
+	;
+
 	Shader::Shader(const char* shaderFile, bool isSource)
 	{
 		_uniformLocation = new std::map<const GLchar*, GLint>;

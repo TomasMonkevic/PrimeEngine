@@ -106,5 +106,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Graphics\Shader\Source\Default.pesl" />
+    <None Include="Graphics\Shader\Source\Phong.pesl" />
   </ItemGroup>
 </Project>

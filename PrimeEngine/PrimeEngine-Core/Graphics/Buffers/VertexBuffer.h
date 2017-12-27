@@ -1,21 +1,21 @@
 #pragma once
 
 #include <GL\glew.h>
+#include <DllExport.h>
 
 namespace PrimeEngine { namespace Graphics {
 
-	template<typename T>
-	class VertexBuffer
+	class PRIMEENGINEAPI VertexBuffer
 	{
 	private:
 		GLuint _index;
 
 	public:
-		VertexBuffer(const T* data, GLsizei count, GLenum usage)
+		VertexBuffer(const void* data, GLsizei size, GLenum usage)
 		{
 			glGenBuffers(1, &_index);
 			Bind();
-			glBufferData(GL_ARRAY_BUFFER, count * sizeof(T), data, usage);
+			glBufferData(GL_ARRAY_BUFFER, size, data, usage);
 			Unbind();
 		}
 
@@ -32,11 +32,6 @@ namespace PrimeEngine { namespace Graphics {
 		void Unbind() const
 		{
 			glBindBuffer(GL_ARRAY_BUFFER, 0);
-		}
-
-		inline GLuint GetComponentCount() const
-		{
-			return _componentCount;
 		}
 	};
 

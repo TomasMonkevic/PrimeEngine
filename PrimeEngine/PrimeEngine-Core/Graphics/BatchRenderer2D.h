@@ -36,7 +36,7 @@ namespace PrimeEngine { namespace Graphics {
 		VertexData* _buffer;
 		IndexBuffer* _ibo;
 		VertexArray* _vao;
-		VertexBuffer<VertexData>* _vbo;
+		VertexBuffer* _vbo;
 		GLsizei _indexCount;
 		std::vector<GLuint>* _textureSlots;
 		//ftgl::texture_atlas_t* _atlas;

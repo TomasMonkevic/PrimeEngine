@@ -117,6 +117,9 @@ namespace PrimeEngine
 			glEnable(GL_BLEND);
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+			//TODO flappy bird isn't rendered in the right order when depth test is enabled
+			//glEnable(GL_DEPTH_TEST);
+
 			//glEnable(GL_MULTISAMPLE);
 
 			PRIME_INFO(glGetString(GL_VERSION), "\n");
@@ -136,6 +139,7 @@ namespace PrimeEngine
 			if (error != GL_NO_ERROR)
 			{
 				PrimeException windowNotInit("GLEW error occured", (int)error);
+				PRIME_INFO(glewGetErrorString(error),'\n');
 				throw windowNotInit;
 			}
 #endif // DEBUG
@@ -146,7 +150,7 @@ namespace PrimeEngine
 		void Window::Clear() const
 		{
 			glClearColor(_color[0], _color[1], _color[2], _color[3]);
-			glClear(GL_COLOR_BUFFER_BIT);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		}
 	}
 }

@@ -59,6 +59,7 @@ namespace PrimeEngine { namespace Graphics {
 
 	void Layer::Render()
 	{
+		camera->Render();
 		camera->_shader->Enable();
 		_renderer->Begin();
 		for (const Object* renderable : *_renderables)
@@ -66,7 +67,8 @@ namespace PrimeEngine { namespace Graphics {
 			renderable->Submit(_renderer);
 		}
 		_renderer->End();
-		camera->Render();
 		_renderer->Flush();
+		//TODO shady stuff here
+		//camera->_shader->Disable();
 	}
 }}

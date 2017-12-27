@@ -20,6 +20,7 @@ namespace PrimeEngine { namespace Graphics {
 		std::map<const GLchar*, GLint>* _uniformLocation;
 	public:
 		static const char* default;
+		static const char* phong;
 	private:
 		GLuint LoadShader(char* vertexSource, char* fragmentSource);
 		GLint GetLocation(const GLchar* name);
