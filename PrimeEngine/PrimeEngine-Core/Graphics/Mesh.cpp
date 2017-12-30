@@ -5,14 +5,14 @@ namespace PrimeEngine { namespace Graphics {
 	Mesh* Mesh::Cube()
 	{
 		static TempVertexData vertecies[] = {
-			{ Vector3(-0.500000, -0.500000,  0.500000), 0xff0000ff },
-			{ Vector3(0.500000, -0.500000,  0.500000), 0xff0000ff },
-			{ Vector3(-0.500000,  0.500000,  0.500000), 0xff0000ff },
-			{ Vector3(0.500000,  0.500000,  0.500000), 0xff0000ff },
-			{ Vector3(-0.500000,  0.500000, -0.500000), 0xffffffff },
-			{ Vector3(0.500000,  0.500000, -0.500000), 0xffffffff },
-			{ Vector3(-0.500000, -0.500000, -0.500000), 0xffffffff },
-			{ Vector3(0.500000, -0.500000, -0.500000), 0xffffffff }
+			{ Vector3(-0.500000, -0.500000,  0.500000),	0xff0000ff },
+			{ Vector3(0.500000, -0.500000,  0.500000),	0xff0000ff },
+			{ Vector3(-0.500000,  0.500000,  0.500000),	0xff0000ff },
+			{ Vector3(0.500000,  0.500000,  0.500000),	0xff0000ff },
+			{ Vector3(-0.500000,  0.500000, -0.500000),	0xff0000ff },
+			{ Vector3(0.500000,  0.500000, -0.500000),	0xff0000ff },
+			{ Vector3(-0.500000, -0.500000, -0.500000),	0xff0000ff },
+			{ Vector3(0.500000, -0.500000, -0.500000),	0xff0000ff }
 		};
 		static GLushort indecies[] = {
 			0, 1, 2,

@@ -32,5 +32,7 @@ namespace PrimeEngine { namespace Graphics {
 
 		void Bind();
 		void Unbind();
+
+		unsigned GetIndexCount() const { return _ibo->GetCount(); }
 	};
 }}

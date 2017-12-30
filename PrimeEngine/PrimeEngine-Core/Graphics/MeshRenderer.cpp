@@ -11,19 +11,24 @@ namespace PrimeEngine { namespace Graphics {
 	MeshRenderer::~MeshRenderer()
 	{
 		delete _mesh;
-		//TODO maybe don't delete material?
-		delete _material;
 	}
 
 	void MeshRenderer::Draw(const Camera& camera)
 	{
 		_material->Enable();
+
+		//TODO move this to material class
+		_material->SetUniform("light.position", Vector3(5.0f, 5.0f, 2.0f));
+		_material->SetUniform("light.color", Vector4::one());
+		_material->SetUniform("light.intensity", 0.1f);
+		//-----------------------
+
 		_material->SetUniform("pr_matrix", camera.GetProjectionMatrix());
 		_material->SetUniform("view_matrix", camera.GetViewMatrix());
 		_material->SetUniform("model_matrix", GetGameObject()->GetTransform().GetModelMatrix());
 
 		_mesh->Bind();
-		glDrawElements(GL_TRIANGLES, 6 * 6, GL_UNSIGNED_SHORT, NULL);
+		glDrawElements(GL_TRIANGLES, _mesh->GetIndexCount(), GL_UNSIGNED_SHORT, NULL);
 		_mesh->Unbind();
 
 		_material->Disable();

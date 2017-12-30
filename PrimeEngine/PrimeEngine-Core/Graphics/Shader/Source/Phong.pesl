@@ -28,6 +28,13 @@ void main()
 
 $fragment
 
+struct Light
+{
+	vec3 position;
+	vec4 color;
+	float intensity;
+};
+
 in data
 {
 	vec4 color;
@@ -38,9 +45,13 @@ in data
 layout (location = 0) out vec4 color;
 
 //uniform sampler2D textures[32];
+uniform Light light;
 
 void main()
 {
-	color = dataIn.color;
+	vec4 ambient = (light.intensity * light.color) * dataIn.color;
+	ambient.w = 1.0f;
+
+	color = ambient;
 }
 /$ )"

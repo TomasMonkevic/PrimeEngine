@@ -17,15 +17,15 @@ class TestGame : public PrimeEngineBase
 private:
 	GameLayer* gameLayer;
 	Camera* mainCamera;
-	GameObject *player;
-	Mesh* cube;
+	GameObject *player, *cube2, *light;
 
 public:
 	~TestGame() 
 	{
 		delete gameLayer;
 		delete player;
-		delete cube;
+		delete cube2;
+		delete light;
 	}
 	void Awake() override;
 	void Update() override;
