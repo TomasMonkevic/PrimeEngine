@@ -21,7 +21,7 @@ void main()
 {
 	gl_Position = pr_matrix * view_matrix * model_matrix * position;
 	dataOut.color = color;
-	dataOut.normal = (model_matrix * vec4(normal, 0.0f)).xyz;
+	dataOut.normal = mat3(transpose(inverse(model_matrix))) * normal;
 	dataOut.position = vec3(model_matrix * position).xyz;
 }/$
 
