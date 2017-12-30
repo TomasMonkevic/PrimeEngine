@@ -15,6 +15,7 @@ namespace PrimeEngine { namespace Graphics {
 	{
 		Vector3 position;
 		unsigned color32;
+		Vector3 normal;
 	};
 
 	class PRIMEENGINEAPI Mesh

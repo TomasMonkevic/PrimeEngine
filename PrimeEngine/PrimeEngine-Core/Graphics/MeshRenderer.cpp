@@ -20,7 +20,7 @@ namespace PrimeEngine { namespace Graphics {
 		//TODO move this to material class
 		_material->SetUniform("light.position", Vector3(5.0f, 5.0f, 2.0f));
 		_material->SetUniform("light.color", Vector4::one());
-		_material->SetUniform("light.intensity", 0.1f);
+		_material->SetUniform("light.intensity", 0.3f);
 		//-----------------------
 
 		_material->SetUniform("pr_matrix", camera.GetProjectionMatrix());
