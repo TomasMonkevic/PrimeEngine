@@ -32,6 +32,10 @@ namespace PrimeEngine { namespace Graphics {
 
 		void LookAt(const Math::Vector3& target);
 		void Render();
+
+		const Math::Matrix4x4& GetProjectionMatrix() const { return _projectionMatrix; }
+		const Math::Matrix4x4& GetViewMatrix() const { return _viewMatrix; }
+
 	};
 
 }}

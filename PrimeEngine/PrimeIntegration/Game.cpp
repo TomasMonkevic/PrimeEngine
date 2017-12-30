@@ -25,15 +25,17 @@ void TestGame::Awake()
 
 	//gameLayer = new GameLayer(mainCamera);
 
-	//player = new GameObject();
+	player = new GameObject();
 	//player->AddComponent(new Sprite (Vector2(17, 12) / 5, "Resources\\Textures\\bird1.png"));
+	player->AddComponent(new MeshRenderer(Mesh::Cube(), ShaderManagerI.CreateShader("cubeShader", Shader::phong)));
 	//gameLayer->Submit(player);
-	cube = Mesh::Cube();
+	//cube = Mesh::Cube();
 }
 
 void TestGame::Update()
 {
 	//TODO could be called automaticaly when scene is implemented
+	player->GetTransform().Rotate(Quaternion::Rotation(GetDeltaTime() * 3.0f, Vector3::up()));
 	mainCamera->GetComponent<FpsCamera>()->Update(GetDeltaTime());
 	if (InputPC::GetKeyDown(256)) //esc
 	{
@@ -48,16 +50,7 @@ void TestGame::Tick()
 
 void TestGame::Render()
 {
-	//mainCamera->Render();
-	//gameLayer->Render();
-
 	mainCamera->Render();
-	mainCamera->_shader->Enable();
-
-	cube->Bind();
-	glDrawElements(GL_TRIANGLES, 6 * 6, GL_UNSIGNED_SHORT, NULL);
-	cube->Unbind();
-
-	mainCamera->_shader->Disable();
-
+	//gameLayer->Render();
+	player->GetComponent<MeshRenderer>()->Draw(*mainCamera);
 }

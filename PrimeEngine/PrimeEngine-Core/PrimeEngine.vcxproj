@@ -38,6 +38,7 @@
     <ClInclude Include="Graphics\Layers\Layer.h" />
     <ClInclude Include="Graphics\Layers\UILayer.h" />
     <ClInclude Include="Graphics\Mesh.h" />
+    <ClInclude Include="Graphics\MeshRenderer.h" />
     <ClInclude Include="Graphics\Renderable.h" />
     <ClInclude Include="Graphics\Renderer2D.h" />
     <ClInclude Include="Graphics\Shader\Shader.h" />
@@ -88,6 +89,7 @@
     </ClCompile>
     <ClCompile Include="Graphics\Layers\UILayer.cpp" />
     <ClCompile Include="Graphics\Mesh.cpp" />
+    <ClCompile Include="Graphics\MeshRenderer.cpp" />
     <ClCompile Include="Graphics\Shader\Shader.cpp" />
     <ClCompile Include="Graphics\Shader\ShaderManager.cpp" />
     <ClCompile Include="Graphics\Sprite.cpp" />
