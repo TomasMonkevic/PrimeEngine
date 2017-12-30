@@ -63,6 +63,7 @@
     <ClInclude Include="Math\Quaternion.h" />
     <ClInclude Include="Components\Behaviour.h" />
     <ClInclude Include="Components\Behaviours\FpsCamera.h" />
+    <ClInclude Include="Graphics\Mesh.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Input.cpp">
@@ -103,6 +104,7 @@
     <ClCompile Include="Math\Quaternion.cpp" />
     <ClCompile Include="Components\Behaviour.cpp" />
     <ClCompile Include="Components\Behaviours\FpsCamera.cpp" />
+    <ClCompile Include="Graphics\Mesh.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Graphics\Shader\Source\Default.pesl" />

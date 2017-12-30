@@ -18,6 +18,7 @@
 #include <Graphics\Color.h>
 #include <Graphics\Camera.h>
 #include <Graphics\BatchRenderer2D.h>
+#include <Graphics\Mesh.h>
 #include <GameObject.h>
 #include <Input.h>
 #include <PrimeEngineBase.h>
