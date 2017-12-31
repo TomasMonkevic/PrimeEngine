@@ -2,42 +2,40 @@
 
 namespace PrimeEngine { namespace Graphics {
 
-	Mesh* Mesh::Cube()
+	Mesh* Mesh::Cube(const Color& color, float width, float height, float depth)
 	{
-		static TempVertexData vertecies[] = {
-			{ Vector3(-0.500000, -0.500000,  0.500000),	0xff0000ff, Vector3::down() },
-			{ Vector3(-0.500000, -0.500000,  0.500000),	0xff0000ff, Vector3::left() },
-			{ Vector3(-0.500000, -0.500000,  0.500000),	0xff0000ff, Vector3::forward() },
-
-			{ Vector3(0.500000, -0.500000,  0.500000),	0xff0000ff, Vector3::down() },
-			{ Vector3(0.500000, -0.500000,  0.500000),	0xff0000ff, Vector3::right() },
-			{ Vector3(0.500000, -0.500000,  0.500000),	0xff0000ff, Vector3::forward() },
-
-			{ Vector3(-0.500000,  0.500000,  0.500000),	0xff0000ff, Vector3::up() },
-			{ Vector3(-0.500000,  0.500000,  0.500000),	0xff0000ff, Vector3::left() },
-			{ Vector3(-0.500000,  0.500000,  0.500000),	0xff0000ff, Vector3::forward() },
-
-			{ Vector3(0.500000,  0.500000,  0.500000),	0xff0000ff, Vector3::up() },
-			{ Vector3(0.500000,  0.500000,  0.500000),	0xff0000ff, Vector3::right() },
-			{ Vector3(0.500000,  0.500000,  0.500000),	0xff0000ff, Vector3::forward() },
-
-			{ Vector3(-0.500000,  0.500000, -0.500000),	0xff0000ff, Vector3::up() },
-			{ Vector3(-0.500000,  0.500000, -0.500000),	0xff0000ff, Vector3::left() },
-			{ Vector3(-0.500000,  0.500000, -0.500000),	0xff0000ff, Vector3::back() },
-
-			{ Vector3(0.500000,  0.500000, -0.500000),	0xff0000ff, Vector3::up() },
-			{ Vector3(0.500000,  0.500000, -0.500000),	0xff0000ff, Vector3::right() },
-			{ Vector3(0.500000,  0.500000, -0.500000),	0xff0000ff, Vector3::back() },
-
-			{ Vector3(-0.500000, -0.500000, -0.500000),	0xff0000ff, Vector3::down() },
-			{ Vector3(-0.500000, -0.500000, -0.500000),	0xff0000ff, Vector3::left() },
-			{ Vector3(-0.500000, -0.500000, -0.500000),	0xff0000ff, Vector3::back() },
-
-			{ Vector3(0.500000, -0.500000, -0.500000),	0xff0000ff, Vector3::down() },
-			{ Vector3(0.500000, -0.500000, -0.500000),	0xff0000ff, Vector3::right() },
-			{ Vector3(0.500000, -0.500000, -0.500000),	0xff0000ff, Vector3::back() }
-
+		TempVertexData vertecies[] = {
+			{ Vector3(-0.500000, -0.500000,  0.500000),	color.ToColor32(), Vector3::down() },
+			{ Vector3(-0.500000, -0.500000,  0.500000),	color.ToColor32(), Vector3::left() },
+			{ Vector3(-0.500000, -0.500000,  0.500000),	color.ToColor32(), Vector3::forward() },
+			{ Vector3(0.500000, -0.500000,  0.500000),	color.ToColor32(), Vector3::down() },
+			{ Vector3(0.500000, -0.500000,  0.500000),	color.ToColor32(), Vector3::right() },
+			{ Vector3(0.500000, -0.500000,  0.500000),	color.ToColor32(), Vector3::forward() },
+			{ Vector3(-0.500000,  0.500000,  0.500000),	color.ToColor32(), Vector3::up() },
+			{ Vector3(-0.500000,  0.500000,  0.500000),	color.ToColor32(), Vector3::left() },
+			{ Vector3(-0.500000,  0.500000,  0.500000),	color.ToColor32(), Vector3::forward() },
+			{ Vector3(0.500000,  0.500000,  0.500000),	color.ToColor32(), Vector3::up() },
+			{ Vector3(0.500000,  0.500000,  0.500000),	color.ToColor32(), Vector3::right() },
+			{ Vector3(0.500000,  0.500000,  0.500000),	color.ToColor32(), Vector3::forward() },
+			{ Vector3(-0.500000,  0.500000, -0.500000),	color.ToColor32(), Vector3::up() },
+			{ Vector3(-0.500000,  0.500000, -0.500000),	color.ToColor32(), Vector3::left() },
+			{ Vector3(-0.500000,  0.500000, -0.500000),	color.ToColor32(), Vector3::back() },
+			{ Vector3(0.500000,  0.500000, -0.500000),	color.ToColor32(), Vector3::up() },
+			{ Vector3(0.500000,  0.500000, -0.500000),	color.ToColor32(), Vector3::right() },
+			{ Vector3(0.500000,  0.500000, -0.500000),	color.ToColor32(), Vector3::back() },
+			{ Vector3(-0.500000, -0.500000, -0.500000),	color.ToColor32(), Vector3::down() },
+			{ Vector3(-0.500000, -0.500000, -0.500000),	color.ToColor32(), Vector3::left() },
+			{ Vector3(-0.500000, -0.500000, -0.500000),	color.ToColor32(), Vector3::back() },
+			{ Vector3(0.500000, -0.500000, -0.500000),	color.ToColor32(), Vector3::down() },
+			{ Vector3(0.500000, -0.500000, -0.500000),	color.ToColor32(), Vector3::right() },
+			{ Vector3(0.500000, -0.500000, -0.500000),	color.ToColor32(), Vector3::back() }
 		};
+		for (auto& vertex : vertecies)
+		{
+			vertex.position.x *= width;
+			vertex.position.y *= height;
+			vertex.position.z *= depth;
+		}
 		static GLushort indecies[] = {
 			0 * 3 + 2, 1 * 3 + 2, 2 * 3 + 2,
 			2 * 3 + 2, 1 * 3 + 2, 3 * 3 + 2,

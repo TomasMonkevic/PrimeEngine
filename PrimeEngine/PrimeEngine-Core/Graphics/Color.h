@@ -15,7 +15,7 @@ namespace PrimeEngine { namespace Graphics {
 	public:
 		explicit Color(float r, float g, float b, float a = 1.0f);
 		explicit Color(int r, int g, int b, int a = 255);
-		explicit Color(const char* hexColor);
+		explicit Color(unsigned int hex);
 
 		const unsigned ToColor32() const;
 		inline const float& operator[](unsigned index) const

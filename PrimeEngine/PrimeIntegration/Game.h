@@ -17,7 +17,7 @@ class TestGame : public PrimeEngineBase
 private:
 	GameLayer* gameLayer;
 	Camera* mainCamera;
-	GameObject *player, *cube2, *light;
+	GameObject *player, *cube2, *light, *ground;
 
 public:
 	~TestGame() 
@@ -26,6 +26,7 @@ public:
 		delete player;
 		delete cube2;
 		delete light;
+		delete ground;
 	}
 	void Awake() override;
 	void Update() override;

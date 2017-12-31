@@ -57,6 +57,8 @@ void main()
 	vec4 diffuse = max(dot(norm, lightDir), 0.0f) * light.color;
 	diffuse.w = 1.0f;
 
+	//Specular light
+
 	color = (ambient + diffuse) * dataIn.color;
 	//color = vec4(abs(dataIn.normal.x), abs(dataIn.normal.y), abs(dataIn.normal.z), 1.0f);
 }

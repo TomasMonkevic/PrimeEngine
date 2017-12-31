@@ -20,9 +20,19 @@ namespace PrimeEngine { namespace Graphics {
 		_a = float(a / 255.0f);
 	}
 
-	Color::Color(const char* hexColor)
+	Color::Color(unsigned int hex)
 	{
-
+		unsigned r = hex & 0xFF;
+		hex >>= 8;
+		unsigned g = hex & 0xFF;
+		hex >>= 8;
+		unsigned b = hex & 0xFF;
+		hex >>= 8;
+		unsigned a = hex & 0xFF;
+		_r = float(r / 255.0f);
+		_g = float(g / 255.0f);
+		_b = float(b / 255.0f);
+		_a = float(a / 255.0f);
 	}
 
 	const unsigned Color::ToColor32() const

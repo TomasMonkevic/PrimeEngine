@@ -5,6 +5,7 @@
 #include "Buffers\VertexBuffer.h"
 #include "Buffers\VertexArray.h"
 #include "../Math/Math.h"
+#include "Color.h"
 
 
 namespace PrimeEngine { namespace Graphics {
@@ -26,7 +27,8 @@ namespace PrimeEngine { namespace Graphics {
 		VertexArray* _vao;
 
 	public:
-		static Mesh* Cube();
+		//TODO shoul color be here?
+		static Mesh* Cube(const Color& color = Color::white, float width = 1.0f, float height = 1.0f, float depth = 1.0f);
 
 		Mesh(const void* vertecies, unsigned size, const GLushort* indecies, unsigned indeciesCount);
 		~Mesh();
