@@ -2,7 +2,7 @@ R"( $version 330 core/$
 
 $vertex
 
-layout (location = 0) in vec4 position;
+layout (location = 0) in vec3 position;
 layout (location = 1) in vec4 color;
 layout (location = 2) in vec3 normal;
 
@@ -19,10 +19,10 @@ out data
 
 void main()
 {
-	gl_Position = pr_matrix * view_matrix * model_matrix * position;
+	gl_Position = pr_matrix * view_matrix * model_matrix * vec4(position, 1.0f);
 	dataOut.color = color;
 	dataOut.normal = mat3(transpose(inverse(model_matrix))) * normal;
-	dataOut.position = vec3(model_matrix * position).xyz;
+	dataOut.position = vec3(model_matrix * vec4(position, 1.0f)).xyz;
 }/$
 
 $fragment
@@ -44,6 +44,7 @@ in data
 layout (location = 0) out vec4 color;
 
 uniform Light light;
+uniform vec3 viewPosition; //TODO change to view direction
 
 void main()
 {
@@ -58,8 +59,13 @@ void main()
 	diffuse.w = 1.0f;
 
 	//Specular light
+	vec3 viewDir = normalize(viewPosition - dataIn.position);
+	vec3 lightReflection = normalize(reflect(-lightDir, norm));
+	float spec = pow(max(dot(lightReflection, viewDir), 0.0f), 64);
+	vec4 specular = spec * 0.2 * light.color;
+	specular.w = 1.0f;
 
-	color = (ambient + diffuse) * dataIn.color;
+	color = (ambient + diffuse + specular) * dataIn.color;
 	//color = vec4(abs(dataIn.normal.x), abs(dataIn.normal.y), abs(dataIn.normal.z), 1.0f);
 }
 /$ )"
