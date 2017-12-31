@@ -49,20 +49,20 @@ uniform vec3 viewPosition; //TODO change to view direction
 void main()
 {
 	//Ambient light
-	vec4 ambient = (light.intensity * light.color);
+	vec4 ambient = (light.intensity * mix(light.color,vec4(1.0f), 0.9f));
 	ambient.w = 1.0f;
 
 	//Diffuse light
 	vec3 norm = normalize(dataIn.normal);
 	vec3 lightDir = normalize(light.position - dataIn.position);
-	vec4 diffuse = max(dot(norm, lightDir), 0.0f) * light.color;
+	vec4 diffuse = max(dot(norm, lightDir), 0.0f) * mix(light.color,vec4(1.0f), 0.9f);
 	diffuse.w = 1.0f;
 
 	//Specular light
 	vec3 viewDir = normalize(viewPosition - dataIn.position);
 	vec3 lightReflection = normalize(reflect(-lightDir, norm));
 	float spec = pow(max(dot(lightReflection, viewDir), 0.0f), 64);
-	vec4 specular = spec * 0.2 * light.color;
+	vec4 specular = spec * 0.2 * mix(light.color,vec4(1.0f), 0.5f);
 	specular.w = 1.0f;
 
 	color = (ambient + diffuse + specular) * dataIn.color;
