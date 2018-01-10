@@ -24,25 +24,28 @@ void TestGame::Awake()
 	mainCamera->GetTransform().Position = cameraPosition;
 	mainCamera->AddComponent(new FpsCamera());
 
-	//gameLayer = new GameLayer(mainCamera);
-
 	player = new GameObject();
 	//player->AddComponent(new Sprite (Vector2(17, 12) / 5, "Resources\\Textures\\bird1.png"));
 	player->AddComponent(new MeshRenderer(Mesh::Cube(Color::white), ShaderManagerI.CreateShader("cubeShader", Shader::phong)));
 
-	cube2 = new GameObject();
+	GameObject* cube2 = new GameObject();
 	//TODO test what happens when copyed?
 	//TODO reuse same geometry/mesh
 	cube2->AddComponent(new MeshRenderer(Mesh::Cube(Color(1.0f, 0.8f, 0.0f)), ShaderManagerI.GetShader("cubeShader")));
 	cube2->GetTransform().Position.x = 5.0f;
-	//gameLayer->Submit(player);
-	//cube = Mesh::Cube();
 
-	ground = new GameObject(Vector3(0.0f, -1.0f, 0.0f));
+	GameObject* ground = new GameObject(Vector3(0.0f, -1.0f, 0.0f));
 	ground->AddComponent(new MeshRenderer(Mesh::Cube(Color::white, 100.0f, 0.1f, 100.0f), ShaderManagerI.GetShader("cubeShader")));
 
-	light = new GameObject(Vector3(5.0f, 5.0f, 2.0f));
-	light->AddComponent(new MeshRenderer(Mesh::Cube(Color::white, 0.1f, 0.1f, 0.1f), ShaderManagerI.CreateShader("lightShader", Shader::phong)));
+	GameObject* light = new GameObject(Vector3(5.0f, 5.0f, 2.0f));
+	light->AddComponent(new MeshRenderer(Mesh::Cube(Color::white, 0.1f, 0.1f, 0.1f), ShaderManagerI.CreateShader("lightShader", Shader::glow)));
+
+	mainScene = new Scene(mainCamera);
+	mainScene->Add(player);
+	mainScene->Add(cube2);
+	mainScene->Add(ground);
+	mainScene->Add(light);
+
 }
 
 void TestGame::Update()
@@ -64,9 +67,5 @@ void TestGame::Tick()
 void TestGame::Render()
 {
 	mainCamera->Render();
-	//gameLayer->Render();
-	player->GetComponent<MeshRenderer>()->Draw(*mainCamera);
-	cube2->GetComponent<MeshRenderer>()->Draw(*mainCamera);
-	light->GetComponent<MeshRenderer>()->Draw(*mainCamera);
-	ground->GetComponent<MeshRenderer>()->Draw(*mainCamera);
+	mainScene->Render();
 }

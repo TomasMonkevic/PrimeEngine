@@ -43,3 +43,4 @@
 #include <UI\UIObject.h>
 #include <Utilities\Log.h>
 #include <Utilities\Time.h>
+#include <Scene.h>

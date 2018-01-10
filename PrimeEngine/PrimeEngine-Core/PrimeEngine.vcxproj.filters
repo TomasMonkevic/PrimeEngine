@@ -65,6 +65,7 @@
     <ClInclude Include="Components\Behaviours\FpsCamera.h" />
     <ClInclude Include="Graphics\Mesh.h" />
     <ClInclude Include="Graphics\MeshRenderer.h" />
+    <ClInclude Include="Scene.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Input.cpp">
@@ -107,9 +108,11 @@
     <ClCompile Include="Components\Behaviours\FpsCamera.cpp" />
     <ClCompile Include="Graphics\Mesh.cpp" />
     <ClCompile Include="Graphics\MeshRenderer.cpp" />
+    <ClCompile Include="Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Graphics\Shader\Source\Default.pesl" />
     <None Include="Graphics\Shader\Source\Phong.pesl" />
+    <None Include="Graphics\Shader\Source\Glow.pesl" />
   </ItemGroup>
 </Project>

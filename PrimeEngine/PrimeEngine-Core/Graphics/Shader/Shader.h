@@ -21,6 +21,7 @@ namespace PrimeEngine { namespace Graphics {
 	public:
 		static const char* default;
 		static const char* phong;
+		static const char* glow;
 	private:
 		GLuint LoadShader(char* vertexSource, char* fragmentSource);
 		GLint GetLocation(const GLchar* name);

@@ -48,6 +48,7 @@
     <ClInclude Include="Graphics\Texture.h" />
     <ClInclude Include="Math\Quaternion.h" />
     <ClInclude Include="PrimeEngine.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="UI\Text.h" />
     <ClInclude Include="UI\UIObject.h" />
     <ClInclude Include="Input.h" />
@@ -105,11 +106,13 @@
     <ClCompile Include="Networking\TCPSever.cpp" />
     <ClCompile Include="PrimeEngineBase.cpp" />
     <ClCompile Include="PrimeException.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="UI\Text.cpp" />
     <ClCompile Include="Utilities\Time.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Graphics\Shader\Source\Default.pesl" />
+    <None Include="Graphics\Shader\Source\Glow.pesl" />
     <None Include="Graphics\Shader\Source\Phong.pesl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

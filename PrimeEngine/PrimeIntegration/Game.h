@@ -15,18 +15,14 @@ using std::endl;
 class TestGame : public PrimeEngineBase
 {
 private:
-	GameLayer* gameLayer;
+	Scene* mainScene;
 	Camera* mainCamera;
-	GameObject *player, *cube2, *light, *ground;
+	GameObject* player;
 
 public:
 	~TestGame() 
 	{
-		delete gameLayer;
-		delete player;
-		delete cube2;
-		delete light;
-		delete ground;
+		delete mainScene;
 	}
 	void Awake() override;
 	void Update() override;
