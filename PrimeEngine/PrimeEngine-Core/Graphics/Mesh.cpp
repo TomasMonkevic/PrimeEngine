@@ -4,31 +4,32 @@ namespace PrimeEngine { namespace Graphics {
 
 	Mesh* Mesh::Cube(const Color& color, float width, float height, float depth)
 	{
+		//TODO not sure if the uv's are quit correct
 		TempVertexData vertecies[] = {
-			{ Vector3(-0.500000, -0.500000,  0.500000),	color.ToColor32(), Vector3::down() },
-			{ Vector3(-0.500000, -0.500000,  0.500000),	color.ToColor32(), Vector3::left() },
-			{ Vector3(-0.500000, -0.500000,  0.500000),	color.ToColor32(), Vector3::forward() },
-			{ Vector3(0.500000, -0.500000,  0.500000),	color.ToColor32(), Vector3::down() },
-			{ Vector3(0.500000, -0.500000,  0.500000),	color.ToColor32(), Vector3::right() },
-			{ Vector3(0.500000, -0.500000,  0.500000),	color.ToColor32(), Vector3::forward() },
-			{ Vector3(-0.500000,  0.500000,  0.500000),	color.ToColor32(), Vector3::up() },
-			{ Vector3(-0.500000,  0.500000,  0.500000),	color.ToColor32(), Vector3::left() },
-			{ Vector3(-0.500000,  0.500000,  0.500000),	color.ToColor32(), Vector3::forward() },
-			{ Vector3(0.500000,  0.500000,  0.500000),	color.ToColor32(), Vector3::up() },
-			{ Vector3(0.500000,  0.500000,  0.500000),	color.ToColor32(), Vector3::right() },
-			{ Vector3(0.500000,  0.500000,  0.500000),	color.ToColor32(), Vector3::forward() },
-			{ Vector3(-0.500000,  0.500000, -0.500000),	color.ToColor32(), Vector3::up() },
-			{ Vector3(-0.500000,  0.500000, -0.500000),	color.ToColor32(), Vector3::left() },
-			{ Vector3(-0.500000,  0.500000, -0.500000),	color.ToColor32(), Vector3::back() },
-			{ Vector3(0.500000,  0.500000, -0.500000),	color.ToColor32(), Vector3::up() },
-			{ Vector3(0.500000,  0.500000, -0.500000),	color.ToColor32(), Vector3::right() },
-			{ Vector3(0.500000,  0.500000, -0.500000),	color.ToColor32(), Vector3::back() },
-			{ Vector3(-0.500000, -0.500000, -0.500000),	color.ToColor32(), Vector3::down() },
-			{ Vector3(-0.500000, -0.500000, -0.500000),	color.ToColor32(), Vector3::left() },
-			{ Vector3(-0.500000, -0.500000, -0.500000),	color.ToColor32(), Vector3::back() },
-			{ Vector3(0.500000, -0.500000, -0.500000),	color.ToColor32(), Vector3::down() },
-			{ Vector3(0.500000, -0.500000, -0.500000),	color.ToColor32(), Vector3::right() },
-			{ Vector3(0.500000, -0.500000, -0.500000),	color.ToColor32(), Vector3::back() }
+			{ Vector3(-0.500000, -0.500000,  0.500000),	color.ToColor32(), Vector2(0.0f, 0.0f), Vector3::down() },
+			{ Vector3(-0.500000, -0.500000,  0.500000),	color.ToColor32(), Vector2(1.0f, 0.0f), Vector3::left() },
+			{ Vector3(-0.500000, -0.500000,  0.500000),	color.ToColor32(), Vector2(0.0f, 0.0f), Vector3::forward() },
+			{ Vector3(0.500000, -0.500000,  0.500000),	color.ToColor32(), Vector2(1.0f, 0.0f), Vector3::down() },
+			{ Vector3(0.500000, -0.500000,  0.500000),	color.ToColor32(), Vector2(0.0f, 0.0f), Vector3::right() },
+			{ Vector3(0.500000, -0.500000,  0.500000),	color.ToColor32(), Vector2(1.0f, 0.0f), Vector3::forward() },
+			{ Vector3(-0.500000,  0.500000,  0.500000),	color.ToColor32(), Vector2(0.0f, 0.0f), Vector3::up() },
+			{ Vector3(-0.500000,  0.500000,  0.500000),	color.ToColor32(), Vector2(1.0f, 1.0f), Vector3::left() },
+			{ Vector3(-0.500000,  0.500000,  0.500000),	color.ToColor32(), Vector2(0.0f, 1.0f), Vector3::forward() },
+			{ Vector3(0.500000,  0.500000,  0.500000),	color.ToColor32(), Vector2(1.0f, 0.0f), Vector3::up() },
+			{ Vector3(0.500000,  0.500000,  0.500000),	color.ToColor32(), Vector2(0.0f, 1.0f), Vector3::right() },
+			{ Vector3(0.500000,  0.500000,  0.500000),	color.ToColor32(), Vector2(1.0f, 1.0f), Vector3::forward() },
+			{ Vector3(-0.500000,  0.500000, -0.500000),	color.ToColor32(), Vector2(0.0f, 1.0f), Vector3::up() },
+			{ Vector3(-0.500000,  0.500000, -0.500000),	color.ToColor32(), Vector2(0.0f, 1.0f), Vector3::left() },
+			{ Vector3(-0.500000,  0.500000, -0.500000),	color.ToColor32(), Vector2(0.0f, 0.0f), Vector3::back() },
+			{ Vector3(0.500000,  0.500000, -0.500000),	color.ToColor32(), Vector2(1.0f, 1.0f), Vector3::up() },
+			{ Vector3(0.500000,  0.500000, -0.500000),	color.ToColor32(), Vector2(1.0f, 1.0f), Vector3::right() },
+			{ Vector3(0.500000,  0.500000, -0.500000),	color.ToColor32(), Vector2(1.0f, 0.0f), Vector3::back() },
+			{ Vector3(-0.500000, -0.500000, -0.500000),	color.ToColor32(), Vector2(0.0f, 1.0f), Vector3::down() },
+			{ Vector3(-0.500000, -0.500000, -0.500000),	color.ToColor32(), Vector2(0.0f, 0.0f), Vector3::left() },
+			{ Vector3(-0.500000, -0.500000, -0.500000),	color.ToColor32(), Vector2(0.0f, 1.0f), Vector3::back() },
+			{ Vector3(0.500000, -0.500000, -0.500000),	color.ToColor32(), Vector2(1.0f, 1.0f), Vector3::down() },
+			{ Vector3(0.500000, -0.500000, -0.500000),	color.ToColor32(), Vector2(1.0f, 0.0f), Vector3::right() },
+			{ Vector3(0.500000, -0.500000, -0.500000),	color.ToColor32(), Vector2(1.0f, 1.0f), Vector3::back() }
 		};
 		for (auto& vertex : vertecies)
 		{
@@ -71,6 +72,7 @@ namespace PrimeEngine { namespace Graphics {
 		_vao->AddAttribute(0, 3, GL_FLOAT, false, sizeof(TempVertexData), (const GLvoid*)(offsetof(TempVertexData, TempVertexData::position)));
 		_vao->AddAttribute(1, 4, GL_UNSIGNED_BYTE, true, sizeof(TempVertexData), (const GLvoid*)(offsetof(TempVertexData, TempVertexData::color32)));
 		_vao->AddAttribute(2, 3, GL_FLOAT, false, sizeof(TempVertexData), (const GLvoid*)(offsetof(TempVertexData, TempVertexData::normal)));
+		_vao->AddAttribute(3, 2, GL_FLOAT, false, sizeof(TempVertexData), (const GLvoid*)(offsetof(TempVertexData, TempVertexData::uv)));
 
 
 		_vbo->Unbind();

@@ -16,6 +16,7 @@ namespace PrimeEngine { namespace Graphics {
 	{
 		Vector3 position;
 		unsigned color32;
+		Vector2 uv;
 		Vector3 normal;
 	};
 

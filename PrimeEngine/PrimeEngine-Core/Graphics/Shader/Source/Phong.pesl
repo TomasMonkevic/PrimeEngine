@@ -5,6 +5,7 @@ $vertex
 layout (location = 0) in vec3 position;
 layout (location = 1) in vec4 color;
 layout (location = 2) in vec3 normal;
+layout (location = 3) in vec2 uv;
 
 uniform mat4 pr_matrix;
 uniform mat4 view_matrix = mat4(1.0f);
@@ -15,12 +16,14 @@ out data
 	vec4 color;
 	vec3 normal;
 	vec3 position;
+	vec2 uv;
 } dataOut;
 
 void main()
 {
 	gl_Position = pr_matrix * view_matrix * model_matrix * vec4(position, 1.0f);
 	dataOut.color = color;
+	dataOut.uv = uv;
 	dataOut.normal = mat3(transpose(inverse(model_matrix))) * normal;
 	dataOut.position = vec3(model_matrix * vec4(position, 1.0f)).xyz;
 }/$
@@ -39,10 +42,12 @@ in data
 	vec4 color;
 	vec3 normal;
 	vec3 position;
+	vec2 uv;
 } dataIn;
 
 layout (location = 0) out vec4 color;
 
+uniform sampler2D diffuseTexture;
 uniform Light light;
 uniform vec3 viewPosition; //TODO change to view direction
 
@@ -65,7 +70,8 @@ void main()
 	vec4 specular = spec * 0.2 * mix(light.color,vec4(1.0f), 0.5f);
 	specular.w = 1.0f;
 
-	color = (ambient + diffuse + specular) * dataIn.color;
+	//color = (ambient + diffuse + specular) * dataIn.color;
+	color = texture(diffuseTexture, dataIn.uv);
 	//color = vec4(abs(dataIn.normal.x), abs(dataIn.normal.y), abs(dataIn.normal.z), 1.0f);
 }
 /$ )"

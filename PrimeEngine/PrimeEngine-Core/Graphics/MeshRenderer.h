@@ -5,6 +5,7 @@
 #include "Shader\Shader.h"
 #include "../GameObject.h"
 #include "Camera.h"
+#include "Texture.h"
 
 namespace PrimeEngine { namespace Graphics {
 	
@@ -12,6 +13,8 @@ namespace PrimeEngine { namespace Graphics {
 	class PRIMEENGINEAPI MeshRenderer : public Component
 	{
 	private:
+		Texture* _texture; //TODO only temp
+
 		Mesh* _mesh;
 		//TODO later change to a material component
 		Shader* _material;
