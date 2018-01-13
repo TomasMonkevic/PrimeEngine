@@ -21,7 +21,7 @@ namespace PrimeEngine { namespace Graphics {
 		_material->SetUniform("light.position", Vector3(5.0f, 5.0f, 2.0f));
 		//_material->SetUniform("light.color", Vector4(1.0f, 0.0f, 0.0f, 1.0f));
 		_material->SetUniform("light.color", Vector4::one());
-		_material->SetUniform("light.intensity", 0.1f);
+		_material->SetUniform("light.intensity", 0.4f);
 		//-----------------------
 
 		_material->SetUniform("viewPosition", camera.GetTransform().Position);

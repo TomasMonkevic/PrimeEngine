@@ -129,6 +129,17 @@ namespace PrimeEngine
 		sprintf_s(_formatBuffer, BUFFER_SIZE, "(%f, %f, %f, %f)", q[0], q[1], q[2], q[3]);
 		return _formatBuffer;
 	}
+
+	template<>
+	static const char* ToString<Math::Matrix4x4>(const Math::Matrix4x4& q)
+	{
+		//TODO temp
+		sprintf_s(_formatBuffer, BUFFER_SIZE, "(%f, %f, %f, %f)\n(%f, %f, %f, %f)\n(%f, %f, %f, %f)\n(%f, %f, %f, %f)", q[0][0], q[0][1], q[0][2], q[0][3], 
+			q[1][0], q[1][1], q[1][2], q[1][3], 
+			q[2][0], q[2][1], q[2][2], q[2][3],
+			q[3][0], q[3][1], q[3][2], q[3][3]);
+		return _formatBuffer;
+	}
 	#pragma endregion
 
 	template<typename First>

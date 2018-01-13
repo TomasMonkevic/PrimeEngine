@@ -28,6 +28,24 @@ namespace PrimeEngine {
 			Rotation *= rotation;
 		}
 
+		Math::Vector3 Forward()
+		{
+			const Math::Matrix4x4 mat = Rotation.RotationMatrix();
+			return mat[2];
+		}
+
+		Math::Vector3 Right()
+		{
+			const Math::Matrix4x4 mat = Rotation.RotationMatrix();
+			return mat[0];
+		}
+
+		Math::Vector3 Up()
+		{
+			const Math::Matrix4x4 mat = Rotation.RotationMatrix();
+			return mat[1];
+		}
+
 		inline const Math::Matrix4x4 GetModelMatrix() const
 		{
 			return Math::Matrix4x4::TRS(Position, Rotation, Scale);

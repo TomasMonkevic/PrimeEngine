@@ -40,8 +40,12 @@ namespace PrimeEngine { namespace Graphics {
 
 	void Texture::Bind() const
 	{
-		//glActiveTexture(GL_TEXTURE0); //temps
 		glBindTexture(GL_TEXTURE_2D, _Id);
+	}
+
+	void Texture::Activate(unsigned i)
+	{
+		glActiveTexture(GL_TEXTURE0 + i);
 	}
 
 	void Texture::Unbind() const

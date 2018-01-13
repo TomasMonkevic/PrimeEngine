@@ -24,6 +24,7 @@ namespace PrimeEngine { namespace Graphics {
 		Texture(const char* path);
 		~Texture();
 
+		void Activate(unsigned i);
 		void Bind() const;
 		void Unbind() const;
 

@@ -61,6 +61,11 @@ namespace PrimeEngine {
 			return _gameObject;
 		}
 
+		//inline const Transform& Transform() const
+		//{
+		//	return _gameObject->GetTransform();
+		//}
+
 		virtual Component* Copy() = 0;
 	};
 }

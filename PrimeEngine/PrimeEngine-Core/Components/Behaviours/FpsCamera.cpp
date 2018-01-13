@@ -11,23 +11,23 @@ namespace PrimeEngine {
 	{
 		if (InputPC::GetKey('A'))
 		{
-			GetGameObject()->GetTransform().Position.x -= cameraSpeed * deltaTime;
+			GetGameObject()->GetTransform().Position -= GetGameObject()->GetTransform().Right() * cameraSpeed * deltaTime;
 		}
 		else if (InputPC::GetKey('D'))
 		{
-			GetGameObject()->GetTransform().Position.x += cameraSpeed * deltaTime;
+			GetGameObject()->GetTransform().Position += GetGameObject()->GetTransform().Right() * cameraSpeed * deltaTime;
 		}
 		if (InputPC::GetKey('W'))
 		{
-			GetGameObject()->GetTransform().Position.z += cameraSpeed * deltaTime;
+			GetGameObject()->GetTransform().Position += GetGameObject()->GetTransform().Forward() * cameraSpeed * deltaTime;
 		}
 		else if (InputPC::GetKey('S'))
 		{
-			GetGameObject()->GetTransform().Position.z -= cameraSpeed * deltaTime;
+			GetGameObject()->GetTransform().Position -= GetGameObject()->GetTransform().Forward() * cameraSpeed * deltaTime;
 		}
 		if (InputPC::GetKey('Q'))
 		{
-			GetGameObject()->GetTransform().Position.y += cameraSpeed * deltaTime;
+			GetGameObject()->GetTransform().Position += Vector3::up() * cameraSpeed * deltaTime;
 		}
 		else if (InputPC::GetKey('E'))
 		{
