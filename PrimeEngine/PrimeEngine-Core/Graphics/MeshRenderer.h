@@ -14,6 +14,7 @@ namespace PrimeEngine { namespace Graphics {
 	{
 	private:
 		Texture* _texture; //TODO only temp
+		Texture* _specTex; //todo only temp
 
 		Mesh* _mesh;
 		//TODO later change to a material component

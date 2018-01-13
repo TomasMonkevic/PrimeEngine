@@ -6,6 +6,7 @@ namespace PrimeEngine { namespace Graphics {
 		: _mesh(mesh), _material(shader)
 	{
 		_texture = new Texture("Resources/Textures/boxDiff.png");
+		_specTex = new Texture("Resources/Textures/boxSpec.png");
 		AddType<MeshRenderer>();
 	}
 
@@ -13,6 +14,7 @@ namespace PrimeEngine { namespace Graphics {
 	{
 		delete _mesh;
 		delete _texture;
+		delete _specTex;
 	}
 
 	void MeshRenderer::Draw(const Camera& camera)
@@ -23,8 +25,9 @@ namespace PrimeEngine { namespace Graphics {
 		_material->SetUniform("light.position", Vector3(5.0f, 5.0f, 2.0f));
 		//_material->SetUniform("light.color", Vector4(1.0f, 0.0f, 0.0f, 1.0f));
 		_material->SetUniform("light.color", Vector4::one());
-		_material->SetUniform("light.intensity", 0.4f);
+		_material->SetUniform("light.intensity", 0.25f);
 		_material->SetUniform("diffuseTexture", 0);
+		_material->SetUniform("specularTexture", 1);
 		//-----------------------
 
 		_material->SetUniform("viewPosition", camera.GetTransform().Position);
@@ -35,6 +38,8 @@ namespace PrimeEngine { namespace Graphics {
 		_texture->Activate(0);
 		_texture->Bind();
 
+		_specTex->Activate(1);
+		_specTex->Bind();
 
 		_mesh->Bind();
 		glDrawElements(GL_TRIANGLES, _mesh->GetIndexCount(), GL_UNSIGNED_SHORT, NULL);
