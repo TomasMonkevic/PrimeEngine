@@ -6,6 +6,7 @@
 #include "../GameObject.h"
 #include "Camera.h"
 #include "Texture.h"
+#include "Material.h"
 
 namespace PrimeEngine { namespace Graphics {
 	
@@ -13,14 +14,10 @@ namespace PrimeEngine { namespace Graphics {
 	class PRIMEENGINEAPI MeshRenderer : public Component
 	{
 	private:
-		Texture* _texture; //TODO only temp
-		Texture* _specTex; //todo only temp
-
 		Mesh* _mesh;
-		//TODO later change to a material component
-		Shader* _material;
+		Material* _material;
 	public:
-		MeshRenderer(Mesh* mesh, Shader* shader);
+		MeshRenderer(Mesh* mesh, Material* material);
 		virtual ~MeshRenderer();
 
 		void Draw(const Camera& camera);

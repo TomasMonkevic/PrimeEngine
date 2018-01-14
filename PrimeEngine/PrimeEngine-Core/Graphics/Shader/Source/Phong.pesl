@@ -3,7 +3,7 @@ R"( $version 330 core/$
 $vertex
 
 layout (location = 0) in vec3 position;
-layout (location = 1) in vec4 color;
+layout (location = 1) in vec4 color; //probably not needed in 3d, because color is set with uniform
 layout (location = 2) in vec3 normal;
 layout (location = 3) in vec2 uv;
 

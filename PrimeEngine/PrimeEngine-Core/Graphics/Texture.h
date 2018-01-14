@@ -21,6 +21,7 @@ namespace PrimeEngine { namespace Graphics {
 		GLuint Load();
 
 	public:
+		Texture(); //creates 1x1 empty texture
 		Texture(const char* path);
 		~Texture();
 
