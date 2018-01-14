@@ -35,6 +35,13 @@ struct Light
 	vec3 position;
 	vec4 color;
 	float intensity;
+	float range;
+};
+
+struct AmbientLight
+{
+	vec4 color;
+	float intensity;
 };
 
 in data
@@ -55,21 +62,31 @@ uniform vec3 viewPosition; //TODO change to view direction
 void main()
 {
 	//Ambient light
-	vec4 ambient = (light.intensity * mix(light.color,vec4(1.0f), 0.9f)) * texture(diffuseTexture, dataIn.uv);
+	AmbientLight al; //TODO only temp
+	al.color = vec4(1.0f);
+	//al.color = vec4(0.0f, 1.0f, 0.0f, 1.0f);
+	al.intensity = 0.25f;
+
+	vec4 ambient = (al.intensity * mix(al.color,vec4(1.0f), 0.0f)) * texture(diffuseTexture, dataIn.uv);
 	ambient.w = 1.0f;
 
 	//Diffuse light
 	vec3 norm = normalize(dataIn.normal);
 	vec3 lightDir = normalize(light.position - dataIn.position);
-	vec4 diffuse = max(dot(norm, lightDir), 0.0f) * mix(light.color,vec4(1.0f), 0.9f) * texture(diffuseTexture, dataIn.uv);
+	vec4 diffuse = max(dot(norm, lightDir), 0.0f) * mix(light.color,vec4(1.0f), 0.5f) * texture(diffuseTexture, dataIn.uv);
 	diffuse.w = 1.0f;
 
 	//Specular light
 	vec3 viewDir = normalize(viewPosition - dataIn.position);
 	vec3 lightReflection = normalize(reflect(-lightDir, norm));
 	float spec = pow(max(dot(lightReflection, viewDir), 0.0f), 64);
-	vec4 specular = spec * 0.7 * mix(light.color,vec4(1.0f), 0.5f) * texture(specularTexture, dataIn.uv);
+	vec4 specular = spec * 0.2 * mix(light.color,vec4(1.0f), 0.5f) * texture(specularTexture, dataIn.uv);
 	specular.w = 1.0f;
+
+	float distance = min(length(light.position - dataIn.position), light.range) / light.range;
+	float attenuation = 1.0f/(1.0f + 25.0f * distance * distance);
+	diffuse.xyz *= attenuation;
+	specular.xyz *= attenuation;
 
 	color = (ambient + diffuse + specular);
 	//color = texture(diffuseTexture, dataIn.uv);

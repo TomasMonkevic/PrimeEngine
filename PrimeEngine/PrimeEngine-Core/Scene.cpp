@@ -24,6 +24,11 @@ namespace PrimeEngine {
 		_gameObjects->push_back(gameObject);
 	}
 
+	void Scene::Add(Light* light)
+	{
+		_lights->push_back(light);
+	}
+
 	void Scene::Update()
 	{
 

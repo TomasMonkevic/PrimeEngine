@@ -10,6 +10,7 @@ namespace PrimeEngine { namespace Graphics {
 		//_shader->SetUniform("light.color", Vector4(1.0f, 0.0f, 0.0f, 1.0f));
 		_shader->SetUniform("light.color", Vector4::one());
 		_shader->SetUniform("light.intensity", 0.25f);
+		_shader->SetUniform("light.range", 25.0f);
 		_shader->SetUniform("diffuseTexture", 0);
 		_shader->SetUniform("specularTexture", 1);
 

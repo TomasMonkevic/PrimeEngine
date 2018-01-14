@@ -67,6 +67,8 @@
     <ClInclude Include="Graphics\MeshRenderer.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Graphics\Material.h" />
+    <ClInclude Include="Graphics\Lights\Light.h" />
+    <ClInclude Include="Graphics\Lights\PointLight.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Input.cpp">
@@ -111,6 +113,7 @@
     <ClCompile Include="Graphics\MeshRenderer.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Graphics\Material.cpp" />
+    <ClCompile Include="Graphics\Lights\PointLight.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Graphics\Shader\Source\Default.pesl" />
