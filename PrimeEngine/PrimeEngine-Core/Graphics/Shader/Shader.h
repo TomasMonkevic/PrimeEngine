@@ -5,6 +5,7 @@
 #include <Math/Math.h>
 #include <DllExport.h>
 #include <map>
+#include <Graphics\Color.h>
 
 #define VERSION_MACRO		"$version"
 #define FRAGMENT_MACRO		"$fragment"
@@ -31,6 +32,7 @@ namespace PrimeEngine { namespace Graphics {
 		~Shader();
 
 		void SetUniform(const GLchar* name, const Math::Matrix4x4& matrix);
+		void SetUniform(const GLchar* name, const Color& color);
 		void SetUniform(const GLchar* name, const Math::Vector4& vector4);
 		void SetUniform(const GLchar* name, const Math::Vector3& vector3);
 		void SetUniform(const GLchar* name, const Math::Vector2& vector2);

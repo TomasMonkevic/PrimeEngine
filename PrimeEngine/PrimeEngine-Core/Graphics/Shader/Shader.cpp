@@ -59,6 +59,11 @@ namespace PrimeEngine { namespace Graphics {
 		glUniform4f(GetLocation(name), vector4.x, vector4.y, vector4.z, vector4.w);
 	}
 
+	void Shader::SetUniform(const GLchar* name, const Color& color)
+	{
+		glUniform4f(GetLocation(name), color[0], color[1], color[2], color[3]);
+	}
+
 	void Shader::SetUniform(const GLchar* name, const Math::Vector3& vector3)
 	{
 		glUniform3f(GetLocation(name), vector3.x, vector3.y, vector3.z);

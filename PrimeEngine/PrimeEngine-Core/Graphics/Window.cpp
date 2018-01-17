@@ -73,7 +73,7 @@ namespace PrimeEngine
 			isInstanceCreated();
 			glfwInit();
 			glfwWindowHint(GLFW_RESIZABLE, GL_TRUE); //for now always is resizable
-			//glfwWindowHint(GLFW_SAMPLES, 4);
+			//glfwWindowHint(GLFW_SAMPLES, 4); //aa
 			//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
 			if (_isFullScreen)

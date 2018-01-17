@@ -26,7 +26,7 @@ void TestGame::Awake()
 
 	player = new GameObject();
 	//player->AddComponent(new Sprite (Vector2(17, 12) / 5, "Resources\\Textures\\bird1.png"));
-	Material* boxMaterial = new Material(new Texture("Resources/Textures/boxDiff.png"), new Texture("Resources/Textures/boxSpec.png")); //TODO don't forget to delete this
+	Material* boxMaterial = new Material(Shader::phong, new Texture("Resources/Textures/boxDiff.png"), new Texture("Resources/Textures/boxSpec.png")); //TODO don't forget to delete this
 	player->AddComponent(new MeshRenderer(Mesh::Cube(Color::white), boxMaterial));
 
 	GameObject* cube2 = new GameObject();
@@ -36,10 +36,12 @@ void TestGame::Awake()
 	cube2->GetTransform().Position.x = 5.0f;
 
 	GameObject* ground = new GameObject(Vector3(0.0f, -1.0f, 0.0f));
-	ground->AddComponent(new MeshRenderer(Mesh::Cube(Color::white, 100.0f, 0.1f, 100.0f), new Material())); //TODO also memory leak
+	Material* groundMaterial = new Material(Shader::phong); //TODO also memory leak
+	groundMaterial->Smoothness() = 8.0f;
+	ground->AddComponent(new MeshRenderer(Mesh::Cube(Color::white, 100.0f, 0.1f, 100.0f), groundMaterial)); 
 
 	GameObject* light = new GameObject(Vector3(5.0f, 5.0f, 2.0f));
-	light->AddComponent(new MeshRenderer(Mesh::Cube(Color::white, 0.1f, 0.1f, 0.1f), new Material())); //TODO only temp
+	light->AddComponent(new MeshRenderer(Mesh::Cube(Color::white, 0.1f, 0.1f, 0.1f), new Material(Shader::phong))); //TODO only temp
 
 	mainScene = new Scene(mainCamera);
 	mainScene->Add(player);

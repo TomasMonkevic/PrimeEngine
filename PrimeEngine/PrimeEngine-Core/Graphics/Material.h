@@ -25,12 +25,18 @@ namespace PrimeEngine { namespace Graphics {
 	private:
 		void Enable(const Camera& camera, const GameObject& gameObject) const;
 		void Disable() const;
-		Material(Texture* diffMap, Texture* specMap, const Color& color, float smoothness);
+		Material(const char* shaderSource, Texture* diffMap, Texture* specMap, const Color& color, float smoothness);
 
 	public:
-		Material(const Color& color = Color::white);
-		Material(Texture* diffMap, Texture* specMap = nullptr);
+		Material(const char* shaderSource, const Color& color = Color::white);
+		Material(const char* shaderSource, Texture* diffMap, Texture* specMap = nullptr);
 		~Material();
+
+		inline Color& DiffuseColor() { return _diffuseColor; }
+		inline const Color DiffuseColor() const { return _diffuseColor; }
+
+		inline float& Smoothness() { return _smoothness; }
+		inline const float Smoothness() const { return _smoothness; }
 	};
 
 } }
