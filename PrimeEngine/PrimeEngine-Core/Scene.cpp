@@ -7,6 +7,7 @@ namespace PrimeEngine {
 		: _camera(camera)
 	{
 		_gameObjects = new std::vector<GameObject*>;
+		_lights = new std::vector<Light*>;
 	}
 
 	Scene::~Scene()
@@ -16,6 +17,11 @@ namespace PrimeEngine {
 			delete (*_gameObjects)[i];
 		}
 		delete _gameObjects;
+		for (int i = 0; i < _lights->size(); i++)
+		{
+			delete (*_lights)[i];
+		}
+		delete _lights;
 		delete _camera;
 	}
 
@@ -42,7 +48,7 @@ namespace PrimeEngine {
 			MeshRenderer* renderable = gameObject->GetComponent<MeshRenderer>(); //change to renderable
 			if (renderable)
 			{
-				renderable->Draw(*_camera);
+				renderable->Draw(*_camera, *_lights);
 			}
 		}
 	}

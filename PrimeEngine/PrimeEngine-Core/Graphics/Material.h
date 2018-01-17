@@ -6,11 +6,13 @@
 #include "Color.h"
 #include "Texture.h"
 #include <DllExport.h>
+#include "Lights\Light.h"
 
 namespace PrimeEngine { namespace Graphics {
 	
 	class MeshRenderer;
 	using namespace PrimeEngine::Math;
+	using namespace Lights;
 
 	class PRIMEENGINEAPI Material
 	{
@@ -23,7 +25,7 @@ namespace PrimeEngine { namespace Graphics {
 		float _smoothness;
 
 	private:
-		void Enable(const Camera& camera, const GameObject& gameObject) const;
+		void Enable(const Camera& camera, const GameObject& gameObject, const std::vector<Light*>& lights) const;
 		void Disable() const;
 		Material(const char* shaderSource, Texture* diffMap, Texture* specMap, const Color& color, float smoothness);
 

@@ -30,7 +30,7 @@ void main()
 
 $fragment
 
-struct Light
+struct PointLight
 {
 	vec3 position;
 	vec4 color;
@@ -60,8 +60,13 @@ uniform sampler2D specularTexture;
 uniform vec4 diffuseColor;
 uniform float smoothness;
 
-uniform Light light;
-uniform vec3 viewPosition; //TODO change to view direction
+uniform int pointLightsCount;
+uniform PointLight lights[64];
+uniform AmbientLight ambientLight;
+
+uniform vec3 viewPosition;
+
+vec4 CalcPointLight(PointLight light, vec3 norm, vec3 viewDir);
 
 void main()
 {
@@ -74,26 +79,34 @@ void main()
 	vec4 ambient = (al.intensity * mix(al.color,vec4(1.0f), 0.0f)) * texture(diffuseTexture, dataIn.uv);
 	ambient.w = 1.0f;
 
-	//Diffuse light
 	vec3 norm = normalize(dataIn.normal);
+	vec3 viewDir = normalize(viewPosition - dataIn.position);
+	vec4 result;
+	for(int i = 0; i < 2; i++) //TODO add dynamic pointLightCount
+	{
+		result += CalcPointLight(lights[i], norm, viewDir);
+	}
+
+	color = (ambient + result) * diffuseColor;
+}
+
+vec4 CalcPointLight(PointLight light, vec3 norm, vec3 viewDir)
+{
+	//Diffuse light
 	vec3 lightDir = normalize(light.position - dataIn.position);
 	vec4 diffuse = max(dot(norm, lightDir), 0.0f) * mix(light.color,vec4(1.0f), 0.5f) * texture(diffuseTexture, dataIn.uv);
 	diffuse.w = 1.0f;
 
 	//Specular light
-	vec3 viewDir = normalize(viewPosition - dataIn.position);
 	vec3 lightReflection = normalize(reflect(-lightDir, norm));
 	float spec = pow(max(dot(lightReflection, viewDir), 0.0f), smoothness);
-	vec4 specular = spec * 0.7 * mix(light.color,vec4(1.0f), 0.5f) * texture(specularTexture, dataIn.uv);
+	vec4 specular = spec * light.intensity * mix(light.color,vec4(1.0f), 0.5f) * texture(specularTexture, dataIn.uv);
 	specular.w = 1.0f;
 
 	float distance = min(length(light.position - dataIn.position), light.range) / light.range;
 	float attenuation = 1.0f/(1.0f + 25.0f * distance * distance);
 	diffuse.xyz *= attenuation;
 	specular.xyz *= attenuation;
-
-	color = (ambient + diffuse + specular) * diffuseColor;
-	//color = texture(diffuseTexture, dataIn.uv);
-	//color = vec4(abs(dataIn.normal.x), abs(dataIn.normal.y), abs(dataIn.normal.z), 1.0f);
+	return diffuse + specular;
 }
 /$ )"

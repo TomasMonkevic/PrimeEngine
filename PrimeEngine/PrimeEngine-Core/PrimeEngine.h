@@ -20,6 +20,7 @@
 #include <Graphics\BatchRenderer2D.h>
 #include <Graphics\Mesh.h>
 #include <Graphics\MeshRenderer.h>
+#include <Graphics\Lights\PointLight.h>
 #include <GameObject.h>
 #include <Input.h>
 #include <PrimeEngineBase.h>

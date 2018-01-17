@@ -3,14 +3,14 @@
 
 namespace PrimeEngine { namespace Graphics {
 	
-	void Material::Enable(const Camera& camera, const GameObject& gameObject) const
+	void Material::Enable(const Camera& camera, const GameObject& gameObject, const std::vector<Light*>& lights) const
 	{
 		_shader->Enable();
-		_shader->SetUniform("light.position", Vector3(5.0f, 5.0f, 2.0f));
-		//_shader->SetUniform("light.color", Vector4(1.0f, 0.0f, 0.0f, 1.0f));
-		_shader->SetUniform("light.color", Vector4::one());
-		_shader->SetUniform("light.intensity", 0.25f);
-		_shader->SetUniform("light.range", 25.0f);
+		//_shader->SetUniform("pointLightsCount", PointLight::Count());
+		for (unsigned i=0;i<lights.size(); i++)
+		{
+			lights[i]->Enable(*_shader, i);
+		}
 
 		_shader->SetUniform("diffuseTexture", 0);
 		_shader->SetUniform("specularTexture", 1);

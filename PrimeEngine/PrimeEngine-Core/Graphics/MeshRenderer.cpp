@@ -14,9 +14,9 @@ namespace PrimeEngine { namespace Graphics {
 		//material isn't deleted for reusability
 	}
 
-	void MeshRenderer::Draw(const Camera& camera)
+	void MeshRenderer::Draw(const Camera& camera, const std::vector<Light*>& lights)
 	{
-		_material->Enable(camera, *GetGameObject());
+		_material->Enable(camera, *GetGameObject(), lights);
 		_mesh->Bind();
 
 		glDrawElements(GL_TRIANGLES, _mesh->GetIndexCount(), GL_UNSIGNED_SHORT, NULL);

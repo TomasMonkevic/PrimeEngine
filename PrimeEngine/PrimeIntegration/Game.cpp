@@ -40,15 +40,19 @@ void TestGame::Awake()
 	groundMaterial->Smoothness() = 8.0f;
 	ground->AddComponent(new MeshRenderer(Mesh::Cube(Color::white, 100.0f, 0.1f, 100.0f), groundMaterial)); 
 
-	GameObject* light = new GameObject(Vector3(5.0f, 5.0f, 2.0f));
-	light->AddComponent(new MeshRenderer(Mesh::Cube(Color::white, 0.1f, 0.1f, 0.1f), new Material(Shader::phong))); //TODO only temp
+	//light->AddComponent(new MeshRenderer(Mesh::Cube(Color::white, 0.1f, 0.1f, 0.1f), new Material(Shader::glow))); //TODO only temp
+	PointLight* light = new PointLight(Color::white, 0.7f, 25.0f);
+	light->GetTransform().Position = Vector3(5.0f, 5.0f, 2.0f);
+
+	PointLight* light2 = new PointLight(Color(1.0, 0.1, 0.0f), 0.7f, 25.0f);
+	light2->GetTransform().Position = Vector3(-5.0f, 2.0f, 2.0f);
 
 	mainScene = new Scene(mainCamera);
 	mainScene->Add(player);
 	mainScene->Add(cube2);
 	mainScene->Add(ground);
 	mainScene->Add(light);
-
+	mainScene->Add(light2);
 }
 
 void TestGame::Update()

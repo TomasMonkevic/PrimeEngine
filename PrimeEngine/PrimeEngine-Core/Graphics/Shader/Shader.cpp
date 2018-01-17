@@ -40,7 +40,9 @@ namespace PrimeEngine { namespace Graphics {
 		if (mapIterator == _uniformLocation->end())
 		{
 			GLint location = glGetUniformLocation(_shaderID, name);
-			_uniformLocation->insert(std::pair<const GLchar*, GLint>(name, location));
+			char* nameCopy = new char[strlen(name) + 1];
+			strcpy_s(nameCopy, strlen(name) + 1, name);//TODO IMPORTANT don't forget to delete char*
+			_uniformLocation->insert(std::pair<const GLchar*, GLint>(nameCopy, location));
 			return location;
 		}
 		else
