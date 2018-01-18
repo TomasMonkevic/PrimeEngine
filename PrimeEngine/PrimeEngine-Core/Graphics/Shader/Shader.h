@@ -18,14 +18,14 @@ namespace PrimeEngine { namespace Graphics {
 	{
 	private:
 		GLuint _shaderID;
-		std::map<const GLchar*, GLint>* _uniformLocation;
+		std::map<std::string, GLint>* _uniformLocation;
 	public:
 		static const char* default;
 		static const char* phong;
 		static const char* glow;
 	private:
 		GLuint LoadShader(char* vertexSource, char* fragmentSource);
-		GLint GetLocation(const GLchar* name);
+		GLint GetLocation(const std::string& name);
 		void ParseShaderFile(std::string& shaderFile, char** vertexSource, char** fragmentSource);
 	public:
 		Shader(const char* shaderFilePath, bool isSource = false);

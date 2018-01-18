@@ -17,7 +17,7 @@ namespace PrimeEngine { namespace Graphics {
 
 	Shader::Shader(const char* shaderFile, bool isSource)
 	{
-		_uniformLocation = new std::map<const GLchar*, GLint>;
+		_uniformLocation = new std::map<std::string, GLint>;
 
 		std::string shaderFileString = isSource ? shaderFile : PrimeEngine::File::ReadFile(shaderFile);
 		char* vertexSource = NULL;
@@ -34,15 +34,13 @@ namespace PrimeEngine { namespace Graphics {
 		glDeleteProgram(_shaderID);
 	}
 
-	GLint Shader::GetLocation(const GLchar* name)
+	GLint Shader::GetLocation(const std::string& name)
 	{
-		std::map<const GLchar*, GLint>::iterator mapIterator = _uniformLocation->find(name);
+		std::map<std::string, GLint>::iterator mapIterator = _uniformLocation->find(name);
 		if (mapIterator == _uniformLocation->end())
 		{
-			GLint location = glGetUniformLocation(_shaderID, name);
-			char* nameCopy = new char[strlen(name) + 1];
-			strcpy_s(nameCopy, strlen(name) + 1, name);//TODO IMPORTANT don't forget to delete char*
-			_uniformLocation->insert(std::pair<const GLchar*, GLint>(nameCopy, location));
+			GLint location = glGetUniformLocation(_shaderID, name.c_str());
+			_uniformLocation->insert(std::pair<std::string, GLint>(name, location));
 			return location;
 		}
 		else
