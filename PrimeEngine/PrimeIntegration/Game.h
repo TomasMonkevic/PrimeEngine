@@ -19,6 +19,7 @@ private:
 	Scene* mainScene;
 	Camera* mainCamera;
 	GameObject* player;
+	DirectionalLight* sun;
 
 public:
 	~TestGame() 

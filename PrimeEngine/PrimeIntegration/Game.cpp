@@ -47,18 +47,25 @@ void TestGame::Awake()
 	PointLight* light2 = new PointLight(Color(1.0, 0.1, 0.0f), 0.7f, 25.0f);
 	light2->GetTransform().Position = Vector3(-5.0f, 2.0f, 2.0f);
 
+	AmbientLight* ambientLight = new AmbientLight(Color::white, 0.35f);
+
+	sun = new DirectionalLight(Color::white, 0.5f);
+
 	mainScene = new Scene(mainCamera);
 	mainScene->Add(player);
 	mainScene->Add(cube2);
 	mainScene->Add(ground);
 	mainScene->Add(light);
 	mainScene->Add(light2);
+	mainScene->Add(sun);
+	mainScene->Add(ambientLight);
 }
 
 void TestGame::Update()
 {
 	//TODO could be called automaticaly when scene is implemented
 	player->GetTransform().Rotate(Quaternion::Rotation(GetDeltaTime() * 0.5f, Vector3::up()));
+	sun->GetTransform().Rotate(Quaternion::Rotation(GetDeltaTime() * 0.1f, Vector3::right()));
 	mainCamera->GetComponent<FpsCamera>()->Update(GetDeltaTime());
 	if (InputPC::GetKeyDown(256)) //esc
 	{

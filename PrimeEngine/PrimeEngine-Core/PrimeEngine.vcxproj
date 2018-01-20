@@ -37,6 +37,8 @@
     <ClInclude Include="Graphics\Layers\GameLayer.h" />
     <ClInclude Include="Graphics\Layers\Layer.h" />
     <ClInclude Include="Graphics\Layers\UILayer.h" />
+    <ClInclude Include="Graphics\Lights\AmbientLight.h" />
+    <ClInclude Include="Graphics\Lights\DirectionalLight.h" />
     <ClInclude Include="Graphics\Lights\Light.h" />
     <ClInclude Include="Graphics\Lights\PointLight.h" />
     <ClInclude Include="Graphics\Material.h" />
@@ -92,6 +94,8 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Graphics\Layers\UILayer.cpp" />
+    <ClCompile Include="Graphics\Lights\AmbientLight.cpp" />
+    <ClCompile Include="Graphics\Lights\DirectionalLight.cpp" />
     <ClCompile Include="Graphics\Lights\PointLight.cpp" />
     <ClCompile Include="Graphics\Material.cpp" />
     <ClCompile Include="Graphics\Mesh.cpp" />

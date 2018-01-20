@@ -21,6 +21,8 @@
 #include <Graphics\Mesh.h>
 #include <Graphics\MeshRenderer.h>
 #include <Graphics\Lights\PointLight.h>
+#include <Graphics\Lights\AmbientLight.h>
+#include <Graphics\Lights\DirectionalLight.h>
 #include <GameObject.h>
 #include <Input.h>
 #include <PrimeEngineBase.h>

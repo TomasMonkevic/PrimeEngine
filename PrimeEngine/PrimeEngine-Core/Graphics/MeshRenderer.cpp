@@ -22,7 +22,6 @@ namespace PrimeEngine { namespace Graphics {
 		glDrawElements(GL_TRIANGLES, _mesh->GetIndexCount(), GL_UNSIGNED_SHORT, NULL);
 
 		_mesh->Unbind();
-		//unbind texture?
 		_material->Disable();
 	}
 

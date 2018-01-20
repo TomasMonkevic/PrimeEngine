@@ -31,6 +31,7 @@ namespace PrimeEngine { namespace Graphics {
 
 	void Material::Disable() const
 	{
+		//unbind texture?
 		_shader->Disable();
 	}
 

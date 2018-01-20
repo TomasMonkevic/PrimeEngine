@@ -6,12 +6,10 @@ namespace PrimeEngine { namespace Graphics { namespace Lights {
 
 	using namespace PrimeEngine::Math;
 
-	class PRIMEENGINEAPI PointLight : public Light
+	class PRIMEENGINEAPI DirectionalLight : public Light
 	{
-	private:
-		float _range;
 	public:
-		PointLight(const Color& color, float intensity, float range);
+		DirectionalLight(const Color& color, float intensity);
 
 		void Enable(Shader& shader, unsigned i) const override;
 	};
