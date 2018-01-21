@@ -41,6 +41,7 @@
     <ClInclude Include="Graphics\Lights\DirectionalLight.h" />
     <ClInclude Include="Graphics\Lights\Light.h" />
     <ClInclude Include="Graphics\Lights\PointLight.h" />
+    <ClInclude Include="Graphics\Lights\SpotLight.h" />
     <ClInclude Include="Graphics\Material.h" />
     <ClInclude Include="Graphics\Mesh.h" />
     <ClInclude Include="Graphics\MeshRenderer.h" />
@@ -97,6 +98,7 @@
     <ClCompile Include="Graphics\Lights\AmbientLight.cpp" />
     <ClCompile Include="Graphics\Lights\DirectionalLight.cpp" />
     <ClCompile Include="Graphics\Lights\PointLight.cpp" />
+    <ClCompile Include="Graphics\Lights\SpotLight.cpp" />
     <ClCompile Include="Graphics\Material.cpp" />
     <ClCompile Include="Graphics\Mesh.cpp" />
     <ClCompile Include="Graphics\MeshRenderer.cpp" />

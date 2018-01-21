@@ -58,10 +58,12 @@ struct DirectionalLight
 struct SpotLight
 {
 	vec3 position;
+	vec3 direction;
 	vec4 color;
 	float intensity;
 	float range;
 	float angle;
+	float smoothEdge;
 };
 
 in data
@@ -84,13 +86,14 @@ uniform int pointLightsCount;
 uniform PointLight lights[64];
 uniform AmbientLight ambientLight;
 uniform DirectionalLight directionalLight;
+uniform SpotLight spotLight;
 
 uniform vec3 viewPosition;
 
 float Attenuation(vec3 lightPos, vec3 pos, float range);
 vec4 CalcPointLight(PointLight light, vec3 norm, vec3 viewDir);
-vec4 CalcDirectionalLight(DirectionalLight light, vec3 norm, vec3 viewDir); //TEST
-vec4 CalcSpotLight(SpotLight light, vec3 norm, vec3 viewDir); //TEST
+vec4 CalcDirectionalLight(DirectionalLight light, vec3 norm, vec3 viewDir);
+vec4 CalcSpotLight(SpotLight light, vec3 norm, vec3 viewDir);
 vec4 CalcAmbientLight(AmbientLight light);
 
 void main()
@@ -99,12 +102,13 @@ void main()
 	vec3 viewDir = normalize(viewPosition - dataIn.position);
 
 	vec4 result;
-	for(int i = 0; i < 2; i++) //TODO add dynamic pointLightCount
+	for(int i = 0; i < 64; i++) //TODO add dynamic pointLightCount
 	{
 		result += CalcPointLight(lights[i], norm, viewDir);
 	}
 	result += CalcAmbientLight(ambientLight);
 	result += CalcDirectionalLight(directionalLight, norm, viewDir);
+	result += CalcSpotLight(spotLight, norm, viewDir);
 
 	color = result * diffuseColor;
 }
@@ -118,6 +122,10 @@ float Attenuation(vec3 lightPos, vec3 pos, float range)
 
 vec4 CalcPointLight(PointLight light, vec3 norm, vec3 viewDir)
 {
+	if(light.range <= 0.0f)
+	{
+		return vec4(0.0f);
+	}
 	//Diffuse light
 	vec3 lightDir = normalize(light.position - dataIn.position);
 	vec4 diffuse = max(dot(norm, lightDir), 0.0f) * mix(light.color, vec4(1.0f), DIFFUSE_MIX) * texture(diffuseTexture, dataIn.uv);
@@ -153,8 +161,31 @@ vec4 CalcDirectionalLight(DirectionalLight light, vec3 norm, vec3 viewDir)
 
 vec4 CalcSpotLight(SpotLight light, vec3 norm, vec3 viewDir)
 {
-	//TODO implement
-	return vec4(1.0f);
+	vec4 result = vec4(0.0f);
+	if(light.range <= 0.0f)
+	{
+		return result;
+	}
+
+	vec3 lightDir = normalize(light.position - dataIn.position);
+	float theta = dot(normalize(light.direction), -lightDir);
+	vec4 diffuse = max(dot(norm, lightDir), 0.0f) * mix(light.color, vec4(1.0f), DIFFUSE_MIX) * texture(diffuseTexture, dataIn.uv);
+	diffuse.w = 1.0f;
+
+	//Specular light
+	vec3 lightReflection = normalize(reflect(-lightDir, norm));
+	float spec = pow(max(dot(lightReflection, viewDir), 0.0f), smoothness);
+	vec4 specular = spec * light.intensity * mix(light.color, vec4(1.0f), SPECULAR_MIX) * texture(specularTexture, dataIn.uv);
+	specular.w = 1.0f;
+
+	result = diffuse + specular;
+
+	float attenuation = Attenuation(light.position, dataIn.position, light.range);
+	result *= attenuation;
+
+	float intensity = clamp((theta - light.smoothEdge) / (light.angle - light.smoothEdge), 0.0, 1.0);
+	result *= intensity;
+	return result;
 }
 
 vec4 CalcAmbientLight(AmbientLight light)

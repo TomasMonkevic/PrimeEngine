@@ -50,6 +50,7 @@ void TestGame::Awake()
 	AmbientLight* ambientLight = new AmbientLight(Color::white, 0.35f);
 
 	sun = new DirectionalLight(Color(0xffbafbfc), 0.7f);
+	flashLight = new SpotLight(Color(0xffbafbfc), 0.7f, 15.0f, 20.0f, 15.0f);
 
 	mainScene = new Scene(mainCamera);
 	mainScene->Add(player);
@@ -59,6 +60,7 @@ void TestGame::Awake()
 	mainScene->Add(light2);
 	mainScene->Add(sun);
 	mainScene->Add(ambientLight);
+	mainScene->Add(flashLight);
 }
 
 void TestGame::Update()
@@ -67,6 +69,9 @@ void TestGame::Update()
 	player->GetTransform().Rotate(Quaternion::Rotation(GetDeltaTime() * 0.5f, Vector3::up()));
 	sun->GetTransform().Rotate(Quaternion::Rotation(GetDeltaTime() * 0.1f, Vector3::right()));
 	mainCamera->GetComponent<FpsCamera>()->Update(GetDeltaTime());
+
+	flashLight->GetTransform().Position = mainCamera->GetTransform().Position;
+	flashLight->GetTransform().Rotation = mainCamera->GetTransform().Rotation;
 	if (InputPC::GetKeyDown(256)) //esc
 	{
 		GetWindow()->Close();
