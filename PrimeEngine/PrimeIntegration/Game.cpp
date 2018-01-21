@@ -37,7 +37,7 @@ void TestGame::Awake()
 
 	GameObject* ground = new GameObject(Vector3(0.0f, -1.0f, 0.0f));
 	Material* groundMaterial = new Material(Shader::phong); //TODO also memory leak
-	groundMaterial->Smoothness() = 8.0f;
+	groundMaterial->Smoothness() = 256.0f;
 	ground->AddComponent(new MeshRenderer(Mesh::Cube(Color::white, 100.0f, 0.1f, 100.0f), groundMaterial)); 
 
 	//light->AddComponent(new MeshRenderer(Mesh::Cube(Color::white, 0.1f, 0.1f, 0.1f), new Material(Shader::glow))); //TODO only temp
@@ -49,7 +49,7 @@ void TestGame::Awake()
 
 	AmbientLight* ambientLight = new AmbientLight(Color::white, 0.35f);
 
-	sun = new DirectionalLight(Color::white, 0.5f);
+	sun = new DirectionalLight(Color(0xffbafbfc), 0.7f);
 
 	mainScene = new Scene(mainCamera);
 	mainScene->Add(player);
