@@ -117,9 +117,6 @@ namespace PrimeEngine
 			glEnable(GL_BLEND);
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-			//TODO flappy bird isn't rendered in the right order when depth test is enabled
-			glEnable(GL_DEPTH_TEST);
-
 			//glEnable(GL_MULTISAMPLE);
 
 			PRIME_INFO(glGetString(GL_VERSION), "\n");

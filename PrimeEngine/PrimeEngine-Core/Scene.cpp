@@ -43,6 +43,8 @@ namespace PrimeEngine {
 	//TODO currently will only work with 3d
 	void Scene::Render()
 	{
+		//TODO this should be move to 3D renderer
+		glEnable(GL_DEPTH_TEST);
 		for (const GameObject* gameObject : *_gameObjects)
 		{
 			MeshRenderer* renderable = gameObject->GetComponent<MeshRenderer>(); //change to renderable
@@ -51,5 +53,6 @@ namespace PrimeEngine {
 				renderable->Draw(*_camera, *_lights);
 			}
 		}
+		glDisable(GL_DEPTH_TEST);
 	}
 }

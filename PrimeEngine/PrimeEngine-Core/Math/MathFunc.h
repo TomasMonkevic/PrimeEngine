@@ -19,12 +19,12 @@ namespace PrimeEngine { namespace Math {
 		return 1.0f / std::sqrt(value);
 	}
 
-	inline float ToDegrees(float radians)
+	inline double ToDegrees(double radians)
 	{
 		return radians * (180.0f / PI);
 	}
 
-	inline float ToRadians(float degrees)
+	inline double ToRadians(double degrees)
 	{
 		return degrees * (PI / 180.0f);
 	}
