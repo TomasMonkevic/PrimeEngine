@@ -16,9 +16,9 @@ namespace PrimeEngine { namespace Graphics { namespace Lights {
 		shader.SetUniform("spotLight.direction", GetTransform().Forward());
 		shader.SetUniform("spotLight.color", _color);
 		shader.SetUniform("spotLight.intensity", _intensity);
-		shader.SetUniform("spotLight.angle", std::cos(ToRadians(_angle)));
+		shader.SetUniform("spotLight.angle", (float)std::cos(ToRadians(_angle)));
 		shader.SetUniform("spotLight.range", _range);
-		shader.SetUniform("spotLight.smoothEdge", std::cos(ToRadians(_angle + _smoothEdge)));
+		shader.SetUniform("spotLight.smoothEdge", (float)std::cos(ToRadians(_angle + _smoothEdge)));
 	}
 
 } } }

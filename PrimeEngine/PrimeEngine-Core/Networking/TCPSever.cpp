@@ -129,7 +129,7 @@ namespace PrimeEnginge { namespace Networking {
 	{
 		if (_clientSocket[clientId] != -1)
 		{
-			int len = send(_clientSocket[clientId], message, size, 0);
+			size_t len = send(_clientSocket[clientId], message, size, 0);
 			if (len <= 0) //if failed to send data disconnect the client
 			{
 				DisconnectClient(clientId);

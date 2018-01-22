@@ -58,7 +58,7 @@ void TestGame::Awake()
 	mainScene->Add(ground);
 	mainScene->Add(light);
 	mainScene->Add(light2);
-	mainScene->Add(sun);
+	//mainScene->Add(sun);
 	mainScene->Add(ambientLight);
 	mainScene->Add(flashLight);
 }
