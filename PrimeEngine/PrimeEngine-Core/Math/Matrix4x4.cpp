@@ -184,10 +184,10 @@ namespace PrimeEngine { namespace Math {
 	const Matrix4x4 Matrix4x4::Perspective(float fov, float aspectRatio, float zNear, float zFar)
 	{
 		Matrix4x4 result(new float[4][4]{
-			{ (1 / tan(fov / 2)) / aspectRatio, 0, 0, 0 },
-			{ 0, 1 / tan(fov / 2), 0, 0 },
-			{ 0, 0, (zNear + zFar) / (zNear - zFar), -1},
-			{ 0, 0, (2 * zNear * zFar) / (zNear - zFar), 0 }
+			{ (1 / tan(ToRadians(fov) / 2)) / aspectRatio, 0, 0, 0 },
+			{ 0, 1 / tan(ToRadians(fov) / 2), 0, 0 },
+			{ 0, 0, -zFar / (zFar - zNear), - (zNear * zFar) / (zFar - zNear)},
+			{ 0, 0, -1, 0 }
 		});
 		return result;
 	}

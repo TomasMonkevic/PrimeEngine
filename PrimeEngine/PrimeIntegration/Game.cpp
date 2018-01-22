@@ -14,8 +14,8 @@ void TestGame::Awake()
 	//GetWindow()->SetColor(Color(0.5f, 0.5f, 0.5f, 1.0f));
 	GetWindow()->SetColor(Color(0xfff48642));
 
-	//Matrix4x4 pr = Matrix4x4::Orthographic(-8.0f, 8.0f, -4.5f, 4.5f, -1.0f, 1.0f);
-	Matrix4x4 pr = Matrix4x4::Perspective(45.0f, 16.0f / 9.0f, -1.5f, 1.5f);
+	//Matrix4x4 pr = Matrix4x4::Orthographic(0.0f, 160.0f, 0.0f, 90.0f, -50.0f, 50.0f);
+	Matrix4x4 pr = Matrix4x4::Perspective(90.0f, 16.0f / 9.0f, 0.1f, 100.0f);
 
 	mainCamera = new Camera(ShaderManagerI.CreateShader("gameShader", Shader::phong), pr);
 
@@ -81,6 +81,7 @@ void TestGame::Update()
 void TestGame::Tick()
 {
 	PRIME_INFO(GetFPS(), " fps \n");
+	PRIME_INFO(mainCamera->GetTransform().Position, '\n');
 }
 
 void TestGame::Render()

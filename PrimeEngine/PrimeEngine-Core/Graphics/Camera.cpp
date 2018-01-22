@@ -68,7 +68,9 @@ namespace PrimeEngine { namespace Graphics {
 
 	void Camera::Render()
 	{
-		_viewMatrix = GetTransform().GetModelMatrix().Inverse();
+		Math::Matrix4x4 temp = GetTransform().Rotation.RotationMatrix();
+		temp[2] = temp[2] * -1; //inverse the z axis
+		_viewMatrix = (Math::Matrix4x4::Transform(GetTransform().Position) * temp * Math::Matrix4x4::Scale(GetTransform().Scale)).Inverse();
 		_shader->Enable();
 		_shader->SetUniform("view_matrix", _viewMatrix);
 		_shader->Disable();

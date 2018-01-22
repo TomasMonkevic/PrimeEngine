@@ -31,7 +31,7 @@ namespace PrimeEngine {
 		}
 		else if (InputPC::GetKey('E'))
 		{
-			GetGameObject()->GetTransform().Position.y -= cameraSpeed * deltaTime;
+			GetGameObject()->GetTransform().Position -= Vector3::up() * cameraSpeed * deltaTime;
 		}
 		static Vector2 pervMousePos;
 		Vector2 deltaMouse = InputPC::GetMousePosition() - pervMousePos;
