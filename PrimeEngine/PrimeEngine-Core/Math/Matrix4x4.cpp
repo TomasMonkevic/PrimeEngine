@@ -173,9 +173,9 @@ namespace PrimeEngine { namespace Math {
 	const Matrix4x4 Matrix4x4::Orthographic(float left, float right, float bottom, float top, float zNear, float zFar)
 	{
 		Matrix4x4 result(new float[4][4]{
-			{ 2.0f / (right - left), 0, 0, (right + left) / (left - right)},
-			{ 0, 2.0f / (top - bottom), 0, (top + bottom) / (bottom - top) },
-			{ 0, 0, -2.0f / (zFar - zNear), (zFar + zNear) / (zFar - zNear) },
+			{ 2.0f / (right - left), 0, 0, -(right + left) / (right - left)},
+			{ 0, 2.0f / (top - bottom), 0, -(top + bottom) / (top - bottom) },
+			{ 0, 0, -2.0f / (zFar - zNear), -(zFar + zNear) / (zFar - zNear) },
 			{ 0, 0, 0, 1 }
 		});
 		return result;
@@ -184,8 +184,8 @@ namespace PrimeEngine { namespace Math {
 	const Matrix4x4 Matrix4x4::Perspective(float fov, float aspectRatio, float zNear, float zFar)
 	{
 		Matrix4x4 result(new float[4][4]{
-			{ (1 / tan(ToRadians(fov) / 2)) / aspectRatio, 0, 0, 0 },
-			{ 0, 1 / tan(ToRadians(fov) / 2), 0, 0 },
+			{ (1 / (float)tan(ToRadians(fov) / 2)) / aspectRatio, 0, 0, 0 },
+			{ 0, 1 / (float)tan(ToRadians(fov) / 2), 0, 0 },
 			{ 0, 0, -zFar / (zFar - zNear), - (zNear * zFar) / (zFar - zNear)},
 			{ 0, 0, -1, 0 }
 		});

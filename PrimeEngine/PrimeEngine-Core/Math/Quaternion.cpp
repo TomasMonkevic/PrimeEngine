@@ -23,12 +23,12 @@ namespace PrimeEngine { namespace Math {
 	{
 		float cr, cp, cy, sr, sp, sy, cpcy, spsy;
 		// calculate trig identities
-		cr = cos(_x * (PI / 180.0f) / 2);
-		cp = cos(_y * (PI / 180.0f) / 2);
-		cy = cos(_z * (PI / 180.0f) / 2);
-		sr = sin(_x * (PI / 180.0f) / 2);
-		sp = sin(_y * (PI / 180.0f) / 2);
-		sy = sin(_z * (PI / 180.0f) / 2);
+		cr = cos((float)ToRadians(_x) / 2);
+		cp = cos((float)ToRadians(_y) / 2);
+		cy = cos((float)ToRadians(_z) / 2);
+		sr = sin((float)ToRadians(_x) / 2);
+		sp = sin((float)ToRadians(_y) / 2);
+		sy = sin((float)ToRadians(_z) / 2);
 		cpcy = cp * cy;
 		spsy = sp * sy;
 
