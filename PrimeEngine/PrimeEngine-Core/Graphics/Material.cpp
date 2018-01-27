@@ -14,6 +14,8 @@ namespace PrimeEngine { namespace Graphics {
 
 		_shader->SetUniform("diffuseTexture", 0);
 		_shader->SetUniform("specularTexture", 1);
+		_shader->SetUniform("normalTexture", 2);
+
 		_shader->SetUniform("diffuseColor", _diffuseColor);
 		_shader->SetUniform("smoothness", _smoothness);
 
@@ -27,6 +29,9 @@ namespace PrimeEngine { namespace Graphics {
 
 		_specularMap->Activate(1);
 		_specularMap->Bind();
+
+		_normalMap->Activate(2);
+		_normalMap->Bind();
 	}
 
 	void Material::Disable() const
@@ -43,13 +48,13 @@ namespace PrimeEngine { namespace Graphics {
 	}
 
 	Material::Material(const char* shaderSource, const Color& color)
-		: Material(shaderSource, new Texture(), new Texture(), color, 64)
+		: Material(shaderSource, new Texture(Color::white), new Texture(Color::white), color, 64)
 	{
 
 	}
 
 	Material::Material(const char* shaderSource, Texture* diffMap, Texture* specMap)
-		: Material(shaderSource, diffMap, specMap, Color::white, 64)
+		: Material(shaderSource, diffMap, specMap ? specMap : new Texture(Color::white), Color::white, 64)
 	{
 
 	}
@@ -59,5 +64,6 @@ namespace PrimeEngine { namespace Graphics {
 		delete _shader;
 		delete _diffuseMap;
 		delete _specularMap;
+		delete _normalMap;
 	}
 } }

@@ -79,6 +79,7 @@ layout (location = 0) out vec4 color;
 //TODO add default values to uniforms
 uniform sampler2D diffuseTexture;
 uniform sampler2D specularTexture;
+uniform sampler2D normalTexture;
 uniform vec4 diffuseColor;
 uniform float smoothness;
 
@@ -98,11 +99,12 @@ vec4 CalcAmbientLight(AmbientLight light);
 
 void main()
 {
-	vec3 norm = normalize(dataIn.normal);
+	vec3 norm = normalize(texture(normalTexture, dataIn.uv).xyz * 2.0f - 1.0f);
+	//vec3 norm = dataIn.normal;
 	vec3 viewDir = normalize(viewPosition - dataIn.position);
 
 	vec4 result;
-	for(int i = 0; i < 64; i++) //TODO add dynamic pointLightCount
+	for(int i = 0; i < 2; i++) //TODO add dynamic pointLightCount
 	{
 		result += CalcPointLight(lights[i], norm, viewDir);
 	}
@@ -111,6 +113,9 @@ void main()
 	result += CalcSpotLight(spotLight, norm, viewDir);
 
 	color = result * diffuseColor;
+	//color = texture(normalTexture, dataIn.uv);
+	//color = vec4(dataIn.normal * 0.5f + 0.5f, 1.0f);
+	//color = vec4(0.5f, 0.5f, 1.0f, 1.0f);
 }
 
 float Attenuation(vec3 lightPos, vec3 pos, float range)

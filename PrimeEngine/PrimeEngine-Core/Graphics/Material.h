@@ -22,6 +22,7 @@ namespace PrimeEngine { namespace Graphics {
 		Color _diffuseColor;
 		Texture* _diffuseMap;
 		Texture* _specularMap;
+		Texture* _normalMap = new Texture(Color(0.5f, 0.5f, 1.0f));
 		float _smoothness;
 
 	private:
@@ -33,6 +34,9 @@ namespace PrimeEngine { namespace Graphics {
 		Material(const char* shaderSource, const Color& color = Color::white);
 		Material(const char* shaderSource, Texture* diffMap, Texture* specMap = nullptr);
 		~Material();
+
+		inline const Texture* NormalMap() const { return _normalMap; }
+		inline void NormalMap(Texture* texture) { _normalMap = texture; }
 
 		inline Color& DiffuseColor() { return _diffuseColor; }
 		inline const Color DiffuseColor() const { return _diffuseColor; }
