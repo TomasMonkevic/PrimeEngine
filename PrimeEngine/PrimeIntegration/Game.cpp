@@ -32,8 +32,9 @@ void TestGame::Awake()
 	GameObject* cube2 = new GameObject();
 	//TODO test what happens when copyed?
 	//TODO reuse same geometry/mesh
-	Material* brickMaterial = new Material(Shader::phong, new Texture("Resources/Textures/brickwall.jpg"));
+	Material* brickMaterial = new Material(Shader::phong, new Texture("Resources/Textures/bird1.png"));
 	brickMaterial->NormalMap(new Texture("Resources/Textures/brickwall_normal.jpg"));
+	brickMaterial->Smoothness() = 1024;
 	cube2->AddComponent(new MeshRenderer(Mesh::Cube(Color(1.0f, 0.8f, 0.0f)), brickMaterial));
 	cube2->GetTransform().Position.x = 5.0f;
 
@@ -60,9 +61,9 @@ void TestGame::Awake()
 	mainScene->Add(ground);
 	mainScene->Add(light);
 	mainScene->Add(light2);
-	mainScene->Add(sun);
+	//mainScene->Add(sun);
 	mainScene->Add(ambientLight);
-	//mainScene->Add(flashLight);
+	mainScene->Add(flashLight);
 }
 
 void TestGame::Update()

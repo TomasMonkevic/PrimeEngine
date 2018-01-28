@@ -18,6 +18,7 @@ namespace PrimeEngine { namespace Graphics {
 		unsigned color32;
 		Vector2 uv;
 		Vector3 normal;
+		Vector3 tangent;
 	};
 
 	class PRIMEENGINEAPI Mesh
