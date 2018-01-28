@@ -1,21 +1,18 @@
 #pragma once
 
-#include <PrimeEngine.h>
+#include <PrimeEngine.h> //TODO should only include necessary includes
 #include <DllExport.h>
-
-using namespace PrimeEngine::Math;
-using namespace PrimeEngine::Input;
 
 namespace PrimeEngine {
 
 	class PRIMEENGINEAPI FpsCamera : public Behaviour
 	{
 	private:
-		float cameraSpeed = 10.0f;
-		Vector2 mouseSensitivity = Vector2(0.015f, 0.015f);
+		float _cameraSpeed;
+		Math::Vector2 _mouseSensitivity;
 
 	public:
-		FpsCamera();
+		FpsCamera(float cameraSpeed, const Math::Vector2& mouseSensitivity);
 
 		void Update(float deltaTime) override;
 		

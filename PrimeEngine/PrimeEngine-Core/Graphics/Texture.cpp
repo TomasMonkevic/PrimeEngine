@@ -4,11 +4,11 @@
 
 namespace PrimeEngine { namespace Graphics {
 
-	Texture::Texture() //TODO remove duplicate code
+	Texture::Texture(const Color& color) //TODO remove duplicate code
 	{
 		glGenTextures(1, &_Id);
 
-		GLubyte data[] = { 255, 255, 255, 255 };
+		GLubyte data[] = { color[0] * 255, color[1] * 255, color[2] * 255, color[3] * 255 };
 
 		glBindTexture(GL_TEXTURE_2D, _Id);
 
@@ -41,7 +41,7 @@ namespace PrimeEngine { namespace Graphics {
 		glGenTextures(1, &result);
 		glBindTexture(GL_TEXTURE_2D, result);
 
-		unsigned char* image = stbi_load(_path, &_width, &_height, 0, 0);
+		unsigned char* image = stbi_load(_path, &_width, &_height, 0, 4);
 
 		// Set the texture wrapping/filtering options (on the currently bound texture object)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
@@ -50,8 +50,8 @@ namespace PrimeEngine { namespace Graphics {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, _width, _height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+		//glGenerateMipmap(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, 0);
-		glGenerateMipmap(GL_TEXTURE_2D);
 
 		stbi_image_free(image);
 		return result;

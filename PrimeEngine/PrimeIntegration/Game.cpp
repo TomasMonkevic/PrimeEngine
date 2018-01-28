@@ -22,7 +22,7 @@ void TestGame::Awake()
 	Vector3 cameraPosition(Vector3(0.0f, 0.0f, -10.0f)); //projection
 	//Vector3 cameraPosition(Vector3(0, 0, 0.0f)); //ortho
 	mainCamera->GetTransform().Position = cameraPosition;
-	mainCamera->AddComponent(new FpsCamera());
+	mainCamera->AddComponent(new FpsCamera(7.0f, Vector2(0.015f, 0.015f)));
 
 	player = new GameObject();
 	//player->AddComponent(new Sprite (Vector2(17, 12) / 5, "Resources\\Textures\\bird1.png"));
@@ -32,7 +32,9 @@ void TestGame::Awake()
 	GameObject* cube2 = new GameObject();
 	//TODO test what happens when copyed?
 	//TODO reuse same geometry/mesh
-	cube2->AddComponent(new MeshRenderer(Mesh::Cube(Color(1.0f, 0.8f, 0.0f)), boxMaterial));
+	Material* brickMaterial = new Material(Shader::phong, new Texture("Resources/Textures/brickwall.jpg"));
+	brickMaterial->NormalMap(new Texture("Resources/Textures/brickwall_normal.jpg"));
+	cube2->AddComponent(new MeshRenderer(Mesh::Cube(Color(1.0f, 0.8f, 0.0f)), brickMaterial));
 	cube2->GetTransform().Position.x = 5.0f;
 
 	GameObject* ground = new GameObject(Vector3(0.0f, -1.0f, 0.0f));

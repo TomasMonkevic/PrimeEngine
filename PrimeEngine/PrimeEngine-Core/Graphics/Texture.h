@@ -3,6 +3,7 @@
 #include <GL\glew.h>
 #include "..\DllExport.h"
 #include <Math\Vector2.h>
+#include "Color.h"
 
 namespace PrimeEngine { namespace Graphics {
 
@@ -21,7 +22,7 @@ namespace PrimeEngine { namespace Graphics {
 		GLuint Load();
 
 	public:
-		Texture(); //creates 1x1 empty texture
+		Texture(const Color& color); //creates 1x1 empty texture
 		Texture(const char* path);
 		~Texture();
 
