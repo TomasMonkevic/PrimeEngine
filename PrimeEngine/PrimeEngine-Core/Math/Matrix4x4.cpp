@@ -173,10 +173,10 @@ namespace PrimeEngine { namespace Math {
 	const Matrix4x4 Matrix4x4::Orthographic(float left, float right, float bottom, float top, float zNear, float zFar)
 	{
 		Matrix4x4 result(new float[4][4]{
-			{ 2.0f / (right - left), 0, 0, 0},
-			{ 0, 2.0f / (top - bottom), 0,  0},
-			{ 0, 0, -2.0f / (zFar - zNear), 0 },
-			{ -(right + left) / (right - left), -(top + bottom) / (top - bottom), -(zFar + zNear) / (zFar - zNear), 1 }
+			{ 2.0f / (right - left), 0, 0, -(right + left) / (right - left)},
+			{ 0, 2.0f / (top - bottom), 0, -(top + bottom) / (top - bottom) },
+			{ 0, 0, -2.0f / (zFar - zNear), -(zFar + zNear) / (zFar - zNear) },
+			{ 0, 0, 0, 1 }
 		});
 		return result;
 	}
