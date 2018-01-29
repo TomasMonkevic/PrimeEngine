@@ -60,7 +60,7 @@ namespace PrimeEngine { namespace Math {
 			{
 				for (int j = 0; j < 4; j++)
 				{
-					stream << matrix._matrix[j][i] << " ";
+					stream << matrix._matrix[i][j] << " ";
 				}
 				stream << std::endl;
 			}
