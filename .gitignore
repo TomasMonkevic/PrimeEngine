@@ -35,7 +35,9 @@ PrimeEngine/Dependencies/FreeImage/Source/LibWebP/x64/
 PrimeEngine/Dependencies/FreeImage/Source/OpenEXR/x64/
 PrimeEngine/Dependencies/FreeImage/Source/ZLib/x64/
 PrimeEngine/Dependencies/FreeImage/x64/
-PrimeEngine/Dependencies/FreeType/x64
+PrimeEngine/Dependencies/FreeType/x64/
+PrimeEngine/Dependencies/GLFW/x64/
+PrimeEngine/Dependencies/GLEW/build/vc12/x64/
 
 PrimeEngine/Dependencies/FreeImage/Dist/
 PrimeEngine/Dependencies/FreeImage/Source/FreeImageLib/Win32/
@@ -49,9 +51,11 @@ PrimeEngine/Dependencies/FreeImage/Source/LibWebP/Win32/
 PrimeEngine/Dependencies/FreeImage/Source/OpenEXR/Win32/
 PrimeEngine/Dependencies/FreeImage/Source/ZLib/Win32/
 PrimeEngine/Dependencies/FreeImage/Win32/
-PrimeEngine/Dependencies/FreeType/Win32
+PrimeEngine/Dependencies/FreeType/Win32/
 
-PrimeEngine/Dependencies/FreeType/Intermediate
+PrimeEngine/Dependencies/FreeType/Intermediate/
+PrimeEngine/Dependencies/GLFW/Intermediate/
+PrimeEngine/Dependencies/GLEW/build/vc12/Intermediate/
 
-PrimeEngine/bin
+PrimeEngine/bin/
 

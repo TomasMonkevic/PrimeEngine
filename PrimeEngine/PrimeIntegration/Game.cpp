@@ -14,8 +14,8 @@ void TestGame::Awake()
 	//GetWindow()->SetColor(Color(0.5f, 0.5f, 0.5f, 1.0f));
 	GetWindow()->SetColor(Color(0xfff48642));
 
-	Matrix4x4 pr = Matrix4x4::Orthographic(0.0f, 16.0f, -4.50f, 4.50f, -50.0f, 50.0f);
-	//Matrix4x4 pr = Matrix4x4::Perspective(90.0f, 16.0f / 9.0f, 0.1f, 1000.0f);
+	//Matrix4x4 pr = Matrix4x4::Orthographic(0.0f, 16.0f, -4.50f, 4.50f, -50.0f, 50.0f);
+	const Matrix4x4 pr = Matrix4x4::Perspective(90.0f, 16.0f / 9.0f, 0.1f, 1000.0f);
 
 	mainCamera = new Camera(ShaderManagerI.CreateShader("gameShader", Shader::phong), pr);
 
@@ -32,7 +32,7 @@ void TestGame::Awake()
 	GameObject* cube2 = new GameObject();
 	//TODO test what happens when copyed?
 	//TODO reuse same geometry/mesh
-	Material* brickMaterial = new Material(Shader::phong, new Texture("Resources/Textures/brickwall.jpg"));
+	Material* brickMaterial = new Material(Shader::phong, new Texture("Resources/Textures/bird1.png"));
 	brickMaterial->NormalMap(new Texture("Resources/Textures/brickwall_normal.jpg"));
 	brickMaterial->Smoothness() = 1024;
 	cube2->AddComponent(new MeshRenderer(Mesh::Cube(Color(1.0f, 0.8f, 0.0f)), brickMaterial));
@@ -61,7 +61,7 @@ void TestGame::Awake()
 	mainScene->Add(ground);
 	mainScene->Add(light);
 	mainScene->Add(light2);
-	//mainScene->Add(sun);
+	mainScene->Add(sun);
 	mainScene->Add(ambientLight);
 	mainScene->Add(flashLight);
 }
