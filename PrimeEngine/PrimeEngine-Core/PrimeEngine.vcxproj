@@ -73,6 +73,7 @@
     <ClInclude Include="Utilities\File.h" />
     <ClInclude Include="Utilities\Log.h" />
     <ClInclude Include="Utilities\Time.h" />
+    <ClInclude Include="Utilities\Utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Components\Behaviour.cpp" />
@@ -120,6 +121,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="UI\Text.cpp" />
     <ClCompile Include="Utilities\Time.cpp" />
+    <ClCompile Include="Utilities\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Graphics\Shader\Source\Default.pesl" />

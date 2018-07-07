@@ -72,6 +72,7 @@
     <ClInclude Include="Graphics\Lights\AmbientLight.h" />
     <ClInclude Include="Graphics\Lights\DirectionalLight.h" />
     <ClInclude Include="Graphics\Lights\SpotLight.h" />
+    <ClInclude Include="Utilities\Utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Input.cpp">
@@ -120,6 +121,7 @@
     <ClCompile Include="Graphics\Lights\AmbientLight.cpp" />
     <ClCompile Include="Graphics\Lights\DirectionalLight.cpp" />
     <ClCompile Include="Graphics\Lights\SpotLight.cpp" />
+    <ClCompile Include="Utilities\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Graphics\Shader\Source\Default.pesl" />
