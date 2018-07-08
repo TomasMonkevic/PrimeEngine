@@ -15,7 +15,7 @@
 
 .vs/
 .vscode/
-Build/
+Build/**
 Tools/.vscode/
 
 PrimeEngine/.vs/
