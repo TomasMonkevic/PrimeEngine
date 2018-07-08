@@ -157,7 +157,7 @@ namespace PrimeEngine {
 			vertices[indices[i + 2]].tangent = tangent;
 		}
 		Graphics::Mesh* mesh = new Graphics::Mesh(vertices.data(), sizeof(Graphics::TempVertexData) * vertices.size(), indices.data(), indices.size());
-		Graphics::Material* material = new Graphics::Material(Graphics::Shader::phong); //TODO also memory leak
+		Graphics::Material* material = new Graphics::Material(Graphics::Shader::simplePhong); //TODO also memory leak
 		//Graphics::Material* material = new Graphics::Material(Graphics::Shader::phong, new Graphics::Texture("Resources/Textures/boxDiff.png"), new Graphics::Texture("Resources/Textures/boxSpec.png")); //TODO don't forget to delete this
 		material->Smoothness() = 256.0f;
 		result->AddComponent(new Graphics::MeshRenderer(mesh, material));
