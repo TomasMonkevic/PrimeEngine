@@ -134,9 +134,32 @@ namespace PrimeEngine {
 				for (unsigned i = 1; i < tokens.size(); i++)
 				{
 					std::vector<std::string> indexes = SplitString(tokens[i], "/");
-					face[i-1].positionIndex = indexes.size() > 0 && !indexes[0].empty() ? stoi(indexes[0]) : 0;
-					face[i-1].uvIndex = indexes.size() > 1 && !indexes[1].empty() ? stoi(indexes[1]) : 0;
-					face[i-1].normalIndex = indexes.size() > 2 && !indexes[2].empty() ? stoi(indexes[2]) : 0;
+					if (indexes.size() == 1)
+					{
+						face[i - 1].positionIndex = stoi(indexes[0]);
+						face[i - 1].uvIndex = 0;
+						face[i - 1].normalIndex = 0;
+					}
+					else if (indexes.size() == 2)
+					{
+						face[i - 1].positionIndex = stoi(indexes[0]);
+						if (strstr(tokens[i].c_str(), "//"))
+						{
+							face[i - 1].uvIndex = 0;
+							face[i - 1].normalIndex = stoi(indexes[1]);
+						}
+						else
+						{
+							face[i - 1].uvIndex = stoi(indexes[1]);
+							face[i - 1].normalIndex = 0;
+						}
+					}
+					else
+					{
+						face[i - 1].positionIndex = stoi(indexes[0]);
+						face[i-1].uvIndex = stoi(indexes[1]);
+						face[i-1].normalIndex = stoi(indexes[2]);
+					}
 				}
 
 				InsertVertex(vertices, indices, mapping, *vertexSet, face[0]);
