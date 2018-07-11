@@ -60,15 +60,15 @@ namespace PrimeEngine {
 			mapping[indexSet] = (int)vertices.size();
 			indices.push_back(vertices.size());
 			Graphics::TempVertexData vertex = {
-				inputVertices.positions[indexSet.positionIndex - 1],
+				indexSet.positionIndex == 0 ? Math::Vector3::zero() : inputVertices.positions[indexSet.positionIndex - 1],
 				0xFFFFFFFF,
-				inputVertices.uvs[indexSet.uvIndex - 1],
-				inputVertices.normals[indexSet.normalIndex - 1] };
+				indexSet.uvIndex == 0 ? Math::Vector2::zero() : inputVertices.uvs[indexSet.uvIndex - 1],
+				indexSet.normalIndex == 0 ? Math::Vector3::zero() :inputVertices.normals[indexSet.normalIndex - 1] };
 			vertices.push_back(vertex);
 		}
 	}
 
-	GameObject* GameObject::LoadObjModel(std::string path)
+	GameObject* GameObject::LoadObjModel(std::string path, bool isCalcTangents)
 	{
 		using namespace PrimeEngine::Math;
 
@@ -133,7 +133,10 @@ namespace PrimeEngine {
 				std::unique_ptr<IndexSet[]> face(new IndexSet[tokens.size() - 1]);
 				for (unsigned i = 1; i < tokens.size(); i++)
 				{
-					sscanf_s(tokens[i].c_str(), "%d/%d/%d", &(face[i-1].positionIndex), &face[i-1].uvIndex, &face[i-1].normalIndex);
+					std::vector<std::string> indexes = SplitString(tokens[i], "/");
+					face[i-1].positionIndex = indexes.size() > 0 && !indexes[0].empty() ? stoi(indexes[0]) : 0;
+					face[i-1].uvIndex = indexes.size() > 1 && !indexes[1].empty() ? stoi(indexes[1]) : 0;
+					face[i-1].normalIndex = indexes.size() > 2 && !indexes[2].empty() ? stoi(indexes[2]) : 0;
 				}
 
 				InsertVertex(vertices, indices, mapping, *vertexSet, face[0]);
@@ -150,22 +153,25 @@ namespace PrimeEngine {
 			//PRIME_INFO(i, "\n");
 			progress++;
 		}
-		for (int i = 0; i<indices.size(); i += 3)
+		if (isCalcTangents)
 		{
-			Vector3 edge1 = vertices[indices[i + 1]].position - vertices[indices[i + 0]].position;
-			Vector3 edge2 = vertices[indices[i + 2]].position - vertices[indices[i + 0]].position;
-			Vector2 deltaUV1 = vertices[indices[i + 1]].uv - vertices[indices[i + 0]].uv;
-			Vector2 deltaUV2 = vertices[indices[i + 2]].uv - vertices[indices[i + 0]].uv;
+			for (int i = 0; i<indices.size(); i += 3)
+			{
+				Vector3 edge1 = vertices[indices[i + 1]].position - vertices[indices[i + 0]].position;
+				Vector3 edge2 = vertices[indices[i + 2]].position - vertices[indices[i + 0]].position;
+				Vector2 deltaUV1 = vertices[indices[i + 1]].uv - vertices[indices[i + 0]].uv;
+				Vector2 deltaUV2 = vertices[indices[i + 2]].uv - vertices[indices[i + 0]].uv;
 
-			float f = 1.0f / (deltaUV1.x * deltaUV2.y - deltaUV2.x * deltaUV1.y);
+				float f = 1.0f / (deltaUV1.x * deltaUV2.y - deltaUV2.x * deltaUV1.y);
 
-			Vector3 tangent(deltaUV2.y * edge1.x - deltaUV1.y * edge2.x, deltaUV2.y * edge1.y - deltaUV1.y * edge2.y, deltaUV2.y * edge1.z - deltaUV1.y * edge2.z);
-			tangent *= f;
-			tangent.Normalized();
+				Vector3 tangent(deltaUV2.y * edge1.x - deltaUV1.y * edge2.x, deltaUV2.y * edge1.y - deltaUV1.y * edge2.y, deltaUV2.y * edge1.z - deltaUV1.y * edge2.z);
+				tangent *= f;
+				tangent.Normalized();
 
-			vertices[indices[i + 0]].tangent = tangent;
-			vertices[indices[i + 1]].tangent = tangent;
-			vertices[indices[i + 2]].tangent = tangent;
+				vertices[indices[i + 0]].tangent = tangent;
+				vertices[indices[i + 1]].tangent = tangent;
+				vertices[indices[i + 2]].tangent = tangent;
+			}
 		}
 		Graphics::Mesh* mesh = new Graphics::Mesh(vertices.data(), sizeof(Graphics::TempVertexData) * vertices.size(), indices.data(), indices.size());
 		Graphics::Material* material = new Graphics::Material(Graphics::Shader::simplePhong); //TODO also memory leak

@@ -55,7 +55,8 @@ void TestGame::Awake()
 	sun = new DirectionalLight(Color(0xffbafbfc), 0.7f);
 	flashLight = new SpotLight(Color(0xffbafbfc), 0.7f, 15.0f, 20.0f, 15.0f);
 
-	GameObject* loadedModel = GameObject::LoadObjModel("Resources/Models/teapot_n_glass.obj");
+	GameObject* loadedModel = GameObject::LoadObjModel("Resources/Models/deer.obj", false);
+	loadedModel->GetTransform().Scale *= 0.01f;
 
 	mainScene = new Scene(mainCamera);
 	mainScene->Add(loadedModel);
