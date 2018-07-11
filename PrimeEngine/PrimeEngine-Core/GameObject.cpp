@@ -8,6 +8,7 @@
 #include "Graphics\Material.h"
 #include "Graphics\MeshRenderer.h"
 #include <unordered_map>
+#include <memory>
 
 struct IndexSet
 {
@@ -83,10 +84,10 @@ namespace PrimeEngine {
 		std::vector<unsigned short> indices;
 		std::unordered_map<IndexSet, int> mapping;
 
-		unsigned i = 1;
+		unsigned progress = 1;
 		for (std::string& line : lines)
 		{
-			if (i == 4661)
+			if (progress == 4661)
 			{
 				PRIME_INFO("lol");
 			}
@@ -124,20 +125,30 @@ namespace PrimeEngine {
 			}
 			else if (strstr(cstr, "f"))
 			{
-				IndexSet face[3];
-				int result = sscanf_s(cstr, "%*s %d/%d/%d %d/%d/%d %d/%d/%d",
-					&face[0].positionIndex, &face[0].uvIndex, &face[0].normalIndex,
-					&face[1].positionIndex, &face[1].uvIndex, &face[1].normalIndex,
-					&face[2].positionIndex, &face[2].uvIndex, &face[2].normalIndex);
-				if (result == 0)
+				std::vector<std::string> tokens = SplitString(line, " ");
+				if (tokens.size() < 4)
+				{
 					continue;
+				}
+				std::unique_ptr<IndexSet[]> face(new IndexSet[tokens.size() - 1]);
+				for (unsigned i = 1; i < tokens.size(); i++)
+				{
+					sscanf_s(tokens[i].c_str(), "%d/%d/%d", &(face[i-1].positionIndex), &face[i-1].uvIndex, &face[i-1].normalIndex);
+				}
 
 				InsertVertex(vertices, indices, mapping, *vertexSet, face[0]);
 				InsertVertex(vertices, indices, mapping, *vertexSet, face[1]);
 				InsertVertex(vertices, indices, mapping, *vertexSet, face[2]);
+
+				if (tokens.size() - 1 == 4) //is the face quad
+				{
+					InsertVertex(vertices, indices, mapping, *vertexSet, face[0]);
+					InsertVertex(vertices, indices, mapping, *vertexSet, face[2]);
+					InsertVertex(vertices, indices, mapping, *vertexSet, face[3]);
+				}
 			}
 			//PRIME_INFO(i, "\n");
-			i++;
+			progress++;
 		}
 		for (int i = 0; i<indices.size(); i += 3)
 		{
