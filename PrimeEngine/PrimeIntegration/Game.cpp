@@ -55,17 +55,16 @@ void TestGame::Awake()
 	sun = new DirectionalLight(Color(0xffbafbfc), 0.7f);
 	flashLight = new SpotLight(Color(0xffbafbfc), 0.7f, 15.0f, 20.0f, 15.0f);
 
-	GameObject* loadedModel = GameObject::LoadObjModel("Resources/Models/deer.obj", false);
-	loadedModel->GetTransform().Scale *= 0.01f;
+	GameObject* loadedModel = GameObject::LoadObjModel("Resources/Models/katilas.obj", true);
 
 	mainScene = new Scene(mainCamera);
 	mainScene->Add(loadedModel);
-	//mainScene->Add(player);
+	mainScene->Add(player);
 	mainScene->Add(cube2);
 	mainScene->Add(ground);
 	mainScene->Add(light);
 	mainScene->Add(light2);
-	//mainScene->Add(sun);
+	mainScene->Add(sun);
 	mainScene->Add(ambientLight);
 	mainScene->Add(flashLight);
 }
