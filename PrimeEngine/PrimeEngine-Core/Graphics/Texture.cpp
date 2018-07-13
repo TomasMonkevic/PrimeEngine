@@ -41,6 +41,7 @@ namespace PrimeEngine { namespace Graphics {
 		glGenTextures(1, &result);
 		glBindTexture(GL_TEXTURE_2D, result);
 
+		stbi_set_flip_vertically_on_load(1);
 		unsigned char* image = stbi_load(_path, &_width, &_height, 0, 4);
 
 		// Set the texture wrapping/filtering options (on the currently bound texture object)

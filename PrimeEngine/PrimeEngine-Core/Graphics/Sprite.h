@@ -22,10 +22,10 @@ namespace PrimeEngine { namespace Graphics {
 	private:
 		void SetTextureCords()
 		{
-			_textureCord[0] = Math::Vector2(0, 0);
-			_textureCord[1] = Math::Vector2(1, 0);
-			_textureCord[2] = Math::Vector2(1, 1);
-			_textureCord[3] = Math::Vector2(0, 1);
+			_textureCord[0] = Math::Vector2(0, 1);
+			_textureCord[1] = Math::Vector2(1, 1);
+			_textureCord[2] = Math::Vector2(1, 0);
+			_textureCord[3] = Math::Vector2(0, 0);
 		}
 
 	public:
