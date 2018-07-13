@@ -16,8 +16,6 @@ namespace PrimeEngine {
 		std::vector<GameObject*>* _children;
 		//transform component is mandatory
 	public:
-		static GameObject* LoadObjModel(std::string path, bool isCalcTangents);
-
 		GameObject();
 		GameObject(const Math::Vector3& position);
 		GameObject(const GameObject& obj);

@@ -20,6 +20,8 @@ private:
 	Camera* mainCamera;
 	DirectionalLight* sun;
 
+	SpotLight* flashLight;
+
 public:
 	~Demo()
 	{

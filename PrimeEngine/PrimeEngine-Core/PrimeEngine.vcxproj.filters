@@ -73,6 +73,7 @@
     <ClInclude Include="Graphics\Lights\DirectionalLight.h" />
     <ClInclude Include="Graphics\Lights\SpotLight.h" />
     <ClInclude Include="Utilities\Utils.h" />
+    <ClInclude Include="Graphics\ModelImporter.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Input.cpp">
@@ -122,6 +123,7 @@
     <ClCompile Include="Graphics\Lights\DirectionalLight.cpp" />
     <ClCompile Include="Graphics\Lights\SpotLight.cpp" />
     <ClCompile Include="Utilities\Utils.cpp" />
+    <ClCompile Include="Graphics\ModelImporter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Graphics\Shader\Source\Default.pesl" />

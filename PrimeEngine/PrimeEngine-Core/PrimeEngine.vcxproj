@@ -45,6 +45,7 @@
     <ClInclude Include="Graphics\Material.h" />
     <ClInclude Include="Graphics\Mesh.h" />
     <ClInclude Include="Graphics\MeshRenderer.h" />
+    <ClInclude Include="Graphics\ModelImporter.h" />
     <ClInclude Include="Graphics\Renderable.h" />
     <ClInclude Include="Graphics\Renderer2D.h" />
     <ClInclude Include="Graphics\Shader\Shader.h" />
@@ -103,6 +104,7 @@
     <ClCompile Include="Graphics\Material.cpp" />
     <ClCompile Include="Graphics\Mesh.cpp" />
     <ClCompile Include="Graphics\MeshRenderer.cpp" />
+    <ClCompile Include="Graphics\ModelImporter.cpp" />
     <ClCompile Include="Graphics\Shader\Shader.cpp" />
     <ClCompile Include="Graphics\Shader\ShaderManager.cpp" />
     <ClCompile Include="Graphics\Sprite.cpp" />
