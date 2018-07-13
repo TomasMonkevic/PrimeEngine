@@ -154,7 +154,7 @@ vec4 CalcPointLight(PointLight light, vec3 norm, vec3 viewDir)
 vec4 CalcDirectionalLight(DirectionalLight light, vec3 norm, vec3 viewDir)
 {
 	//Diffuse light
-	vec3 lightDir = normalize(light.direction);
+	vec3 lightDir = normalize(-light.direction);
 	vec4 diffuse = max(dot(norm, lightDir), 0.0f) * mix(light.color, vec4(1.0f), DIFFUSE_MIX) * texture(diffuseTexture, dataIn.uv);
 	diffuse.w = 1.0f;
 

@@ -127,5 +127,6 @@
     <None Include="Graphics\Shader\Source\Default.pesl" />
     <None Include="Graphics\Shader\Source\Phong.pesl" />
     <None Include="Graphics\Shader\Source\Glow.pesl" />
+    <None Include="Graphics\Shader\Source\SimplePhong.pesl" />
   </ItemGroup>
 </Project>
