@@ -23,30 +23,33 @@ namespace PrimeEngine {
 		void AddChild();
 		void RemoveChild();
 
+		void LookAt(const Math::Vector3& target);
+		inline void LookAt(const Transform& target) { LookAt(target.Position); }
+
 		void Rotate(const Math::Quaternion& rotation) //TODO change rotation
 		{
 			Rotation *= rotation;
 		}
 
-		Math::Vector3 Forward()
+		Math::Vector3 Forward() const
 		{
 			const Math::Matrix4x4 mat = Rotation.RotationMatrix();
 			return mat[2];
 		}
 
-		Math::Vector3 Right()
+		Math::Vector3 Right() const
 		{
 			const Math::Matrix4x4 mat = Rotation.RotationMatrix();
 			return mat[0];
 		}
 
-		Math::Vector3 Up()
+		Math::Vector3 Up() const
 		{
 			const Math::Matrix4x4 mat = Rotation.RotationMatrix();
 			return mat[1];
 		}
 
-		inline const Math::Matrix4x4 GetModelMatrix() const
+		inline Math::Matrix4x4 GetModelMatrix() const
 		{
 			return Math::Matrix4x4::TRS(Position, Rotation, Scale);
 		}

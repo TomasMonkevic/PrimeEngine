@@ -47,19 +47,6 @@ namespace PrimeEngine { namespace Graphics {
 		return _projectionMatrix * _viewMatrix * point;
 	}
 
-	//Look at will no longer work
-	void Camera::LookAt(const Math::Vector3& target)
-	{
-		Math::Vector3 _direction = (GetTransform().Position - target).Normalized() * -1.0f;
-		Math::Vector3 _right = Math::Vector3::Cross(Math::Vector3::up(), _direction).Normalized();
-		Math::Vector3 _up = Math::Vector3::Cross(_direction, _right).Normalized();
-		Math::Matrix4x4 tempMatrix = Math::Matrix4x4::identity();
-		tempMatrix.SetRow(0, Math::Vector4(_right.x, _right.y, _right.z, 0));
-		tempMatrix.SetRow(1, Math::Vector4(_up.x, _up.y, _up.z, 0));
-		tempMatrix.SetRow(2, Math::Vector4(_direction.x, _direction.y, _direction.z, 0));
-		_viewMatrix = tempMatrix * Math::Matrix4x4::Transform(GetTransform().Position * -1);
-	}
-
 	const Math::Matrix4x4& Camera::GetViewMatrix()
 	{
 		Math::Matrix4x4 temp = GetTransform().Rotation.RotationMatrix();

@@ -18,6 +18,7 @@ class Demo : public PrimeEngineBase
 private:
 	Scene * mainScene;
 	Camera* mainCamera;
+	GameObject* alienStatue;
 	DirectionalLight* sun;
 
 	UILayer* uiLayer;

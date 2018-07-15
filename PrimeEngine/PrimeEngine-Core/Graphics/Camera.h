@@ -27,8 +27,6 @@ namespace PrimeEngine { namespace Graphics {
 		Math::Vector2 WorldToScreenPoint(const Math::Vector3& point) const; //TEST
 		Math::Vector2 WorldToViewPoint(const Math::Vector3& point) const; //TEST
 
-		void LookAt(const Math::Vector3& target);
-
 		const Math::Matrix4x4& GetProjectionMatrix() const { return _projectionMatrix; }
 		const Math::Matrix4x4& GetViewMatrix();
 

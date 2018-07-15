@@ -42,7 +42,7 @@ void Demo::Awake()
 		new Texture("Resources/SpecialScene/Textures/Statue_Albedo.png"),
 	new Texture("Resources/SpecialScene/Textures/Statue_MetallicSmooth.png"));
 	alienStatueMaterial->NormalMap(new Texture("Resources/SpecialScene/Textures/Statue_Normal.png"));
-	GameObject* alienStatue = new GameObject;
+	alienStatue = new GameObject;
 	alienStatue->AddComponent(new MeshRenderer(objModelImporter.ImportModel("Resources/SpecialScene/Models/AlienStatue.obj", true), alienStatueMaterial));
 	alienStatue->GetTransform().Position = Vector3(-6.58f, 1.0f, -2.855f);
 	alienStatue->GetTransform().Rotation = Quaternion(0.0f, 102.2f, 0.0f);
@@ -115,6 +115,8 @@ void Demo::Update()
 	//fpsLabel->
 
 	mainCamera->GetComponent<FpsCamera>()->Update(GetDeltaTime());
+	mainCamera->GetTransform().LookAt(alienStatue->GetTransform());
+
 	sun->GetTransform().Rotate(Quaternion::Rotation(GetDeltaTime() * 0.1f, Vector3::right()));
 
 	flashLight->GetTransform().Position = mainCamera->GetTransform().Position;

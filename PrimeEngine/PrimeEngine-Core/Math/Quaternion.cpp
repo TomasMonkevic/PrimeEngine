@@ -16,7 +16,10 @@ namespace PrimeEngine { namespace Math {
 
 	Quaternion::Quaternion(const Matrix4x4& rotationMatrix)
 	{
-
+		w = sqrt(1.0f + rotationMatrix[0][0] + rotationMatrix[1][1] + rotationMatrix[2][2]) / 2.0f;
+		x = (rotationMatrix[2][1] - rotationMatrix[1][2]) / (4.0f * w);
+		y = (rotationMatrix[0][2] - rotationMatrix[2][0]) / (4.0f * w);
+		z = (rotationMatrix[1][0] - rotationMatrix[0][1]) / (4.0f * w);
 	}
 
 	Quaternion::Quaternion(float _x, float _y, float _z)
