@@ -17,7 +17,7 @@ void TestGame::Awake()
 	//Matrix4x4 pr = Matrix4x4::Orthographic(0.0f, 16.0f, -4.50f, 4.50f, -50.0f, 50.0f);
 	const Matrix4x4 pr = Matrix4x4::Perspective(90.0f, 16.0f / 9.0f, 0.1f, 500.0f);
 
-	mainCamera = new Camera(ShaderManagerI.CreateShader("gameShader", Shader::phong), pr);
+	mainCamera = new Camera(pr);
 
 	Vector3 cameraPosition(Vector3(0.0f, 0.0f, -10.0f)); //projection
 	//Vector3 cameraPosition(Vector3(0, 0, 0.0f)); //ortho
@@ -92,6 +92,5 @@ void TestGame::Tick()
 
 void TestGame::Render()
 {
-	mainCamera->Render();
 	mainScene->Render();
 }

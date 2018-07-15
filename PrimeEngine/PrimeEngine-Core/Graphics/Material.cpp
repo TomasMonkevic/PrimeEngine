@@ -3,7 +3,7 @@
 
 namespace PrimeEngine { namespace Graphics {
 	
-	void Material::Enable(const Camera& camera, const GameObject& gameObject, const std::vector<Light*>& lights) const
+	void Material::Enable(Camera& camera, const GameObject& gameObject, const std::vector<Light*>& lights) const
 	{
 		_shader->Enable();
 		//_shader->SetUniform("pointLightsCount", PointLight::Count());

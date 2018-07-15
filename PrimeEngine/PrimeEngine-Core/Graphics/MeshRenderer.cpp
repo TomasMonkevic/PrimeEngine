@@ -14,7 +14,7 @@ namespace PrimeEngine { namespace Graphics {
 		//material isn't deleted for reusability
 	}
 
-	void MeshRenderer::Draw(const Camera& camera, const std::vector<Light*>& lights)
+	void MeshRenderer::Draw(Camera& camera, const std::vector<Light*>& lights)
 	{
 		_material->Enable(camera, *GetGameObject(), lights);
 		_mesh->Bind();

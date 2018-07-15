@@ -13,12 +13,11 @@ namespace PrimeEngine { namespace Graphics {
 	protected:
 		Renderer2D* _renderer;
 		std::vector<Object*>* _renderables;
-
-	public:
-		Camera* camera;
+		Shader* _shader;
+		Camera* _camera;
 
 	protected:
-		Layer(Renderer2D* renderer, Camera* _camera); //add without camera obj
+		Layer(Renderer2D* renderer, Shader* shader, Camera* camera); //add without camera obj
 		void Submit(Object* object);
 		void Remove(Object* object);
 

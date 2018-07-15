@@ -20,7 +20,7 @@ namespace PrimeEngine { namespace Graphics {
 		MeshRenderer(Mesh* mesh, Material* material);
 		virtual ~MeshRenderer();
 
-		void Draw(const Camera& camera, const std::vector<Light*>& lights);
+		void Draw(Camera& camera, const std::vector<Light*>& lights);
 		Component* Copy() override;
 	};
 }}

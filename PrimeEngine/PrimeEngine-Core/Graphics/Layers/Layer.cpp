@@ -3,8 +3,8 @@
 
 namespace PrimeEngine { namespace Graphics {
 
-	Layer::Layer(Renderer2D* renderer, Camera* _camera)
-		: _renderer(renderer), camera(_camera)
+	Layer::Layer(Renderer2D* renderer, Shader* shader, Camera* camera)
+		: _renderer(renderer), _shader(shader), _camera(camera)
 	{
 		_renderables = new std::vector<Object*>;
 		GLint texIds[MAX_TEXTURE_COUNT]; //should be moved somewhere else? yes
@@ -12,10 +12,10 @@ namespace PrimeEngine { namespace Graphics {
 		{
 			texIds[i] = i;
 		} //----------
-		//TODO should not be here
-		camera->_shader->Enable();
-		camera->_shader->SetUniform("textures", texIds, MAX_TEXTURE_COUNT);
-		camera->_shader->Disable();
+
+		_shader->Enable();
+		_shader->SetUniform("textures", texIds, MAX_TEXTURE_COUNT);
+		_shader->Disable();
 	}
 
 	Layer::~Layer() //don't take control of renderables
@@ -26,7 +26,8 @@ namespace PrimeEngine { namespace Graphics {
 		//}
 		delete _renderables;
 		delete _renderer;
-		delete camera;
+		delete _shader;
+		delete _camera;
 	}
 
 	void Layer::Submit(Object* object)
@@ -62,8 +63,9 @@ namespace PrimeEngine { namespace Graphics {
 
 	void Layer::Render()
 	{
-		camera->Render();
-		camera->_shader->Enable();
+		_shader->Enable();
+		_shader->SetUniform("pr_matrix", _camera->GetProjectionMatrix());
+		_shader->SetUniform("view_matrix", _camera->GetViewMatrix());
 		_renderer->Begin();
 		for (const Object* renderable : *_renderables)
 		{
@@ -71,6 +73,6 @@ namespace PrimeEngine { namespace Graphics {
 		}
 		_renderer->End();
 		_renderer->Flush();
-		camera->_shader->Disable();
+		_shader->Disable();
 	}
 }}

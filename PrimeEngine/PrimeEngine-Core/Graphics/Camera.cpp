@@ -3,19 +3,13 @@
 
 namespace PrimeEngine { namespace Graphics {
 
-	Camera::Camera(Shader* shader, const Math::Matrix4x4& projectionMatrix) :
-		_shader(shader), _projectionMatrix(projectionMatrix)
+	Camera::Camera(const Math::Matrix4x4& projectionMatrix) :
+		 _projectionMatrix(projectionMatrix)
 	{
-		//TODO move to set uniform
-		_shader->Enable();
-		_shader->SetUniform("pr_matrix", _projectionMatrix);
-		_shader->Disable();
-
 	}
 
 	Camera::~Camera()
 	{
-		delete _shader;
 	}
 
 	Math::Vector3 Camera::ScreenToWorldPoint(const Math::Vector2& point) const
@@ -66,14 +60,11 @@ namespace PrimeEngine { namespace Graphics {
 		_viewMatrix = tempMatrix * Math::Matrix4x4::Transform(GetTransform().Position * -1);
 	}
 
-	void Camera::Render()
+	const Math::Matrix4x4& Camera::GetViewMatrix()
 	{
 		Math::Matrix4x4 temp = GetTransform().Rotation.RotationMatrix();
 		temp[2] = temp[2] * -1; //inverse the z axis
 		_viewMatrix = (Math::Matrix4x4::Transform(GetTransform().Position) * temp * Math::Matrix4x4::Scale(GetTransform().Scale)).Inverse();
-		_shader->Enable();
-		_shader->SetUniform("view_matrix", _viewMatrix);
-		_shader->Disable();
+		return _viewMatrix;
 	}
-
 }}

@@ -11,9 +11,7 @@ void Demo::Awake()
 	GetWindow()->EnableVSync(true);
 	GetWindow()->SetColor(Color(0xfff48642));
 
-	const Matrix4x4 pr = Matrix4x4::Perspective(60.0f, 16.0f / 9.0f, 0.3f, 1000.0f);
-
-	mainCamera = new Camera(ShaderManagerI.CreateShader("gameShader", Shader::phong), pr);
+	mainCamera = new Camera(Matrix4x4::Perspective(60.0f, 16.0f / 9.0f, 0.3f, 1000.0f));
 	mainCamera->GetTransform().Position = Vector3(-1.76f, 13.62f, -11.3f);
 	mainCamera->GetTransform().Rotation = Quaternion(50.0f, -30.0f, 0.0f);
 	mainCamera->AddComponent(new FpsCamera(20.0f, Vector2(0.015f, 0.015f)));
@@ -82,12 +80,12 @@ void Demo::Awake()
 	rock03->GetTransform().Scale *= 0.15f;
 	GameObject* rock04 = new GameObject;
 	rock04->AddComponent(new MeshRenderer(rockMesh, rocksMaterial));
-	rock04->GetTransform().Position = Vector3(-19.38909f, 0.0f, -22.1042);
+	rock04->GetTransform().Position = Vector3(-19.38909f, 0.0f, -22.1042f);
 	rock04->GetTransform().Rotation = Quaternion(0.0f, -130.933f, 0.0f);
 	rock04->GetTransform().Scale *= 0.15f;
 	GameObject* rock05 = new GameObject;
 	rock05->AddComponent(new MeshRenderer(rockMesh, rocksMaterial));
-	rock05->GetTransform().Position = Vector3(5.374193, 0.0f, -22.91925);
+	rock05->GetTransform().Position = Vector3(5.374193, 0.0f, -22.91925f);
 	rock05->GetTransform().Rotation = Quaternion(0.0f, -30.933f, 0.0f);
 	rock05->GetTransform().Scale *= 0.15f;
 
@@ -107,10 +105,15 @@ void Demo::Awake()
 	mainScene->Add(ambientLight);
 
 	//mainScene->Add(flashLight);
+	uiLayer = new UILayer();
+	fpsLabel = new UI::Text("Hello\nNewLine", arialFont);
+	uiLayer->Submit(fpsLabel);
 }
 
 void Demo::Update()
 {
+	//fpsLabel->
+
 	mainCamera->GetComponent<FpsCamera>()->Update(GetDeltaTime());
 	sun->GetTransform().Rotate(Quaternion::Rotation(GetDeltaTime() * 0.1f, Vector3::right()));
 
@@ -130,6 +133,6 @@ void Demo::Tick()
 
 void Demo::Render()
 {
-	mainCamera->Render();
 	mainScene->Render();
+	uiLayer->Render();
 }

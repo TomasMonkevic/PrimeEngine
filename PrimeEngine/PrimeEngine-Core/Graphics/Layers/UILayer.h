@@ -9,7 +9,7 @@ namespace PrimeEngine { namespace Graphics {
 	class PRIMEENGINEAPI UILayer : public Layer
 	{
 	public:
-		explicit UILayer(Shader* shader);
+		UILayer();
 		inline void Submit(UI::UIObject* UIobject) { Layer::Submit(UIobject); }
 		inline void Remove(UI::UIObject* UIobject) { Layer::Remove(UIobject); }
 	};

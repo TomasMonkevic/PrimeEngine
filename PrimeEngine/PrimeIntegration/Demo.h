@@ -20,12 +20,17 @@ private:
 	Camera* mainCamera;
 	DirectionalLight* sun;
 
+	UILayer* uiLayer;
+	Font arialFont = Font("Resources\\arial.ttf", Color(1.0f, 1.0f, 1.0f), 64);
+	UI::Text* fpsLabel;
+
 	SpotLight* flashLight;
 
 public:
 	~Demo()
 	{
 		delete mainScene;
+		delete uiLayer;
 	}
 	void Awake() override;
 	void Update() override;

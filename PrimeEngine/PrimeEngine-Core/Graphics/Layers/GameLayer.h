@@ -9,7 +9,7 @@ namespace PrimeEngine { namespace Graphics {
 	class PRIMEENGINEAPI GameLayer : public Layer 
 	{
 	public:
-		explicit GameLayer(Camera* camera);
+		explicit GameLayer(Shader* shader, Camera* camera);
 		inline void Submit(GameObject* gameObject) { Layer::Submit(gameObject); }
 		inline void Remove(GameObject* gameObject) { Layer::Remove(gameObject); }
 	};

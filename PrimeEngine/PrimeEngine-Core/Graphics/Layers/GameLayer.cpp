@@ -2,8 +2,8 @@
 
 namespace PrimeEngine { namespace Graphics {
 
-	GameLayer::GameLayer(Camera* camera)
-		: Layer(new BatchRenderer2D(), camera)
+	GameLayer::GameLayer(Shader* shader, Camera* camera)
+		: Layer(new BatchRenderer2D(), shader, camera)
 	{
 	}
 }}
