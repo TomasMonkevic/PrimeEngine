@@ -104,6 +104,8 @@ void Demo::Awake()
 	mainScene->Add(sun);
 	mainScene->Add(ambientLight);
 
+	SetActiveScene(mainScene);
+
 	//mainScene->Add(flashLight);
 	uiLayer = new UILayer();
 	fpsLabel = new UI::Text("Hello\nNewLine", arialFont);
@@ -113,9 +115,9 @@ void Demo::Awake()
 void Demo::Update()
 {
 	//fpsLabel->
-
 	mainCamera->GetComponent<FpsCamera>()->Update(GetDeltaTime());
-	mainCamera->GetTransform().LookAt(alienStatue->GetTransform());
+	//mainCamera->GetTransform().LookAt(alienStatue->GetTransform());
+	//alienStatue->GetTransform().LookAt(mainCamera->GetTransform());
 
 	sun->GetTransform().Rotate(Quaternion::Rotation(GetDeltaTime() * 0.1f, Vector3::right()));
 
@@ -135,6 +137,6 @@ void Demo::Tick()
 
 void Demo::Render()
 {
-	mainScene->Render();
+	PrimeEngineBase::Render();
 	uiLayer->Render();
 }

@@ -2,6 +2,7 @@
 
 #include "Utilities\Time.h"
 #include "Graphics\Window.h"
+#include "Scene.h"
 #include "DllExport.h"
 
 namespace PrimeEngine {
@@ -9,7 +10,8 @@ namespace PrimeEngine {
 	class PRIMEENGINEAPI PrimeEngineBase
 	{
 	private:
-		Graphics::Window* _window = NULL;
+		Graphics::Window* _window = nullptr;
+		Scene* _activeScene = nullptr;
 		unsigned int _fpsCounter = 0;
 		float _deltaTime, _prevDeltatime = 0;
 
@@ -19,7 +21,7 @@ namespace PrimeEngine {
 		virtual void Awake() = 0;
 		virtual void Tick() { };
 		virtual void Update() { };
-		virtual void Render() = 0;
+		virtual void Render();
 
 		PrimeEngineBase()
 		{
@@ -33,6 +35,8 @@ namespace PrimeEngine {
 
 		void CreateWin(const char* title, int width, int height);
 		void CreateWin(const char* title);
+
+		void SetActiveScene(Scene* scene) { _activeScene = scene; }
 
 		inline Graphics::Window* GetWindow()
 		{
