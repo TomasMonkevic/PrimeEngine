@@ -2,6 +2,11 @@
 
 namespace PrimeEngine {
 
+	void PrimeEngineBase::Render()
+	{
+		_activeScene->Render();
+	}
+
 	void PrimeEngineBase::Run()
 	{
 		Time timer;
