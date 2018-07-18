@@ -37,16 +37,27 @@ namespace PrimeEngine {
 		{
 			for (int i = 0; i < (*_components).size(); i++)
 			{
-				//PRIME_INFO(typeid(T).name(), " ", typeid(*((*_components)[i])).name(), "\n");
-				//PRIME_INFO(_components->at(i)->GetType(), " ", typeid(T).hash_code(), "\n");
 				if (_components->at(i)->IsOfType<T>())
 				{
 					return static_cast<T*>((*_components)[i]);
 				}
 			}
-			return NULL;
+			return nullptr;
 		}
-		//void GetComponents(); //should be generic
+
+		template<typename T>
+		std::vector<T*> GetComponents() const
+		{
+			std::vector<T*> result;
+			for (int i = 0; i < (*_components).size(); i++)
+			{
+				if (_components->at(i)->IsOfType<T>())
+				{
+					result.pop_back(static_cast<T*>((*_components)[i]));
+				}
+			}
+			return result;
+		}
 
 		inline Transform& GetTransform() const
 		{
