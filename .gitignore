@@ -46,3 +46,5 @@ PrimeEngine/Dependencies/GLFW/build/
 PrimeEngine/Dependencies/GLEW/build/vc12/x64/
 PrimeEngine/Dependencies/GLEW/build/vc12/Win32/
 PrimeEngine/Dependencies/GLEW/build/vc12/Intermediate/
+PrimeEngine/Dependencies/GLEW/build/cmake/lib/
+PrimeEngine/Dependencies/GLEW/build/cmake/bin/
