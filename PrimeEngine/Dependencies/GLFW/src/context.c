@@ -373,11 +373,17 @@ GLFWbool _glfwRefreshContextAttribs(const _GLFWctxconfig* ctxconfig)
             break;
         }
     }
-
+#ifdef WIN_32
     if (!sscanf_s(version, "%d.%d.%d",
                 &window->context.major,
                 &window->context.minor,
                 &window->context.revision))
+#else
+    if (!sscanf(version, "%d.%d.%d",
+            &window->context.major,
+            &window->context.minor,
+            &window->context.revision))
+#endif
     {
         if (window->context.client == GLFW_OPENGL_API)
         {

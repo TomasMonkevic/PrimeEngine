@@ -13,6 +13,16 @@
 *.user
 *.suo
 
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Testing
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+
 .vs/
 .vscode/
 Build/**
@@ -31,6 +41,7 @@ PrimeEngine/Dependencies/FreeType/Intermediate/
 PrimeEngine/Dependencies/GLFW/x64/
 PrimeEngine/Dependencies/GLFW/Win32/
 PrimeEngine/Dependencies/GLFW/Intermediate/
+PrimeEngine/Dependencies/GLFW/build/
 
 PrimeEngine/Dependencies/GLEW/build/vc12/x64/
 PrimeEngine/Dependencies/GLEW/build/vc12/Win32/
