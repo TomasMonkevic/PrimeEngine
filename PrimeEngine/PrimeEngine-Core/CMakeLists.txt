@@ -126,7 +126,7 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/GLFW ${CMAKE_CURREN
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/GLEW/build/cmake ${CMAKE_CURRENT_BINARY_DIR}/Dependencies/GLEW/build/cmake)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/FreeType ${CMAKE_CURRENT_BINARY_DIR}/Dependencies/FreeType)
 
-add_library(PrimeEngineCore STATIC ${PECORE_HEADERS} ${PECORE_SOURCES})
+add_library(PrimeEngineCore SHARED ${PECORE_HEADERS} ${PECORE_SOURCES})
 
 target_link_libraries(PrimeEngineCore
     glew_s
