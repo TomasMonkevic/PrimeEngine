@@ -2,7 +2,7 @@
 
 #include <DllExport.h>
 #include "Component.h"
-#include <Math\Math.h>
+#include <Math/Math.h>
 
 namespace PrimeEngine {
 

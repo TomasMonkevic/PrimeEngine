@@ -4,13 +4,16 @@
 #include <Math/Vector2.h>
 #include <Math/Vector3.h>
 #include <Math/Vector4.h>
-#include <Graphics\Color.h>
+#include <Graphics/Color.h>
 #include <Math/Quaternion.h>
 
 
 #include <string>
+#include <cstring>
 #include <cstdio>
-#include <Windows.h> //later move to platform specific folder
+#ifdef WIN_32
+	#include <Windows.h> //later move to platform specific folder
+#endif
 
 #define PRIME_INFO_L		2
 #define PRIME_WARNING_L		1
@@ -35,18 +38,22 @@ namespace PrimeEngine
 
 	static void PlatformPrint(unsigned level, const char* message) //needs to be in a seperate file - platform specific
 	{
-		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-		switch (level)
-		{
-		case PRIME_ERROR_L:
-			SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_INTENSITY);
-			break;
-		case PRIME_WARNING_L:
-			SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
-			break;
-		}
-		std::printf("%s", message);
-		SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+		#ifdef WIN_32
+			HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+			switch (level)
+			{
+			case PRIME_ERROR_L:
+				SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_INTENSITY);
+				break;
+			case PRIME_WARNING_L:
+				SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+				break;
+			}
+			std::printf("%s", message);
+			SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+		#else
+			std::printf("%s", message);
+		#endif
 	}
 
 	static const std::size_t BUFFER_SIZE = 1024 * 10;
@@ -56,7 +63,7 @@ namespace PrimeEngine
 
 	#pragma region ToString functions
 	template<typename T>
-	static const char* ToString(const T& number)
+	inline const char* ToString(const T& number)
 	{
 		std::string formated = std::to_string(number);
 		memcpy(_formatBuffer, formated.c_str(), formated.length());
@@ -65,79 +72,111 @@ namespace PrimeEngine
 	}
 
 	template<>
-	static const char* ToString<char*>(char* const& cString)
+	inline const char* ToString<char*>(char* const& cString)
 	{
 		return cString;
 	}
 
 	template<>
-	static const char* ToString<const char*>(const char* const& cString)
+	inline const char* ToString<const char*>(const char* const& cString)
 	{
 		return cString;
 	}
 
 	template<>
-	static const char* ToString<const unsigned char*>(const unsigned char* const& openGLString)
+	inline const char* ToString<const unsigned char*>(const unsigned char* const& openGLString)
 	{
 		return (const char*)openGLString;
 	}
 
 	template<>
-	static const char* ToString<bool>(const bool& b)
+	inline const char* ToString<bool>(const bool& b)
 	{
 		return b ? "true" : "false";
 	}
 
 	template<>
-	static const char* ToString<char>(const char& c)
+	inline const char* ToString<char>(const char& c)
 	{
-		sprintf_s(_formatBuffer, BUFFER_SIZE, "%c", c);
+		#ifdef WIN_32
+			sprintf_s(_formatBuffer, BUFFER_SIZE, "%c", c);
+		#else
+			sprintf(_formatBuffer, "%c", c);
+		#endif
 		return _formatBuffer;
 	}
 
 	template<>
-	static const char* ToString<Math::Vector2>(const Math::Vector2& vec)
+	inline const char* ToString<Math::Vector2>(const Math::Vector2& vec)
 	{
-		sprintf_s(_formatBuffer, BUFFER_SIZE, "(%f, %f)", vec.x, vec.y);
+		#ifdef WIN_32
+			sprintf_s(_formatBuffer, BUFFER_SIZE, "(%f, %f)", vec.x, vec.y);
+		#else
+			sprintf(_formatBuffer, "(%f, %f)", vec.x, vec.y);
+		#endif
 		return _formatBuffer;
 	}
 
 	template<>
-	static const char* ToString<Math::Vector3>(const Math::Vector3& vec)
+	inline const char* ToString<Math::Vector3>(const Math::Vector3& vec)
 	{
-		sprintf_s(_formatBuffer, BUFFER_SIZE,"(%f, %f, %f)", vec.x, vec.y, vec.z);
+		#ifdef WIN_32
+			sprintf_s(_formatBuffer, BUFFER_SIZE,"(%f, %f, %f)", vec.x, vec.y, vec.z);
+		#else
+			sprintf(_formatBuffer, "(%f, %f, %f)", vec.x, vec.y, vec.z);
+		#endif
 		return _formatBuffer;
 	}
 
 	template<>
-	static const char* ToString<Math::Vector4>(const Math::Vector4& vec)
+	inline const char* ToString<Math::Vector4>(const Math::Vector4& vec)
 	{
-		sprintf_s(_formatBuffer, BUFFER_SIZE, "(%f, %f, %f, %f)", vec.x, vec.y, vec.z, vec.w);
+		#ifdef WIN_32
+			sprintf_s(_formatBuffer, BUFFER_SIZE, "(%f, %f, %f, %f)", vec.x, vec.y, vec.z, vec.w);
+		#else
+			sprintf(_formatBuffer, "(%f, %f, %f, %f)", vec.x, vec.y, vec.z, vec.w);
+		#endif
 		return _formatBuffer;
 	}
 
 	template<>
-	static const char* ToString<Graphics::Color>(const Graphics::Color& col)
+	inline const char* ToString<Graphics::Color>(const Graphics::Color& col)
 	{
-		sprintf_s(_formatBuffer, BUFFER_SIZE, "(%f, %f, %f, %f)", col[0], col[1], col[2], col[3]);
+		#ifdef WIN_32
+			sprintf_s(_formatBuffer, BUFFER_SIZE, "(%f, %f, %f, %f)", col[0], col[1], col[2], col[3]);
+		#else
+			sprintf(_formatBuffer, "(%f, %f, %f, %f)", col[0], col[1], col[2], col[3]);
+		#endif
 		return _formatBuffer;
 	}
 
 	template<>
-	static const char* ToString<Math::Quaternion>(const Math::Quaternion& q)
+	inline const char* ToString<Math::Quaternion>(const Math::Quaternion& q)
 	{
-		sprintf_s(_formatBuffer, BUFFER_SIZE, "(%f, %f, %f, %f)", q[0], q[1], q[2], q[3]);
+		#ifdef WIN_32
+			sprintf_s(_formatBuffer, BUFFER_SIZE, "(%f, %f, %f, %f)", q[0], q[1], q[2], q[3]);
+		#else
+			sprintf(_formatBuffer, "(%f, %f, %f, %f)", q[0], q[1], q[2], q[3]);
+		#endif
 		return _formatBuffer;
 	}
 
 	template<>
-	static const char* ToString<Math::Matrix4x4>(const Math::Matrix4x4& q)
+	inline const char* ToString<Math::Matrix4x4>(const Math::Matrix4x4& q)
 	{
-		//TODO temp
-		sprintf_s(_formatBuffer, BUFFER_SIZE, "(%f, %f, %f, %f)\n(%f, %f, %f, %f)\n(%f, %f, %f, %f)\n(%f, %f, %f, %f)", q[0][0], q[0][1], q[0][2], q[0][3], 
-			q[1][0], q[1][1], q[1][2], q[1][3], 
-			q[2][0], q[2][1], q[2][2], q[2][3],
-			q[3][0], q[3][1], q[3][2], q[3][3]);
+		#ifdef WIN_32
+			//TODO temp
+			sprintf_s(_formatBuffer, BUFFER_SIZE, "(%f, %f, %f, %f)\n(%f, %f, %f, %f)\n(%f, %f, %f, %f)\n(%f, %f, %f, %f)", q[0][0], q[0][1], q[0][2], q[0][3], 
+				q[1][0], q[1][1], q[1][2], q[1][3], 
+				q[2][0], q[2][1], q[2][2], q[2][3],
+				q[3][0], q[3][1], q[3][2], q[3][3]);
+		#else
+			//TODO temp
+			sprintf(_formatBuffer, "(%f, %f, %f, %f)\n(%f, %f, %f, %f)\n(%f, %f, %f, %f)\n(%f, %f, %f, %f)", q[0][0], q[0][1], q[0][2], q[0][3], 
+				q[1][0], q[1][1], q[1][2], q[1][3], 
+				q[2][0], q[2][1], q[2][2], q[2][3],
+				q[3][0], q[3][1], q[3][2], q[3][3]);
+		#endif
 		return _formatBuffer;
 	}
 	#pragma endregion

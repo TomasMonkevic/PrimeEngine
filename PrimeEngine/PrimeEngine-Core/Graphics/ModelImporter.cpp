@@ -1,7 +1,7 @@
 #include "ModelImporter.h"
-#include "..\Utilities\File.h"
-#include "..\Utilities\Log.h"
-#include "..\Utilities\Utils.h"
+#include "../Utilities/File.h"
+#include "../Utilities/Log.h"
+#include "../Utilities/Utils.h"
 #include <unordered_map>
 #include <memory>
 
@@ -100,7 +100,11 @@ namespace PrimeEngine { namespace Graphics {
 				if (strstr(cstr, "vt"))
 				{
 					Vector2 uv;
-					int result = sscanf_s(cstr, "%*s %f %f", &uv.x, &uv.y);
+					#ifdef WIN_32
+						int result = sscanf_s(cstr, "%*s %f %f", &uv.x, &uv.y);
+					#else
+						int result = sscanf(cstr, "%*s %f %f", &uv.x, &uv.y);
+					#endif
 					if (result == 0)
 						continue;
 					vertexSet->uvs.push_back(uv);
@@ -108,7 +112,11 @@ namespace PrimeEngine { namespace Graphics {
 				else if (strstr(cstr, "vn"))
 				{
 					Vector3 normal;
-					int result = sscanf_s(cstr, "%*s %f %f %f", &normal.x, &normal.y, &normal.z);
+					#ifdef WIN_32
+						int result = sscanf_s(cstr, "%*s %f %f %f", &normal.x, &normal.y, &normal.z);
+					#else
+						int result = sscanf(cstr, "%*s %f %f %f", &normal.x, &normal.y, &normal.z);
+					#endif
 					if (result == 0)
 						continue;
 					vertexSet->normals.push_back(normal);
@@ -116,7 +124,11 @@ namespace PrimeEngine { namespace Graphics {
 				else
 				{
 					Vector3 position;
-					int result = sscanf_s(cstr, "%*s %f %f %f", &position.x, &position.y, &position.z);
+					#ifdef WIN_32
+						int result = sscanf_s(cstr, "%*s %f %f %f", &position.x, &position.y, &position.z);
+					#else
+						int result = sscanf(cstr, "%*s %f %f %f", &position.x, &position.y, &position.z);
+					#endif
 					if (result == 0)
 						continue;
 					vertexSet->positions.push_back(position);

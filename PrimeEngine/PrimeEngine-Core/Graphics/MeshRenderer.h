@@ -2,7 +2,7 @@
 
 #include "../Components/Component.h"
 #include "Mesh.h"
-#include "Shader\Shader.h"
+#include "Shader/Shader.h"
 #include "../GameObject.h"
 #include "Camera.h"
 #include "Texture.h"

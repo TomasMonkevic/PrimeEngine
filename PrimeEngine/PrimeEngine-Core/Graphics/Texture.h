@@ -1,8 +1,8 @@
 #pragma once
 
-#include <GL\glew.h>
-#include "..\DllExport.h"
-#include <Math\Vector2.h>
+#include <GL/glew.h>
+#include "../DllExport.h"
+#include <Math/Vector2.h>
 #include "Color.h"
 
 namespace PrimeEngine { namespace Graphics {

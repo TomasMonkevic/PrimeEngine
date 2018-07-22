@@ -4,7 +4,7 @@
 #include "../Camera.h"
 #include "../Renderer2D.h"
 #include "../BatchRenderer2D.h"
-#include <Components\Object.h>
+#include <Components/Object.h>
 
 namespace PrimeEngine { namespace Graphics {
 

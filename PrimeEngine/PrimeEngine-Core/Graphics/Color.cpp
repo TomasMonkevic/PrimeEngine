@@ -1,5 +1,5 @@
 #include "Color.h"
-#include <Utilities\Log.h>
+#include <Utilities/Log.h>
 
 namespace PrimeEngine { namespace Graphics {
 

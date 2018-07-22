@@ -1,9 +1,9 @@
 #pragma once
 
 #include <DllExport.h>
-#include "Buffers\IndexBuffer.h"
-#include "Buffers\VertexBuffer.h"
-#include "Buffers\VertexArray.h"
+#include "Buffers/IndexBuffer.h"
+#include "Buffers/VertexBuffer.h"
+#include "Buffers/VertexArray.h"
 #include "../Math/Math.h"
 #include "Color.h"
 

@@ -24,13 +24,13 @@ namespace PrimeEngine { namespace Math {
 		const Vector3 EulerAngles() const;
 		const Matrix4x4 RotationMatrix() const;
 
-		static const Quaternion Quaternion::Rotation(float radians, const Vector3& unitVec);
+		static const Quaternion Rotation(float radians, const Vector3& unitVec);
 
 
 		const Quaternion operator+(const Quaternion& right) const;
 		const Quaternion operator-(const Quaternion& right) const;
 		const Quaternion operator*(const Quaternion& right) const;
-		const Quaternion Quaternion::operator*(float scalar) const
+		const Quaternion operator*(float scalar) const
 		{
 			return Quaternion(x * scalar, y * scalar, z * scalar, w * scalar);
 		}

@@ -1,11 +1,11 @@
 #pragma once
 
 #include <DllExport.h>
-#include <Components\Transform.h>
-#include <Math\Math.h>
+#include <Components/Transform.h>
+#include <Math/Math.h>
 #include <vector>
-#include <Utilities\Log.h>
-#include <Components\Object.h>
+#include <Utilities/Log.h>
+#include <Components/Object.h>
 
 namespace PrimeEngine {
 

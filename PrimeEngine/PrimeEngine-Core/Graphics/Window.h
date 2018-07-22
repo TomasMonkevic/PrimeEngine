@@ -1,11 +1,11 @@
 #pragma once
 
-#include <GL\glew.h>
-#include <GLFW\glfw3.h>
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
 #include "Color.h"
-#include "..\Math\Vector4.h"
-#include "..\Math\Vector2.h"
-#include "..\DllExport.h"
+#include "../Math/Vector4.h"
+#include "../Math/Vector2.h"
+#include "../DllExport.h"
 
 namespace PrimeEngine
 {

@@ -1,7 +1,7 @@
 #include "GameObject.h"
-#include <Graphics\Renderable.h>
-#include <Graphics\Sprite.h>
-#include <Graphics\Label.h>
+#include <Graphics/Renderable.h>
+#include <Graphics/Sprite.h>
+#include <Graphics/Label.h>
 
 namespace PrimeEngine {
 

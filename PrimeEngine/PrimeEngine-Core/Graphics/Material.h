@@ -1,12 +1,12 @@
 #pragma once
 
-#include "Shader\Shader.h"
+#include "Shader/Shader.h"
 #include "Camera.h"
 #include <GameObject.h>
 #include "Color.h"
 #include "Texture.h"
 #include <DllExport.h>
-#include "Lights\Light.h"
+#include "Lights/Light.h"
 
 namespace PrimeEngine { namespace Graphics {
 	

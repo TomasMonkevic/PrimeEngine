@@ -1,5 +1,5 @@
 #include "Material.h"
-#include <Math\Math.h>
+#include <Math/Math.h>
 
 namespace PrimeEngine { namespace Graphics {
 	

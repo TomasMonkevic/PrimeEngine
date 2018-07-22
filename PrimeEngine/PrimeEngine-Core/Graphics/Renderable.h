@@ -2,7 +2,7 @@
 
 #include "Renderer2D.h"
 #include <DllExport.h>
-#include <Components\Component.h>
+#include <Components/Component.h>
 
 namespace PrimeEngine { namespace Graphics {
 

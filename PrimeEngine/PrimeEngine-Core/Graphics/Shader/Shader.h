@@ -1,11 +1,11 @@
 #pragma once
 
-#include <GL\glew.h>
-#include <Utilities\File.h>
+#include <GL/glew.h>
+#include <Utilities/File.h>
 #include <Math/Math.h>
 #include <DllExport.h>
 #include <map>
-#include <Graphics\Color.h>
+#include <Graphics/Color.h>
 
 #define VERSION_MACRO		"$version"
 #define FRAGMENT_MACRO		"$fragment"
@@ -20,7 +20,7 @@ namespace PrimeEngine { namespace Graphics {
 		GLuint _shaderID;
 		std::map<std::string, GLint>* _uniformLocation;
 	public:
-		static const char* default;
+		static const char* defaultShader;
 		static const char* phong;
 		static const char* glow;
 		static const char* simplePhong;

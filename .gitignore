@@ -34,6 +34,8 @@ PrimeEngine/PrimeEngine.VC.db
 PrimeEngine/bin/
 PrimeEngine/ipch/
 
+PrimeEngine/PrimeEngine-Core/build/
+
 PrimeEngine/Dependencies/FreeType/x64/
 PrimeEngine/Dependencies/FreeType/Win32/
 PrimeEngine/Dependencies/FreeType/Intermediate/

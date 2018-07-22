@@ -2,7 +2,7 @@
 
 #include <Math/Math.h>
 #include <DllExport.h>
-#include <freetype-gl\freetype-gl.h>
+#include <freetype-gl/freetype-gl.h>
 #include "Color.h"
 
 namespace PrimeEngine { namespace Graphics {
@@ -15,7 +15,7 @@ namespace PrimeEngine { namespace Graphics {
 		ftgl::texture_atlas_t* atlas;
 		ftgl::texture_font_t* font;
 
-		Font::Font();
+		Font();
 		Font(const char* _fontName, const Color& _color, int _size);
 	};
 }}

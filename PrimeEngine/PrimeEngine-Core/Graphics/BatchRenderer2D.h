@@ -1,11 +1,11 @@
 #pragma once
 
-#include <freetype-gl\freetype-gl.h>
+#include <freetype-gl/freetype-gl.h>
 #include "Renderer2D.h"
 #include <queue>
-#include "Buffers\IndexBuffer.h"
-#include "Buffers\VertexBuffer.h"
-#include "Buffers\VertexArray.h"
+#include "Buffers/IndexBuffer.h"
+#include "Buffers/VertexBuffer.h"
+#include "Buffers/VertexArray.h"
 #include <DllExport.h>
 #include <GameObject.h>
 

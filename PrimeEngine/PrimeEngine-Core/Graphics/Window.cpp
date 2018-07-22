@@ -1,7 +1,7 @@
 #include "Window.h"
-#include "..\Input.h"
-#include "..\PrimeException.h"
-#include "..\Utilities\Log.h"
+#include "../Input.h"
+#include "../PrimeException.h"
+#include "../Utilities/Log.h"
 
 namespace PrimeEngine
 {
