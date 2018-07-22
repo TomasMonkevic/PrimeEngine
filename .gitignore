@@ -37,6 +37,7 @@ PrimeEngine/ipch/
 PrimeEngine/Dependencies/FreeType/x64/
 PrimeEngine/Dependencies/FreeType/Win32/
 PrimeEngine/Dependencies/FreeType/Intermediate/
+PrimeEngine/Dependencies/FreeType/build/
 
 PrimeEngine/Dependencies/GLFW/x64/
 PrimeEngine/Dependencies/GLFW/Win32/
