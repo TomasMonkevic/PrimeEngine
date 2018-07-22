@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.0.0)
 project(PrimeEngineCore VERSION 0.1.0)
 
-include(CTest)
-enable_testing()
+#include(CTest)
+#enable_testing()
 
 set(PECORE_HEADERS
     "Components/Behaviour.h"
@@ -109,18 +109,33 @@ set(PECORE_SOURCES
 )
 
 include_directories(${PROJECT_SOURCE_DIR})
-#add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/FreeType/)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/FreeType)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/GLFW/include)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/GLEW/include)
 
+link_directories(
+    ${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/GLEW/build/cmake/lib
+    ${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/GLFW/build/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/FreeType/build)
+
+add_definitions(-DGLEW_STATIC)
+#add_definitions(-DBUILD_SHARED_LIBS)
+add_definitions(-fPIC)
+
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/GLFW ${CMAKE_CURRENT_BINARY_DIR}/Dependencies/GLFW)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/GLEW/build/cmake ${CMAKE_CURRENT_BINARY_DIR}/Dependencies/GLEW/build/cmake)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/FreeType ${CMAKE_CURRENT_BINARY_DIR}/Dependencies/FreeType)
+
 add_library(PrimeEngineCore STATIC ${PECORE_HEADERS} ${PECORE_SOURCES})
 
 target_link_libraries(PrimeEngineCore
-    ${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/GLFW/build/src/libglfw3.a
-    ${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/GLEW/build/cmake/lib/libGLEW.a
-    ${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/FreeType/build/libFreeType.a)
+    glew_s
+    glfw
+    FreeType
+)
+
+add_dependencies(PrimeEngineCore glew_s glfw FreeType)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
-include(CPack)
+#include(CPack)

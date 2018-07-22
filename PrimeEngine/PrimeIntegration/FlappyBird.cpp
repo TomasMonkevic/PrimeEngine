@@ -3,6 +3,7 @@
 #include "FlappyBird.h"
 
 #include <ctime>
+#include <algorithm>
 
 #define PIPE_GAP 1012.5f
 #define PIPE_SPREAD 385.0f
@@ -44,18 +45,18 @@ void FlappyBird::Gravity(GameObject& obj)
 	birdVelocity.y -= GRAVITY * GetDeltaTime();
 	obj.GetTransform().Position += birdVelocity * BIRD_MASS * GetDeltaTime();
 
-	obj.GetTransform().Position.y = max(groundY, obj.GetTransform().Position.y);
-	birdVelocity.y = max(groundY, birdVelocity.y);
+	obj.GetTransform().Position.y = std::max(groundY, obj.GetTransform().Position.y);
+	birdVelocity.y = std::max(groundY, birdVelocity.y);
 
 	//Rotation
 	angularMomentum += BIRD_ROTATION_SPEED * GetDeltaTime();
 	birdRotation -= angularMomentum * GetDeltaTime();
 
-	birdRotation = max(-90.0f, birdRotation);
-	birdRotation = min(20.0f, birdRotation);
+	birdRotation = std::max(-90.0f, birdRotation);
+	birdRotation = std::min(20.0f, birdRotation);
 
-	angularMomentum = max(-600.0f, angularMomentum);
-	angularMomentum = min(800.0f, angularMomentum);
+	angularMomentum = std::max(-600.0f, angularMomentum);
+	angularMomentum = std::min(800.0f, angularMomentum);
 
 	obj.GetTransform().Rotation = Quaternion(0.0f, 0.0f, birdRotation);
 }
@@ -146,7 +147,7 @@ void FlappyBird::Awake()
 
 	//TODO make a main camera in gameLayer or return a handle to camera; think about the camera system
 	mainCamera = new Camera(Matrix4x4::Orthographic(-360.0f, 360.0f, -640.0f, 640.0f, -1.0f, 1.0f));
-	playingLayer = new GameLayer(ShaderManagerI.CreateShader("mainShader", Shader::default), mainCamera);
+	playingLayer = new GameLayer(ShaderManagerI.CreateShader("mainShader", Shader::defaultShader), mainCamera);
 	//TODO make an error log if existing shader name is used
 	uiLayer = new UILayer();
 

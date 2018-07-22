@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.0.0)
 project(FreeType VERSION 0.1.0)
 
-include(CTest)
-enable_testing()
+#include(CTest)
+#enable_testing()
 
 set(FREETYPE_HEADERS
     "freetype-gl/common.h"
@@ -77,4 +77,4 @@ add_library(FreeType STATIC ${FREETYPE_HEADERS} ${FREETYPE_SOURCES})
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
-include(CPack)
+#include(CPack)
