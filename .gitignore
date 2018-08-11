@@ -24,7 +24,6 @@ compile_commands.json
 CTestTestfile.cmake
 
 .vs/
-.vscode/
 Build/**
 Tools/.vscode/
 
@@ -33,6 +32,7 @@ PrimeEngine/PrimeEngine.VC.VC.opendb
 PrimeEngine/PrimeEngine.VC.db
 PrimeEngine/bin/
 PrimeEngine/ipch/
+PrimeEngine/build/
 
 PrimeEngine/PrimeIntegration/build/
 
