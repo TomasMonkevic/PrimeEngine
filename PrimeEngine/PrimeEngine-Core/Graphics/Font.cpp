@@ -4,7 +4,7 @@
 namespace PrimeEngine { namespace Graphics {
 
 	Font::Font()
-		: Font("arial2.ttf", Color::white, 32)
+		: Font("arial2.ttf", Color::White(), 32)
 	{
 
 	}

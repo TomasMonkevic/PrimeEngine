@@ -27,7 +27,7 @@ void TestGame::Awake()
 	player = new GameObject();
 	//player->AddComponent(new Sprite (Vector2(17, 12) / 5, "Resources\\Textures\\bird1.png"));
 	Material* boxMaterial = new Material(Shader::phong, new Texture("Resources/Textures/boxDiff.png"), new Texture("Resources/Textures/boxSpec.png")); //TODO don't forget to delete this
-	player->AddComponent(new MeshRenderer(Mesh::Cube(Color::white), boxMaterial));
+	player->AddComponent(new MeshRenderer(Mesh::Cube(Color::White()), boxMaterial));
 
 	GameObject* cube2 = new GameObject();
 	//TODO test what happens when copyed?
@@ -41,16 +41,16 @@ void TestGame::Awake()
 	GameObject* ground = new GameObject(Vector3(0.0f, -1.0f, 0.0f));
 	Material* groundMaterial = new Material(Shader::phong); //TODO also memory leak
 	groundMaterial->Smoothness() = 256.0f;
-	ground->AddComponent(new MeshRenderer(Mesh::Cube(Color::white, 100.0f, 0.1f, 100.0f), groundMaterial)); 
+	ground->AddComponent(new MeshRenderer(Mesh::Cube(Color::White(), 100.0f, 0.1f, 100.0f), groundMaterial)); 
 
-	//light->AddComponent(new MeshRenderer(Mesh::Cube(Color::white, 0.1f, 0.1f, 0.1f), new Material(Shader::glow))); //TODO only temp
-	PointLight* light = new PointLight(Color::white, 0.7f, 25.0f);
+	//light->AddComponent(new MeshRenderer(Mesh::Cube(Color::White(), 0.1f, 0.1f, 0.1f), new Material(Shader::glow))); //TODO only temp
+	PointLight* light = new PointLight(Color::White(), 0.7f, 25.0f);
 	light->GetTransform().Position = Vector3(5.0f, 5.0f, 2.0f);
 
 	PointLight* light2 = new PointLight(Color(1.0, 0.1, 0.0f), 0.7f, 25.0f);
 	light2->GetTransform().Position = Vector3(-5.0f, 2.0f, 2.0f);
 
-	AmbientLight* ambientLight = new AmbientLight(Color::white, 0.35f);
+	AmbientLight* ambientLight = new AmbientLight(Color::White(), 0.35f);
 
 	sun = new DirectionalLight(Color(0xffbafbfc), 0.7f);
 	flashLight = new SpotLight(Color(0xffbafbfc), 0.7f, 15.0f, 20.0f, 15.0f);

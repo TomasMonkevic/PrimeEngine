@@ -20,7 +20,7 @@ namespace PrimeEngine
 			GLFWwindow* _window;
 			static Window* instance;
 			bool _isFullScreen;
-			Color _color = Color::white;
+			Color _color = Color::White();
 		private:
 			Window(const char* title, int width, int height);
 			Window(const char* title);

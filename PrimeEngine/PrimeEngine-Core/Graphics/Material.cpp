@@ -48,13 +48,13 @@ namespace PrimeEngine { namespace Graphics {
 	}
 
 	Material::Material(const char* shaderSource, const Color& color)
-		: Material(shaderSource, new Texture(Color::white), new Texture(Color::white), color, 64)
+		: Material(shaderSource, new Texture(Color::White()), new Texture(Color::White()), color, 64)
 	{
 
 	}
 
 	Material::Material(const char* shaderSource, Texture* diffMap, Texture* specMap)
-		: Material(shaderSource, diffMap, specMap ? specMap : new Texture(Color::white), Color::white, 64)
+		: Material(shaderSource, diffMap, specMap ? specMap : new Texture(Color::White()), Color::White(), 64)
 	{
 
 	}

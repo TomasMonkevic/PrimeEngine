@@ -61,6 +61,7 @@ set(PECORE_HEADERS
     "Utilities/Log.h"
     "Utilities/Time.h"
     "Utilities/Utils.h"
+    "Utilities/ColorPrinter.h"
 )
 
 set(PECORE_SOURCES
@@ -106,6 +107,7 @@ set(PECORE_SOURCES
     "UI/Text.cpp"
     "Utilities/Time.cpp"
     "Utilities/Utils.cpp"
+    "Platforms/Linux/UnixColorPrinter.cpp"
 )
 
 include_directories(${PROJECT_SOURCE_DIR})

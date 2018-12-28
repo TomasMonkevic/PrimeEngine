@@ -11,9 +11,7 @@
 #include <string>
 #include <cstring>
 #include <cstdio>
-#ifdef WIN_32
-	#include <Windows.h> //later move to platform specific folder
-#endif
+#include "ColorPrinter.h"
 
 #define PRIME_INFO_L		2
 #define PRIME_WARNING_L		1
@@ -38,22 +36,20 @@ namespace PrimeEngine
 
 	static void PlatformPrint(unsigned level, const char* message) //needs to be in a seperate file - platform specific
 	{
-		#ifdef WIN_32
-			HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-			switch (level)
-			{
-			case PRIME_ERROR_L:
-				SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_INTENSITY);
-				break;
-			case PRIME_WARNING_L:
-				SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
-				break;
-			}
-			std::printf("%s", message);
-			SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-		#else
-			std::printf("%s", message);
-		#endif
+		using namespace PrimeEngine::Graphics;
+
+		switch (level)
+		{
+		case PRIME_ERROR_L:
+			ColorPrinter::Print(Color::Red(), "%s", message);
+			break;
+		case PRIME_WARNING_L:
+			ColorPrinter::Print(Color::Yellow(), "%s", message);
+			break;
+		default:
+			ColorPrinter::Print(Color::White(), "%s", message);
+			break;
+		}
 	}
 
 	static const std::size_t BUFFER_SIZE = 1024 * 10;
