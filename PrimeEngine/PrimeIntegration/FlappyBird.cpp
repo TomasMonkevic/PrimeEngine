@@ -154,25 +154,25 @@ void FlappyBird::Awake()
 	float scale = 5.0f; //5.0f
 
 	bird = new GameObject();
-	bird->AddComponent(new Sprite(Vector2(17.0f, 12.0f) * scale, "Resources\\Textures\\bird1.png")); //TODO think about scale and sprite size
+	bird->AddComponent(new Sprite(Vector2(17.0f, 12.0f) * scale, "Resources/Textures/bird1.png")); //TODO think about scale and sprite size
 	bird->Priority = 5;
 
 	background = new GameObject(Vector2(0.0f, 0.0f)); 
-	background->AddComponent(new Sprite(Vector2(144.0f, 256.0f) * scale, "Resources\\Textures\\dayBg.png"));
+	background->AddComponent(new Sprite(Vector2(144.0f, 256.0f) * scale, "Resources/Textures/dayBg.png"));
 	background->Priority = 0;
 
 	groundPrefab = new GameObject(Vector2(0.0f, -499.0f)); //TODO remove hardcoded values
 	groundPrefab->Priority = 10;
-	groundPrefab->AddComponent(new Sprite(Vector2(168.0f, 56.0f) * scale, "Resources\\Textures\\ground.png"));
+	groundPrefab->AddComponent(new Sprite(Vector2(168.0f, 56.0f) * scale, "Resources/Textures/ground.png"));
 
 	//TODO nest two pipes in one gameOjbect
 	//move childs to transform and make local and world position/rotation/scale
 	pipeBottomPrefab = new GameObject(Vector2(0.0f, 100.0f));
-	pipeBottomPrefab->AddComponent(new Sprite(Vector2(26.0f, 160.0f) * scale, "Resources\\Textures\\pipeBottom.png"));
+	pipeBottomPrefab->AddComponent(new Sprite(Vector2(26.0f, 160.0f) * scale, "Resources/Textures/pipeBottom.png"));
 	pipeBottomPrefab->Priority = 2;
 
 	pipeTopPrefab = new GameObject(Vector2(0.0f, -100.0f));
-	pipeTopPrefab->AddComponent(new Sprite(Vector2(26.0f, 160.0f) * scale, "Resources\\Textures\\pipeTop.png"));
+	pipeTopPrefab->AddComponent(new Sprite(Vector2(26.0f, 160.0f) * scale, "Resources/Textures/pipeTop.png"));
 	pipeTopPrefab->Priority = 2;
 
 	grounds.push_back(new GameObject(*groundPrefab));
