@@ -12,6 +12,7 @@
 #include <cstring>
 #include <cstdio>
 #include "ColorPrinter.h"
+#include "Utils.h"
 
 #define PRIME_INFO_L		2
 #define PRIME_WARNING_L		1
@@ -94,85 +95,52 @@ namespace PrimeEngine
 	template<>
 	inline const char* ToString<char>(const char& c)
 	{
-		#ifdef WIN_32
-			sprintf_s(_formatBuffer, BUFFER_SIZE, "%c", c);
-		#else
-			sprintf(_formatBuffer, "%c", c);
-		#endif
+		PrimeEngine::Sprintf(_formatBuffer, "%c", c);
 		return _formatBuffer;
 	}
 
 	template<>
 	inline const char* ToString<Math::Vector2>(const Math::Vector2& vec)
 	{
-		#ifdef WIN_32
-			sprintf_s(_formatBuffer, BUFFER_SIZE, "(%f, %f)", vec.x, vec.y);
-		#else
-			sprintf(_formatBuffer, "(%f, %f)", vec.x, vec.y);
-		#endif
+		PrimeEngine::Sprintf(_formatBuffer, "(%f, %f)", vec.x, vec.y);
 		return _formatBuffer;
 	}
 
 	template<>
 	inline const char* ToString<Math::Vector3>(const Math::Vector3& vec)
 	{
-		#ifdef WIN_32
-			sprintf_s(_formatBuffer, BUFFER_SIZE,"(%f, %f, %f)", vec.x, vec.y, vec.z);
-		#else
-			sprintf(_formatBuffer, "(%f, %f, %f)", vec.x, vec.y, vec.z);
-		#endif
+		PrimeEngine::Sprintf(_formatBuffer, "(%f, %f, %f)", vec.x, vec.y, vec.z);
 		return _formatBuffer;
 	}
 
 	template<>
 	inline const char* ToString<Math::Vector4>(const Math::Vector4& vec)
 	{
-		#ifdef WIN_32
-			sprintf_s(_formatBuffer, BUFFER_SIZE, "(%f, %f, %f, %f)", vec.x, vec.y, vec.z, vec.w);
-		#else
-			sprintf(_formatBuffer, "(%f, %f, %f, %f)", vec.x, vec.y, vec.z, vec.w);
-		#endif
+		PrimeEngine::Sprintf(_formatBuffer, "(%f, %f, %f, %f)", vec.x, vec.y, vec.z, vec.w);
 		return _formatBuffer;
 	}
 
 	template<>
 	inline const char* ToString<Graphics::Color>(const Graphics::Color& col)
 	{
-		#ifdef WIN_32
-			sprintf_s(_formatBuffer, BUFFER_SIZE, "(%f, %f, %f, %f)", col[0], col[1], col[2], col[3]);
-		#else
-			sprintf(_formatBuffer, "(%f, %f, %f, %f)", col[0], col[1], col[2], col[3]);
-		#endif
+		PrimeEngine::Sprintf(_formatBuffer, "(%f, %f, %f, %f)", col[0], col[1], col[2], col[3]);
 		return _formatBuffer;
 	}
 
 	template<>
 	inline const char* ToString<Math::Quaternion>(const Math::Quaternion& q)
 	{
-		#ifdef WIN_32
-			sprintf_s(_formatBuffer, BUFFER_SIZE, "(%f, %f, %f, %f)", q[0], q[1], q[2], q[3]);
-		#else
-			sprintf(_formatBuffer, "(%f, %f, %f, %f)", q[0], q[1], q[2], q[3]);
-		#endif
+		PrimeEngine::Sprintf(_formatBuffer, "(%f, %f, %f, %f)", q[0], q[1], q[2], q[3]);
 		return _formatBuffer;
 	}
 
 	template<>
 	inline const char* ToString<Math::Matrix4x4>(const Math::Matrix4x4& q)
 	{
-		#ifdef WIN_32
-			//TODO temp
-			sprintf_s(_formatBuffer, BUFFER_SIZE, "(%f, %f, %f, %f)\n(%f, %f, %f, %f)\n(%f, %f, %f, %f)\n(%f, %f, %f, %f)", q[0][0], q[0][1], q[0][2], q[0][3], 
-				q[1][0], q[1][1], q[1][2], q[1][3], 
-				q[2][0], q[2][1], q[2][2], q[2][3],
-				q[3][0], q[3][1], q[3][2], q[3][3]);
-		#else
-			//TODO temp
-			sprintf(_formatBuffer, "(%f, %f, %f, %f)\n(%f, %f, %f, %f)\n(%f, %f, %f, %f)\n(%f, %f, %f, %f)", q[0][0], q[0][1], q[0][2], q[0][3], 
-				q[1][0], q[1][1], q[1][2], q[1][3], 
-				q[2][0], q[2][1], q[2][2], q[2][3],
-				q[3][0], q[3][1], q[3][2], q[3][3]);
-		#endif
+		PrimeEngine::Sprintf(_formatBuffer, "(%f, %f, %f, %f)\n(%f, %f, %f, %f)\n(%f, %f, %f, %f)\n(%f, %f, %f, %f)", q[0][0], q[0][1], q[0][2], q[0][3], 
+			q[1][0], q[1][1], q[1][2], q[1][3], 
+			q[2][0], q[2][1], q[2][2], q[2][3],
+			q[3][0], q[3][1], q[3][2], q[3][3]);
 		return _formatBuffer;
 	}
 	#pragma endregion

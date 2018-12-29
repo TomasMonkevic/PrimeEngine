@@ -86,10 +86,6 @@ namespace PrimeEngine { namespace Graphics {
 		unsigned progress = 1;
 		for (std::string& line : lines)
 		{
-			if (progress == 4661)
-			{
-				PRIME_INFO("lol");
-			}
 			const char* cstr = line.c_str();
 			if (strstr(cstr, "#")) // Comment
 			{
@@ -100,11 +96,7 @@ namespace PrimeEngine { namespace Graphics {
 				if (strstr(cstr, "vt"))
 				{
 					Vector2 uv;
-					#ifdef WIN_32
-						int result = sscanf_s(cstr, "%*s %f %f", &uv.x, &uv.y);
-					#else
-						int result = sscanf(cstr, "%*s %f %f", &uv.x, &uv.y);
-					#endif
+					int result = PrimeEngine::Sscanf(cstr, "%*s %f %f", &uv.x, &uv.y);
 					if (result == 0)
 						continue;
 					vertexSet->uvs.push_back(uv);
@@ -112,11 +104,7 @@ namespace PrimeEngine { namespace Graphics {
 				else if (strstr(cstr, "vn"))
 				{
 					Vector3 normal;
-					#ifdef WIN_32
-						int result = sscanf_s(cstr, "%*s %f %f %f", &normal.x, &normal.y, &normal.z);
-					#else
-						int result = sscanf(cstr, "%*s %f %f %f", &normal.x, &normal.y, &normal.z);
-					#endif
+					int result = PrimeEngine::Sscanf(cstr, "%*s %f %f %f", &normal.x, &normal.y, &normal.z);
 					if (result == 0)
 						continue;
 					vertexSet->normals.push_back(normal);
@@ -124,11 +112,7 @@ namespace PrimeEngine { namespace Graphics {
 				else
 				{
 					Vector3 position;
-					#ifdef WIN_32
-						int result = sscanf_s(cstr, "%*s %f %f %f", &position.x, &position.y, &position.z);
-					#else
-						int result = sscanf(cstr, "%*s %f %f %f", &position.x, &position.y, &position.z);
-					#endif
+					int result = PrimeEngine::Sscanf(cstr, "%*s %f %f %f", &position.x, &position.y, &position.z);
 					if (result == 0)
 						continue;
 					vertexSet->positions.push_back(position);
