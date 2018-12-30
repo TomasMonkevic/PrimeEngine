@@ -373,7 +373,7 @@ GLFWbool _glfwRefreshContextAttribs(const _GLFWctxconfig* ctxconfig)
             break;
         }
     }
-#ifdef WIN_32
+#ifdef _WIN32
     if (!sscanf_s(version, "%d.%d.%d",
                 &window->context.major,
                 &window->context.minor,

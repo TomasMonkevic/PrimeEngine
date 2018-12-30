@@ -4,7 +4,7 @@
 
 namespace PrimeEngine
 {
-    class ColorPrinter
+    class PRIMEENGINEAPI ColorPrinter
     {
     public:
         static void Print(const PrimeEngine::Graphics::Color& color, const char* format, ...);

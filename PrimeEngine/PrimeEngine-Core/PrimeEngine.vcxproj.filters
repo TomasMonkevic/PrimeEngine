@@ -74,6 +74,7 @@
     <ClInclude Include="Graphics\Lights\SpotLight.h" />
     <ClInclude Include="Utilities\Utils.h" />
     <ClInclude Include="Graphics\ModelImporter.h" />
+    <ClInclude Include="Utilities\ColorPrinter.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Input.cpp">
@@ -124,6 +125,7 @@
     <ClCompile Include="Graphics\Lights\SpotLight.cpp" />
     <ClCompile Include="Utilities\Utils.cpp" />
     <ClCompile Include="Graphics\ModelImporter.cpp" />
+    <ClCompile Include="Platforms\Windows\WinColorPrinter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Graphics\Shader\Source\Default.pesl" />

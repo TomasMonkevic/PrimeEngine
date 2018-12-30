@@ -1,6 +1,7 @@
 #include "Utils.h"
 #include <string.h>
 #include <cstdarg>
+#include <stdio.h>
 
 namespace PrimeEngine 
 {
@@ -60,15 +61,16 @@ namespace PrimeEngine
 		return result;
 	}
 
-	int Sprintf(char* buffer, const char* format, ...)
+	int Sprintf(char* buffer, size_t numberOfElements, const char* format, ...)
 	{
 		va_list vaArgs;
 		va_start(vaArgs, format);
 		#ifdef _WIN32
-			int result = vsprintf_s(buffer, format, vaArgs);
+			int result = vsprintf_s(buffer, numberOfElements, format, vaArgs);
 		#else
 			int result = vsprintf(buffer, format, vaArgs);
 		#endif
 		va_end(vaArgs);
+		return result;
 	}
 }

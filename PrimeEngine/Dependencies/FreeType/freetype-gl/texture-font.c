@@ -337,7 +337,7 @@ texture_font_new_from_file(texture_atlas_t *atlas, const float pt_size,
 	self->size = pt_size;
 
 	self->location = TEXTURE_FONT_FILE;
-	#ifdef WIN_32
+	#ifdef _WIN32
 		self->filename = _strdup(filename);
 	#else
 		self->filename = strdup(filename);

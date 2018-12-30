@@ -14,6 +14,7 @@ namespace PrimeEngine
         char* colorFormat = new char[strlen(format)+32];
         switch(color.ToColor32())
         {
+			default:
             case 0xFFFFFFFF: //White
                 strcpy(colorFormat, "\033[37m");
                 break;
@@ -35,9 +36,6 @@ namespace PrimeEngine
             case 0xFFFFFF00: //Cyan
                 strcpy(colorFormat, "\033[36m");
                 break;  
-            default: //default is white
-                strcpy(colorFormat, "\033[0m");
-                break;
         }
         strcat(colorFormat, format);
         strcat(colorFormat, "\033[0m");

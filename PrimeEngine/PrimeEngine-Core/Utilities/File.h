@@ -13,7 +13,7 @@ namespace PrimeEngine {
 		{
 			//preprocessor in game and engine
 			FILE* file;
-			#ifdef WIN_32
+			#ifdef _WIN32
 				fopen_s(&file, path, "rt"); //using C file reading for faster performance
 			#else
 				file = fopen(path, "rt"); //using C file reading for faster performance

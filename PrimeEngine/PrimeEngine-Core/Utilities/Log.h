@@ -95,49 +95,49 @@ namespace PrimeEngine
 	template<>
 	inline const char* ToString<char>(const char& c)
 	{
-		PrimeEngine::Sprintf(_formatBuffer, "%c", c);
+		PrimeEngine::Sprintf(_formatBuffer, BUFFER_SIZE, "%c", c);
 		return _formatBuffer;
 	}
 
 	template<>
 	inline const char* ToString<Math::Vector2>(const Math::Vector2& vec)
 	{
-		PrimeEngine::Sprintf(_formatBuffer, "(%f, %f)", vec.x, vec.y);
+		PrimeEngine::Sprintf(_formatBuffer, BUFFER_SIZE, "(%f, %f)", vec.x, vec.y);
 		return _formatBuffer;
 	}
 
 	template<>
 	inline const char* ToString<Math::Vector3>(const Math::Vector3& vec)
 	{
-		PrimeEngine::Sprintf(_formatBuffer, "(%f, %f, %f)", vec.x, vec.y, vec.z);
+		PrimeEngine::Sprintf(_formatBuffer, BUFFER_SIZE, "(%f, %f, %f)", vec.x, vec.y, vec.z);
 		return _formatBuffer;
 	}
 
 	template<>
 	inline const char* ToString<Math::Vector4>(const Math::Vector4& vec)
 	{
-		PrimeEngine::Sprintf(_formatBuffer, "(%f, %f, %f, %f)", vec.x, vec.y, vec.z, vec.w);
+		PrimeEngine::Sprintf(_formatBuffer, BUFFER_SIZE, "(%f, %f, %f, %f)", vec.x, vec.y, vec.z, vec.w);
 		return _formatBuffer;
 	}
 
 	template<>
 	inline const char* ToString<Graphics::Color>(const Graphics::Color& col)
 	{
-		PrimeEngine::Sprintf(_formatBuffer, "(%f, %f, %f, %f)", col[0], col[1], col[2], col[3]);
+		PrimeEngine::Sprintf(_formatBuffer, BUFFER_SIZE, "(%f, %f, %f, %f)", col[0], col[1], col[2], col[3]);
 		return _formatBuffer;
 	}
 
 	template<>
 	inline const char* ToString<Math::Quaternion>(const Math::Quaternion& q)
 	{
-		PrimeEngine::Sprintf(_formatBuffer, "(%f, %f, %f, %f)", q[0], q[1], q[2], q[3]);
+		PrimeEngine::Sprintf(_formatBuffer, BUFFER_SIZE, "(%f, %f, %f, %f)", q[0], q[1], q[2], q[3]);
 		return _formatBuffer;
 	}
 
 	template<>
 	inline const char* ToString<Math::Matrix4x4>(const Math::Matrix4x4& q)
 	{
-		PrimeEngine::Sprintf(_formatBuffer, "(%f, %f, %f, %f)\n(%f, %f, %f, %f)\n(%f, %f, %f, %f)\n(%f, %f, %f, %f)", q[0][0], q[0][1], q[0][2], q[0][3], 
+		PrimeEngine::Sprintf(_formatBuffer, BUFFER_SIZE, "(%f, %f, %f, %f)\n(%f, %f, %f, %f)\n(%f, %f, %f, %f)\n(%f, %f, %f, %f)", q[0][0], q[0][1], q[0][2], q[0][3],
 			q[1][0], q[1][1], q[1][2], q[1][3], 
 			q[2][0], q[2][1], q[2][2], q[2][3],
 			q[3][0], q[3][1], q[3][2], q[3][3]);

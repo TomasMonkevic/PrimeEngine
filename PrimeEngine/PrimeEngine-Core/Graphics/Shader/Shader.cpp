@@ -140,7 +140,7 @@ namespace PrimeEngine { namespace Graphics {
 		*vertexSourceOut = new char[vertex.length() + 1];
 		*fragmentSourceOut = new char[fragment.length() + 1];
 
-		#ifdef WIN_32
+		#ifdef _WIN32
 			strcpy_s(*vertexSourceOut, vertex.length() + 1,vertex.c_str());
 			strcpy_s(*fragmentSourceOut, fragment.length() + 1, fragment.c_str());
 		#else
