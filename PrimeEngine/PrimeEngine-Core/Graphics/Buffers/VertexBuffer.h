@@ -1,6 +1,6 @@
 #pragma once
 
-#include <GL\glew.h>
+#include <GL/glew.h>
 #include <DllExport.h>
 
 namespace PrimeEngine { namespace Graphics {

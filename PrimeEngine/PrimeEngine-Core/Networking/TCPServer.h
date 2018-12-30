@@ -1,7 +1,7 @@
 #pragma once
 
 #include "NetworkEntity.h"
-#include "..\DllExport.h"
+#include "../DllExport.h"
 #if _WIN32
 	#include <stdio.h>
 #else

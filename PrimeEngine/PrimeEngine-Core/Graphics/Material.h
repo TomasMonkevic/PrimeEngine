@@ -1,12 +1,12 @@
 #pragma once
 
-#include "Shader\Shader.h"
+#include "Shader/Shader.h"
 #include "Camera.h"
 #include <GameObject.h>
 #include "Color.h"
 #include "Texture.h"
 #include <DllExport.h>
-#include "Lights\Light.h"
+#include "Lights/Light.h"
 
 namespace PrimeEngine { namespace Graphics {
 	
@@ -31,7 +31,7 @@ namespace PrimeEngine { namespace Graphics {
 		Material(const char* shaderSource, Texture* diffMap, Texture* specMap, const Color& color, float smoothness);
 
 	public:
-		Material(const char* shaderSource, const Color& color = Color::white);
+		Material(const char* shaderSource, const Color& color = Color::White());
 		Material(const char* shaderSource, Texture* diffMap, Texture* specMap = nullptr);
 		~Material();
 

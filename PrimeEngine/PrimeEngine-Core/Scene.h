@@ -1,8 +1,8 @@
 #pragma once
 
-#include <Graphics\Camera.h>
+#include <Graphics/Camera.h>
 #include <GameObject.h>
-#include <Graphics\Lights\Light.h>
+#include <Graphics/Lights/Light.h>
 #include <DllExport.h>
 
 namespace PrimeEngine {

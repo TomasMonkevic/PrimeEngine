@@ -71,6 +71,7 @@
     <ClInclude Include="Networking\TCPServer.h" />
     <ClInclude Include="PrimeEngineBase.h" />
     <ClInclude Include="PrimeException.h" />
+    <ClInclude Include="Utilities\ColorPrinter.h" />
     <ClInclude Include="Utilities\File.h" />
     <ClInclude Include="Utilities\Log.h" />
     <ClInclude Include="Utilities\Time.h" />
@@ -118,6 +119,7 @@
     <ClCompile Include="Math\Vector3.cpp" />
     <ClCompile Include="Networking\TCPClient.cpp" />
     <ClCompile Include="Networking\TCPSever.cpp" />
+    <ClCompile Include="Platforms\Windows\WinColorPrinter.cpp" />
     <ClCompile Include="PrimeEngineBase.cpp" />
     <ClCompile Include="PrimeException.cpp" />
     <ClCompile Include="Scene.cpp" />

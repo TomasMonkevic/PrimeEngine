@@ -1,5 +1,5 @@
 #include "Scene.h"
-#include <Graphics\MeshRenderer.h>
+#include <Graphics/MeshRenderer.h>
 
 namespace PrimeEngine {
 

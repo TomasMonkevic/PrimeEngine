@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Utilities\Time.h"
-#include "Graphics\Window.h"
+#include "Utilities/Time.h"
+#include "Graphics/Window.h"
 #include "Scene.h"
 #include "DllExport.h"
 

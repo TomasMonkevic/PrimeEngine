@@ -1,11 +1,11 @@
 #pragma once
 
-#include <GL\glew.h>
-#include <GLFW\glfw3.h>
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
 #include "Color.h"
-#include "..\Math\Vector4.h"
-#include "..\Math\Vector2.h"
-#include "..\DllExport.h"
+#include "../Math/Vector4.h"
+#include "../Math/Vector2.h"
+#include "../DllExport.h"
 
 namespace PrimeEngine
 {
@@ -20,12 +20,12 @@ namespace PrimeEngine
 			GLFWwindow* _window;
 			static Window* instance;
 			bool _isFullScreen;
-			Color _color = Color::white;
+			Color _color = Color::White();
 		private:
 			Window(const char* title, int width, int height);
 			Window(const char* title);
 			~Window();
-			inline void isInstanceCreated();
+			void isInstanceCreated();
 		public:
 			static void SetWindow(const char* title);
 			static void SetWindow(const char* title, int width, int height);

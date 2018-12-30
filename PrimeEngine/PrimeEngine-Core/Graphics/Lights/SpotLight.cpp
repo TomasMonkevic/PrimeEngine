@@ -1,5 +1,5 @@
 #include "SpotLight.h"
-#include <Math\MathFunc.h>
+#include <Math/MathFunc.h>
 
 using namespace PrimeEngine::Math;
 

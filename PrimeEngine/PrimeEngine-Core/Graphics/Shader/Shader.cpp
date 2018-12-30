@@ -3,20 +3,20 @@
 
 namespace PrimeEngine { namespace Graphics {
 
-	const char* Shader::default =
-	#include "Source\Default.pesl"
+	const char* Shader::defaultShader =
+	#include "Source/Default.pesl"
 	;
 
 	const char* Shader::phong =
-	#include "Source\Phong.pesl"
+	#include "Source/Phong.pesl"
 	;
 
 	const char* Shader::glow =
-	#include "Source\Glow.pesl"
+	#include "Source/Glow.pesl"
 	;
 
 	const char* Shader::simplePhong =
-	#include "Source\SimplePhong.pesl"
+	#include "Source/SimplePhong.pesl"
 	;
 
 	Shader::Shader(const char* shaderFile, bool isSource)
@@ -140,8 +140,13 @@ namespace PrimeEngine { namespace Graphics {
 		*vertexSourceOut = new char[vertex.length() + 1];
 		*fragmentSourceOut = new char[fragment.length() + 1];
 
-		strcpy_s(*vertexSourceOut, vertex.length() + 1,vertex.c_str());
-		strcpy_s(*fragmentSourceOut, fragment.length() + 1, fragment.c_str());
+		#ifdef _WIN32
+			strcpy_s(*vertexSourceOut, vertex.length() + 1,vertex.c_str());
+			strcpy_s(*fragmentSourceOut, fragment.length() + 1, fragment.c_str());
+		#else
+			strcpy(*vertexSourceOut, vertex.c_str());
+			strcpy(*fragmentSourceOut, fragment.c_str());
+		#endif
 	}
 
 	GLuint Shader::LoadShader(char* vertexSource, char* fragmentSource)

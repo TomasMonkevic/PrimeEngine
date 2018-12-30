@@ -1,6 +1,7 @@
 #include "Texture.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
+#include "../Utilities/Log.h"
 
 namespace PrimeEngine { namespace Graphics {
 
@@ -42,7 +43,13 @@ namespace PrimeEngine { namespace Graphics {
 		glBindTexture(GL_TEXTURE_2D, result);
 
 		stbi_set_flip_vertically_on_load(1);
-		unsigned char* image = stbi_load(_path, &_width, &_height, 0, 4);
+		unsigned char* image = stbi_load(_path, &_width, &_height, nullptr, 4);
+		if(!image)
+		{
+			PRIME_WARNING(
+				_path, " Width: ", _width, " Height:", _height, '\n', 
+				stbi_failure_reason(), " ", errno, '\n');
+		}
 
 		// Set the texture wrapping/filtering options (on the currently bound texture object)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);

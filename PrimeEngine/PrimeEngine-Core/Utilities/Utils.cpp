@@ -1,4 +1,7 @@
 #include "Utils.h"
+#include <string.h>
+#include <cstdarg>
+#include <stdio.h>
 
 namespace PrimeEngine 
 {
@@ -22,6 +25,52 @@ namespace PrimeEngine
 			end = string.find_first_of(delimiters, start);
 		}
 
+		return result;
+	}
+
+	char* Strtok(char* string, const char* delimeters, char** nextToken)
+	{
+		#ifdef _WIN32
+			return strtok_s(string, delimeters, nextToken);
+		#else
+			return strtok_r(string, delimeters, nextToken);
+		#endif
+	}
+
+	char* Strdup(const char *src) 
+	{
+		size_t lenght = strlen(src) + 1;
+		char* s = (char*)malloc(lenght);
+		if (s == nullptr)
+		{
+			return nullptr;
+		}
+		return (char*)memcpy(s, src, lenght);
+	}
+
+	int Sscanf(const char* buffer, const char* format, ...)
+	{
+		va_list vaArgs;
+		va_start(vaArgs, format);
+		#ifdef _WIN32
+			int result = vsscanf_s(buffer, format, vaArgs);
+		#else
+			int result = vsscanf(buffer, format, vaArgs);
+		#endif
+		va_end(vaArgs);
+		return result;
+	}
+
+	int Sprintf(char* buffer, size_t numberOfElements, const char* format, ...)
+	{
+		va_list vaArgs;
+		va_start(vaArgs, format);
+		#ifdef _WIN32
+			int result = vsprintf_s(buffer, numberOfElements, format, vaArgs);
+		#else
+			int result = vsprintf(buffer, format, vaArgs);
+		#endif
+		va_end(vaArgs);
 		return result;
 	}
 }

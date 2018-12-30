@@ -1,7 +1,7 @@
 #pragma once
 
 #include <fstream>
-#include <string>
+#include <cstring>
 
 namespace PrimeEngine {
 
@@ -12,8 +12,12 @@ namespace PrimeEngine {
 		static std::string ReadFile(const char* path)
 		{
 			//preprocessor in game and engine
-			FILE *file;
-			fopen_s(&file, path, "rt"); //using C file reading for faster performance
+			FILE* file;
+			#ifdef _WIN32
+				fopen_s(&file, path, "rt"); //using C file reading for faster performance
+			#else
+				file = fopen(path, "rt"); //using C file reading for faster performance
+			#endif
 			if (!file)
 			{
 				throw "File failed to open";

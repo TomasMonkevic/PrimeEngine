@@ -2,7 +2,7 @@
 
 #include <DllExport.h>
 #include "UIObject.h"
-#include <Graphics\Label.h>
+#include <Graphics/Label.h>
 
 namespace PrimeEngine { namespace UI {
 

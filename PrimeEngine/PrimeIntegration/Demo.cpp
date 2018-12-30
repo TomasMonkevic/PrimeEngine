@@ -20,7 +20,7 @@ void Demo::Awake()
 	Material* groundMaterial = new Material(Shader::phong); //TODO also memory leak
 	groundMaterial->Smoothness() = 256.0f;
 	groundMaterial->DiffuseColor() = Color(0xFF317184);
-	ground->AddComponent(new MeshRenderer(Mesh::Cube(Color::white, 1000.0f, 0.1f, 1000.0f), groundMaterial));
+	ground->AddComponent(new MeshRenderer(Mesh::Cube(Color::White(), 1000.0f, 0.1f, 1000.0f), groundMaterial));
 
 	AmbientLight* ambientLight = new AmbientLight(Color(0xff9a9a9a), 0.75f);
 

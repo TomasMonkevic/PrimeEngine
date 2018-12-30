@@ -5,7 +5,7 @@
 #else
 	#include <chrono>
 #endif
-#include "..\DllExport.h"
+#include "../DllExport.h"
 
 namespace PrimeEngine 
 {

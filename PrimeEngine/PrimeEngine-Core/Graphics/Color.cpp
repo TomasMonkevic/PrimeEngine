@@ -1,10 +1,7 @@
 #include "Color.h"
-#include <Utilities\Log.h>
+#include <Utilities/Log.h>
 
 namespace PrimeEngine { namespace Graphics {
-
-	const Color Color::white = Color(1.0f, 1.0f, 1.0f);
-	const Color Color::black = Color(0.0f, 0.0f, 0.0f);
 
 	Color::Color(float r, float g, float b, float a) :
 		_r(r), _g(g), _b(b), _a(a)

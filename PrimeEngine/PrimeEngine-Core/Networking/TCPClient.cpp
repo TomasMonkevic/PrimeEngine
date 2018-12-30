@@ -1,6 +1,6 @@
 #include "TCPClient.h"
 #include "../PrimeException.h"
-#include <string>
+#include <cstring>
 #ifdef _WIN32
 #include <Ws2tcpip.h>
 #else

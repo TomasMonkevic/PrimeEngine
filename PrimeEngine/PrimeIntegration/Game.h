@@ -6,7 +6,7 @@ using namespace PrimeEngine;
 using namespace Math;
 using namespace Graphics;
 using namespace Input;
-using namespace Networking;
+//using namespace Networking;
 using namespace PrimeEngine::Graphics::Lights;
 
 using std::cout;

@@ -6,7 +6,7 @@ using namespace PrimeEngine;
 using namespace Math;
 using namespace Graphics;
 using namespace Input;
-using namespace Networking;
+//using namespace Networking;
 using namespace PrimeEngine::Graphics::Lights;
 
 using std::cout;
@@ -22,7 +22,7 @@ private:
 	DirectionalLight* sun;
 
 	UILayer* uiLayer;
-	Font arialFont = Font("Resources\\arial.ttf", Color(1.0f, 1.0f, 1.0f), 64);
+	Font arialFont = Font("Resources/arial.ttf", Color(1.0f, 1.0f, 1.0f), 64);
 	UI::Text* fpsLabel;
 
 	SpotLight* flashLight;

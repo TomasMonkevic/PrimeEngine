@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../Color.h"
-#include <Graphics\Shader\Shader.h>
+#include <Graphics/Shader/Shader.h>
 #include <DllExport.h>
 #include <GameObject.h>
 

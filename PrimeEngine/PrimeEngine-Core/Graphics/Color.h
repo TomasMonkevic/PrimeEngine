@@ -8,9 +8,16 @@ namespace PrimeEngine { namespace Graphics {
 	{
 	private:
 		float _r, _g, _b, _a;
+
 	public:
-		static const Color white;
-		static const Color black;
+		static Color White() { static Color res(1.0f, 1.0f, 1.0f); return res; }
+		static Color Black() { static Color res(0.0f, 0.0f, 0.0f); return res; }
+		static Color Red() { static Color res(1.0f, 0.0f, 0.0f); return res; }
+		static Color Green() { static Color res(0.0f, 1.0f, 0.0f); return res; }
+		static Color Blue() { static Color res(0.0f, 0.0f, 1.0f); return res; }
+		static Color Yellow() { static Color res(1.0f, 1.0f, 0.0f); return res; }
+		static Color Magenta() { static Color res(1.0f, 0.0f, 1.0f); return res; }
+		static Color Cyan() { static Color res(0.0f, 1.0f, 1.0f); return res; }
 
 	public:
 		explicit Color(float r, float g, float b, float a = 1.0f);
