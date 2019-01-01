@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0.0)
+cmake_minimum_required(VERSION 3.4.1)
 project(PrimeEngineCore VERSION 0.1.0)
 
 #include(CTest)
@@ -110,33 +110,65 @@ set(PECORE_SOURCES
     "Platforms/Linux/UnixColorPrinter.cpp"
 )
 
-include_directories(${PROJECT_SOURCE_DIR})
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/FreeType)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/GLFW/include)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/GLEW/include)
+message(${CMAKE_SYSTEM_NAME})
 
-link_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/GLEW/build/cmake/lib
-    ${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/GLFW/build/src
-    ${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/FreeType/build)
+if(${CMAKE_SYSTEM_NAME} MATCHES "Android")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -fno-rtti -fno-exceptions -Wall")
+    if (${ANDROID_PLATFORM_LEVEL} LESS 12)
+    message(FATAL_ERROR "OpenGL 2 is not supported before API level 11 \
+                        (currently using ${ANDROID_PLATFORM_LEVEL}).")
+    return()
+    elseif (${ANDROID_PLATFORM_LEVEL} LESS 18)
+    add_definitions("-DDYNAMIC_ES3")
+    set(GL3STUB_SRC Platforms/Android/gl3stub.c)
+    set(OPENGL_LIB GLESv2)
+    else ()
+    set(OPENGL_LIB GLESv3)
+    endif (${ANDROID_PLATFORM_LEVEL} LESS 12)
 
-add_definitions(-DGLEW_STATIC)
-#add_definitions(-DBUILD_SHARED_LIBS)
-add_definitions(-fPIC)
+    add_library(PrimeEngine SHARED
+                ${GL3STUB_SRC}
+                Platforms/Android/PrimeEngineAndroid.cpp
+                Platforms/Android/RendererES2.cpp
+                Platforms/Android/RendererES3.cpp)
 
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/GLFW ${CMAKE_CURRENT_BINARY_DIR}/Dependencies/GLFW)
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/GLEW/build/cmake ${CMAKE_CURRENT_BINARY_DIR}/Dependencies/GLEW/build/cmake)
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/FreeType ${CMAKE_CURRENT_BINARY_DIR}/Dependencies/FreeType)
+    # Include libraries needed for gles3jni lib
+    target_link_libraries(PrimeEngine
+                ${OPENGL_LIB}
+                android
+                EGL
+                log
+                m)
+else()
+    include_directories(${PROJECT_SOURCE_DIR})
+    include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/FreeType)
+    include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/GLFW/include)
+    include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/GLEW/include)
 
-add_library(PrimeEngineCore SHARED ${PECORE_HEADERS} ${PECORE_SOURCES})
+    link_directories(
+        ${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/GLEW/build/cmake/lib
+        ${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/GLFW/build/src
+        ${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/FreeType/build)
 
-target_link_libraries(PrimeEngineCore
-    glew_s
-    glfw
-    FreeType
-)
+    add_definitions(-DGLEW_STATIC)
+    #add_definitions(-DBUILD_SHARED_LIBS)
+    add_definitions(-fPIC)
 
-add_dependencies(PrimeEngineCore glew_s glfw FreeType)
+    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/GLFW ${CMAKE_CURRENT_BINARY_DIR}/Dependencies/GLFW)
+    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/GLEW/build/cmake ${CMAKE_CURRENT_BINARY_DIR}/Dependencies/GLEW/build/cmake)
+    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/FreeType ${CMAKE_CURRENT_BINARY_DIR}/Dependencies/FreeType)
+
+    add_library(PrimeEngineCore SHARED ${PECORE_HEADERS} ${PECORE_SOURCES})
+
+    target_link_libraries(PrimeEngineCore
+        glew_s
+        glfw
+        FreeType
+    )
+
+    add_dependencies(PrimeEngineCore glew_s glfw FreeType)
+endif()
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
