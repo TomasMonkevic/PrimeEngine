@@ -1,7 +1,9 @@
 #include "FpsCamera.h"
 
 using namespace PrimeEngine::Math;
+#ifndef PE_ANDROID
 using namespace PrimeEngine::Input;
+#endif
 
 namespace PrimeEngine {
 
@@ -13,6 +15,7 @@ namespace PrimeEngine {
 
 	void FpsCamera::Update(float deltaTime)
 	{
+		#ifndef PE_ANDROID
 		if (InputPC::GetKey('A'))
 		{
 			GetGameObject()->GetTransform().Position -= GetGameObject()->GetTransform().Right() * _cameraSpeed * deltaTime;
@@ -51,6 +54,7 @@ namespace PrimeEngine {
 
 		//PRIME_INFO(mainCamera->GetTransform().Rotation, '\n');
 		pervMousePos = InputPC::GetMousePosition();
+		#endif
 	}
 
 	Component* FpsCamera::Copy()

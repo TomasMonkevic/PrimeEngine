@@ -1,6 +1,5 @@
 #pragma once
 
-#include <freetype-gl/freetype-gl.h>
 #include "Renderer2D.h"
 #include <queue>
 #include "Buffers/IndexBuffer.h"
@@ -45,10 +44,10 @@ namespace PrimeEngine { namespace Graphics {
 	public:
 		BatchRenderer2D();
 		~BatchRenderer2D();
-		void Begin();
+		void Begin() override;
 		void Submit(const Sprite* renderable2D) override;
 		void DrawLabel(const std::string& text, const  Math::Vector3& position, const Font& font) override;
-		void End();
+		void End() override;
 		void Flush() override;
 	};
 }}

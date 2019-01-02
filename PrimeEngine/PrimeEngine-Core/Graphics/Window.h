@@ -1,7 +1,12 @@
 #pragma once
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
+#ifdef PE_ANDROID
+	#include <EGL/egl.h>
+	#include <gl3stub.h>
+#else
+	#include <GL/glew.h>
+	#include <GLFW/glfw3.h>
+#endif
 #include "Color.h"
 #include "../Math/Vector4.h"
 #include "../Math/Vector2.h"
@@ -13,11 +18,15 @@ namespace PrimeEngine
 	{
 		class PRIMEENGINEAPI Window
 		{
+			#ifndef PE_ANDROID
 			friend void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+			#endif
 		private:
 			const char* _title;
 			int _width, _height;
+			#ifndef PE_ANDROID
 			GLFWwindow* _window;
+			#endif
 			static Window* instance;
 			bool _isFullScreen;
 			Color _color = Color::White();
@@ -48,12 +57,15 @@ namespace PrimeEngine
 
 			inline Math::Vector2 GetSize() const
 			{
+				glViewport(0, 0, _width, _height);
 				return Math::Vector2((float)_width, (float)_height);
 			}
 
 			inline void EnableVSync(bool isEnabled)
 			{
+				#ifndef PE_ANDROID
 				glfwSwapInterval((GLint)isEnabled);
+				#endif
 			}
 
 			void Close() const;

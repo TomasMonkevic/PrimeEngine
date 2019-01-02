@@ -52,9 +52,11 @@ set(PECORE_HEADERS
     "Math/Vector4.h"
     "Graphics/Window.h"
     "Math/Vector3.h"
-    #"Networking/TCPClient.h" TODO add later
-    #"Networking/NetworkEntity.h"
-    #"Networking/TCPServer.h"
+
+    # "Networking/TCPClient.h" TODO add later
+    # "Networking/NetworkEntity.h"
+    # "Networking/TCPServer.h"
+
     "PrimeEngineBase.h"
     "PrimeException.h"
     "Utilities/File.h"
@@ -75,8 +77,8 @@ set(PECORE_SOURCES
     "Graphics/Buffers/VertexBuffer.cpp"
     "Graphics/Camera.cpp"
     "Graphics/Color.cpp"
-    "Graphics/Font.cpp"
-    "Graphics/Label.cpp"
+    #"Graphics/Font.cpp"
+    #"Graphics/Label.cpp"
     "Graphics/Layers/GameLayer.cpp"
     "Graphics/Layers/Layer.cpp"
     "Graphics/Layers/UILayer.cpp"
@@ -92,29 +94,36 @@ set(PECORE_SOURCES
     "Graphics/Shader/ShaderManager.cpp"
     "Graphics/Sprite.cpp"
     "Graphics/Texture.cpp"
-    "Input.cpp"
+    # "Input.cpp"
     "Math/Matrix4x4.cpp"
     "Math/Quaternion.cpp"
     "Math/Vector2.cpp"
     "Math/Vector4.cpp"
     "Graphics/Window.cpp"
     "Math/Vector3.cpp"
+
     #"Networking/TCPClient.cpp" TODO add later
     #"Networking/TCPSever.cpp"
+
     "PrimeEngineBase.cpp"
     "PrimeException.cpp"
     "Scene.cpp"
-    "UI/Text.cpp"
+    #"UI/Text.cpp"
     "Utilities/Time.cpp"
     "Utilities/Utils.cpp"
-    "Platforms/Linux/UnixColorPrinter.cpp"
+    # "Platforms/Linux/UnixColorPrinter.cpp"
 )
+
+include_directories(${PROJECT_SOURCE_DIR})
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/FreeType)
 
 message(${CMAKE_SYSTEM_NAME})
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Android")
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -fno-rtti -fno-exceptions -Wall")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -frtti -fexceptions -Wno-reorder -Wno-c++11-narrowing")
+    add_definitions(-DPE_ANDROID)
+    add_definitions(-DBROKEN_OFFSETOF_MACRO)
     if (${ANDROID_PLATFORM_LEVEL} LESS 12)
     message(FATAL_ERROR "OpenGL 2 is not supported before API level 11 \
                         (currently using ${ANDROID_PLATFORM_LEVEL}).")
@@ -127,8 +136,12 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Android")
     set(OPENGL_LIB GLESv3)
     endif (${ANDROID_PLATFORM_LEVEL} LESS 12)
 
+    include_directories(Platforms/Android)
+
     add_library(PrimeEngine SHARED
                 ${GL3STUB_SRC}
+                #${PECORE_HEADERS} 
+                ${PECORE_SOURCES}
                 Platforms/Android/PrimeEngineAndroid.cpp
                 Platforms/Android/RendererES2.cpp
                 Platforms/Android/RendererES3.cpp)
@@ -141,8 +154,6 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Android")
                 log
                 m)
 else()
-    include_directories(${PROJECT_SOURCE_DIR})
-    include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/FreeType)
     include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/GLFW/include)
     include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/GLEW/include)
 

@@ -1,5 +1,7 @@
 #include "Window.h"
+#ifndef PE_ANDROID
 #include "../Input.h"
+#endif
 #include "../PrimeException.h"
 #include "../Utilities/Log.h"
 
@@ -9,12 +11,14 @@ namespace PrimeEngine
 	{
 		Window* Window::instance = NULL;
 
+		#ifndef PE_ANDROID
 		void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 		{
 			Window::GetWindow()->_width = width;
 			Window::GetWindow()->_height = height;
 			glViewport(0, 0, width, height);
 		}
+		#endif
 
 		Window::Window(const char* title, int width, int height) : 
 			_title(title), _width(width), _height(height)
@@ -29,12 +33,16 @@ namespace PrimeEngine
 
 		Window::~Window()
 		{
+			#ifndef PE_ANDROID
 			glfwTerminate();
+			#endif
 		}
 
 		void Window::Destroy() const
 		{
+			#ifndef PE_ANDROID
 			glfwDestroyWindow(_window);
+			#endif
 			instance = NULL;
 		}
 
@@ -49,7 +57,9 @@ namespace PrimeEngine
 
 		void Window::Close() const
 		{
+			#ifndef PE_ANDROID
 			glfwSetWindowShouldClose(_window, GLFW_TRUE);
+			#endif
 		}
 
 		void Window::SetWindow(const char* title, int width, int height)
@@ -71,6 +81,7 @@ namespace PrimeEngine
 		void Window::Initialize()
 		{
 			isInstanceCreated();
+			#ifndef PE_ANDROID
 			glfwInit();
 			glfwWindowHint(GLFW_RESIZABLE, GL_TRUE); //for now always is resizable
 			//glfwWindowHint(GLFW_SAMPLES, 4); //aa
@@ -115,6 +126,7 @@ namespace PrimeEngine
 				PrimeException windowNotInit("Failed to initialize GLEW", (int)glGetError());
 				throw windowNotInit;
 			}
+			#endif
 			glViewport(0, 0, _width, _height);
 
 			glEnable(GL_BLEND);
@@ -129,7 +141,11 @@ namespace PrimeEngine
 
 		bool Window::Closed() const
 		{
+			#ifndef PE_ANDROID
 			return glfwWindowShouldClose(_window) == 1;
+			#else
+			return false;
+			#endif
 		}
 
 		void Window::Update() const
@@ -143,8 +159,11 @@ namespace PrimeEngine
 				throw windowNotInit;
 			}
 #endif // DEBUG
+			#ifndef PE_ANDROID
 			glfwPollEvents();
 			glfwSwapBuffers(_window);
+			#endif
+			
 		}
 
 		void Window::Clear() const

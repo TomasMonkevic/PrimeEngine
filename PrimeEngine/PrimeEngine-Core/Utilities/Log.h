@@ -35,8 +35,9 @@ namespace std
 namespace PrimeEngine 
 {
 
-	static void PlatformPrint(unsigned level, const char* message) //needs to be in a seperate file - platform specific
+	static inline void PlatformPrint(unsigned level, const char* message) //needs to be in a seperate file - platform specific
 	{
+		#ifndef PE_ANDROID
 		using namespace PrimeEngine::Graphics;
 
 		switch (level)
@@ -51,6 +52,7 @@ namespace PrimeEngine
 			ColorPrinter::Print(Color::White(), "%s", message);
 			break;
 		}
+		#endif
 	}
 
 	static const std::size_t BUFFER_SIZE = 1024 * 10;

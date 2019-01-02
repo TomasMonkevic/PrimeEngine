@@ -2,6 +2,13 @@
 #include <Utilities/Log.h>
 #include <Graphics/Window.h>
 #include <Graphics/Sprite.h>
+#include <cstddef>
+
+#ifdef BROKEN_OFFSETOF_MACRO
+#undef offsetof
+#define offsetof(type, member)   ((size_t)((char *)&(*(type *)0).member - \
+                                           (char *)&(*(type *)0)))
+#endif /* BROKEN_OFFSETOF_MACRO */
 
 namespace PrimeEngine { namespace Graphics {
 
@@ -50,7 +57,11 @@ namespace PrimeEngine { namespace Graphics {
 	void BatchRenderer2D::Begin()
 	{
 		_vbo->Bind();
+		#ifdef PE_ANDROID
+		_buffer = (VertexData*)glMapBufferRange(GL_ARRAY_BUFFER, 0, RENDERER_BUFFER_SIZE, GL_MAP_WRITE_BIT);
+		#else
 		_buffer = (VertexData*)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
+		#endif
 	}
 
 	void BatchRenderer2D::Submit(const Sprite* renderable2D)
@@ -168,6 +179,7 @@ namespace PrimeEngine { namespace Graphics {
 		for (int i = 0; i < text.size(); i++)
 		{
 			const char& c = text[i];
+			#ifndef PE_ANDROID
 			texture_glyph_t* glyph = texture_font_get_glyph(font.font, c);
 
 			if (glyph)
@@ -204,6 +216,7 @@ namespace PrimeEngine { namespace Graphics {
 				_indexCount += 6;
 				x += (glyph->advance_x / xScale);
 			}
+			#endif
 		}
 	}
 

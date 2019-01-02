@@ -3,7 +3,7 @@
 namespace PrimeEngine { namespace Graphics {
 
 	Label::Label(const char* _text, Font& _font)
-		: font(&_font), text(_text)
+		: text(_text), font(&_font)
 	{
 		AddType<Label>();
 	}

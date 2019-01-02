@@ -1,6 +1,11 @@
 #pragma once
 
-#include <GL/glew.h>
+#ifdef PE_ANDROID
+	#include <EGL/egl.h>
+	#include <gl3stub.h>
+#else
+	#include <GL/glew.h>
+#endif
 #include "../DllExport.h"
 #include <Math/Vector2.h>
 #include "Color.h"
