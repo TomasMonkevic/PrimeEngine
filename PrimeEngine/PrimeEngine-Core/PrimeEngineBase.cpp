@@ -30,6 +30,25 @@ namespace PrimeEngine {
 		}
 	}
 
+	void PrimeEngineBase::Step()
+	{
+		static Time timer;
+		_window->Clear();
+		Update(); //first frame fps and delta time is 0
+		Render();
+		_window->Update();
+		_fpsCounter++;
+		_deltaTime = timer.Elapsed() - _prevDeltatime;
+		_prevDeltatime = timer.Elapsed();
+		if (timer.Elapsed() >= 1.0f)
+		{
+			Tick();
+			_fpsCounter = 0;
+			_prevDeltatime = 0;
+			timer.Reset();
+		}
+	}
+
 	void PrimeEngineBase::CreateWin(const char* title, int width, int height)
 	{
 		Graphics::Window::SetWindow(title, width, height);

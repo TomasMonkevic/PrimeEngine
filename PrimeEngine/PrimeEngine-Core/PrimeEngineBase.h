@@ -55,5 +55,6 @@ namespace PrimeEngine {
 
 	public:
 		void Play();
+		void Step();
 	};
 }

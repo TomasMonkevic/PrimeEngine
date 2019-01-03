@@ -7,8 +7,8 @@ int main()
 	try
 	{
 		//PrimeEngineBase* game = new FlappyBird;
-		//PrimeEngineBase* game = new TestGame;
-		PrimeEngineBase* game = new Demo;
+		PrimeEngineBase* game = new TestGame;
+		//PrimeEngineBase* game = new Demo;
 		game->Play();
 	}
 	catch (const PrimeEngine::PrimeException& ex) //implement in engine?

@@ -1,8 +1,7 @@
 #pragma once
 
 #ifdef PE_ANDROID
-	#include <EGL/egl.h>
-	#include <gl3stub.h>
+	#include <GLES3/gl31.h>
 #else
 	#include <GL/glew.h>
 #endif

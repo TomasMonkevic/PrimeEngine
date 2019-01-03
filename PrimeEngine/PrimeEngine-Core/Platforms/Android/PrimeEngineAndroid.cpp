@@ -20,14 +20,16 @@
 #include <time.h>
 
 #include "PrimeEngineAndroid.h"
+#include "Game.h"
+#include <EGL/egl.h>
 
 const Vertex QUAD[4] = {
-    // Square with diagonal < 2 so that it fits in a [-1 .. 1]^2 square
-    // regardless of rotation.
-    {{-0.7f, -0.7f}, {0x00, 0xFF, 0x00}},
-    {{ 0.7f, -0.7f}, {0x00, 0x00, 0xFF}},
-    {{-0.7f,  0.7f}, {0xFF, 0x00, 0x00}},
-    {{ 0.7f,  0.7f}, {0xFF, 0xFF, 0xFF}},
+        // Square with diagonal < 2 so that it fits in a [-1 .. 1]^2 square
+        // regardless of rotation.
+        {{-0.7f, -0.7f}, {0x00, 0xFF, 0x00}},
+        {{ 0.7f, -0.7f}, {0x00, 0x00, 0xFF}},
+        {{-0.7f,  0.7f}, {0xFF, 0x00, 0x00}},
+        {{ 0.7f,  0.7f}, {0xFF, 0xFF, 0xFF}},
 };
 
 bool checkGlError(const char* funcName) {
@@ -58,8 +60,8 @@ GLuint createShader(GLenum shaderType, const char* src) {
             if (infoLog) {
                 glGetShaderInfoLog(shader, infoLogLen, NULL, infoLog);
                 ALOGE("Could not compile %s shader:\n%s\n",
-                        shaderType == GL_VERTEX_SHADER ? "vertex" : "fragment",
-                        infoLog);
+                      shaderType == GL_VERTEX_SHADER ? "vertex" : "fragment",
+                      infoLog);
                 free(infoLog);
             }
         }
@@ -110,7 +112,7 @@ GLuint createProgram(const char* vtxSrc, const char* fragSrc) {
         program = 0;
     }
 
-exit:
+    exit:
     glDeleteShader(vtxShader);
     glDeleteShader(fragShader);
     return program;
@@ -124,8 +126,8 @@ static void printGlString(const char* name, GLenum s) {
 // ----------------------------------------------------------------------------
 
 Renderer::Renderer()
-:   mNumInstances(0),
-    mLastFrameNs(0)
+        :   mNumInstances(0),
+            mLastFrameNs(0)
 {
     memset(mScale, 0, sizeof(mScale));
     memset(mAngularVelocity, 0, sizeof(mAngularVelocity));
@@ -152,7 +154,7 @@ void Renderer::resize(int w, int h) {
 }
 
 void Renderer::calcSceneParams(unsigned int w, unsigned int h,
-        float* offsets) {
+                               float* offsets) {
     // number of cells along the larger screen dimension
     const float NCELLS_MAJOR = MAX_INSTANCES_PER_SIDE;
     // cell size in scene space
@@ -235,12 +237,12 @@ void Renderer::render() {
 
 // ----------------------------------------------------------------------------
 
-static Renderer* g_renderer = NULL;
+static TestGame* testGame = nullptr;
 
 extern "C" {
-    JNIEXPORT void JNICALL Java_com_tomasmonkevic_primeengineandroid_PrimeEngineLib_init(JNIEnv* env, jobject obj);
-    JNIEXPORT void JNICALL Java_com_tomasmonkevic_primeengineandroid_PrimeEngineLib_resize(JNIEnv* env, jobject obj, jint width, jint height);
-    JNIEXPORT void JNICALL Java_com_tomasmonkevic_primeengineandroid_PrimeEngineLib_step(JNIEnv* env, jobject obj);
+JNIEXPORT void JNICALL Java_com_tomasmonkevic_primeengineandroid_PrimeEngineLib_init(JNIEnv* env, jobject obj);
+JNIEXPORT void JNICALL Java_com_tomasmonkevic_primeengineandroid_PrimeEngineLib_resize(JNIEnv* env, jobject obj, jint width, jint height);
+JNIEXPORT void JNICALL Java_com_tomasmonkevic_primeengineandroid_PrimeEngineLib_step(JNIEnv* env, jobject obj);
 };
 
 #if !defined(DYNAMIC_ES3)
@@ -251,9 +253,9 @@ static GLboolean gl3stubInit() {
 
 JNIEXPORT void JNICALL
 Java_com_tomasmonkevic_primeengineandroid_PrimeEngineLib_init(JNIEnv* env, jobject obj) {
-    if (g_renderer) {
-        delete g_renderer;
-        g_renderer = NULL;
+    if (testGame) {
+        delete testGame;
+        testGame = nullptr;
     }
 
     printGlString("Version", GL_VERSION);
@@ -262,10 +264,11 @@ Java_com_tomasmonkevic_primeengineandroid_PrimeEngineLib_init(JNIEnv* env, jobje
     printGlString("Extensions", GL_EXTENSIONS);
 
     const char* versionStr = (const char*)glGetString(GL_VERSION);
-    if (strstr(versionStr, "OpenGL ES 3.") && gl3stubInit()) {
-        g_renderer = createES3Renderer();
+    if (strstr(versionStr, "OpenGL ES 3.")&& gl3stubInit()) {
+        eglGetCurrentContext();
+        testGame = new TestGame();
+        testGame->Awake();
     } else if (strstr(versionStr, "OpenGL ES 2.")) {
-        g_renderer = createES2Renderer();
     } else {
         ALOGE("Unsupported OpenGL ES version");
     }
@@ -273,14 +276,13 @@ Java_com_tomasmonkevic_primeengineandroid_PrimeEngineLib_init(JNIEnv* env, jobje
 
 JNIEXPORT void JNICALL
 Java_com_tomasmonkevic_primeengineandroid_PrimeEngineLib_resize(JNIEnv* env, jobject obj, jint width, jint height) {
-    if (g_renderer) {
-        g_renderer->resize(width, height);
+    if (testGame) {
     }
 }
 
 JNIEXPORT void JNICALL
 Java_com_tomasmonkevic_primeengineandroid_PrimeEngineLib_step(JNIEnv* env, jobject obj) {
-    if (g_renderer) {
-        g_renderer->render();
+    if (testGame) {
+        testGame->Step();
     }
 }

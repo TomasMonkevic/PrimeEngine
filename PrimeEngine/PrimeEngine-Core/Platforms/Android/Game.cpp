@@ -8,7 +8,7 @@ void TestGame::Awake()
 	//make a method in the engine?
 	//ShowWindow(GetConsoleWindow(), SW_HIDE);
 
-	CreateWin("3D Rendering test", 2280, 1080);
+	CreateWin("3D Rendering test", 1366, 768);
 	//CreateWin("3D Rendering test");
 	GetWindow()->EnableVSync(true);
 	//GetWindow()->SetColor(Color(0.5f, 0.5f, 0.5f, 1.0f));
