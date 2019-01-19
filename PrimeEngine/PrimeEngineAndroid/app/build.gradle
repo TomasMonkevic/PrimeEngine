@@ -23,7 +23,7 @@ android {
     }
     externalNativeBuild {
         cmake {
-            path "D:/Projects/Engine_Project/PrimeEngine/PrimeEngine-Core/CMakeLists.txt"
+            path "../../PrimeEngine-Core/CMakeLists.txt"
         }
     }
 }

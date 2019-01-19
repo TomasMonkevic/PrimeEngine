@@ -77,8 +77,6 @@ set(PECORE_SOURCES
     "Graphics/Buffers/VertexBuffer.cpp"
     "Graphics/Camera.cpp"
     "Graphics/Color.cpp"
-    #"Graphics/Font.cpp"
-    #"Graphics/Label.cpp"
     "Graphics/Layers/GameLayer.cpp"
     "Graphics/Layers/Layer.cpp"
     "Graphics/Layers/UILayer.cpp"
@@ -94,7 +92,6 @@ set(PECORE_SOURCES
     "Graphics/Shader/ShaderManager.cpp"
     "Graphics/Sprite.cpp"
     "Graphics/Texture.cpp"
-    # "Input.cpp"
     "Math/Matrix4x4.cpp"
     "Math/Quaternion.cpp"
     "Math/Vector2.cpp"
@@ -108,10 +105,8 @@ set(PECORE_SOURCES
     "PrimeEngineBase.cpp"
     "PrimeException.cpp"
     "Scene.cpp"
-    #"UI/Text.cpp"
     "Utilities/Time.cpp"
     "Utilities/Utils.cpp"
-    # "Platforms/Linux/UnixColorPrinter.cpp"
 )
 
 include_directories(${PROJECT_SOURCE_DIR})
@@ -171,7 +166,13 @@ else()
     add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/GLEW/build/cmake ${CMAKE_CURRENT_BINARY_DIR}/Dependencies/GLEW/build/cmake)
     add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/FreeType ${CMAKE_CURRENT_BINARY_DIR}/Dependencies/FreeType)
 
-    add_library(PrimeEngineCore SHARED ${PECORE_HEADERS} ${PECORE_SOURCES})
+    add_library(PrimeEngineCore SHARED ${PECORE_HEADERS} 
+                                        ${PECORE_SOURCES}
+                                        "Platforms/Linux/UnixColorPrinter.cpp"
+                                        "UI/Text.cpp" #TODO later add this to android also
+                                        "Input.cpp"
+                                        "Graphics/Font.cpp"
+                                        "Graphics/Label.cpp") ###
 
     target_link_libraries(PrimeEngineCore
         glew_s
