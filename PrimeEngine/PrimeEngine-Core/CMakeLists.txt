@@ -139,8 +139,7 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Android")
                 ${PECORE_SOURCES}
                 Platforms/Android/Game.cpp
                 Platforms/Android/PrimeEngineAndroid.cpp
-                Platforms/Android/RendererES2.cpp
-                Platforms/Android/RendererES3.cpp)
+            )
 
     # Include libraries needed for gles3jni lib
     target_link_libraries(PrimeEngine
