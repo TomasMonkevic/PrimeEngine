@@ -207,6 +207,8 @@ static void engine_term_display(struct engine* engine) {
  */
 static int32_t engine_handle_input(struct android_app* app, AInputEvent* event) {
     struct engine* engine = (struct engine*)app->userData;
+    int32_t count = AMotionEvent_getPointerCount(event);
+    LOGI("Touch count: %d", count);
     if (AInputEvent_getType(event) == AINPUT_EVENT_TYPE_MOTION) {
         engine->animating = 1;
         engine->state.x = AMotionEvent_getX(event, 0);
@@ -365,9 +367,9 @@ void android_main(struct android_app* state) {
                     ASensorEvent event;
                     while (ASensorEventQueue_getEvents(engine.sensorEventQueue,
                                                        &event, 1) > 0) {
-                        LOGI("accelerometer: x=%f y=%f z=%f",
+                       /* LOGI("accelerometer: x=%f y=%f z=%f",
                              event.acceleration.x, event.acceleration.y,
-                             event.acceleration.z);
+                             event.acceleration.z);*/
                     }
                 }
             }
