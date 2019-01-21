@@ -133,16 +133,14 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Android")
 
     include_directories(Platforms/Android)
 
-    add_library(PrimeEngine SHARED
+    add_library(PrimeEngineCore SHARED
                 ${GL3STUB_SRC}
                 #${PECORE_HEADERS} 
                 ${PECORE_SOURCES}
-                Platforms/Android/Game.cpp
-                Platforms/Android/PrimeEngineAndroid.cpp
             )
 
     # Include libraries needed for gles3jni lib
-    target_link_libraries(PrimeEngine
+    target_link_libraries(PrimeEngineCore
                 ${OPENGL_LIB}
                 android
                 EGL
