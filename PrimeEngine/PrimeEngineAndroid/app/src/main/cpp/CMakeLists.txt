@@ -46,13 +46,13 @@ add_subdirectory(${src_dir} ${output_dir})
 set_target_properties( PrimeEngineCore PROPERTIES IMPORTED_LOCATION
         ${output_dir}/${ANDROID_ABI}/libPrimeEngineCore.so)
 
-add_library(native-activity SHARED main.cpp Game.cpp)
+add_library(PrimeEngineAndroid SHARED main.cpp Game.cpp)
 
-target_include_directories(native-activity PRIVATE
+target_include_directories(PrimeEngineAndroid PRIVATE
     ${ANDROID_NDK}/sources/android/native_app_glue)
 
 # add lib dependencies
-target_link_libraries(native-activity
+target_link_libraries(PrimeEngineAndroid
     android
     native_app_glue
     EGL
