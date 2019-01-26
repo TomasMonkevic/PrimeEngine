@@ -21,7 +21,7 @@ private:
 	DirectionalLight* sun;
 
 public:
-	~TestGame() 
+	~TestGame() override
 	{
 		delete mainScene;
 	}

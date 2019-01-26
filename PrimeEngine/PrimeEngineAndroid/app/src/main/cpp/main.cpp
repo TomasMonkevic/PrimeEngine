@@ -157,6 +157,7 @@ static int engine_init_display(struct engine* engine) {
     glDisable(GL_DEPTH_TEST);*/
     engine->game = new TestGame();
     engine->game->Awake();
+    engine->animating = 1;
 
     return 0;
 }
@@ -195,11 +196,15 @@ static void engine_term_display(struct engine* engine) {
         }
         eglTerminate(engine->display);
     }
-    delete engine->game;
     engine->animating = 0;
     engine->display = EGL_NO_DISPLAY;
     engine->context = EGL_NO_CONTEXT;
     engine->surface = EGL_NO_SURFACE;
+    if(engine->game)
+    {
+        delete engine->game;
+        engine->game = nullptr;
+    }
 }
 
 /**
@@ -260,7 +265,7 @@ static void engine_handle_cmd(struct android_app* app, int32_t cmd) {
                                                 engine->accelerometerSensor);
             }
             // Also stop animating.
-            engine->animating = 0;
+            //engine->animating = 0;
             engine_draw_frame(engine);
             break;
     }
@@ -367,7 +372,7 @@ void android_main(struct android_app* state) {
                     ASensorEvent event;
                     while (ASensorEventQueue_getEvents(engine.sensorEventQueue,
                                                        &event, 1) > 0) {
-                       /* LOGI("accelerometer: x=%f y=%f z=%f",
+                        /* LOGI("accelerometer: x=%f y=%f z=%f",
                              event.acceleration.x, event.acceleration.y,
                              event.acceleration.z);*/
                     }

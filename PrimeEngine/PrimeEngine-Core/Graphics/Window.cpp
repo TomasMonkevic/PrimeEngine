@@ -43,7 +43,8 @@ namespace PrimeEngine
 			#ifndef PE_ANDROID
 			glfwDestroyWindow(_window);
 			#endif
-			instance = NULL;
+			delete instance;
+			instance = nullptr;
 		}
 
 		void Window::isInstanceCreated()
