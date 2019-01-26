@@ -137,7 +137,11 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Android")
                 ${GL3STUB_SRC}
                 #${PECORE_HEADERS} 
                 ${PECORE_SOURCES}
+                Platforms/Android/AndroidActivity.cpp
             )
+
+    target_include_directories(PrimeEngineCore PRIVATE
+        ${ANDROID_NDK}/sources/android/native_app_glue)
 
     # Include libraries needed for gles3jni lib
     target_link_libraries(PrimeEngineCore

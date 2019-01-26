@@ -21,20 +21,11 @@ namespace PrimeEngine {
 	private:
 		void Run();
 	protected:
-		virtual void Awake() = 0;
 		virtual void Tick() { };
 		virtual void Update() { };
 		virtual void Render();
 
-		PrimeEngineBase()
-		{
 
-		}
-
-		virtual ~PrimeEngineBase()
-		{
-			_window->Destroy();
-		}
 
 		void CreateWin(const char* title, int width, int height);
 		void CreateWin(const char* title);
@@ -59,12 +50,22 @@ namespace PrimeEngine {
 		}
 
 	public:
+		PrimeEngineBase()
+		{
+
+		}
+
+		virtual ~PrimeEngineBase()
+		{
+			_window->Destroy();
+		}
 #ifdef PE_ANDROID
 		inline void SetNativeAndroidWIndow(ANativeWindow* nativeWindow)
 		{
 			_nativeWindow = nativeWindow;
 		}
 #endif
+		virtual void Awake() = 0;
 		void Play();
 		void Step();
 	};
