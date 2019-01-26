@@ -14,6 +14,9 @@ namespace PrimeEngine {
 		Scene* _activeScene = nullptr;
 		unsigned int _fpsCounter = 0;
 		float _deltaTime, _prevDeltatime = 0;
+#ifdef PE_ANDROID
+		ANativeWindow* _nativeWindow;
+#endif
 
 	private:
 		void Run();
@@ -43,6 +46,8 @@ namespace PrimeEngine {
 			return _window;
 		}
 
+
+
 		inline unsigned int GetFPS() const
 		{
 			return _fpsCounter;
@@ -54,6 +59,12 @@ namespace PrimeEngine {
 		}
 
 	public:
+#ifdef PE_ANDROID
+		inline void SetNativeAndroidWIndow(ANativeWindow* nativeWindow)
+		{
+			_nativeWindow = nativeWindow;
+		}
+#endif
 		void Play();
 		void Step();
 	};

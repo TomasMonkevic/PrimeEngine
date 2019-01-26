@@ -2,6 +2,7 @@
 
 #ifdef PE_ANDROID
 	#include <GLES3/gl31.h>
+	#include <EGL/egl.h>
 #else
 	#include <GL/glew.h>
 	#include <GLFW/glfw3.h>
@@ -23,7 +24,12 @@ namespace PrimeEngine
 		private:
 			const char* _title;
 			int _width, _height;
-			#ifndef PE_ANDROID
+			#ifdef PE_ANDROID
+			EGLDisplay _display;
+			EGLSurface _surface;
+			EGLContext _context;
+			ANativeWindow* _nativeWindow;
+            #else
 			GLFWwindow* _window;
 			#endif
 			static Window* instance;
@@ -54,6 +60,22 @@ namespace PrimeEngine
 				return _color;
 			}
 
+			inline bool IsReady() const
+            {
+            #ifdef PE_ANDROID
+                return _display;
+            #else
+                return true;
+            #endif
+            }
+
+#ifdef PE_ANDROID
+            inline void SetNativeAndroidWIndow(ANativeWindow* nativeWindow)
+			{
+				_nativeWindow = nativeWindow;
+			}
+#endif
+
 			inline Math::Vector2 GetSize() const
 			{
 				glViewport(0, 0, _width, _height);
@@ -68,7 +90,7 @@ namespace PrimeEngine
 			}
 
 			void Close() const;
-			void Destroy() const;
+			void Destroy();
 			void Initialize();
 			void Update() const;
 			bool Closed() const;

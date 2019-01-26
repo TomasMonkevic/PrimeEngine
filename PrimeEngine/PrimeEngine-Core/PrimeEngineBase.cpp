@@ -32,6 +32,10 @@ namespace PrimeEngine {
 
 	void PrimeEngineBase::Step()
 	{
+        if(!_window->IsReady())
+        {
+            return;
+        }
 		static Time timer;
 		_window->Clear();
 		Update(); //first frame fps and delta time is 0
@@ -53,6 +57,9 @@ namespace PrimeEngine {
 	{
 		Graphics::Window::SetWindow(title, width, height);
 		_window = Graphics::Window::GetWindow();
+#ifdef PE_ANDROID
+		_window->SetNativeAndroidWIndow(_nativeWindow);
+#endif
 		_window->Initialize();
 	}
 
@@ -60,6 +67,9 @@ namespace PrimeEngine {
 	{
 		Graphics::Window::SetWindow(title);
 		_window = Graphics::Window::GetWindow();
+#ifdef PE_ANDROID
+        _window->SetNativeAndroidWIndow(_nativeWindow);
+#endif
 		_window->Initialize();
 	}
 
