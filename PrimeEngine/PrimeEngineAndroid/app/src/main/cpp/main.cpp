@@ -28,12 +28,8 @@
 #include <GLES/gl.h>
 
 #include <android/sensor.h>
-#include <android/log.h>
 #include <android_native_app_glue.h>
 #include "Game.h"
-
-#define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "native-activity", __VA_ARGS__))
-#define LOGW(...) ((void)__android_log_print(ANDROID_LOG_WARN, "native-activity", __VA_ARGS__))
 
 /**
  * Our saved state data.
@@ -130,7 +126,7 @@ static int engine_init_display(struct engine* engine) {
     context = eglCreateContext(display, config, NULL, attrib_list);
 
     if (eglMakeCurrent(display, surface, surface, context) == EGL_FALSE) {
-        LOGW("Unable to eglMakeCurrent");
+        PRIME_WARNING("Unable to eglMakeCurrent");
         return -1;
     }
 
@@ -144,12 +140,6 @@ static int engine_init_display(struct engine* engine) {
     engine->height = h;
     engine->state.angle = 0;
 
-    // Check openGL on the system
-    auto opengl_info = {GL_VENDOR, GL_RENDERER, GL_VERSION, GL_EXTENSIONS};
-    for (auto name : opengl_info) {
-        auto info = glGetString(name);
-        LOGI("OpenGL Info: %s", info);
-    }
     // Initialize GL state.
     /*glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_FASTEST);
     glEnable(GL_CULL_FACE);
@@ -213,7 +203,7 @@ static void engine_term_display(struct engine* engine) {
 static int32_t engine_handle_input(struct android_app* app, AInputEvent* event) {
     struct engine* engine = (struct engine*)app->userData;
     int32_t count = AMotionEvent_getPointerCount(event);
-    LOGI("Touch count: %d", count);
+    PRIME_INFO("Touch count: ", count);
     if (AInputEvent_getType(event) == AINPUT_EVENT_TYPE_MOTION) {
         engine->animating = 1;
         engine->state.x = AMotionEvent_getX(event, 0);

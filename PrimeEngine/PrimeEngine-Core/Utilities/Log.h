@@ -13,6 +13,9 @@
 #include <cstdio>
 #include "ColorPrinter.h"
 #include "Utils.h"
+#ifdef PE_ANDROID
+#include <android/log.h>
+#endif
 
 #define PRIME_INFO_L		2
 #define PRIME_WARNING_L		1
@@ -51,6 +54,19 @@ namespace PrimeEngine
 		default:
 			ColorPrinter::Print(Color::White(), "%s", message);
 			break;
+		}
+        #else
+		switch (level)
+		{
+			case PRIME_ERROR_L:
+				__android_log_print(ANDROID_LOG_ERROR, "PrimeEngineAndroid", "%s", message);
+				break;
+			case PRIME_WARNING_L:
+				__android_log_print(ANDROID_LOG_WARN, "PrimeEngineAndroid", "%s", message);
+				break;
+			default:
+				__android_log_print(ANDROID_LOG_INFO, "PrimeEngineAndroid", "%s", message);
+				break;
 		}
 		#endif
 	}
