@@ -2,6 +2,7 @@
 
 #include "Game.h"
 #include <time.h>
+#include <Input.h>
 
 void TestGame::Awake()
 {
@@ -59,11 +60,12 @@ void TestGame::Update()
 	//TODO could be called automaticaly when scene is implemented
 	player->GetTransform().Rotate(Quaternion::Rotation(GetDeltaTime() * 0.5f, Vector3::up()));
 	sun->GetTransform().Rotate(Quaternion::Rotation(GetDeltaTime() * 0.1f, Vector3::right()));
+	PRIME_INFO("Touch count: ", Input::InputPC::GetTouchCount());
 }
 
 void TestGame::Tick()
 {
-	PRIME_INFO(GetFPS(), " fps \n");
+    PRIME_INFO(GetFPS(), " fps \n");
 	PRIME_INFO(mainCamera->GetTransform().Position, '\n');
 }
 

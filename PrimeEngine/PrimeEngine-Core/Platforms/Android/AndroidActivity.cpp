@@ -3,6 +3,7 @@
 //
 #include "AndroidActivity.h"
 #include <memory.h>
+#include <Input.h>
 
 namespace PrimeEngine
 {
@@ -11,11 +12,40 @@ namespace PrimeEngine
  * Process the next input event.
  */
     static int32_t engine_handle_input(struct android_app* app, AInputEvent* event) {
+        Input::InputPC::isClear = false;
         AndroidActivity* engine = (AndroidActivity*)app->userData;
-        int32_t count = AMotionEvent_getPointerCount(event);
-        PRIME_INFO("Touch count: ", count);
-        if (AInputEvent_getType(event) == AINPUT_EVENT_TYPE_MOTION) {
-            return 1;
+        int32_t touchCount = AMotionEvent_getPointerCount(event);
+        Input::InputPC::touchCount = touchCount;
+        if (AInputEvent_getType(event) == AINPUT_EVENT_TYPE_MOTION)
+        {
+            int32_t action = AMotionEvent_getAction(event);
+            unsigned int flags = action & AMOTION_EVENT_ACTION_MASK;
+            switch (flags) {
+                case AMOTION_EVENT_ACTION_DOWN:
+                    /*down_pointer_id_ = AMotionEvent_getPointerId(event, 0);
+                    down_x_ = AMotionEvent_getX(event, 0);
+                    down_y_ = AMotionEvent_getY(event, 0);*/
+                    break;
+                case AMOTION_EVENT_ACTION_UP: {
+                    if(touchCount == 1)
+                    {
+                        Input::InputPC::isClear = true;
+                    }
+                    /*int64_t eventTime = AMotionEvent_getEventTime(event);
+                    int64_t downTime = AMotionEvent_getDownTime(event);
+                    if (eventTime - downTime <= TAP_TIMEOUT) {
+                        if (down_pointer_id_ == AMotionEvent_getPointerId(event, 0)) {
+                            float x = AMotionEvent_getX(event, 0) - down_x_;
+                            float y = AMotionEvent_getY(event, 0) - down_y_;
+                            if (x * x + y * y < TOUCH_SLOP * TOUCH_SLOP * dp_factor_) {
+                                LOGI("TapDetector: Tap detected");
+                                return 1;
+                            }
+                        }
+                    }*/
+                    break;
+                }
+            }
         }
         return 0;
     }
@@ -67,6 +97,7 @@ namespace PrimeEngine
 
     void AndroidActivity::Init()
     {
+        Input::InputPC::Initalize();
         _game = _gameCreation();
         _game->SetNativeAndroidWIndow(_app->window);
         _game->Awake();
@@ -77,6 +108,7 @@ namespace PrimeEngine
         if(_game)
         {
             _game->Step();
+            Input::InputPC::ClearTouches();
         }
     }
     void AndroidActivity::Kill()
@@ -86,6 +118,7 @@ namespace PrimeEngine
             _isAnimating = 0;
             delete _game;
             _game = nullptr;
+            Input::InputPC::ClearTouches();
         }
     }
 

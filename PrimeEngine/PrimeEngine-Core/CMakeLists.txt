@@ -99,6 +99,8 @@ set(PECORE_SOURCES
     "Graphics/Window.cpp"
     "Math/Vector3.cpp"
 
+    "Input.cpp"
+
     #"Networking/TCPClient.cpp" TODO add later
     #"Networking/TCPSever.cpp"
 
@@ -171,7 +173,6 @@ else()
                                         ${PECORE_SOURCES}
                                         "Platforms/Linux/UnixColorPrinter.cpp"
                                         "UI/Text.cpp" #TODO later add this to android also
-                                        "Input.cpp"
                                         "Graphics/Font.cpp"
                                         "Graphics/Label.cpp") ###
 

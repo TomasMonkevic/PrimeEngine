@@ -4,10 +4,14 @@
 
 namespace PrimeEngine { namespace Input {
 
-	KeyState InputPC::keyPressed[GLFW_KEY_LAST + 1];
-	KeyState InputPC::mouseButtonPressed[GLFW_MOUSE_BUTTON_LAST + 1];
+	KeyState InputPC::keyPressed[InputPC::MAX_KEY_COUNT];
+	KeyState InputPC::mouseButtonPressed[InputPC::MAX_MOUSE_BUTTON_COUNT];
 	Math::Vector2 InputPC::mousePosition = Math::Vector2();
+	int32_t InputPC::touchCount;
+	bool InputPC::isClear;
 
+#ifdef PE_ANDROID
+#else
 	void InputPC::cursor_position_callback(GLFWwindow* window, double xpos, double ypos)
 	{
 		mousePosition.x = (float)xpos;
@@ -37,14 +41,17 @@ namespace PrimeEngine { namespace Input {
 			mouseButtonPressed[button] = KeyState::up;
 		}
 	}
+#endif
 
 	void InputPC::Initalize()
 	{
-		for (int i = 0; i < GLFW_KEY_LAST + 1; i++)
+		touchCount = 0;
+		isClear = false;
+		for (int i = 0; i < MAX_KEY_COUNT; i++)
 		{
 			keyPressed[i] = KeyState::released;
 		}
-		for (int i = 0; i < GLFW_MOUSE_BUTTON_LAST + 1; i++)
+		for (int i = 0; i < MAX_MOUSE_BUTTON_COUNT; i++)
 		{
 			mouseButtonPressed[i] = KeyState::released;
 		}
@@ -52,7 +59,7 @@ namespace PrimeEngine { namespace Input {
 
 	bool InputPC::GetKeyDown(unsigned key)
 	{
-		if (key > GLFW_KEY_LAST)
+		if (key > KEY_LAST)
 		{
 			throw "Key doesn't exist!";
 		}
@@ -69,7 +76,7 @@ namespace PrimeEngine { namespace Input {
 
 	bool InputPC::GetKey(unsigned key)
 	{
-		if (key > GLFW_KEY_LAST)
+		if (key > KEY_LAST)
 		{
 			throw "Key doesn't exist!";
 		}
@@ -78,7 +85,7 @@ namespace PrimeEngine { namespace Input {
 
 	bool InputPC::GetKeyUp(unsigned key)
 	{
-		if (key > GLFW_KEY_LAST)
+		if (key > KEY_LAST)
 		{
 			throw "Key doesn't exist!";
 		}
@@ -95,7 +102,7 @@ namespace PrimeEngine { namespace Input {
 
 	bool InputPC::GetMouseButtonDown(unsigned mouseButton)
 	{
-		if (mouseButton > GLFW_MOUSE_BUTTON_LAST)
+		if (mouseButton > MOUSE_BUTTON_LAST)
 		{
 			throw "Button doesn't exist!";
 		}
@@ -112,7 +119,7 @@ namespace PrimeEngine { namespace Input {
 
 	bool InputPC::GetMouseButton(unsigned mouseButton)
 	{
-		if (mouseButton > GLFW_MOUSE_BUTTON_LAST)
+		if (mouseButton > MOUSE_BUTTON_LAST)
 		{
 			throw "Button doesn't exist!";
 		}
@@ -121,7 +128,7 @@ namespace PrimeEngine { namespace Input {
 
 	bool InputPC::GetMouseButtonUp(unsigned mouseButton)
 	{
-		if (mouseButton > GLFW_MOUSE_BUTTON_LAST)
+		if (mouseButton > MOUSE_BUTTON_LAST)
 		{
 			throw "Button doesn't exist!";
 		}
@@ -133,6 +140,14 @@ namespace PrimeEngine { namespace Input {
 		else
 		{
 			return false;
+		}
+	}
+
+	void InputPC::ClearTouches()
+	{
+		if(isClear)
+		{
+			touchCount = 0;
 		}
 	}
 }}
