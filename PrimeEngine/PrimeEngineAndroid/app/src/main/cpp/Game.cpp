@@ -61,6 +61,10 @@ void TestGame::Update()
 	player->GetTransform().Rotate(Quaternion::Rotation(GetDeltaTime() * 0.5f, Vector3::up()));
 	sun->GetTransform().Rotate(Quaternion::Rotation(GetDeltaTime() * 0.1f, Vector3::right()));
 	PRIME_INFO("Touch count: ", Input::InputPC::GetTouchCount());
+	std::vector<Input::Touch> touches = Input::InputPC::GetTouches();
+	for(int i=0; i<touches.size(); i++) {
+	    PRIME_INFO(i, " ", touches[i].fingerId, " Delta: ", touches[i].deltaPosition, " Pos: ", touches[i].position);
+	}
 }
 
 void TestGame::Tick()

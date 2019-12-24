@@ -9,6 +9,7 @@ namespace PrimeEngine { namespace Input {
 	Math::Vector2 InputPC::mousePosition = Math::Vector2();
 	int32_t InputPC::touchCount;
 	bool InputPC::isClear;
+	std::vector<Touch> InputPC::touches;
 
 #ifdef PE_ANDROID
 #else
@@ -147,6 +148,7 @@ namespace PrimeEngine { namespace Input {
 	{
 		if(isClear)
 		{
+		    touches.clear();
 			touchCount = 0;
 		}
 	}

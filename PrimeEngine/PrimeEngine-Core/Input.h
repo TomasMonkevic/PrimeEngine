@@ -3,8 +3,23 @@
 #include "Math/Vector2.h"
 #include "DllExport.h"
 #include "stdint.h"
+#include <vector>
 
 namespace PrimeEngine { namespace Input {
+
+    struct Touch {
+        PrimeEngine::Math::Vector2 position;
+        PrimeEngine::Math::Vector2 deltaPosition;
+        int32_t fingerId;
+
+        bool operator==(const Touch& obj) {
+            return fingerId == obj.fingerId;
+        }
+
+        bool operator!=(const Touch& obj) {
+            return !(*this == obj);
+        }
+    };
 
 	enum class KeyState
 	{
@@ -44,6 +59,7 @@ namespace PrimeEngine { namespace Input {
 	public:
         static int32_t touchCount;
         static bool isClear;
+        static std::vector<Touch> touches;
 
         static void Initalize();
 
@@ -58,7 +74,9 @@ namespace PrimeEngine { namespace Input {
 		static bool GetMouseButtonUp(unsigned mouseButton);
 
 		static void ClearTouches();
-		static inline int32_t GetTouchCount() { return touchCount; }
+		static inline int32_t GetTouchCount() { return touches.size(); }
+		static std::vector<Touch> GetTouches() { return touches; }
+
 	};
 
 }}

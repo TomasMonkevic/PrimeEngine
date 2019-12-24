@@ -12,39 +12,45 @@ namespace PrimeEngine
  * Process the next input event.
  */
     static int32_t engine_handle_input(struct android_app* app, AInputEvent* event) {
-        Input::InputPC::isClear = false;
         AndroidActivity* engine = (AndroidActivity*)app->userData;
-        int32_t touchCount = AMotionEvent_getPointerCount(event);
-        Input::InputPC::touchCount = touchCount;
+        Input::InputPC::isClear = false;
+
         if (AInputEvent_getType(event) == AINPUT_EVENT_TYPE_MOTION)
         {
-            int32_t action = AMotionEvent_getAction(event);
-            unsigned int flags = action & AMOTION_EVENT_ACTION_MASK;
-            switch (flags) {
-                case AMOTION_EVENT_ACTION_DOWN:
-                    /*down_pointer_id_ = AMotionEvent_getPointerId(event, 0);
-                    down_x_ = AMotionEvent_getX(event, 0);
-                    down_y_ = AMotionEvent_getY(event, 0);*/
-                    break;
-                case AMOTION_EVENT_ACTION_UP: {
-                    if(touchCount == 1)
-                    {
-                        Input::InputPC::isClear = true;
-                    }
-                    /*int64_t eventTime = AMotionEvent_getEventTime(event);
-                    int64_t downTime = AMotionEvent_getDownTime(event);
-                    if (eventTime - downTime <= TAP_TIMEOUT) {
-                        if (down_pointer_id_ == AMotionEvent_getPointerId(event, 0)) {
-                            float x = AMotionEvent_getX(event, 0) - down_x_;
-                            float y = AMotionEvent_getY(event, 0) - down_y_;
-                            if (x * x + y * y < TOUCH_SLOP * TOUCH_SLOP * dp_factor_) {
-                                LOGI("TapDetector: Tap detected");
-                                return 1;
-                            }
-                        }
-                    }*/
-                    break;
+            int32_t touchCount = AMotionEvent_getPointerCount(event);
+
+            int action = AMotionEvent_getAction(event);
+            int actionMasked = action & AMOTION_EVENT_ACTION_MASK;
+            int ptrIndex = (action & AMOTION_EVENT_ACTION_POINTER_INDEX_MASK) >> AMOTION_EVENT_ACTION_POINTER_INDEX_SHIFT;
+
+            if (actionMasked == AMOTION_EVENT_ACTION_DOWN || actionMasked ==
+                                                             AMOTION_EVENT_ACTION_POINTER_DOWN)
+            {
+                PRIME_INFO("ACTION DOWN ", ptrIndex);
+            }
+            else if (actionMasked == AMOTION_EVENT_ACTION_UP || actionMasked ==
+                                                                  AMOTION_EVENT_ACTION_POINTER_UP)
+            {
+                PRIME_INFO("ACTION UP ", ptrIndex);
+                if(touchCount == 1)
+                {
+                    Input::InputPC::isClear = true;
                 }
+            }
+            else
+            {
+                PRIME_INFO("ACTION MOVE ", ptrIndex);
+            }
+
+            Input::InputPC::touchCount = touchCount;
+            Input::InputPC::touches.clear();
+            for(int i=0; i<touchCount; i++) {
+                Input::Touch touch;
+                touch.fingerId = AMotionEvent_getPointerId(event, i);
+                Math::Vector2 currentPos(AMotionEvent_getX(event, i), AMotionEvent_getY(event, i));
+                //touch.deltaPosition = touch.position - currentPos;
+                touch.position = currentPos;
+                Input::InputPC::touches.emplace_back(std::move(touch));
             }
         }
         return 0;
