@@ -7,10 +7,20 @@
 
 namespace PrimeEngine { namespace Input {
 
+    enum class TouchPhase {
+        BEGAN = 0,
+        MOVED = 1,
+        ENDED = 2
+    };
+
     struct Touch {
+        TouchPhase phase;
         PrimeEngine::Math::Vector2 position;
         PrimeEngine::Math::Vector2 deltaPosition;
         int32_t fingerId;
+
+        Touch() : Touch(0) {}
+		Touch(int32_t fId) : fingerId(fId) {}
 
         bool operator==(const Touch& obj) {
             return fingerId == obj.fingerId;

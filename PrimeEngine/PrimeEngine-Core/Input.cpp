@@ -148,8 +148,8 @@ namespace PrimeEngine { namespace Input {
 	{
 		if(isClear)
 		{
-		    touches.clear();
-			touchCount = 0;
+		//    touches.clear();
+		//	touchCount = 0;
 		}
 	}
 }}

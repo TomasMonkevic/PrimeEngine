@@ -4,6 +4,7 @@
 #include "AndroidActivity.h"
 #include <memory.h>
 #include <Input.h>
+#include <algorithm>
 
 namespace PrimeEngine
 {
@@ -27,11 +28,22 @@ namespace PrimeEngine
                                                              AMOTION_EVENT_ACTION_POINTER_DOWN)
             {
                 PRIME_INFO("ACTION DOWN ", ptrIndex);
+                Input::Touch touch;
+                touch.phase = Input::TouchPhase::BEGAN;
+                touch.fingerId = AMotionEvent_getPointerId(event, ptrIndex);
+                Math::Vector2 currentPos(AMotionEvent_getX(event, ptrIndex), AMotionEvent_getY(event, ptrIndex));
+                //touch.deltaPosition = touch.position - currentPos;
+                touch.position = currentPos;
+                Input::InputPC::touches.emplace_back(std::move(touch));
             }
             else if (actionMasked == AMOTION_EVENT_ACTION_UP || actionMasked ==
                                                                   AMOTION_EVENT_ACTION_POINTER_UP)
             {
                 PRIME_INFO("ACTION UP ", ptrIndex);
+                auto it = std::find(Input::InputPC::touches.begin(),Input::InputPC::touches.end(), Input::Touch(AMotionEvent_getPointerId(event, ptrIndex)));
+                if(it != Input::InputPC::touches.end()) {
+                    Input::InputPC::touches.erase(it);
+                }
                 if(touchCount == 1)
                 {
                     Input::InputPC::isClear = true;
@@ -40,18 +52,28 @@ namespace PrimeEngine
             else
             {
                 PRIME_INFO("ACTION MOVE ", ptrIndex);
+                for(int i=0; i<touchCount; i++) {
+                    Input::Touch touch;
+                    touch.fingerId = AMotionEvent_getPointerId(event, i);
+
+                    auto it = std::find(Input::InputPC::touches.begin(),Input::InputPC::touches.end(), touch);
+                    if(it != Input::InputPC::touches.end()) {
+                        auto prevTouchPhase = it->phase;
+                        it->phase = Input::TouchPhase::MOVED;
+                        if(prevTouchPhase != Input::TouchPhase::BEGAN) {
+                            Math::Vector2 currentPos(AMotionEvent_getX(event, i),
+                                                     AMotionEvent_getY(event, i));
+                            PRIME_INFO(it->position, " ", currentPos);
+                            it->deltaPosition = it->position - currentPos;
+                            it->position = currentPos;
+                        }
+                    }
+                }
             }
 
             Input::InputPC::touchCount = touchCount;
-            Input::InputPC::touches.clear();
-            for(int i=0; i<touchCount; i++) {
-                Input::Touch touch;
-                touch.fingerId = AMotionEvent_getPointerId(event, i);
-                Math::Vector2 currentPos(AMotionEvent_getX(event, i), AMotionEvent_getY(event, i));
-                //touch.deltaPosition = touch.position - currentPos;
-                touch.position = currentPos;
-                Input::InputPC::touches.emplace_back(std::move(touch));
-            }
+
+            // }
         }
         return 0;
     }
