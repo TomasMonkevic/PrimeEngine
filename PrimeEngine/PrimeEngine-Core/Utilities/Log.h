@@ -6,7 +6,7 @@
 #include <Math/Vector4.h>
 #include <Graphics/Color.h>
 #include <Math/Quaternion.h>
-
+#include <Input.h>
 
 #include <string>
 #include <cstring>
@@ -121,6 +121,24 @@ namespace PrimeEngine
 	inline const char* ToString<Math::Vector2>(const Math::Vector2& vec)
 	{
 		PrimeEngine::Sprintf(_formatBuffer, BUFFER_SIZE, "(%f, %f)", vec.x, vec.y);
+		return _formatBuffer;
+	}
+
+	template<>
+	inline const char* ToString<Input::TouchPhase>(const Input::TouchPhase& touchPhase)
+	{
+		switch (touchPhase)
+		{
+		case Input::TouchPhase::BEGAN:
+			PrimeEngine::Sprintf(_formatBuffer, BUFFER_SIZE, "%s", "BEGAN");
+			break;
+		case Input::TouchPhase::MOVED:
+			PrimeEngine::Sprintf(_formatBuffer, BUFFER_SIZE, "%s", "MOVED");
+			break;
+		case Input::TouchPhase::ENDED:
+			PrimeEngine::Sprintf(_formatBuffer, BUFFER_SIZE, "%s", "ENDED");
+			break;
+		}
 		return _formatBuffer;
 	}
 

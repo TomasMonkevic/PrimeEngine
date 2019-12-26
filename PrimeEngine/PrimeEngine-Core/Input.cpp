@@ -146,10 +146,18 @@ namespace PrimeEngine { namespace Input {
 
 	void InputPC::ClearTouches()
 	{
-		if(isClear)
-		{
+	    for(int i=0; i<touches.size(); i++) {
+	        if(touches[i].phase == TouchPhase::ENDED) {
+	            touches.erase(touches.begin() + i);
+	        }
+	    }
+        //Input::InputPC::touches.erase(it);
+
+        //if(isClear)
+		//{
+
 		//    touches.clear();
 		//	touchCount = 0;
-		}
+		//}
 	}
 }}

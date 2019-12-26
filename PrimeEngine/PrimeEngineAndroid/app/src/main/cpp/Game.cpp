@@ -63,7 +63,7 @@ void TestGame::Update()
 	PRIME_INFO("Touch count: ", Input::InputPC::GetTouchCount());
 	std::vector<Input::Touch> touches = Input::InputPC::GetTouches();
 	for(int i=0; i<touches.size(); i++) {
-	    PRIME_INFO(i, " ", touches[i].fingerId, " Delta: ", touches[i].deltaPosition, " Pos: ", touches[i].position);
+	    PRIME_INFO(i, " Id: ", touches[i].fingerId, " Phase: ", touches[i].phase, " Delta: ", touches[i].deltaPosition, " Pos: ", touches[i].position);
 	}
 }
 
