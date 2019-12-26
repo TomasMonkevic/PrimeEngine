@@ -147,6 +147,10 @@ namespace PrimeEngine { namespace Input {
 	void InputPC::ClearTouches()
 	{
 	    for(int i=0; i<touches.size(); i++) {
+            if(touches[i].phase == TouchPhase::BEGAN) {
+                //the phase is changed in sync with frames so after firs frame change state to moved
+                touches[i].phase = TouchPhase::MOVED;
+            }
 	        if(touches[i].phase == TouchPhase::ENDED) {
 	            touches.erase(touches.begin() + i);
 	        }

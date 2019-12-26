@@ -27,7 +27,7 @@ namespace PrimeEngine
             if (actionMasked == AMOTION_EVENT_ACTION_DOWN || actionMasked ==
                                                              AMOTION_EVENT_ACTION_POINTER_DOWN)
             {
-                //PRIME_INFO("ACTION DOWN ", ptrIndex);
+                PRIME_INFO("ACTION DOWN ", ptrIndex);
                 Input::Touch touch;
                 touch.phase = Input::TouchPhase::BEGAN;
                 touch.fingerId = AMotionEvent_getPointerId(event, ptrIndex);
@@ -39,7 +39,7 @@ namespace PrimeEngine
             else if (actionMasked == AMOTION_EVENT_ACTION_UP || actionMasked ==
                                                                   AMOTION_EVENT_ACTION_POINTER_UP)
             {
-                //PRIME_INFO("ACTION UP ", ptrIndex);
+                PRIME_INFO("ACTION UP ", ptrIndex);
                 auto it = std::find(Input::InputPC::touches.begin(),Input::InputPC::touches.end(), Input::Touch(AMotionEvent_getPointerId(event, ptrIndex)));
                 if(it != Input::InputPC::touches.end()) {
                     //Input::InputPC::touches.erase(it);
@@ -51,7 +51,7 @@ namespace PrimeEngine
                 }
             }
             else {
-                //PRIME_INFO("ACTION MOVE ", ptrIndex);
+                PRIME_INFO("ACTION MOVE ", ptrIndex);
                 for (int i = 0; i < touchCount; i++) {
                     Input::Touch touch;
                     touch.fingerId = AMotionEvent_getPointerId(event, i);
@@ -59,15 +59,16 @@ namespace PrimeEngine
                     auto it = std::find(Input::InputPC::touches.begin(),
                                         Input::InputPC::touches.end(), touch);
                     if (it != Input::InputPC::touches.end()) {
-                        auto prevTouchPhase = it->phase;
-                        it->phase = Input::TouchPhase::MOVED;
-                        if (prevTouchPhase != Input::TouchPhase::BEGAN) {
+                        // the phase is changed in sync with frames so a touch cannot be of phase moved before a touch frame had a began phase in a frame
+                        //it->phase = Input::TouchPhase::MOVED;
                             Math::Vector2 currentPos(AMotionEvent_getX(event, i),
                                                      AMotionEvent_getY(event, i));
                             //PRIME_INFO(it->position, " ", currentPos);
                             it->deltaPosition = it->position - currentPos;
                             it->position = currentPos;
-                        }
+                    }
+                    else {
+                        PRIME_INFO("NOT FOUND");
                     }
                 }
             }
