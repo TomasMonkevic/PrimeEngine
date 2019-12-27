@@ -7,8 +7,6 @@ namespace PrimeEngine { namespace Input {
 	KeyState InputPC::keyPressed[InputPC::MAX_KEY_COUNT];
 	KeyState InputPC::mouseButtonPressed[InputPC::MAX_MOUSE_BUTTON_COUNT];
 	Math::Vector2 InputPC::mousePosition = Math::Vector2();
-	int32_t InputPC::touchCount;
-	bool InputPC::isClear;
 	std::vector<Touch> InputPC::touches;
 
 #ifdef PE_ANDROID
@@ -46,8 +44,6 @@ namespace PrimeEngine { namespace Input {
 
 	void InputPC::Initalize()
 	{
-		touchCount = 0;
-		isClear = false;
 		for (int i = 0; i < MAX_KEY_COUNT; i++)
 		{
 			keyPressed[i] = KeyState::released;
@@ -144,9 +140,10 @@ namespace PrimeEngine { namespace Input {
 		}
 	}
 
-	void InputPC::ClearTouches()
+	void InputPC::ProcessTouches()
 	{
-        for (auto it = touches.begin(); it != touches.end(); ) {
+        auto it = touches.begin();
+        while (it != touches.end()) {
             if(it->phase == TouchPhase::ENDED) {
                 it = touches.erase(it);
                 continue;
@@ -159,13 +156,5 @@ namespace PrimeEngine { namespace Input {
             }
             ++it;
         }
-        //Input::InputPC::touches.erase(it);
-
-        //if(isClear)
-		//{
-
-		//    touches.clear();
-		//	touchCount = 0;
-		//}
 	}
 }}

@@ -14,7 +14,6 @@ namespace PrimeEngine
  */
     static int32_t engine_handle_input(struct android_app* app, AInputEvent* event) {
         AndroidActivity* engine = (AndroidActivity*)app->userData;
-        Input::InputPC::isClear = false;
 
         if (AInputEvent_getType(event) == AINPUT_EVENT_TYPE_MOTION)
         {
@@ -27,49 +26,30 @@ namespace PrimeEngine
             if (actionMasked == AMOTION_EVENT_ACTION_DOWN || actionMasked ==
                                                              AMOTION_EVENT_ACTION_POINTER_DOWN)
             {
-                PRIME_INFO("ACTION DOWN ", ptrIndex);
                 Input::Touch touch;
                 touch.phase = Input::TouchPhase::BEGAN;
                 touch.fingerId = AMotionEvent_getPointerId(event, ptrIndex);
                 Math::Vector2 currentPos(AMotionEvent_getX(event, ptrIndex), AMotionEvent_getY(event, ptrIndex));
-                //touch.deltaPosition = touch.position - currentPos;
                 touch.position = currentPos;
                 Input::InputPC::touches.emplace_back(std::move(touch));
             }
             else if (actionMasked == AMOTION_EVENT_ACTION_UP || actionMasked ==
                                                                   AMOTION_EVENT_ACTION_POINTER_UP)
             {
-                PRIME_INFO("ACTION UP ", ptrIndex);
+                // touch should be always found because there cannot be an ended phase without a began phase
                 auto it = std::find(Input::InputPC::touches.begin(),Input::InputPC::touches.end(), Input::Touch(AMotionEvent_getPointerId(event, ptrIndex)));
-                if(it != Input::InputPC::touches.end()) {
-                    //Input::InputPC::touches.erase(it);
-                    it->phase = Input::TouchPhase::ENDED;
-                }
-                if(touchCount == 1)
-                {
-                    Input::InputPC::isClear = true;
-                }
+                it->phase = Input::TouchPhase::ENDED;
             }
             else {
-                PRIME_INFO("ACTION MOVE ", ptrIndex);
                 for (int i = 0; i < touchCount; i++) {
-                    Input::Touch touch;
-                    touch.fingerId = AMotionEvent_getPointerId(event, i);
-
+                    // touch should be always found because there cannot be an moved phase without a began phase
                     auto it = std::find(Input::InputPC::touches.begin(),
-                                        Input::InputPC::touches.end(), touch);
-                    if (it != Input::InputPC::touches.end()) {
-                        // the phase is changed in sync with frames so a touch cannot be of phase moved before a touch frame had a began phase in a frame
-                        //it->phase = Input::TouchPhase::MOVED;
-                            Math::Vector2 currentPos(AMotionEvent_getX(event, i),
-                                                     AMotionEvent_getY(event, i));
-                            //PRIME_INFO(it->position, " ", currentPos);
-                            it->deltaPosition = it->position - currentPos;
-                            it->position = currentPos;
-                    }
-                    else {
-                        PRIME_INFO("NOT FOUND");
-                    }
+                                        Input::InputPC::touches.end(), Input::Touch(AMotionEvent_getPointerId(event, i)));
+                    // the phase is changed in sync with frames so a touch cannot be of phase moved before a touch frame had a began phase in a frame
+                    Math::Vector2 currentPos(AMotionEvent_getX(event, i),
+                                             AMotionEvent_getY(event, i));
+                    it->deltaPosition = it->position - currentPos;
+                    it->position = currentPos;
                 }
             }
         }
@@ -134,7 +114,7 @@ namespace PrimeEngine
         if(_game)
         {
             _game->Step();
-            Input::InputPC::ClearTouches();
+            Input::InputPC::ProcessTouches();
         }
     }
     void AndroidActivity::Kill()
@@ -144,7 +124,6 @@ namespace PrimeEngine
             _isAnimating = 0;
             delete _game;
             _game = nullptr;
-            Input::InputPC::ClearTouches();
         }
     }
 

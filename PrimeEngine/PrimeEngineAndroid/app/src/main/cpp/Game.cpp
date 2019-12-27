@@ -60,9 +60,9 @@ void TestGame::Update()
 	//TODO could be called automaticaly when scene is implemented
 	player->GetTransform().Rotate(Quaternion::Rotation(GetDeltaTime() * 0.5f, Vector3::up()));
 	sun->GetTransform().Rotate(Quaternion::Rotation(GetDeltaTime() * 0.1f, Vector3::right()));
-	PRIME_INFO("Touch count: ", Input::InputPC::GetTouchCount());
 	std::vector<Input::Touch> touches = Input::InputPC::GetTouches();
-	for(int i=0; i<touches.size(); i++) {
+    PRIME_INFO("Touch count: ", touches.size());
+    for(int i=0; i<touches.size(); i++) {
 	    PRIME_INFO(i, " Id: ", touches[i].fingerId, " Phase: ", touches[i].phase, " Delta: ", touches[i].deltaPosition, " Pos: ", touches[i].position);
 	}
 }

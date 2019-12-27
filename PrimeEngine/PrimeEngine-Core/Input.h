@@ -67,8 +67,6 @@ namespace PrimeEngine { namespace Input {
 		static void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 #endif
 	public:
-        static int32_t touchCount;
-        static bool isClear;
         static std::vector<Touch> touches;
 
         static void Initalize();
@@ -83,8 +81,7 @@ namespace PrimeEngine { namespace Input {
 		static bool GetMouseButton(unsigned mouseButton);
 		static bool GetMouseButtonUp(unsigned mouseButton);
 
-		static void ClearTouches();
-		static inline int32_t GetTouchCount() { return touches.size(); }
+		static void ProcessTouches();
 		static std::vector<Touch> GetTouches() { return touches; }
 
 	};
