@@ -58,7 +58,8 @@ void TestGame::Awake()
 void TestGame::Update()
 {
 	//TODO could be called automaticaly when scene is implemented
-	player->GetTransform().Rotate(Quaternion::Rotation(GetDeltaTime() * 0.5f, Vector3::up()));
+    mainCamera->GetComponent<FpsCamera>()->Update(GetDeltaTime());
+    player->GetTransform().Rotate(Quaternion::Rotation(GetDeltaTime() * 0.5f, Vector3::up()));
 	sun->GetTransform().Rotate(Quaternion::Rotation(GetDeltaTime() * 0.1f, Vector3::right()));
 	std::vector<Input::Touch> touches = Input::InputPC::GetTouches();
     PRIME_INFO("Touch count: ", touches.size());

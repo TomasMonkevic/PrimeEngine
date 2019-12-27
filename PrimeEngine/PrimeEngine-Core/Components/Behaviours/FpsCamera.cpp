@@ -54,6 +54,18 @@ namespace PrimeEngine {
 
 		//PRIME_INFO(mainCamera->GetTransform().Rotation, '\n');
 		pervMousePos = InputPC::GetMousePosition();
+        #else
+        std::vector<Input::Touch> touches = Input::InputPC::GetTouches();
+        if(touches.size() == 2) {
+            GetGameObject()->GetTransform().Position += GetGameObject()->GetTransform().Forward().Normalized() * touches[0].deltaPosition.y * _cameraSpeed * deltaTime;
+            GetGameObject()->GetTransform().Position -= GetGameObject()->GetTransform().Right().Normalized() * touches[0].deltaPosition.x * _cameraSpeed * deltaTime;
+
+            Quaternion yaw = Quaternion::Rotation(-touches[1].deltaPosition.x * _mouseSensitivity.x, Vector3::up());
+            GetGameObject()->GetTransform().Rotation = yaw * GetGameObject()->GetTransform().Rotation; // yaw on the left.
+            // Pitch happens "under" the current rotation, in local coordinates.
+            Quaternion pitch = Quaternion::Rotation(-touches[1].deltaPosition.y * _mouseSensitivity.y, Vector3::right());
+            GetGameObject()->GetTransform().Rotate(pitch); // pitch on the right.
+        }
 		#endif
 	}
 
