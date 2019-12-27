@@ -146,15 +146,19 @@ namespace PrimeEngine { namespace Input {
 
 	void InputPC::ClearTouches()
 	{
-	    for(int i=0; i<touches.size(); i++) {
-            if(touches[i].phase == TouchPhase::BEGAN) {
-                //the phase is changed in sync with frames so after firs frame change state to moved
-                touches[i].phase = TouchPhase::MOVED;
+        for (auto it = touches.begin(); it != touches.end(); ) {
+            if(it->phase == TouchPhase::ENDED) {
+                it = touches.erase(it);
+                continue;
             }
-	        if(touches[i].phase == TouchPhase::ENDED) {
-	            touches.erase(touches.begin() + i);
-	        }
-	    }
+
+            it->deltaPosition = Math::Vector2::zero();
+            if(it->phase == TouchPhase::BEGAN) {
+                //the phase is changed in sync with frames so after firs frame change state to moved
+                it->phase = TouchPhase::MOVED;
+            }
+            ++it;
+        }
         //Input::InputPC::touches.erase(it);
 
         //if(isClear)
