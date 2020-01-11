@@ -26,7 +26,8 @@ void TestGame::Awake()
 	mainCamera->AddComponent(new FpsCamera(0.09f, Vector2(0.0005f, 0.0005f)));
 
 	player = new GameObject();
-	Material* boxMaterial = new Material(Shader::phong, Color::Blue()); //TODO don't forget to delete this
+	Material* boxMaterial = new Material(Shader::phong, new Texture("Textures/boxDiff.png"),
+                                         new Texture("Textures/boxSpec.png")); //TODO don't forget to delete this
 	player->AddComponent(new MeshRenderer(Mesh::Cube(Color::White()), boxMaterial));
 
 	GameObject* ground = new GameObject(Vector3(0.0f, -1.0f, 0.0f));

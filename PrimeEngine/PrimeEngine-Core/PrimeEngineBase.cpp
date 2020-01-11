@@ -13,6 +13,7 @@ namespace PrimeEngine {
 		_fpsCounter = 0;
 		while (_window && !_window->Closed())
 		{
+			//TODO should call step func
 			_window->Clear();
 			Update(); //first frame fps and delta time is 0
 			Render();
@@ -53,12 +54,14 @@ namespace PrimeEngine {
 		}
 	}
 
+	//TODO code duplication
 	void PrimeEngineBase::CreateWin(const char* title, int width, int height)
 	{
 		Graphics::Window::SetWindow(title, width, height);
 		_window = Graphics::Window::GetWindow();
 #ifdef PE_ANDROID
 		_window->SetNativeAndroidWIndow(_nativeWindow);
+		_window->SetNativeAndroidActivity(_nativeActivity);
 #endif
 		_window->Initialize();
 	}
@@ -69,6 +72,7 @@ namespace PrimeEngine {
 		_window = Graphics::Window::GetWindow();
 #ifdef PE_ANDROID
         _window->SetNativeAndroidWIndow(_nativeWindow);
+		_window->SetNativeAndroidActivity(_nativeActivity);
 #endif
 		_window->Initialize();
 	}

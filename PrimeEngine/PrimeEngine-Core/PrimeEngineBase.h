@@ -16,6 +16,7 @@ namespace PrimeEngine {
 		float _deltaTime, _prevDeltatime = 0;
 #ifdef PE_ANDROID
 		ANativeWindow* _nativeWindow;
+        ANativeActivity* _nativeActivity;
 #endif
 
 	private:
@@ -64,6 +65,11 @@ namespace PrimeEngine {
 		{
 			_nativeWindow = nativeWindow;
 		}
+
+        inline void SetNativeAndroidActivity(ANativeActivity* nativeActivity)
+        {
+            _nativeActivity = nativeActivity;
+        }
 #endif
 		virtual void Awake() = 0;
 		void Play();

@@ -3,6 +3,7 @@
 #ifdef PE_ANDROID
 	#include <GLES3/gl31.h>
 	#include <EGL/egl.h>
+    #include <android/native_activity.h>
 #else
 	#include <GL/glew.h>
 	#include <GLFW/glfw3.h>
@@ -29,6 +30,7 @@ namespace PrimeEngine
 			EGLSurface _surface;
 			EGLContext _context;
 			ANativeWindow* _nativeWindow;
+            ANativeActivity* _nativeActivity;
             #else
 			GLFWwindow* _window;
 			#endif
@@ -73,6 +75,15 @@ namespace PrimeEngine
             inline void SetNativeAndroidWIndow(ANativeWindow* nativeWindow)
 			{
 				_nativeWindow = nativeWindow;
+			}
+
+            inline void SetNativeAndroidActivity(ANativeActivity* nativeActivity)
+            {
+                _nativeActivity = nativeActivity;
+            }
+
+            ANativeActivity* GetNativeActivity() {
+			    return _nativeActivity;
 			}
 #endif
 
