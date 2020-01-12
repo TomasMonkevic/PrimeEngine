@@ -46,7 +46,7 @@ add_subdirectory(${src_dir} ${output_dir})
 set_target_properties( PrimeEngineCore PROPERTIES IMPORTED_LOCATION
         ${output_dir}/${ANDROID_ABI}/libPrimeEngineCore.so)
 
-add_library(PrimeEngineAndroid SHARED main.cpp Game.cpp)
+add_library(PrimeEngineAndroid SHARED main.cpp Game.cpp FlappyBird.cpp)
 
 target_include_directories(PrimeEngineAndroid PRIVATE
     ${ANDROID_NDK}/sources/android/native_app_glue)

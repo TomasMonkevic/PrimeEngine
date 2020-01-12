@@ -4,6 +4,7 @@
 #include "DllExport.h"
 #include "stdint.h"
 #include <vector>
+#include "Graphics/Window.h"
 
 namespace PrimeEngine { namespace Input {
 
@@ -50,7 +51,7 @@ namespace PrimeEngine { namespace Input {
 		static const int32_t KEY_LAST = 255;
 		static const int32_t MOUSE_BUTTON_LAST = 0;
 #else
-		static const int32_t KEY_LAST = GLFW_KEY_LAST ;
+		static const int32_t KEY_LAST = GLFW_KEY_LAST;
 		static const int32_t MOUSE_BUTTON_LAST = GLFW_KEY_LAST;
 #endif
 		static const int32_t MAX_KEY_COUNT = KEY_LAST + 1;

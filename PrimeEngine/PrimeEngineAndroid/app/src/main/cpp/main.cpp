@@ -15,6 +15,7 @@
  *
  */
 #include "Game.h"
+#include "FlappyBird.h"
 #include "Platforms/Android/AndroidActivity.h"
 
 /**
@@ -23,7 +24,8 @@
  * event loop for receiving input events and doing other things.
  */
 void android_main(struct android_app* state) {
-    auto gameCreation = []{ return reinterpret_cast<PrimeEngineBase*>(new TestGame()); };
+    //auto gameCreation = []{ return reinterpret_cast<PrimeEngineBase*>(new TestGame()); };
+    auto gameCreation = []{ return reinterpret_cast<PrimeEngineBase*>(new FlappyBird()); };
     AndroidActivity* native = new AndroidActivity(*gameCreation, state);
     native->Play();
     delete native;

@@ -49,11 +49,6 @@ namespace PrimeEngine { namespace Graphics {
 #ifdef PE_ANDROID
 		//TODO move to readfile
 		AAssetManager* assetManager = Graphics::Window::GetWindow()->GetNativeActivity()->assetManager;
-        AAssetDir* assetDir = AAssetManager_openDir(assetManager, "Textures");
-        const char* filename = (const char*)NULL;
-        while ((filename = AAssetDir_getNextFileName(assetDir)) != NULL) {
-            PRIME_INFO(filename, '\n');
-        }
 		AAsset* asset = AAssetManager_open(assetManager, _path, AASSET_MODE_BUFFER);
 		unsigned long length = AAsset_getLength64(asset); //get the size(number of bytes) of the file
 		uint8_t* data = new uint8_t[length + 1]; //TODO use unique ptr

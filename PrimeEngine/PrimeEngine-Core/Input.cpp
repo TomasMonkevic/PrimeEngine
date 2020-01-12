@@ -1,4 +1,3 @@
-#include "Graphics/Window.h"
 #include "Input.h"
 #include <Utilities/Log.h>
 
