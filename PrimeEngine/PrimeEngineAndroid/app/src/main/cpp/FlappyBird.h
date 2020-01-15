@@ -17,12 +17,16 @@ private:
 	GameObject *bird, *background, *groundPrefab, *pipeBottomPrefab, *pipeTopPrefab;
 	std::vector<GameObject*> grounds, pipes;
 	Vector2 birdVelocity = Vector2::zero();
+	bool isGameStarted_ = false;
+	bool isGameOver_ = false;
 	float angularMomentum = 0.0f;
+    float nextPipePosition;
 	float birdRotation = 0.0f; //actually it's easier to have this; no need to constantly convert form quaternions to euler angles
 
 private:
 	void Destroy(GameObject* obj);
-
+    bool DidBirdCollide();
+    void RestartGame();
 	void Gravity(GameObject& obj);
 	//void Jump(float height);
 	void SpawnGround();
