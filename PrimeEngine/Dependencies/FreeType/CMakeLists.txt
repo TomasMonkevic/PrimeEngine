@@ -70,6 +70,8 @@ set(FREETYPE_SOURCES
 
 add_definitions(-DFT2_BUILD_LIBRARY)
 
+include_directories("include")
+
 if(${CMAKE_SYSTEM_NAME} MATCHES "Android")
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -frtti -fexceptions -Wall")
@@ -80,7 +82,7 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Android")
     return()
     elseif (${ANDROID_PLATFORM_LEVEL} LESS 18)
     add_definitions("-DDYNAMIC_ES3")
-    set(GL3STUB_SRC ../../PrimeEngineCore/Platforms/Android/gl3stub.c)
+    set(GL3STUB_SRC ../../PrimeEngine-Core/Platforms/Android/gl3stub.c)
     set(OPENGL_LIB GLESv2)
     else ()
     set(OPENGL_LIB GLESv3)
@@ -102,7 +104,6 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Android")
                 m)
 else()
     include_directories("../GLEW/include")
-    include_directories("include")
 
     add_library(FreeType STATIC ${FREETYPE_HEADERS} ${FREETYPE_SOURCES})
 endif()

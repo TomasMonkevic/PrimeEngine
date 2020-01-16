@@ -40,6 +40,7 @@ FlappyBird::~FlappyBird()
 	delete groundPrefab;
 	delete pipeBottomPrefab;
 	delete pipeTopPrefab;
+	delete arial;
 }
 
 void FlappyBird::Destroy(GameObject* obj)
@@ -179,7 +180,7 @@ void FlappyBird::Awake()
 	mainCamera = new Camera(Matrix4x4::Orthographic(-360.0f, 360.0f, -640.0f, 640.0f, -1.0f, 1.0f));
 	playingLayer = new GameLayer(ShaderManagerI.CreateShader("mainShader", Shader::defaultShader), mainCamera);
 	//TODO make an error log if existing shader name is used
-	//uiLayer = new UILayer();
+	uiLayer = new UILayer();
 
 	float scale = 5.0f; //5.0f
 
@@ -208,8 +209,9 @@ void FlappyBird::Awake()
 	grounds.push_back(new GameObject(*groundPrefab));
 
 	//score text
-	//score = new Text("Hello\nNewLine", arial);
-	//uiLayer->Submit(score);
+	arial = new Font("Fonts/arial.ttf", Color(1.0f, 0.0f, 0.0f), 64);
+	score = new Text("Hello\nNewLine", *arial);
+	uiLayer->Submit(score);
 
 	//why doesn't it wokk if bg is first?
 	playingLayer->Submit(grounds[0]);
@@ -272,5 +274,5 @@ void FlappyBird::Tick()
 void FlappyBird::Render()
 {
 	playingLayer->Render();
-	//uiLayer->Render();
+	uiLayer->Render();
 }

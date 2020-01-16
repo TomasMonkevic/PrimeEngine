@@ -179,7 +179,6 @@ namespace PrimeEngine { namespace Graphics {
 		for (int i = 0; i < text.size(); i++)
 		{
 			const char& c = text[i];
-			#ifndef PE_ANDROID
 			texture_glyph_t* glyph = texture_font_get_glyph(font.font, c);
 
 			if (glyph)
@@ -216,7 +215,6 @@ namespace PrimeEngine { namespace Graphics {
 				_indexCount += 6;
 				x += (glyph->advance_x / xScale);
 			}
-			#endif
 		}
 	}
 

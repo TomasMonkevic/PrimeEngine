@@ -92,6 +92,9 @@ set(PECORE_SOURCES
     "Graphics/Shader/ShaderManager.cpp"
     "Graphics/Sprite.cpp"
     "Graphics/Texture.cpp"
+    "UI/Text.cpp"
+    "Graphics/Font.cpp"
+    "Graphics/Label.cpp"
     "Math/Matrix4x4.cpp"
     "Math/Quaternion.cpp"
     "Math/Vector2.cpp"
@@ -135,6 +138,11 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Android")
 
     include_directories(Platforms/Android)
 
+    link_directories(
+            ${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/FreeType/build)
+
+    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/FreeType ${CMAKE_CURRENT_BINARY_DIR}/Dependencies/FreeType)
+
     add_library(PrimeEngineCore SHARED
                 ${GL3STUB_SRC}
                 #${PECORE_HEADERS} 
@@ -148,6 +156,7 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Android")
     # Include libraries needed for gles3jni lib
     target_link_libraries(PrimeEngineCore
                 ${OPENGL_LIB}
+                FreeType
                 android
                 EGL
                 log
@@ -171,10 +180,7 @@ else()
 
     add_library(PrimeEngineCore SHARED ${PECORE_HEADERS} 
                                         ${PECORE_SOURCES}
-                                        "Platforms/Linux/UnixColorPrinter.cpp"
-                                        "UI/Text.cpp" #TODO later add this to android also
-                                        "Graphics/Font.cpp"
-                                        "Graphics/Label.cpp") ###
+                                        "Platforms/Linux/UnixColorPrinter.cpp") ###
 
     target_link_libraries(PrimeEngineCore
         glew_s
