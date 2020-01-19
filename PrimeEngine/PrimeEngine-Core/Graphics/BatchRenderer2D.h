@@ -46,7 +46,7 @@ namespace PrimeEngine { namespace Graphics {
 		~BatchRenderer2D();
 		void Begin() override;
 		void Submit(const Sprite* renderable2D) override;
-		void DrawLabel(const std::string& text, const  Math::Vector3& position, const Font& font) override;
+		void DrawLabel(const Label& textComponent) override;
 		void End() override;
 		void Flush() override;
 	};

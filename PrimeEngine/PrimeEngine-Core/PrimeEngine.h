@@ -46,8 +46,6 @@
 //#include <Networking/NetworkEntity.h>
 //#include <Networking/TCPClient.h>
 //#include <Networking/TCPServer.h>
-#include <UI/Text.h>
-#include <UI/UIObject.h>
 #include <Utilities/Log.h>
 #include <Utilities/Time.h>
 #include <Scene.h>

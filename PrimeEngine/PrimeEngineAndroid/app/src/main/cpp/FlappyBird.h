@@ -6,7 +6,6 @@ using namespace PrimeEngine;
 using namespace Math;
 using namespace Graphics;
 using namespace Input;
-using namespace UI;
 
 class FlappyBird : public PrimeEngineBase
 {
@@ -21,7 +20,7 @@ private:
 	bool isGameStarted_ = false;
 	bool isGameOver_ = false;
     Font* arial;
-    Text* score;
+	GameObject* score;
 	float angularMomentum = 0.0f;
     float nextPipePosition;
 	float birdRotation = 0.0f; //actually it's easier to have this; no need to constantly convert form quaternions to euler angles

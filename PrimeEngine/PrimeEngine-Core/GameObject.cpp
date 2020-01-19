@@ -52,12 +52,9 @@ namespace PrimeEngine {
 		{
 			sprite->Submit(renderer);
 		}
-		//could be added a local position and a global. better for performance
-		renderer->PushMatrix(GetTransform().GetModelMatrix());
 		for (const GameObject* child : *_children)
 		{
 			child->Submit(renderer);
 		}
-		renderer->PopMatrix();
 	}
 }
