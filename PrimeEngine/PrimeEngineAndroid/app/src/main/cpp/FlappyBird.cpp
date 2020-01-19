@@ -210,8 +210,8 @@ void FlappyBird::Awake()
 
 	//score text
 	arial = new Font("Fonts/arial.ttf", Color(1.0f, 0.0f, 0.0f), 64);
-	score = new GameObject(Vector2(0.0f, 1.0f));
-	score->AddComponent(new Label("Hello\nnew line", *arial));
+	score = new GameObject(Vector2(0.0f, 1.8f)); //why is 1.8 almost the top?
+	score->AddComponent(new Label("PRIME ENGINE\nFlappy bird", *arial));
 	uiLayer->Submit(score);
 
 	//why doesn't it wokk if bg is first?
