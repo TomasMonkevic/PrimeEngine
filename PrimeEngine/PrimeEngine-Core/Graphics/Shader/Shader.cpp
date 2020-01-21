@@ -23,7 +23,7 @@ namespace PrimeEngine { namespace Graphics {
 	{
 		_uniformLocation = new std::map<std::string, GLint>;
 
-		std::string shaderFileString = isSource ? shaderFile : PrimeEngine::File::ReadFile(shaderFile);
+		std::string shaderFileString = isSource ? shaderFile : PrimeEngine::ReadFileString(shaderFile);
 		char* vertexSource = NULL;
 		char* fragmentSource = NULL;
 		ParseShaderFile(shaderFileString, &vertexSource, &fragmentSource);

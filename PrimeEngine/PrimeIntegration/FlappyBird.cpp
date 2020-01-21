@@ -1,4 +1,4 @@
-#define P_LOG_LEVEL 2
+#define P_LOG_LEVEL 0
 
 #include "FlappyBird.h"
 
@@ -16,8 +16,20 @@
 #define BIRD_ROTATION_SPEED 1400.0f
 #define BIRD_JUMP_ROTATION_SPEED -700.0f
 #define BIRD_JUMP_HEIGHT 8.5f
+#define BIRD_COLLISION_RADIUS 30.5f
 
 #define GRAVITY 23.0f
+
+namespace {
+    bool AreColliding(const Vector3& circlePos, float radius, const Vector3& rectPos, const Sprite& rect) {
+        float x1 = rectPos.x - rect.GetSize().x / 2.0f;
+        float x2 = rectPos.x + rect.GetSize().x / 2.0f;
+        float y1 = rectPos.y - rect.GetSize().y / 2.0f;
+        float y2 = rectPos.y + rect.GetSize().y / 2.0f;
+        return x1 - radius < circlePos.x && circlePos.x < x2 + radius &&
+                y1 - radius < circlePos.y && circlePos.y < y2 + radius;
+    }
+}
 
 FlappyBird::~FlappyBird()
 {
@@ -28,12 +40,30 @@ FlappyBird::~FlappyBird()
 	delete groundPrefab;
 	delete pipeBottomPrefab;
 	delete pipeTopPrefab;
+	delete arial;
 }
 
 void FlappyBird::Destroy(GameObject* obj)
 {
 	playingLayer->Remove(obj);
 	delete obj;
+}
+
+bool FlappyBird::DidBirdCollide() {
+	Vector3 birdPosition = bird->GetTransform().Position;
+	for(const auto* pipe : pipes) {
+		if(AreColliding(birdPosition, BIRD_COLLISION_RADIUS, pipe->GetTransform().Position, *pipe->GetComponent<Sprite>())) {
+			PRIME_INFO("Collision with pipe");
+			return true;
+		}
+	}
+	for(const auto* ground : grounds) {
+		if(AreColliding(birdPosition, BIRD_COLLISION_RADIUS, ground->GetTransform().Position, *ground->GetComponent<Sprite>())) {
+			PRIME_INFO("Collision with ground");
+			return true;
+		}
+	}
+	return false;
 }
 
 void FlappyBird::Gravity(GameObject& obj)
@@ -45,7 +75,8 @@ void FlappyBird::Gravity(GameObject& obj)
 	birdVelocity.y -= GRAVITY * GetDeltaTime();
 	obj.GetTransform().Position += birdVelocity * BIRD_MASS * GetDeltaTime();
 
-	obj.GetTransform().Position.y = std::max(groundY, obj.GetTransform().Position.y);
+	obj.GetTransform().Position.y = std::min(mainCamera->ViewportToWorldPoint(Vector2(0.0f, 1.0f)).y,
+			std::max(groundY, obj.GetTransform().Position.y));
 	birdVelocity.y = std::max(groundY, birdVelocity.y);
 
 	//Rotation
@@ -87,16 +118,30 @@ void FlappyBird::SpawnGround()
 	}
 }
 
+void FlappyBird::RestartGame() {
+    bird->GetTransform().Position.y = 0;
+    bird->GetTransform().Rotation = Math::Quaternion::identity();
+    while(!pipes.empty()) {
+        playingLayer->Remove(pipes.back());
+        delete pipes.back();
+        pipes.pop_back();
+    }
+	birdVelocity = Vector2::zero();
+    angularMomentum = 0.0f;
+    birdRotation = 0.0f;
+    isGameOver_ = false;
+    isGameStarted_ = false;
+}
+
 void FlappyBird::SpawnPipes()
 {
-	float initialPos = mainCamera->ViewportToWorldPoint(Vector2(1.0f, 0.0f)).x + PIPE_DELAY;
 	int random = rand() % PIPE_MAX_Y + PIPE_MIN_Y;
 	float posY = mainCamera->ViewportToWorldPoint(Vector2(1.0f, -1.0f)).y + random; //+random pos
-	static float nextPipePosition = initialPos;
-	float width = pipeBottomPrefab->GetComponent<Sprite>()->GetSize().x; 
+	float width = pipeBottomPrefab->GetComponent<Sprite>()->GetSize().x;
 
-	if (nextPipePosition == initialPos)
+	if (pipes.empty() || mainCamera->WorldToViewPoint(pipes.back()->GetTransform().Position - Vector2(width / 2.0f, 0.0f)).x <= 1.0f)
 	{
+		PRIME_INFO("Pipe spawned! \n");
 		pipes.push_back(new GameObject(*pipeBottomPrefab));
 		pipes.back()->GetTransform().Position.x = nextPipePosition;
 		pipes.back()->GetTransform().Position.y = posY;
@@ -104,28 +149,13 @@ void FlappyBird::SpawnPipes()
 		pipes.push_back(new GameObject(*pipeTopPrefab));
 		pipes.back()->GetTransform().Position.x = nextPipePosition;
 		pipes.back()->GetTransform().Position.y = posY + PIPE_GAP;
-	}
 
-	if (mainCamera->WorldToViewPoint(pipes.back()->GetTransform().Position - Vector2(width / 2.0f, 0.0f)).x <= 1.0f)
-	{
-		PRIME_INFO("Pipe spawned! \n");
 		playingLayer->Submit(pipes[pipes.size() - 1]);
 		playingLayer->Submit(pipes[pipes.size() - 2]);
 		nextPipePosition += PIPE_SPREAD;
-
-		if (nextPipePosition != initialPos)
-		{
-			pipes.push_back(new GameObject(*pipeBottomPrefab));
-			pipes.back()->GetTransform().Position.x = nextPipePosition;
-			pipes.back()->GetTransform().Position.y = posY;
-
-			pipes.push_back(new GameObject(*pipeTopPrefab));
-			pipes.back()->GetTransform().Position.x = nextPipePosition;
-			pipes.back()->GetTransform().Position.y = posY + PIPE_GAP;
-		}
 	}
 
-	if (mainCamera->WorldToViewPoint(pipes[0]->GetTransform().Position + Vector2(width / 2.0f, 0.0f)).x <= -2.0f)
+	if (!pipes.empty() && mainCamera->WorldToViewPoint(pipes[0]->GetTransform().Position + Vector2(width / 2.0f, 0.0f)).x <= -2.0f)
 	{
 		PRIME_INFO("Pipes deleted \n");
 		playingLayer->Remove(pipes[0]);
@@ -141,8 +171,9 @@ void FlappyBird::SpawnPipes()
 void FlappyBird::Awake()
 {
 	//Windows setup
-	CreateWin("Flappy Bird", 720, 1280);
-	GetWindow()->EnableVSync(false);
+	//CreateWin("Flappy Bird", 1080, 2280);
+    CreateWin("Flappy Bird", 720, 1280);
+	GetWindow()->EnableVSync(true);
 	//GetWindow()->SetColor(Color(84, 192, 201));
 
 	//TODO make a main camera in gameLayer or return a handle to camera; think about the camera system
@@ -178,7 +209,9 @@ void FlappyBird::Awake()
 	grounds.push_back(new GameObject(*groundPrefab));
 
 	//score text
-	score = new Text("Hello\nNewLine", arial);
+	arial = new Font("Resources/arial.ttf", Color(1.0f, 0.0f, 0.0f), 64);
+	score = new GameObject(Vector2(0.0f, 1.8f)); //why is 1.8 almost the top?
+	score->AddComponent(new Label("PRIME ENGINE\nFlappy bird", *arial));
 	uiLayer->Submit(score);
 
 	//why doesn't it wokk if bg is first?
@@ -193,19 +226,39 @@ void FlappyBird::Awake()
 
 void FlappyBird::Update()
 {
-	SpawnGround();
-	SpawnPipes();
 	//PRIME_INFO(GetFPS(), "fps \n");
+	//auto touches = InputPC::GetTouches();
+	//if (touches.size() == 1 && touches[0].phase == Input::TouchPhase::BEGAN)
 	if (InputPC::GetKeyDown(32) || InputPC::GetMouseButtonDown(0))
 	{
-		//TODO should be some kind of animation
-		birdVelocity.y = BIRD_JUMP_HEIGHT;
-		angularMomentum = BIRD_JUMP_ROTATION_SPEED;
+	    if(isGameOver_) {
+            RestartGame();
+            return;
+	    }
+	    else {
+            //TODO should be some kind of animation
+            isGameStarted_ = true;
+            birdVelocity.y = BIRD_JUMP_HEIGHT;
+            angularMomentum = BIRD_JUMP_ROTATION_SPEED;
+	    }
 	}
 
-	bird->GetTransform().Position.x += GetDeltaTime() * BIRD_MOVEMENT_SPEED;
+    SpawnGround();
+    if(isGameStarted_) {
+        Gravity(*bird);
+        SpawnPipes();
+        if(DidBirdCollide()) {
+            isGameOver_ = true;
+        }
+    }
+    else {
+        nextPipePosition = mainCamera->ViewportToWorldPoint(Vector2(1.0f, 0.0f)).x + PIPE_DELAY;
+    }
+    if(!isGameOver_) {
+		bird->GetTransform().Position.x += GetDeltaTime() * BIRD_MOVEMENT_SPEED;
+	}
 	background->GetTransform().Position.x = bird->GetTransform().Position.x;
-	Gravity(*bird);
+    mainCamera->GetTransform().Position.x = bird->GetTransform().Position.x;
 }
 
 void FlappyBird::Tick()
@@ -221,7 +274,6 @@ void FlappyBird::Tick()
 
 void FlappyBird::Render()
 {
-	mainCamera->GetTransform().Position.x = bird->GetTransform().Position.x;
 	playingLayer->Render();
 	uiLayer->Render();
 }

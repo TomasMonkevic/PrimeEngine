@@ -1,6 +1,7 @@
-#include "Font.h"
-#include "../Utilities/Log.h"
-#include "../Utilities/File.h"
+#include <Graphics/Font.h>
+
+#include <Utilities/Log.h>
+#include <Utilities/FileUtils.h>
 
 namespace PrimeEngine { namespace Graphics {
 
@@ -15,11 +16,8 @@ namespace PrimeEngine { namespace Graphics {
 	{
 		atlas = ftgl::texture_atlas_new(512, 512, 2); //TODO remove hard coded values
 #ifdef PE_ANDROID
-		uint8_t* data;
-		size_t len;
-		File::ReadFileBytes(_fontName, &data, len);
-		font = texture_font_new_from_memory(atlas, size, data, len);
-		delete[] data;
+		ByteArray data = ReadFileBytes(_fontName);
+		font = texture_font_new_from_memory(atlas, size, data.data.get(), data.size);
 #else
         font = texture_font_new_from_file(atlas, size, _fontName);
 #endif

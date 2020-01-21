@@ -5,7 +5,7 @@
 #else
 	#include <GL/glew.h>
 #endif
-#include <Utilities/File.h>
+#include <Utilities/FileUtils.h>
 #include <Math/Math.h>
 #include <DllExport.h>
 #include <map>

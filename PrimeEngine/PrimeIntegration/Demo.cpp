@@ -108,8 +108,6 @@ void Demo::Awake()
 
 	//mainScene->Add(flashLight);
 	uiLayer = new UILayer();
-	fpsLabel = new UI::Text("Hello\nNewLine", arialFont);
-	uiLayer->Submit(fpsLabel);
 }
 
 void Demo::Update()

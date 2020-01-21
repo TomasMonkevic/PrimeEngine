@@ -57,7 +57,7 @@ set(PECORE_HEADERS
 
     "PrimeEngineBase.h"
     "PrimeException.h"
-    "Utilities/File.h"
+    "Utilities/FileUtils.h"
     "Utilities/Log.h"
     "Utilities/Time.h"
     "Utilities/Utils.h"
@@ -107,6 +107,7 @@ set(PECORE_SOURCES
     "PrimeEngineBase.cpp"
     "PrimeException.cpp"
     "Scene.cpp"
+    "Utilities/CommonFileUtils.cpp"
     "Utilities/Time.cpp"
     "Utilities/Utils.cpp"
 )
@@ -145,6 +146,7 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Android")
                 #${PECORE_HEADERS} 
                 ${PECORE_SOURCES}
                 Platforms/Android/AndroidActivity.cpp
+                Platforms/Android/AndroidFileUtils.cpp
             )
 
     target_include_directories(PrimeEngineCore PRIVATE
@@ -177,7 +179,8 @@ else()
 
     add_library(PrimeEngineCore SHARED ${PECORE_HEADERS} 
                                         ${PECORE_SOURCES}
-                                        "Platforms/Linux/UnixColorPrinter.cpp") ###
+                                        "Platforms/Linux/UnixColorPrinter.cpp"
+                                        "Platforms/Desktop/DesktopFileUtils.cpp")
 
     target_link_libraries(PrimeEngineCore
         glew_s

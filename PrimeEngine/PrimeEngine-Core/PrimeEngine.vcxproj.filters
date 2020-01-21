@@ -24,7 +24,7 @@
     <ClInclude Include="Graphics\Window.h">
       <Filter>Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Utilities\File.h" />
+    <ClInclude Include="Utilities\FileUtils.h" />
     <ClInclude Include="Graphics\Buffers\VertexBuffer.h" />
     <ClInclude Include="Graphics\Buffers\IndexBuffer.h" />
     <ClInclude Include="Graphics\Buffers\VertexArray.h" />

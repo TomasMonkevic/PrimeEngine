@@ -2,7 +2,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 #include "../Utilities/Log.h"
-#include "../Utilities/File.h"
+#include "../Utilities/FileUtils.h"
 
 namespace PrimeEngine { namespace Graphics {
 
@@ -45,11 +45,8 @@ namespace PrimeEngine { namespace Graphics {
 
 		stbi_set_flip_vertically_on_load(1);
 #ifdef PE_ANDROID
-		uint8_t* data;
-		size_t len;
-		File::ReadFileBytes(_path, &data, len);
-		unsigned char* image = stbi_load_from_memory(data, len, &_width, &_height, nullptr, 4);
-		delete[] data;
+		ByteArray data = ReadFileBytes(_path);
+		unsigned char* image = stbi_load_from_memory(data.data.get(), data.size, &_width, &_height, nullptr, 4);
 #else
 		unsigned char* image = stbi_load(_path, &_width, &_height, nullptr, 4);
 #endif
