@@ -44,12 +44,8 @@ namespace PrimeEngine { namespace Graphics {
 		glBindTexture(GL_TEXTURE_2D, result);
 
 		stbi_set_flip_vertically_on_load(1);
-#ifdef PE_ANDROID
 		ByteArray data = ReadFileBytes(_path);
 		unsigned char* image = stbi_load_from_memory(data.data.get(), data.size, &_width, &_height, nullptr, 4);
-#else
-		unsigned char* image = stbi_load(_path, &_width, &_height, nullptr, 4);
-#endif
 		if(!image)
 		{
 			PRIME_WARNING(

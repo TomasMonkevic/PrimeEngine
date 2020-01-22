@@ -20,8 +20,10 @@ private:
 	bool isGameStarted_ = false;
 	bool isGameOver_ = false;
     Font* arial;
-	GameObject* score;
+	GameObject* scoreText;
 	float angularMomentum = 0.0f;
+	int score = 0;
+	float goalX;
     float nextPipePosition;
 	float birdRotation = 0.0f; //actually it's easier to have this; no need to constantly convert form quaternions to euler angles
 

@@ -14,7 +14,7 @@ namespace PrimeEngine { namespace Graphics {
 	Font::Font(const char* _fontName, const Color& _color, int _size)
 		: size(_size), color(_color)
 	{
-		atlas = ftgl::texture_atlas_new(512, 512, 2); //TODO remove hard coded values
+		atlas = ftgl::texture_atlas_new(1024, 1024, 2); //TODO remove hard coded values
 #ifdef PE_ANDROID
 		ByteArray data = ReadFileBytes(_fontName);
 		font = texture_font_new_from_memory(atlas, size, data.data.get(), data.size);

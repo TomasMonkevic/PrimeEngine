@@ -6,7 +6,7 @@
 #include <algorithm>
 
 #define PIPE_GAP 1012.5f
-#define PIPE_SPREAD 385.0f
+#define PIPE_SPREAD 415.0f
 #define PIPE_DELAY 500.0f
 #define PIPE_MIN_Y 0
 #define PIPE_MAX_Y  350
@@ -16,7 +16,7 @@
 #define BIRD_ROTATION_SPEED 1400.0f
 #define BIRD_JUMP_ROTATION_SPEED -700.0f
 #define BIRD_JUMP_HEIGHT 8.5f
-#define BIRD_COLLISION_RADIUS 30.5f
+#define BIRD_COLLISION_RADIUS 29.0f
 
 #define GRAVITY 23.0f
 
@@ -69,14 +69,14 @@ bool FlappyBird::DidBirdCollide() {
 void FlappyBird::Gravity(GameObject& obj)
 {
 	Sprite* sprite = groundPrefab->GetComponent<Sprite>();
-	float groundY = groundPrefab->GetTransform().Position.y + sprite->GetSize().y / 2.0f + obj.GetComponent<Sprite>()->GetSize().y / 2.0f;
+	float groundY = groundPrefab->GetTransform().Position.y + sprite->GetSize().y / 2.0f + BIRD_COLLISION_RADIUS;
 
 	//Velocity
 	birdVelocity.y -= GRAVITY * GetDeltaTime();
 	obj.GetTransform().Position += birdVelocity * BIRD_MASS * GetDeltaTime();
 
 	obj.GetTransform().Position.y = std::min(mainCamera->ViewportToWorldPoint(Vector2(0.0f, 1.0f)).y,
-			std::max(groundY, obj.GetTransform().Position.y));
+			std::max(groundY - 1, obj.GetTransform().Position.y));
 	birdVelocity.y = std::max(groundY, birdVelocity.y);
 
 	//Rotation
@@ -127,6 +127,8 @@ void FlappyBird::RestartGame() {
         pipes.pop_back();
     }
 	birdVelocity = Vector2::zero();
+    score = 0;
+    scoreText->GetComponent<Label>()->text = "0";
     angularMomentum = 0.0f;
     birdRotation = 0.0f;
     isGameOver_ = false;
@@ -209,10 +211,10 @@ void FlappyBird::Awake()
 	grounds.push_back(new GameObject(*groundPrefab));
 
 	//score text
-	arial = new Font("Fonts/arial.ttf", Color(1.0f, 0.0f, 0.0f), 64);
-	score = new GameObject(Vector2(0.0f, 1.8f)); //why is 1.8 almost the top?
-	score->AddComponent(new Label("PRIME ENGINE\nFlappy bird", *arial));
-	uiLayer->Submit(score);
+	arial = new Font("Fonts/8bit_font.ttf", Color::White(), 98);
+	scoreText = new GameObject(Vector2(0.0f, 1.6f)); //why is 1.8 almost the top?
+	scoreText->AddComponent(new Label("0", *arial));
+	uiLayer->Submit(scoreText);
 
 	//why doesn't it wokk if bg is first?
 	playingLayer->Submit(grounds[0]);
@@ -253,9 +255,17 @@ void FlappyBird::Update()
     }
     else {
         nextPipePosition = mainCamera->ViewportToWorldPoint(Vector2(1.0f, 0.0f)).x + PIPE_DELAY;
+		goalX = nextPipePosition;
     }
     if(!isGameOver_) {
 		bird->GetTransform().Position.x += GetDeltaTime() * BIRD_MOVEMENT_SPEED;
+		if (bird->GetTransform().Position.x >= goalX)
+		{
+			score++;
+			scoreText->GetComponent<Label>()->text = std::to_string(score);
+			PRIME_INFO(scoreText->GetComponent<Label>()->text.c_str());
+			goalX += PIPE_SPREAD;
+		}
 	}
 	background->GetTransform().Position.x = bird->GetTransform().Position.x;
     mainCamera->GetTransform().Position.x = bird->GetTransform().Position.x;
