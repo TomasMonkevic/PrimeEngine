@@ -1,10 +1,6 @@
 #pragma once
 
-#ifdef PE_ANDROID
-	#include <GLES3/gl31.h>
-#else
-	#include <GL/glew.h>
-#endif
+#include <Graphics/OpenGL.h>
 #include <Utilities/FileUtils.h>
 #include <Math/Math.h>
 #include <DllExport.h>

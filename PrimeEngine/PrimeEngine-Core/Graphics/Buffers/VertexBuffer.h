@@ -1,10 +1,6 @@
 #pragma once
 
-#ifdef PE_ANDROID
-	#include <GLES3/gl31.h>
-#else
-	#include <GL/glew.h>
-#endif
+#include <Graphics/OpenGL.h>
 #include <DllExport.h>
 
 namespace PrimeEngine { namespace Graphics {

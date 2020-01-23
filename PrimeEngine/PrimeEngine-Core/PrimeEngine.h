@@ -26,9 +26,7 @@
 #include <Graphics/Lights/SpotLight.h>
 #include <Graphics/ModelImporter.h>
 #include <GameObject.h>
-#ifndef PE_ANDROID 
 #include <Input.h>
-#endif
 #include <PrimeEngineBase.h>
 #include <PrimeException.h>
 #include <Components/Behaviour.h>
