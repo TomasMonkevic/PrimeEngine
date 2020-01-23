@@ -81,7 +81,7 @@ namespace PrimeEngine
 	inline const char* ToString(const T& number)
 	{
 		std::string formated = std::to_string(number);
-		memcpy(_formatBuffer, formated.c_str(), formated.length());
+		memcpy(_formatBuffer, formated.c_str(), formated.length() + 1);
 		const char* rez = _formatBuffer;
 		return rez;
 	}
@@ -185,7 +185,7 @@ namespace PrimeEngine
 	static void PrintInternal(unsigned& position, First first)
 	{
 		const char* formated = ToString(first);
-		memcpy(&_buffer[position], formated, strlen(formated));
+		memcpy(&_buffer[position], formated, strlen(formated) + 1);
 		position += strlen(formated);
 	}
 
@@ -194,7 +194,7 @@ namespace PrimeEngine
 	{
 		const char* formated = ToString(first);
 		//if buffer is overfload -> reallocate
-		memcpy(&_buffer[position], formated, strlen(formated));
+		memcpy(&_buffer[position], formated, strlen(formated) + 1);
 		position += strlen(formated);
 		if (sizeof...(args))
 		{
