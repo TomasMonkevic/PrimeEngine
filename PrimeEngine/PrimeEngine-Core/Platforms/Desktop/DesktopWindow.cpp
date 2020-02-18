@@ -42,35 +42,7 @@ namespace PrimeEngine
 
 		void Window::Destroy()
 		{
-			#ifdef PE_ANDROID
-            if (_display != EGL_NO_DISPLAY) {
-                eglMakeCurrent(_display, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
-                if (_context != EGL_NO_CONTEXT) {
-                    eglDestroyContext(_display, _context);
-                }
-                if (_surface != EGL_NO_SURFACE) {
-                    eglDestroySurface(_display, _surface);
-                }
-                eglTerminate(_display);
-            }
-            _display = EGL_NO_DISPLAY;
-            _context = EGL_NO_CONTEXT;
-            _surface = EGL_NO_SURFACE;
-            #else
 			glfwDestroyWindow(_window);
-			#endif
-			delete instance;
-			instance = nullptr;
-		}
-
-		void Window::isInstanceCreated()
-		{
-			if (!instance)
-			{
-				PrimeException windowNotInit("Window instance not created! Please use SetWindows method.", (int)glGetError());
-				throw windowNotInit;
-			}
-		}
 
 		void Window::Close() const
 		{
@@ -154,7 +126,7 @@ namespace PrimeEngine
 			PRIME_INFO(glGetString(GL_RENDERER), "\n");
 		}
 
-		bool Window::Closed() const
+		bool Window::IsClosed() const
 		{
 			#ifndef PE_ANDROID
 			return glfwWindowShouldClose(_window) == 1;

@@ -12,20 +12,23 @@ namespace PrimeEngine
 		{
 		protected:
 			// TODO move common variables and implement common functions here
-			virtual ~BasicWindow() {}
 
 		public:
-			virtual void SetTitle(const char* title);
-			virtual void SetSize(const char* title, int width, int height);
-			virtual void SetColor(const Color& color);
-			virtual const Color& GetColor() const;
-			virtual Math::Vector2 GetSize() const;
-			virtual void Close() const;
+			virtual ~BasicWindow() {}
+			
 			virtual void Destroy();
 			virtual void Initialize();
 			virtual void Update() const;
-			virtual bool Closed() const;
 			virtual void Clear() const;
+
+			virtual void SetTitle(const char* title);
+			void GetTitle();
+
+			virtual void SetSize(const char* title, int width, int height);
+			virtual Math::Vector2 GetSize() const;
+
+			virtual void SetColor(const Color& color);
+			virtual const Color& GetColor() const;
 		};
 
 		// Factory functions for the various types of windows to abstract
