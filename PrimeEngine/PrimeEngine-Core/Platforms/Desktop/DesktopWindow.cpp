@@ -1,24 +1,26 @@
-#include "Window.h"
-#ifndef PE_ANDROID
-#include "../Input.h"
-#endif
-#include "../PrimeException.h"
-#include "../Utilities/Log.h"
+#include <Graphics/Window.h
+
+#include <Input.h>
+#include <PrimeException.h>
+#include <Utilities/Log.h>
+#include <memory>
 
 namespace PrimeEngine
 {
 	namespace Graphics
 	{
-		Window* Window::instance = NULL;
+        BasicWindow* GetWindow() {
+            static std::unique_ptr<BasicWindow> window = std::make_unique<DesktopWindow>();
+            return window.get();
+        }
 
-		#ifndef PE_ANDROID
 		void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 		{
+            //TODO this should be moved to SetViewportSize?
 			Window::GetWindow()->_width = width;
 			Window::GetWindow()->_height = height;
 			glViewport(0, 0, width, height);
 		}
-		#endif
 
 		Window::Window(const char* title, int width, int height) : 
 			_title(title), _width(width), _height(height)
@@ -95,68 +97,6 @@ namespace PrimeEngine
 
 		void Window::Initialize()
 		{
-			isInstanceCreated();
-			#ifdef PE_ANDROID
-			const int attrib_list[] = { EGL_CONTEXT_CLIENT_VERSION, 2, EGL_NONE };
-			const EGLint attribs[] = {
-					EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT, // request OpenGL ES 2.0
-					EGL_SURFACE_TYPE, EGL_WINDOW_BIT,
-					EGL_BLUE_SIZE, 8,
-					EGL_GREEN_SIZE, 8,
-					EGL_RED_SIZE, 8,
-					EGL_DEPTH_SIZE, 16,
-					EGL_NONE
-			};
-			EGLint format;
-			EGLint numConfigs;
-			EGLConfig config;
-
-			_display = eglGetDisplay(EGL_DEFAULT_DISPLAY);
-
-			eglInitialize(_display, 0, 0);
-
-			/* Here, the application chooses the configuration it desires.
-             * find the best match if possible, otherwise use the very first one
-             */
-			eglChooseConfig(_display, attribs, nullptr,0, &numConfigs);
-			std::unique_ptr<EGLConfig[]> supportedConfigs(new EGLConfig[numConfigs]);
-			assert(supportedConfigs);
-			eglChooseConfig(_display, attribs, supportedConfigs.get(), numConfigs, &numConfigs);
-			assert(numConfigs);
-			auto i = 0;
-			for (; i < numConfigs; i++) {
-				auto& cfg = supportedConfigs[i];
-				EGLint r, g, b, d;
-				if (eglGetConfigAttrib(_display, cfg, EGL_RED_SIZE, &r)   &&
-					eglGetConfigAttrib(_display, cfg, EGL_GREEN_SIZE, &g) &&
-					eglGetConfigAttrib(_display, cfg, EGL_BLUE_SIZE, &b)  &&
-					eglGetConfigAttrib(_display, cfg, EGL_DEPTH_SIZE, &d) &&
-					r == 8 && g == 8 && b == 8 && d == 0 ) {
-
-					config = supportedConfigs[i];
-					break;
-				}
-			}
-			if (i == numConfigs) {
-				config = supportedConfigs[0];
-			}
-
-			/* EGL_NATIVE_VISUAL_ID is an attribute of the EGLConfig that is
-             * guaranteed to be accepted by ANativeWindow_setBuffersGeometry().
-             * As soon as we picked a EGLConfig, we can safely reconfigure the
-             * ANativeWindow buffers to match, using EGL_NATIVE_VISUAL_ID. */
-			eglGetConfigAttrib(_display, config, EGL_NATIVE_VISUAL_ID, &format);
-			_surface = eglCreateWindowSurface(_display, config, _nativeWindow, NULL);
-			_context = eglCreateContext(_display, config, NULL, attrib_list);
-
-			if (eglMakeCurrent(_display, _surface, _surface, _context) == EGL_FALSE) {
-				PRIME_WARNING("Unable to eglMakeCurrent");
-				return;
-			}
-
-			eglQuerySurface(_display, _surface, EGL_WIDTH, &_width);
-			eglQuerySurface(_display, _surface, EGL_HEIGHT, &_height);
-            #else
 			glfwInit();
 			glfwWindowHint(GLFW_RESIZABLE, GL_TRUE); //for now always is resizable
 			//glfwWindowHint(GLFW_SAMPLES, 4); //aa
