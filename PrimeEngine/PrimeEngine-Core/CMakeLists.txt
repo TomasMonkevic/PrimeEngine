@@ -96,7 +96,6 @@ set(PECORE_SOURCES
     "Math/Quaternion.cpp"
     "Math/Vector2.cpp"
     "Math/Vector4.cpp"
-    "Graphics/Window.cpp"
     "Math/Vector3.cpp"
 
     "Input.cpp"
@@ -180,7 +179,8 @@ else()
     add_library(PrimeEngineCore SHARED ${PECORE_HEADERS}
                                         ${PECORE_SOURCES}
                                         "Platforms/Linux/UnixColorPrinter.cpp"
-                                        "Platforms/Desktop/DesktopFileUtils.cpp")
+                                        "Platforms/Desktop/DesktopFileUtils.cpp"
+                                        "Platforms/Desktop/DesktopWindow.cpp")
 
     target_link_libraries(PrimeEngineCore
         glew_s
