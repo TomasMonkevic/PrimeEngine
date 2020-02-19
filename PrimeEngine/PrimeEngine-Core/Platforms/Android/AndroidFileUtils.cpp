@@ -1,6 +1,6 @@
 #include <Utilities/FileUtils.h>
 
-#include <Graphics/Window.h>
+#include <Graphics/BasicWindow.h>
 #include <Utilities/Log.h>
 
 namespace PrimeEngine {
@@ -9,7 +9,7 @@ namespace PrimeEngine {
     {
         AAssetManager* assetManager = Graphics::Window::GetWindow()->GetNativeActivity()->assetManager;
         AAsset* asset = AAssetManager_open(assetManager, path, AASSET_MODE_BUFFER);
-        if (!asset) 
+        if (!asset)
         {
             PRIME_ERROR("File failed to open ", path, '\n');
             return ByteArray();

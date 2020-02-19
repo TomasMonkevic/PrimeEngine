@@ -4,7 +4,7 @@
 #include "DllExport.h"
 #include "stdint.h"
 #include <vector>
-#include "Graphics/Window.h"
+#include <Graphics/OpenGL.h>
 
 namespace PrimeEngine { namespace Input {
 
@@ -42,10 +42,6 @@ namespace PrimeEngine { namespace Input {
 
 	class PRIMEENGINEAPI InputPC
 	{
-#ifdef PE_ANDROID
-#else
-		friend void Graphics::Window::Initialize();
-#endif
 	public:
 #ifdef PE_ANDROID
 		static const int32_t KEY_LAST = 255;

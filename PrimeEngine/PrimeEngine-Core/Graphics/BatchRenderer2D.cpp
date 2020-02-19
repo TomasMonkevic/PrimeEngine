@@ -1,6 +1,6 @@
 #include "BatchRenderer2D.h"
 #include <Utilities/Log.h>
-#include <Graphics/Window.h>
+#include <Graphics/BasicWindow.h>
 #include <Graphics/Sprite.h>
 #include <Graphics/Label.h>
 #include <cstddef>
@@ -177,8 +177,8 @@ namespace PrimeEngine { namespace Graphics {
 		float x = transform.Position.x;
 		float line_y = 0.0f;
 
-		float xScale = Window::GetWindow()->GetSize().x / 16.0f; //TODO fix the hardcoded resolution
-		float yScale = Window::GetWindow()->GetSize().y / 9.0f;
+		float xScale = GetWindow()->GetSize().x / 16.0f; //TODO fix the hardcoded resolution
+		float yScale = GetWindow()->GetSize().y / 9.0f;
 
 		for (int i = 0; i < textComponent.text.size(); i++)
 		{

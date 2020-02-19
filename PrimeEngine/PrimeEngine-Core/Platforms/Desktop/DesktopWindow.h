@@ -1,12 +1,8 @@
 #pragma once
 
+#include <DllExport.h>
 #include <Graphics/OpenGL.h>
-#include <GLFW/glfw3.h>
-#include "Color.h"
 #include <Graphics/BasicWindow.h>
-#include "../Math/Vector4.h"
-#include "../Math/Vector2.h"
-#include "../DllExport.h"
 
 namespace PrimeEngine
 {
@@ -22,44 +18,28 @@ namespace PrimeEngine
 			bool _isFullScreen;
 
 		public:
-			static void SetWindow(const char* title);
-			static void SetWindow(const char* title, int width, int height);
+			virtual ~DesktopWindow();
 
-			inline static Window* GetWindow() 
-			{ 
-				return instance; 
-			}
+			void SetFullscreen(bool isFullscreen);
+			void EnableVSync(bool isEnabled);
+			void Close();
 
-			inline void SetColor(const Color& color)
-			{
-				isInstanceCreated();
-				_color = color;
-			}
+			// overriden from BasicWindow
+			void Initialize() override;
+			void Update() override;
+			void Clear() override;
+			bool IsReady() const override;
+			void Destroy() override;
+			bool IsClosed() const override;
 
-			inline const Color& GetColor() const
-			{
-				return _color;
-			}
+			void SetTitle(const char* title) override;
+			const char* GetTitle() const override;
 
-			inline Math::Vector2 GetSize() const
-			{
-				glViewport(0, 0, _width, _height);
-				return Math::Vector2((float)_width, (float)_height);
-			}
+			void SetSize(int width, int height) override;
+			Math::Vector2 GetSize() const override;
 
-			inline void EnableVSync(bool isEnabled)
-			{
-				#ifndef PE_ANDROID
-				glfwSwapInterval((GLint)isEnabled);
-				#endif
-			}
-
-			void Close() const;
-			void Destroy();
-			void Initialize();
-			void Update() const;
-			bool Closed() const;
-			void Clear() const;
+			void SetColor(const Color& color) override;
+			const Color& GetColor() const override;
 		};
 	}
 }

@@ -2,6 +2,11 @@
 
 namespace PrimeEngine {
 
+	PrimeEngineBase::~PrimeEngineBase()
+	{
+		GetWindow()->Destroy();
+	}
+
 	void PrimeEngineBase::Render()
 	{
 		_activeScene->Render();
@@ -11,13 +16,13 @@ namespace PrimeEngine {
 	{
 		Time timer;
 		_fpsCounter = 0;
-		while (_window && !_window->Closed())
+		while (GetWindow() && !GetWindow()->IsClosed())
 		{
 			//TODO should call step func
-			_window->Clear();
+			GetWindow()->Clear();
 			Update(); //first frame fps and delta time is 0
 			Render();
-			_window->Update();
+			GetWindow()->Update();
 			_fpsCounter++;
 			_deltaTime = timer.Elapsed() - _prevDeltatime;
 			_prevDeltatime = timer.Elapsed();
@@ -33,15 +38,15 @@ namespace PrimeEngine {
 
 	void PrimeEngineBase::Step()
 	{
-        if(!_window->IsReady())
+        if(!GetWindow()->IsReady())
         {
             return;
         }
 		static Time timer;
-		_window->Clear();
+		GetWindow()->Clear();
 		Update(); //first frame fps and delta time is 0
 		Render();
-		_window->Update();
+		GetWindow()->Update();
 		_fpsCounter++;
 		_deltaTime = timer.Elapsed() - _prevDeltatime;
 		_prevDeltatime = timer.Elapsed();
@@ -57,24 +62,28 @@ namespace PrimeEngine {
 	//TODO code duplication
 	void PrimeEngineBase::CreateWin(const char* title, int width, int height)
 	{
-		Graphics::Window::SetWindow(title, width, height);
-		_window = Graphics::Window::GetWindow();
-#ifdef PE_ANDROID
-		_window->SetNativeAndroidWIndow(_nativeWindow);
-		_window->SetNativeAndroidActivity(_nativeActivity);
-#endif
-		_window->Initialize();
+		GetWindow()->SetTitle(title);
+		GetWindow()->SetSize(width, height);
+		GetWindow()->Initialize();
+
+		//TODO
+		//Input::InputPC::Initalize(); //move to a seperate function
+		//glfwSetKeyCallback(_window, Input::InputPC::key_callback);
+		//glfwSetMouseButtonCallback(_window, Input::InputPC::mouse_button_callback);
+		//glfwSetCursorPosCallback(_window, Input::InputPC::cursor_position_callback);
 	}
 
 	void PrimeEngineBase::CreateWin(const char* title)
 	{
-		Graphics::Window::SetWindow(title);
-		_window = Graphics::Window::GetWindow();
-#ifdef PE_ANDROID
-        _window->SetNativeAndroidWIndow(_nativeWindow);
-		_window->SetNativeAndroidActivity(_nativeActivity);
-#endif
-		_window->Initialize();
+		GetWindow()->SetTitle(title);
+		GetWindow()->SetFullscreen(true);
+		GetWindow()->Initialize();
+
+		//TODO
+		//Input::InputPC::Initalize(); //move to a seperate function
+		//glfwSetKeyCallback(_window, Input::InputPC::key_callback);
+		//glfwSetMouseButtonCallback(_window, Input::InputPC::mouse_button_callback);
+		//glfwSetCursorPosCallback(_window, Input::InputPC::cursor_position_callback);
 	}
 
 	void PrimeEngineBase::Play()
@@ -82,4 +91,14 @@ namespace PrimeEngine {
 		Awake();
 		Run();
 	}
+
+#ifdef PE_ANDROID
+	AndroidWindow* PrimeEngineBase::GetWindow() {
+		return reinterpret_cast<Graphics::DesktopWindow*>(Graphics::GetWindow())
+	}
+#else
+	DesktopWindow* PrimeEngineBase::GetWindow() {
+		return reinterpret_cast<Graphics::DesktopWindow*>(Graphics::GetWindow());
+	}
+#endif
 }

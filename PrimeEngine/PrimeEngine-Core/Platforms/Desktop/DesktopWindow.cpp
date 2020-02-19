@@ -1,4 +1,4 @@
-#include <Graphics/Window.h
+#include <Platforms/Desktop/DesktopWindow.h>
 
 #include <Input.h>
 #include <PrimeException.h>
@@ -17,57 +17,30 @@ namespace PrimeEngine
 		void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 		{
             //TODO this should be moved to SetViewportSize?
-			Window::GetWindow()->_width = width;
-			Window::GetWindow()->_height = height;
+			GetWindow()->SetSize(width, height);
 			glViewport(0, 0, width, height);
 		}
 
-		Window::Window(const char* title, int width, int height) : 
-			_title(title), _width(width), _height(height)
+		DesktopWindow::~DesktopWindow()
 		{
-			_isFullScreen = false;
-		}
-
-		Window::Window(const char* title) : _title(title)
-		{
-			_isFullScreen = true;
-		}
-
-		Window::~Window()
-		{
-			#ifndef PE_ANDROID
 			glfwTerminate();
-			#endif
 		}
 
-		void Window::Destroy()
-		{
-			glfwDestroyWindow(_window);
+		void DesktopWindow::SetFullscreen(bool isFullscreen) {
+			_isFullScreen = isFullscreen;
+		}
 
-		void Window::Close() const
+		void DesktopWindow::EnableVSync(bool isEnabled)
 		{
-			#ifndef PE_ANDROID
+			glfwSwapInterval((GLint)isEnabled);
+		}
+
+		void DesktopWindow::Close()
+		{
 			glfwSetWindowShouldClose(_window, GLFW_TRUE);
-			#endif
 		}
 
-		void Window::SetWindow(const char* title, int width, int height)
-		{
-			if (!instance)
-			{
-				instance = new Window(title, width, height);
-			}
-		}
-
-		void Window::SetWindow(const char* title)
-		{
-			if (!instance)
-			{
-				instance = new Window(title);
-			}
-		}
-
-		void Window::Initialize()
+		void DesktopWindow::Initialize()
 		{
 			glfwInit();
 			glfwWindowHint(GLFW_RESIZABLE, GL_TRUE); //for now always is resizable
@@ -98,11 +71,6 @@ namespace PrimeEngine
 			glfwMakeContextCurrent(_window);
 			glfwSetWindowAspectRatio(_window, _width, _height);
 
-			Input::InputPC::Initalize(); //move to a seperate function
-			glfwSetKeyCallback(_window, Input::InputPC::key_callback);
-			glfwSetMouseButtonCallback(_window, Input::InputPC::mouse_button_callback);
-			glfwSetCursorPosCallback(_window, Input::InputPC::cursor_position_callback);
-
 			glfwSetFramebufferSizeCallback(_window, framebuffer_size_callback);
 			//glfwSwapInterval(1); //Vsync off-0, on-1
 			//EnableVSync();
@@ -113,7 +81,6 @@ namespace PrimeEngine
 				PrimeException windowNotInit("Failed to initialize GLEW", (int)glGetError());
 				throw windowNotInit;
 			}
-			#endif
 			glViewport(0, 0, _width, _height);
 
 			glEnable(GL_BLEND);
@@ -126,16 +93,7 @@ namespace PrimeEngine
 			PRIME_INFO(glGetString(GL_RENDERER), "\n");
 		}
 
-		bool Window::IsClosed() const
-		{
-			#ifndef PE_ANDROID
-			return glfwWindowShouldClose(_window) == 1;
-			#else
-			return false;
-			#endif
-		}
-
-		void Window::Update() const
+		void DesktopWindow::Update()
 		{
 #ifdef _DEBUG
 			GLenum error = glGetError();
@@ -146,19 +104,59 @@ namespace PrimeEngine
 				throw windowNotInit;
 			}
 #endif // DEBUG
-			#ifdef PE_ANDROID
-            eglSwapBuffers(_display, _surface);
-            #else
             glfwPollEvents();
 			glfwSwapBuffers(_window);
-			#endif
-			
 		}
 
-		void Window::Clear() const
+		void DesktopWindow::Clear()
 		{
 			glClearColor(_color[0], _color[1], _color[2], _color[3]);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		}
+
+		bool DesktopWindow::IsReady() const {
+			return true;
+		}
+
+		void DesktopWindow::Destroy()
+		{
+			glfwDestroyWindow(_window);
+		}
+
+		bool DesktopWindow::IsClosed() const
+		{
+			return glfwWindowShouldClose(_window) == 1;
+		}
+
+		void DesktopWindow::SetTitle(const char* title) 
+		{
+			_title = title;
+		}
+
+		const char* DesktopWindow::GetTitle() const 
+		{
+			return _title;
+		}
+
+		void DesktopWindow::SetSize(int width, int height) 
+		{
+			_width = width;
+			_height = height;
+		}
+
+		Math::Vector2 DesktopWindow::GetSize() const 
+		{
+			return Math::Vector2((float)_width, (float)_height);
+		}
+
+		void DesktopWindow::SetColor(const Color& color)
+		{
+			_color = color;
+		}
+
+		const Color& DesktopWindow::GetColor() const 
+		{
+			return _color;
 		}
 	}
 }

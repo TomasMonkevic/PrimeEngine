@@ -1,6 +1,10 @@
 #pragma once
 
 #include <DllExport.h>
+#include <Graphics/Color.h>
+#include <Graphics/BasicWindow.h>
+#include <Math/Vector4.h>
+#include <Math/Vector2.h>
 
 namespace PrimeEngine
 {
@@ -16,19 +20,21 @@ namespace PrimeEngine
 		public:
 			virtual ~BasicWindow() {}
 			
-			virtual void Destroy();
-			virtual void Initialize();
-			virtual void Update() const;
-			virtual void Clear() const;
+			virtual void Initialize() = 0;
+			virtual void Update() = 0;
+			virtual void Clear() = 0;
+			virtual bool IsReady() const = 0; //is this needed here???
+			virtual void Destroy() = 0;
+			virtual bool IsClosed() const = 0; //is this needed here???
 
-			virtual void SetTitle(const char* title);
-			void GetTitle();
+			virtual void SetTitle(const char* title) = 0;
+			virtual const char* GetTitle() const = 0;
 
-			virtual void SetSize(const char* title, int width, int height);
-			virtual Math::Vector2 GetSize() const;
+			virtual void SetSize(int width, int height) = 0;
+			virtual Math::Vector2 GetSize() const = 0;
 
-			virtual void SetColor(const Color& color);
-			virtual const Color& GetColor() const;
+			virtual void SetColor(const Color& color) = 0;
+			virtual const Color& GetColor() const = 0;
 		};
 
 		// Factory functions for the various types of windows to abstract

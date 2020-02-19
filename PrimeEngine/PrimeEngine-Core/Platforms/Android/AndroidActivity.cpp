@@ -105,8 +105,8 @@ namespace PrimeEngine
     {
         Input::InputPC::Initalize();
         _game = _gameCreation();
-        _game->SetNativeAndroidWIndow(_app->window);
-        _game->SetNativeAndroidActivity(_app->activity);
+        _game->GetWindow()->SetNativeAndroidWIndow(_app->window);
+        _game->GetWindow()->SetNativeAndroidActivity(_app->activity);
         _game->Awake();
         _isAnimating = 1;
     }

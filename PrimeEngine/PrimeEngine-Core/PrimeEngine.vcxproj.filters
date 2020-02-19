@@ -75,6 +75,9 @@
     <ClInclude Include="Utilities\Utils.h" />
     <ClInclude Include="Graphics\ModelImporter.h" />
     <ClInclude Include="Utilities\ColorPrinter.h" />
+    <ClInclude Include="Graphics\OpenGL.h" />
+    <ClInclude Include="Platforms\Desktop\DesktopWindow.h" />
+    <ClInclude Include="Graphics\BasicWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Input.cpp">
@@ -85,9 +88,6 @@
     </ClCompile>
     <ClCompile Include="Math\Vector4.cpp" />
     <ClCompile Include="Math\Matrix4x4.cpp" />
-    <ClCompile Include="Graphics\Window.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="Graphics\Buffers\VertexBuffer.cpp" />
     <ClCompile Include="Graphics\Buffers\IndexBuffer.cpp" />
     <ClCompile Include="Graphics\Buffers\VertexArray.cpp" />
@@ -110,7 +110,6 @@
     <ClCompile Include="Graphics\Label.cpp" />
     <ClCompile Include="Graphics\Layers\UILayer.cpp" />
     <ClCompile Include="Graphics\Layers\GameLayer.cpp" />
-    <ClCompile Include="UI\Text.cpp" />
     <ClCompile Include="PrimeEngineBase.cpp" />
     <ClCompile Include="Math\Quaternion.cpp" />
     <ClCompile Include="Components\Behaviour.cpp" />
@@ -126,6 +125,9 @@
     <ClCompile Include="Utilities\Utils.cpp" />
     <ClCompile Include="Graphics\ModelImporter.cpp" />
     <ClCompile Include="Platforms\Windows\WinColorPrinter.cpp" />
+    <ClCompile Include="Platforms\Desktop\DesktopWindow.cpp" />
+    <ClCompile Include="Platforms\Desktop\DesktopFileUtils.cpp" />
+    <ClCompile Include="Utilities\CommonFileUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Graphics\Shader\Source\Default.pesl" />

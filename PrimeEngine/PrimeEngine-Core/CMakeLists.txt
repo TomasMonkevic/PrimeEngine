@@ -48,7 +48,7 @@ set(PECORE_HEADERS
     "Math/Matrix4x4.h"
     "Math/Vector2.h"
     "Math/Vector4.h"
-    "Graphics/Window.h"
+    "Graphics/BasicWindow.h"
     "Math/Vector3.h"
 
     # "Networking/TCPClient.h" TODO add later
@@ -143,7 +143,7 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Android")
 
     add_library(PrimeEngineCore SHARED
                 ${GL3STUB_SRC}
-                #${PECORE_HEADERS} 
+                #${PECORE_HEADERS}
                 ${PECORE_SOURCES}
                 Platforms/Android/AndroidActivity.cpp
                 Platforms/Android/AndroidFileUtils.cpp
@@ -177,7 +177,7 @@ else()
     add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/GLEW/build/cmake ${CMAKE_CURRENT_BINARY_DIR}/Dependencies/GLEW/build/cmake)
     add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/FreeType ${CMAKE_CURRENT_BINARY_DIR}/Dependencies/FreeType)
 
-    add_library(PrimeEngineCore SHARED ${PECORE_HEADERS} 
+    add_library(PrimeEngineCore SHARED ${PECORE_HEADERS}
                                         ${PECORE_SOURCES}
                                         "Platforms/Linux/UnixColorPrinter.cpp"
                                         "Platforms/Desktop/DesktopFileUtils.cpp")
