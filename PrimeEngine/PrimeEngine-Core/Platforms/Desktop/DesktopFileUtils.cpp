@@ -11,9 +11,9 @@ namespace PrimeEngine {
     {
         FILE* file;
         #ifdef _WIN32
-            fopen_s(&file, path, "rt"); //using C file reading for faster performance
+            fopen_s(&file, path, "rb"); //using C file reading for faster performance
         #else
-            file = fopen(path, "rt"); //using C file reading for faster performance
+            file = fopen(path, "rb"); //using C file reading for faster performance
         #endif
         if (!file)
         {
