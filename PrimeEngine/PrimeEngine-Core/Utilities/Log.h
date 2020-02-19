@@ -35,7 +35,7 @@ namespace std
 	}
 }
 
-namespace PrimeEngine 
+namespace PrimeEngine
 {
 
 	static inline void PlatformPrint(unsigned level, const char* message) //needs to be in a seperate file - platform specific
@@ -96,6 +96,12 @@ namespace PrimeEngine
 	inline const char* ToString<const char*>(const char* const& cString)
 	{
 		return cString;
+	}
+
+	template<>
+	inline const char* ToString<std::string>(const std::string& string)
+	{
+		return string.c_str();
 	}
 
 	template<>
@@ -174,7 +180,7 @@ namespace PrimeEngine
 	inline const char* ToString<Math::Matrix4x4>(const Math::Matrix4x4& q)
 	{
 		PrimeEngine::Sprintf(_formatBuffer, BUFFER_SIZE, "(%f, %f, %f, %f)\n(%f, %f, %f, %f)\n(%f, %f, %f, %f)\n(%f, %f, %f, %f)", q[0][0], q[0][1], q[0][2], q[0][3],
-			q[1][0], q[1][1], q[1][2], q[1][3], 
+			q[1][0], q[1][1], q[1][2], q[1][3],
 			q[2][0], q[2][1], q[2][2], q[2][3],
 			q[3][0], q[3][1], q[3][2], q[3][3]);
 		return _formatBuffer;
@@ -214,19 +220,19 @@ namespace PrimeEngine
 }
 
 #if P_LOG_LEVEL >= PRIME_ERROR_L
-	#define PRIME_ERROR(...) LogMessage(PRIME_ERROR_L, __VA_ARGS__)
+	#define PRIME_ERROR(...) LogMessage(PRIME_ERROR_L, "[ERROR:", SplitString(__FILE__,"\\/").back(), '(', __LINE__, ")] ", __VA_ARGS__)
 #else
 	#define PRIME_ERROR(...)
 #endif
 
 #if P_LOG_LEVEL >= PRIME_WARNING_L
-	#define PRIME_WARNING(...) LogMessage(PRIME_WARNING_L, __VA_ARGS__)
+	#define PRIME_WARNING(...) LogMessage(PRIME_WARNING_L, "[WARNING:", SplitString(__FILE__,"\\/").back(), '(', __LINE__, ")] ", __VA_ARGS__)
 #else
 	#define PRIME_WARNING(...)
 #endif
 
 #if P_LOG_LEVEL >= PRIME_INFO_L
-	#define PRIME_INFO(...) LogMessage(PRIME_INFO_L, __VA_ARGS__)
+	#define PRIME_INFO(...) LogMessage(PRIME_INFO_L, "[INFO:", SplitString(__FILE__,"\\/").back(), '(', __LINE__, ")] ", __VA_ARGS__)
 #else
 	#define PRIME_INFO(...)
 #endif
