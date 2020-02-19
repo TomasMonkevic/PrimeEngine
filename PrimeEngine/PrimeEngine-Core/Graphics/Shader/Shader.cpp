@@ -3,21 +3,39 @@
 
 namespace PrimeEngine { namespace Graphics {
 
+#ifdef PE_ANDROID
 	const char* Shader::defaultShader =
-	#include "Source/Default.pesl"
+	#include "Source/Android/Default.pesl"
 	;
 
 	const char* Shader::phong =
-	#include "Source/Phong.pesl"
+	#include "Source/Android/Phong.pesl"
 	;
 
 	const char* Shader::glow =
-	#include "Source/Glow.pesl"
+	#include "Source/Android/Glow.pesl"
 	;
 
 	const char* Shader::simplePhong =
-	#include "Source/SimplePhong.pesl"
+	#include "Source/Android/SimplePhong.pesl"
 	;
+#else
+	const char* Shader::defaultShader =
+	#include "Source/Desktop/Default.pesl"
+	;
+
+	const char* Shader::phong =
+	#include "Source/Desktop/Phong.pesl"
+	;
+
+	const char* Shader::glow =
+	#include "Source/Desktop/Glow.pesl"
+	;
+
+	const char* Shader::simplePhong =
+	#include "Source/Desktop/SimplePhong.pesl"
+	;
+#endif
 
 	Shader::Shader(const char* shaderFile, bool isSource)
 	{

@@ -132,10 +132,14 @@
     <ClCompile Include="Utilities\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Graphics\Shader\Source\Default.pesl" />
-    <None Include="Graphics\Shader\Source\Glow.pesl" />
-    <None Include="Graphics\Shader\Source\Phong.pesl" />
-    <None Include="Graphics\Shader\Source\SimplePhong.pesl" />
+    <None Include="Graphics\Shader\Source\Android\Default.pesl" />
+    <None Include="Graphics\Shader\Source\Android\Glow.pesl" />
+    <None Include="Graphics\Shader\Source\Android\SimplePhong.pesl" />
+    <None Include="Graphics\Shader\Source\Desktop\Default.pesl" />
+    <None Include="Graphics\Shader\Source\Desktop\Glow.pesl" />
+    <None Include="Graphics\Shader\Source\Android\Phong.pesl" />
+    <None Include="Graphics\Shader\Source\Desktop\Phong.pesl" />
+    <None Include="Graphics\Shader\Source\Desktop\SimplePhong.pesl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{0CE5EF6F-7D71-4E54-8926-AC390F4F3C0F}</ProjectGuid>
