@@ -1,4 +1,4 @@
-#define P_LOG_LEVEL 0
+#define P_LOG_LEVEL 1
 
 #include "FlappyBird.h"
 
@@ -171,10 +171,12 @@ void FlappyBird::SpawnPipes()
 void FlappyBird::Awake()
 {
 	//Windows setup
-	//CreateWin("Flappy Bird", 1080, 2280);
-    CreateWin("Flappy Bird", 720, 1280);
+#ifndef PE_ANDROID
+	GetWindow()->SetTitle("FlappyBird");
 	GetWindow()->EnableVSync(true);
-	//GetWindow()->SetColor(Color(84, 192, 201));
+#endif
+	GetWindow()->SetSize(720, 1280);
+	GetWindow()->Initialize();
 
 	//TODO make a main camera in gameLayer or return a handle to camera; think about the camera system
 	mainCamera = new Camera(Matrix4x4::Orthographic(-360.0f, 360.0f, -640.0f, 640.0f, -1.0f, 1.0f));
