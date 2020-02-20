@@ -96,7 +96,6 @@ namespace PrimeEngine { namespace Graphics {
 					End();
 					Flush();
 					Begin();
-					_textureSlots->clear();
 				}
 				_textureSlots->push_back(textureId);
 				activeTexture = (float)_textureSlots->size();
@@ -167,7 +166,6 @@ namespace PrimeEngine { namespace Graphics {
 				End();
 				Flush();
 				Begin();
-				_textureSlots->clear();
 			}
 			_textureSlots->push_back(font.atlas->id);
 			activeTexture = (float)_textureSlots->size();
@@ -248,5 +246,6 @@ namespace PrimeEngine { namespace Graphics {
 		_ibo->Unbind();
 		_vao->Unbind();
 		_indexCount = 0;
+		_textureSlots->clear();
 	}
 }}
