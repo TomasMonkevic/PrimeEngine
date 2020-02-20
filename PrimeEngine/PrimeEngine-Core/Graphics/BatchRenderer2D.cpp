@@ -59,9 +59,9 @@ namespace PrimeEngine { namespace Graphics {
 	{
 		_vbo->Bind();
 		#ifdef PE_ANDROID
-		_buffer = (VertexData*)glMapBufferRange(GL_ARRAY_BUFFER, 0, RENDERER_BUFFER_SIZE, GL_MAP_WRITE_BIT);
+		GlCall(_buffer = (VertexData*)glMapBufferRange(GL_ARRAY_BUFFER, 0, RENDERER_BUFFER_SIZE, GL_MAP_WRITE_BIT));
 		#else
-		_buffer = (VertexData*)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
+		GlCall(_buffer = (VertexData*)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY));
 		#endif
 	}
 
@@ -230,7 +230,7 @@ namespace PrimeEngine { namespace Graphics {
 
 	void BatchRenderer2D::End()
 	{
-		glUnmapBuffer(GL_ARRAY_BUFFER);
+		GlCall(glUnmapBuffer(GL_ARRAY_BUFFER));
 		_vbo->Unbind();
 	}
 
@@ -238,13 +238,13 @@ namespace PrimeEngine { namespace Graphics {
 	{
 		for (unsigned i = 0; i < _textureSlots->size(); i++)
 		{
-			glActiveTexture(GL_TEXTURE0 + i);
-			glBindTexture(GL_TEXTURE_2D, (*_textureSlots)[i]);
+			GlCall(glActiveTexture(GL_TEXTURE0 + i));
+			GlCall(glBindTexture(GL_TEXTURE_2D, (*_textureSlots)[i]));
 		}
 
 		_vao->Bind();
 		_ibo->Bind();
-		glDrawElements(GL_TRIANGLES, _indexCount, GL_UNSIGNED_SHORT, NULL);
+		GlCall(glDrawElements(GL_TRIANGLES, _indexCount, GL_UNSIGNED_SHORT, NULL));
 		_ibo->Unbind();
 		_vao->Unbind();
 		_indexCount = 0;

@@ -18,7 +18,7 @@ namespace PrimeEngine
 		{
             //TODO this should be moved to SetViewportSize?
 			GetWindow()->SetSize(width, height);
-			glViewport(0, 0, width, height);
+			GlCall(glViewport(0, 0, width, height));
 		}
 
 		DesktopWindow::~DesktopWindow()
@@ -75,16 +75,17 @@ namespace PrimeEngine
 			//glfwSwapInterval(1); //Vsync off-0, on-1
 			//EnableVSync();
 			// Set this to true so GLEW knows to use a modern approach to retrieving function pointers and extensions
-			glewExperimental = GL_TRUE;
-			if (glewInit() != GLEW_OK)
+			GlCall(glewExperimental = GL_TRUE);
+			GlCall(GLenum glStatus = glewInit());
+			if (glStatus != GLEW_OK)
 			{
 				PrimeException windowNotInit("Failed to initialize GLEW", (int)glGetError());
 				throw windowNotInit;
 			}
-			glViewport(0, 0, _width, _height);
+			GlCall(glViewport(0, 0, _width, _height));
 
-			glEnable(GL_BLEND);
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			GlCall(glEnable(GL_BLEND));
+			GlCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 
 			//glEnable(GL_MULTISAMPLE);
 
@@ -95,23 +96,14 @@ namespace PrimeEngine
 
 		void DesktopWindow::Update()
 		{
-#ifdef _DEBUG
-			GLenum error = glGetError();
-			if (error != GL_NO_ERROR)
-			{
-				PrimeException windowNotInit("GLEW error occured", (int)error);
-				PRIME_INFO(glewGetErrorString(error),'\n');
-				throw windowNotInit;
-			}
-#endif // DEBUG
             glfwPollEvents();
 			glfwSwapBuffers(_window);
 		}
 
 		void DesktopWindow::Clear()
 		{
-			glClearColor(_color[0], _color[1], _color[2], _color[3]);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			GlCall(glClearColor(_color[0], _color[1], _color[2], _color[3]));
+			GlCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 		}
 
 		bool DesktopWindow::IsReady() const {
@@ -128,23 +120,23 @@ namespace PrimeEngine
 			return glfwWindowShouldClose(_window) == 1;
 		}
 
-		void DesktopWindow::SetTitle(const char* title) 
+		void DesktopWindow::SetTitle(const char* title)
 		{
 			_title = title;
 		}
 
-		const char* DesktopWindow::GetTitle() const 
+		const char* DesktopWindow::GetTitle() const
 		{
 			return _title;
 		}
 
-		void DesktopWindow::SetSize(int width, int height) 
+		void DesktopWindow::SetSize(int width, int height)
 		{
 			_width = width;
 			_height = height;
 		}
 
-		Math::Vector2 DesktopWindow::GetSize() const 
+		Math::Vector2 DesktopWindow::GetSize() const
 		{
 			return Math::Vector2((float)_width, (float)_height);
 		}
@@ -154,7 +146,7 @@ namespace PrimeEngine
 			_color = color;
 		}
 
-		const Color& DesktopWindow::GetColor() const 
+		const Color& DesktopWindow::GetColor() const
 		{
 			return _color;
 		}

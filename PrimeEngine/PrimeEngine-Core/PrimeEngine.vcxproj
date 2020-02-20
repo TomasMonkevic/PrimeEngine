@@ -85,6 +85,7 @@
     <ClCompile Include="Components\Behaviours\FpsCamera.cpp" />
     <ClCompile Include="Components\Transform.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Graphics\OpenGL.cpp" />
     <ClCompile Include="Graphics\BatchRenderer2D.cpp" />
     <ClCompile Include="Graphics\Buffers\IndexBuffer.cpp" />
     <ClCompile Include="Graphics\Buffers\VertexArray.cpp" />

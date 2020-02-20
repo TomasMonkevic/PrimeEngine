@@ -19,7 +19,7 @@ namespace PrimeEngine { namespace Graphics {
 		_material->Enable(camera, *GetGameObject(), lights);
 		_mesh->Bind();
 
-		glDrawElements(GL_TRIANGLES, _mesh->GetIndexCount(), GL_UNSIGNED_SHORT, NULL);
+		GlCall(glDrawElements(GL_TRIANGLES, _mesh->GetIndexCount(), GL_UNSIGNED_SHORT, NULL));
 
 		_mesh->Unbind();
 		_material->Disable();
