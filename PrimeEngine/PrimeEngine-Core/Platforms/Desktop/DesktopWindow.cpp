@@ -71,9 +71,13 @@ namespace PrimeEngine
 			glfwMakeContextCurrent(_window);
 			glfwSetWindowAspectRatio(_window, _width, _height);
 
+			Input::InputPC::Initalize(); //move to a seperate function
+			glfwSetKeyCallback(_window, Input::InputPC::key_callback);
+			glfwSetMouseButtonCallback(_window, Input::InputPC::mouse_button_callback);
+			glfwSetCursorPosCallback(_window, Input::InputPC::cursor_position_callback);
+
 			glfwSetFramebufferSizeCallback(_window, framebuffer_size_callback);
-			//glfwSwapInterval(1); //Vsync off-0, on-1
-			//EnableVSync();
+
 			// Set this to true so GLEW knows to use a modern approach to retrieving function pointers and extensions
 			GlCall(glewExperimental = GL_TRUE);
 			GlCall(GLenum glStatus = glewInit());

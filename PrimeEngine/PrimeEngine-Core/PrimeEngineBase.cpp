@@ -65,12 +65,6 @@ namespace PrimeEngine {
 		GetWindow()->SetTitle(title);
 		GetWindow()->SetSize(width, height);
 		GetWindow()->Initialize();
-
-		//TODO
-		//Input::InputPC::Initalize(); //move to a seperate function
-		//glfwSetKeyCallback(_window, Input::InputPC::key_callback);
-		//glfwSetMouseButtonCallback(_window, Input::InputPC::mouse_button_callback);
-		//glfwSetCursorPosCallback(_window, Input::InputPC::cursor_position_callback);
 	}
 
 	void PrimeEngineBase::CreateWin(const char* title)
@@ -78,12 +72,6 @@ namespace PrimeEngine {
 		GetWindow()->SetTitle(title);
 		GetWindow()->SetFullscreen(true);
 		GetWindow()->Initialize();
-
-		//TODO
-		//Input::InputPC::Initalize(); //move to a seperate function
-		//glfwSetKeyCallback(_window, Input::InputPC::key_callback);
-		//glfwSetMouseButtonCallback(_window, Input::InputPC::mouse_button_callback);
-		//glfwSetCursorPosCallback(_window, Input::InputPC::cursor_position_callback);
 	}
 
 	void PrimeEngineBase::Play()
@@ -94,7 +82,7 @@ namespace PrimeEngine {
 
 #ifdef PE_ANDROID
 	AndroidWindow* PrimeEngineBase::GetWindow() {
-		return reinterpret_cast<Graphics::DesktopWindow*>(Graphics::GetWindow())
+		return reinterpret_cast<Graphics::AndroidWindow*>(Graphics::GetWindow())
 	}
 #else
 	DesktopWindow* PrimeEngineBase::GetWindow() {
