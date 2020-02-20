@@ -13,6 +13,6 @@ PrimeEngine is a C++ (OpenGL) cross-platform game engine. Currently, PrimeEngine
 
 ### Screenshots ###
 
-![Demo scene 1](https://imgur.com/AMlT7eN)
-![Demo scene 2](https://imgur.com/JEdvlyB)
-![Flappy bird](https://imgur.com/501YWeA)
+![Demo scene 1](https://i.imgur.com/E6LJXdS.png)
+![Demo scene 2](https://i.imgur.com/1DLRXtr.png)
+![Flappy bird](https://i.imgur.com/08e24K1.jpg)
