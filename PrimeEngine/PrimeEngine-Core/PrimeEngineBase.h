@@ -6,6 +6,8 @@
 #include <DllExport.h>
 #ifndef PE_ANDROID
 #include <Platforms/Desktop/DesktopWindow.h>
+#else
+#include <Platforms/Android/AndroidWindow.h>
 #endif
 
 namespace PrimeEngine {
@@ -24,9 +26,6 @@ namespace PrimeEngine {
 		virtual void Tick() { };
 		virtual void Update() { };
 		virtual void Render();
-
-		void CreateWin(const char* title, int width, int height);
-		void CreateWin(const char* title);
 
 		void SetActiveScene(Scene* scene) { _activeScene = scene; }
 

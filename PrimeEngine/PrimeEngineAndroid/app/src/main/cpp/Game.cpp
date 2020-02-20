@@ -8,12 +8,13 @@ void TestGame::Awake()
 {
 	//make a method in the engine?
 	//ShowWindow(GetConsoleWindow(), SW_HIDE);
-
-	CreateWin("3D Rendering test", 2200, 1080);
-	//CreateWin("3D Rendering test");
+#ifndef PE_ANDROID
+	GetWindow()->SetTitle("3D Rendering test");
 	GetWindow()->EnableVSync(true);
-	//GetWindow()->SetColor(Color(0.5f, 0.5f, 0.5f, 1.0f));
+#endif
+	GetWindow()->SetSize(2200, 1080);
 	GetWindow()->SetColor(Color(0xfff48642));
+	GetWindow()->Initialize();
 
 	//Matrix4x4 pr = Matrix4x4::Orthographic(0.0f, 16.0f, -4.50f, 4.50f, -50.0f, 50.0f);
 	const Matrix4x4 pr = Matrix4x4::Perspective(90.0f, 16.0f / 9.0f, 0.1f, 500.0f);

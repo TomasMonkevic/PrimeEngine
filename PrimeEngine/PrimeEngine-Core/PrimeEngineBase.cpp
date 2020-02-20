@@ -59,21 +59,6 @@ namespace PrimeEngine {
 		}
 	}
 
-	//TODO code duplication
-	void PrimeEngineBase::CreateWin(const char* title, int width, int height)
-	{
-		GetWindow()->SetTitle(title);
-		GetWindow()->SetSize(width, height);
-		GetWindow()->Initialize();
-	}
-
-	void PrimeEngineBase::CreateWin(const char* title)
-	{
-		GetWindow()->SetTitle(title);
-		GetWindow()->SetFullscreen(true);
-		GetWindow()->Initialize();
-	}
-
 	void PrimeEngineBase::Play()
 	{
 		Awake();
@@ -82,7 +67,7 @@ namespace PrimeEngine {
 
 #ifdef PE_ANDROID
 	AndroidWindow* PrimeEngineBase::GetWindow() {
-		return reinterpret_cast<Graphics::AndroidWindow*>(Graphics::GetWindow())
+		return reinterpret_cast<Graphics::AndroidWindow*>(Graphics::GetWindow());
 	}
 #else
 	DesktopWindow* PrimeEngineBase::GetWindow() {

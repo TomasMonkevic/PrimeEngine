@@ -173,10 +173,12 @@ void FlappyBird::SpawnPipes()
 void FlappyBird::Awake()
 {
 	//Windows setup
-	//CreateWin("Flappy Bird", 1080, 2280);
-    CreateWin("Flappy Bird", 720, 1280);
+#ifndef PE_ANDROID
+	GetWindow()->SetTitle("FlappyBird");
 	GetWindow()->EnableVSync(true);
-	//GetWindow()->SetColor(Color(84, 192, 201));
+#endif
+	GetWindow()->SetSize(720, 1280);
+	GetWindow()->Initialize();
 
 	//TODO make a main camera in gameLayer or return a handle to camera; think about the camera system
 	mainCamera = new Camera(Matrix4x4::Orthographic(-360.0f, 360.0f, -640.0f, 640.0f, -1.0f, 1.0f));
@@ -211,7 +213,7 @@ void FlappyBird::Awake()
 	grounds.push_back(new GameObject(*groundPrefab));
 
 	//score text
-	arial = new Font("Fonts/8bit_font.ttf", Color::White(), 98);
+	arial = new Font("Fonts/8bit_font.ttf", Color::White(), 120);
 	scoreText = new GameObject(Vector2(0.0f, 1.6f)); //why is 1.8 almost the top?
 	scoreText->AddComponent(new Label("0", *arial));
 	uiLayer->Submit(scoreText);

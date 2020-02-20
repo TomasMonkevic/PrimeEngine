@@ -3,31 +3,32 @@
 #include <DllExport.h>
 #include <Graphics/OpenGL.h>
 #include <Graphics/BasicWindow.h>
+#include <EGL/egl.h>
+#include <android/native_activity.h>
 
 namespace PrimeEngine
 {
 	namespace Graphics
 	{
-		class PRIMEENGINEAPI DesktopWindow : public BasicWindow
+		class PRIMEENGINEAPI AndroidWindow : public BasicWindow
 		{
 		private:
-			const char* _title = "PrimeEngine";
+            EGLDisplay _display;
+			EGLSurface _surface;
+			EGLContext _context;
+			ANativeWindow* _nativeWindow;
+            ANativeActivity* _nativeActivity;
 			Color _color = Color::White();
 			int _width, _height;
-			GLFWwindow* _window;
-			bool _isFullScreen;
 
 		public:
-			virtual ~DesktopWindow();
+			virtual ~AndroidWindow();
 
-			void SetFullscreen(bool isFullscreen);
-			void EnableVSync(bool isEnabled);
-			void Close();
+            void SetNativeAndroidWIndow(ANativeWindow* nativeWindow);
+            void SetNativeAndroidActivity(ANativeActivity* nativeActivity);
+            ANativeActivity* GetNativeActivity();
 
-			void SetTitle(const char* title);
-			const char* GetTitle() const;
-
-			// overriden from BasicWindow
+			// overridden from BasicWindow
 			void Initialize() override;
 			void Update() override;
 			void Clear() override;

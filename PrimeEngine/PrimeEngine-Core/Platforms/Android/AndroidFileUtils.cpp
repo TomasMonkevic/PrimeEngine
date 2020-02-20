@@ -1,13 +1,13 @@
 #include <Utilities/FileUtils.h>
 
-#include <Graphics/BasicWindow.h>
+#include <Platforms/Android/AndroidWindow.h>
 #include <Utilities/Log.h>
 
 namespace PrimeEngine {
 
     ByteArray ReadFileBytes(const char* path)
     {
-        AAssetManager* assetManager = Graphics::Window::GetWindow()->GetNativeActivity()->assetManager;
+        AAssetManager* assetManager = reinterpret_cast<Graphics::AndroidWindow*>(Graphics::GetWindow())->GetNativeActivity()->assetManager;
         AAsset* asset = AAssetManager_open(assetManager, path, AASSET_MODE_BUFFER);
         if (!asset)
         {

@@ -69,6 +69,7 @@ set(PECORE_SOURCES
     "Components/Behaviours/FpsCamera.cpp"
     "Components/Transform.cpp"
     "GameObject.cpp"
+    "Graphics/OpenGL.cpp"
     "Graphics/BatchRenderer2D.cpp"
     "Graphics/Buffers/IndexBuffer.cpp"
     "Graphics/Buffers/VertexArray.cpp"
@@ -142,10 +143,10 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Android")
 
     add_library(PrimeEngineCore SHARED
                 ${GL3STUB_SRC}
-                #${PECORE_HEADERS}
                 ${PECORE_SOURCES}
-                Platforms/Android/AndroidActivity.cpp
-                Platforms/Android/AndroidFileUtils.cpp
+                "Platforms/Android/AndroidActivity.cpp"
+                "Platforms/Android/AndroidFileUtils.cpp"
+                "Platforms/Android/AndroidWindow.cpp"
             )
 
     target_include_directories(PrimeEngineCore PRIVATE
