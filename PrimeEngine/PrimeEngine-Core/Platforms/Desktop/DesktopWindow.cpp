@@ -104,12 +104,6 @@ namespace PrimeEngine
 			glfwSwapBuffers(_window);
 		}
 
-		void DesktopWindow::Clear()
-		{
-			GlCall(glClearColor(_color[0], _color[1], _color[2], _color[3]));
-			GlCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
-		}
-
 		bool DesktopWindow::IsReady() const {
 			return true;
 		}
@@ -132,27 +126,6 @@ namespace PrimeEngine
 		const char* DesktopWindow::GetTitle() const
 		{
 			return _title;
-		}
-
-		void DesktopWindow::SetSize(int width, int height)
-		{
-			_width = width;
-			_height = height;
-		}
-
-		Math::Vector2 DesktopWindow::GetSize() const
-		{
-			return Math::Vector2((float)_width, (float)_height);
-		}
-
-		void DesktopWindow::SetColor(const Color& color)
-		{
-			_color = color;
-		}
-
-		const Color& DesktopWindow::GetColor() const
-		{
-			return _color;
 		}
 	}
 }

@@ -70,6 +70,7 @@ set(PECORE_SOURCES
     "Components/Transform.cpp"
     "GameObject.cpp"
     "Graphics/OpenGL.cpp"
+    "Graphics/BasicWindow.cpp"
     "Graphics/BatchRenderer2D.cpp"
     "Graphics/Buffers/IndexBuffer.cpp"
     "Graphics/Buffers/VertexArray.cpp"

@@ -15,23 +15,24 @@ namespace PrimeEngine
 		class PRIMEENGINEAPI BasicWindow
 		{
 		protected:
-			// TODO move common variables and implement common functions here
+			Color _color = Color::White();
+			int _width, _height;
 
 		public:
 			virtual ~BasicWindow() {}
-			
+
 			virtual void Initialize() = 0;
 			virtual void Update() = 0;
-			virtual void Clear() = 0; //common code
-			virtual bool IsReady() const = 0; //only on android
+			virtual void Clear();
+			virtual bool IsReady() const = 0;
 			virtual void Destroy() = 0;
-			virtual bool IsClosed() const = 0; //only on desktop
+			virtual bool IsClosed() const = 0;
 
-			virtual void SetSize(int width, int height) = 0; //common code
-			virtual Math::Vector2 GetSize() const = 0; //common code
+			virtual void SetSize(int width, int height);
+			virtual Math::Vector2 GetSize() const;
 
-			virtual void SetColor(const Color& color) = 0; //common code
-			virtual const Color& GetColor() const = 0; //common code
+			virtual void SetColor(const Color& color);
+			virtual const Color& GetColor() const;
 		};
 
 		// Factory functions for the various types of windows to abstract

@@ -107,26 +107,20 @@ namespace PrimeEngine
             eglSwapBuffers(_display, _surface);
 		}
 
-		void AndroidWindow::Clear()
-		{
-			GlCall(glClearColor(_color[0], _color[1], _color[2], _color[3]));
-			GlCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
-		}
-
 		bool AndroidWindow::IsReady() const {
 			return _display;
 		}
 
 		void AndroidWindow::Destroy()
 		{
-			if (_display != EGL_NO_DISPLAY) 
+			if (_display != EGL_NO_DISPLAY)
             {
                 eglMakeCurrent(_display, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
-                if (_context != EGL_NO_CONTEXT) 
+                if (_context != EGL_NO_CONTEXT)
                 {
                     eglDestroyContext(_display, _context);
                 }
-                if (_surface != EGL_NO_SURFACE) 
+                if (_surface != EGL_NO_SURFACE)
                 {
                     eglDestroySurface(_display, _surface);
                 }
@@ -140,27 +134,6 @@ namespace PrimeEngine
 		bool AndroidWindow::IsClosed() const
 		{
 			return false;
-		}
-
-		void AndroidWindow::SetSize(int width, int height)
-		{
-			_width = width;
-			_height = height;
-		}
-
-		Math::Vector2 AndroidWindow::GetSize() const
-		{
-			return Math::Vector2((float)_width, (float)_height);
-		}
-
-		void AndroidWindow::SetColor(const Color& color)
-		{
-			_color = color;
-		}
-
-		const Color& AndroidWindow::GetColor() const
-		{
-			return _color;
 		}
 	}
 }

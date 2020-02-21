@@ -18,8 +18,6 @@ namespace PrimeEngine
 			EGLContext _context;
 			ANativeWindow* _nativeWindow;
             ANativeActivity* _nativeActivity;
-			Color _color = Color::White();
-			int _width, _height;
 
 		public:
 			virtual ~AndroidWindow();
@@ -31,16 +29,9 @@ namespace PrimeEngine
 			// overridden from BasicWindow
 			void Initialize() override;
 			void Update() override;
-			void Clear() override;
 			bool IsReady() const override;
 			void Destroy() override;
 			bool IsClosed() const override;
-
-			void SetSize(int width, int height) override;
-			Math::Vector2 GetSize() const override;
-
-			void SetColor(const Color& color) override;
-			const Color& GetColor() const override;
 		};
 	}
 }
