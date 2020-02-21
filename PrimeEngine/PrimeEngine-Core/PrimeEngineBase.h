@@ -1,47 +1,33 @@
 #pragma once
 
-#include "Utilities/Time.h"
-#include "Graphics/Window.h"
-#include "Scene.h"
-#include "DllExport.h"
+#include <Utilities/Time.h>
+#include <Graphics/BasicWindow.h>
+#include <Scene.h>
+#include <DllExport.h>
+#ifndef PE_ANDROID
+#include <Platforms/Desktop/DesktopWindow.h>
+#else
+#include <Platforms/Android/AndroidWindow.h>
+#endif
 
 namespace PrimeEngine {
 
 	class PRIMEENGINEAPI PrimeEngineBase
 	{
 	private:
-		Graphics::Window* _window = nullptr;
 		Scene* _activeScene = nullptr;
 		unsigned int _fpsCounter = 0;
 		float _deltaTime, _prevDeltatime = 0;
 
 	private:
 		void Run();
+
 	protected:
-		virtual void Awake() = 0;
 		virtual void Tick() { };
 		virtual void Update() { };
 		virtual void Render();
 
-		PrimeEngineBase()
-		{
-
-		}
-
-		virtual ~PrimeEngineBase()
-		{
-			_window->Destroy();
-		}
-
-		void CreateWin(const char* title, int width, int height);
-		void CreateWin(const char* title);
-
 		void SetActiveScene(Scene* scene) { _activeScene = scene; }
-
-		inline Graphics::Window* GetWindow()
-		{
-			return _window;
-		}
 
 		inline unsigned int GetFPS() const
 		{
@@ -54,6 +40,15 @@ namespace PrimeEngine {
 		}
 
 	public:
+		virtual ~PrimeEngineBase();
+		virtual void Awake() = 0;
 		void Play();
+		void Step();
+
+#ifdef PE_ANDROID
+		AndroidWindow* GetWindow();
+#else
+		DesktopWindow* GetWindow();
+#endif
 	};
 }

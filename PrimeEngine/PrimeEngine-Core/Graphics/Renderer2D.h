@@ -13,41 +13,14 @@ namespace PrimeEngine { namespace Graphics {
 	class PRIMEENGINEAPI Renderer2D
 	{
 	protected:
-		std::vector<Math::Matrix4x4>* _transformationStack;
-		const Math::Matrix4x4* _transformationStackBack;
-
-	protected:
-		Renderer2D()
-		{
-			_transformationStack = new std::vector<Math::Matrix4x4>;
-			_transformationStack->push_back(Math::Matrix4x4::identity());
-			_transformationStackBack = &(_transformationStack->back());
-		}
+		Renderer2D() {}
 
 	public:
-		virtual ~Renderer2D()
-		{
-			delete _transformationStack;
-		}
-
-		virtual void PushMatrix(const Math::Matrix4x4& traslationMat)
-		{
-			_transformationStack->push_back(*_transformationStackBack * traslationMat);
-			_transformationStackBack = &_transformationStack->back();
-		}
-
-		virtual void PopMatrix()
-		{
-			if (_transformationStack->size() > 1)
-			{
-				_transformationStack->pop_back();
-				_transformationStackBack = &_transformationStack->back();
-			}
-		}
+		virtual ~Renderer2D() {}
 
 		virtual void Begin() {}
 		virtual void Submit(const Sprite* renderable2D) = 0;
-		virtual void DrawLabel(const std::string& text, const  Math::Vector3& position, const Font& font) = 0;
+		virtual void DrawLabel(const Label& textComponent) = 0;
 		virtual void End() {}
 		virtual void Flush() = 0;
 	};

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <math.h> //standard math lib
+#include <cmath> //standard math lib
 #include <algorithm>
 #include <DllExport.h>
 

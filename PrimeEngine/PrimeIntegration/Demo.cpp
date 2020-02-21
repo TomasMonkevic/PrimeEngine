@@ -5,11 +5,13 @@
 
 void Demo::Awake()
 {
-	//ShowWindow(GetConsoleWindow(), SW_HIDE);
-	CreateWin("PE|3D Demo", 1366, 768);
-	//CreateWin("PE|3D Demo");
+#ifndef PE_ANDROID
+	GetWindow()->SetTitle("PE|3D Demo");
 	GetWindow()->EnableVSync(true);
+#endif
+	GetWindow()->SetSize(1366, 768);
 	GetWindow()->SetColor(Color(0xfff48642));
+	GetWindow()->Initialize();
 
 	mainCamera = new Camera(Matrix4x4::Perspective(60.0f, 16.0f / 9.0f, 0.3f, 1000.0f));
 	mainCamera->GetTransform().Position = Vector3(-1.76f, 13.62f, -11.3f);
@@ -108,8 +110,6 @@ void Demo::Awake()
 
 	//mainScene->Add(flashLight);
 	uiLayer = new UILayer();
-	fpsLabel = new UI::Text("Hello\nNewLine", arialFont);
-	uiLayer->Submit(fpsLabel);
 }
 
 void Demo::Update()

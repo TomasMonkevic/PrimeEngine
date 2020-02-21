@@ -20,7 +20,6 @@ private:
 	Camera* mainCamera;
 	GameObject* player;
 	DirectionalLight* sun;
-	SpotLight* flashLight;
 
 public:
 	~TestGame() 

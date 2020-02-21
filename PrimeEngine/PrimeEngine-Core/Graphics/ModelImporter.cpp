@@ -1,9 +1,11 @@
-#include "ModelImporter.h"
-#include "../Utilities/File.h"
-#include "../Utilities/Log.h"
-#include "../Utilities/Utils.h"
+#include <Graphics/ModelImporter.h>
+
 #include <unordered_map>
 #include <memory>
+
+#include <Utilities/FileUtils.h>
+#include <Utilities/Log.h>
+#include <Utilities/Utils.h>
 
 struct IndexSet
 {
@@ -72,7 +74,7 @@ namespace PrimeEngine { namespace Graphics {
 	{
 		using namespace PrimeEngine::Math;
 
-		std::vector<std::string> lines = SplitString(File::ReadFile(path), "\n");
+		std::vector<std::string> lines = SplitString(ReadFileString(path), "\n");
 		if (lines.empty())
 		{
 			return nullptr;

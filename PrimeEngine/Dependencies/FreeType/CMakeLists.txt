@@ -70,10 +70,44 @@ set(FREETYPE_SOURCES
 
 add_definitions(-DFT2_BUILD_LIBRARY)
 
-include_directories("../GLEW/include")
 include_directories("include")
 
-add_library(FreeType STATIC ${FREETYPE_HEADERS} ${FREETYPE_SOURCES})
+if(${CMAKE_SYSTEM_NAME} MATCHES "Android")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -frtti -fexceptions -Wall")
+    add_definitions(-DPE_ANDROID)
+    if (${ANDROID_PLATFORM_LEVEL} LESS 12)
+    message(FATAL_ERROR "OpenGL 2 is not supported before API level 11 \
+                        (currently using ${ANDROID_PLATFORM_LEVEL}).")
+    return()
+    elseif (${ANDROID_PLATFORM_LEVEL} LESS 18)
+    add_definitions("-DDYNAMIC_ES3")
+    set(GL3STUB_SRC ../../PrimeEngine-Core/Platforms/Android/gl3stub.c)
+    set(OPENGL_LIB GLESv2)
+    else ()
+    set(OPENGL_LIB GLESv3)
+    endif (${ANDROID_PLATFORM_LEVEL} LESS 12)
+
+    include_directories(../../PrimeEngineCore/Platforms/Android)
+
+    add_library(FreeType STATIC
+                ${GL3STUB_SRC}
+                ${FREETYPE_HEADERS} 
+                ${FREETYPE_SOURCES})
+
+    # Include libraries needed for gles3jni lib
+    target_link_libraries(FreeType
+                ${OPENGL_LIB}
+                android
+                EGL
+                log
+                m)
+else()
+    include_directories("../GLEW/include")
+
+    add_library(FreeType STATIC ${FREETYPE_HEADERS} ${FREETYPE_SOURCES})
+endif()
+
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})

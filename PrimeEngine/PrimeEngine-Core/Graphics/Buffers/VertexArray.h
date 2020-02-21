@@ -1,6 +1,6 @@
 #pragma once
 
-#include <GL/glew.h>
+#include <Graphics/OpenGL.h>
 #include "VertexBuffer.h"
 #include <DllExport.h>
 
@@ -17,8 +17,8 @@ namespace PrimeEngine { namespace Graphics {
 
 		void AddAttribute(GLuint index, GLint componentCount, GLenum type, bool isNormalized, GLsizei size,  const GLvoid* offset)
 		{
-			glEnableVertexAttribArray(index);
-			glVertexAttribPointer(index, componentCount, type, isNormalized, size, offset);
+			GlCall(glEnableVertexAttribArray(index));
+			GlCall(glVertexAttribPointer(index, componentCount, type, isNormalized, size, offset));
 		}
 
 		void Bind() const;

@@ -4,22 +4,22 @@ namespace PrimeEngine { namespace Graphics {
 
 	VertexArray::VertexArray()
 	{
-		glGenVertexArrays(1, &_Id);
+		GlCall(glGenVertexArrays(1, &_Id));
 	}
 
 	VertexArray::~VertexArray()
 	{
-		glDeleteVertexArrays(1, &_Id);
+		GlCall(glDeleteVertexArrays(1, &_Id));
 	}
 
 	void VertexArray::Bind() const
 	{
-		glBindVertexArray(_Id);
+		GlCall(glBindVertexArray(_Id));
 	}
 
 	void VertexArray::Unbind() const
 	{
-		glEnableVertexAttribArray(0);
+		GlCall(glEnableVertexAttribArray(0));
 	}
 
 }}

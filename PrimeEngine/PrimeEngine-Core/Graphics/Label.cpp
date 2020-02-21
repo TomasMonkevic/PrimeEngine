@@ -2,15 +2,15 @@
 
 namespace PrimeEngine { namespace Graphics {
 
-	Label::Label(const char* _text, Font& _font)
-		: font(&_font), text(_text)
+	Label::Label(std::string _text, Font& _font)
+		: text(_text), font(&_font)
 	{
 		AddType<Label>();
 	}
 
 	void Label::Submit(Renderer2D* renderer) const
 	{
-		renderer->DrawLabel(text, GetGameObject()->GetTransform().Position, *font);
+		renderer->DrawLabel(*this);
 	}
 
 	Component* Label::Copy()

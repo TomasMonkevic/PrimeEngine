@@ -23,8 +23,6 @@ private:
 
 	UILayer* uiLayer;
 	Font arialFont = Font("Resources/arial.ttf", Color(1.0f, 1.0f, 1.0f), 64);
-	UI::Text* fpsLabel;
-
 	SpotLight* flashLight;
 
 public:

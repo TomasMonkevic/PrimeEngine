@@ -2,6 +2,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PrimeIntegration", "PrimeIntegration\PrimeIntegration.vcxproj", "{303A2AAB-9E45-49B4-8F10-A24E54D1FE4E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0CE5EF6F-7D71-4E54-8926-AC390F4F3C0F} = {0CE5EF6F-7D71-4E54-8926-AC390F4F3C0F}
+	EndProjectSection
+EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PrimeEngine-Core", "PrimeEngine-Core\PrimeEngine.vcxproj", "{0CE5EF6F-7D71-4E54-8926-AC390F4F3C0F}"
 	ProjectSection(ProjectDependencies) = postProject
 		{664E6F0D-6784-4760-9565-D54F8EB1EDF4} = {664E6F0D-6784-4760-9565-D54F8EB1EDF4}
@@ -10,11 +15,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PrimeEngine-Core", "PrimeEn
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PrimeEngineTests", "PrimeEngineTests\PrimeEngineTests.vcxproj", "{347387E7-6801-4467-A9B6-D18655168EEA}"
-	ProjectSection(ProjectDependencies) = postProject
-		{0CE5EF6F-7D71-4E54-8926-AC390F4F3C0F} = {0CE5EF6F-7D71-4E54-8926-AC390F4F3C0F}
-	EndProjectSection
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PrimeIntegration", "PrimeIntegration\PrimeIntegration.vcxproj", "{303A2AAB-9E45-49B4-8F10-A24E54D1FE4E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{0CE5EF6F-7D71-4E54-8926-AC390F4F3C0F} = {0CE5EF6F-7D71-4E54-8926-AC390F4F3C0F}
 	EndProjectSection

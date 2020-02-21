@@ -1,6 +1,6 @@
 #pragma once
 
-#include <GL/glew.h>
+#include <Graphics/OpenGL.h>
 #include <DllExport.h>
 
 namespace PrimeEngine { namespace Graphics {
@@ -13,25 +13,25 @@ namespace PrimeEngine { namespace Graphics {
 	public:
 		VertexBuffer(const void* data, GLsizei size, GLenum usage)
 		{
-			glGenBuffers(1, &_index);
+			GlCall(glGenBuffers(1, &_index));
 			Bind();
-			glBufferData(GL_ARRAY_BUFFER, size, data, usage);
+			GlCall(glBufferData(GL_ARRAY_BUFFER, size, data, usage));
 			Unbind();
 		}
 
 		~VertexBuffer()
 		{
-			glDeleteBuffers(1, &_index);
+			GlCall(glDeleteBuffers(1, &_index));
 		}
 
 		void Bind() const
 		{
-			glBindBuffer(GL_ARRAY_BUFFER, _index);
+			GlCall(glBindBuffer(GL_ARRAY_BUFFER, _index));
 		}
 
 		void Unbind() const
 		{
-			glBindBuffer(GL_ARRAY_BUFFER, 0);
+			GlCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
 		}
 	};
 

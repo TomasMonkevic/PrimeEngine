@@ -64,6 +64,8 @@ namespace PrimeEngine { namespace Graphics {
 	void Layer::Render()
 	{
 		_shader->Enable();
+		//Needed for android on the default shader
+		_shader->SetUniform("model_matrix", Math::Matrix4x4::identity());
 		_shader->SetUniform("pr_matrix", _camera->GetProjectionMatrix());
 		_shader->SetUniform("view_matrix", _camera->GetViewMatrix());
 		_renderer->Begin();

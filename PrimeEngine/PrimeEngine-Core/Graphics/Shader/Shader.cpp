@@ -3,27 +3,45 @@
 
 namespace PrimeEngine { namespace Graphics {
 
+#ifdef PE_ANDROID
 	const char* Shader::defaultShader =
-	#include "Source/Default.pesl"
+	#include "Source/Android/Default.pesl"
 	;
 
 	const char* Shader::phong =
-	#include "Source/Phong.pesl"
+	#include "Source/Android/Phong.pesl"
 	;
 
 	const char* Shader::glow =
-	#include "Source/Glow.pesl"
+	#include "Source/Android/Glow.pesl"
 	;
 
 	const char* Shader::simplePhong =
-	#include "Source/SimplePhong.pesl"
+	#include "Source/Android/SimplePhong.pesl"
 	;
+#else
+	const char* Shader::defaultShader =
+	#include "Source/Desktop/Default.pesl"
+	;
+
+	const char* Shader::phong =
+	#include "Source/Desktop/Phong.pesl"
+	;
+
+	const char* Shader::glow =
+	#include "Source/Desktop/Glow.pesl"
+	;
+
+	const char* Shader::simplePhong =
+	#include "Source/Desktop/SimplePhong.pesl"
+	;
+#endif
 
 	Shader::Shader(const char* shaderFile, bool isSource)
 	{
 		_uniformLocation = new std::map<std::string, GLint>;
 
-		std::string shaderFileString = isSource ? shaderFile : PrimeEngine::File::ReadFile(shaderFile);
+		std::string shaderFileString = isSource ? shaderFile : PrimeEngine::ReadFileString(shaderFile);
 		char* vertexSource = NULL;
 		char* fragmentSource = NULL;
 		ParseShaderFile(shaderFileString, &vertexSource, &fragmentSource);
@@ -35,7 +53,7 @@ namespace PrimeEngine { namespace Graphics {
 	Shader::~Shader()
 	{
 		delete _uniformLocation;
-		glDeleteProgram(_shaderID);
+		GlCall(glDeleteProgram(_shaderID));
 	}
 
 	GLint Shader::GetLocation(const std::string& name)
@@ -43,7 +61,7 @@ namespace PrimeEngine { namespace Graphics {
 		std::map<std::string, GLint>::iterator mapIterator = _uniformLocation->find(name);
 		if (mapIterator == _uniformLocation->end())
 		{
-			GLint location = glGetUniformLocation(_shaderID, name.c_str());
+			GlCall(GLint location = glGetUniformLocation(_shaderID, name.c_str()));
 			_uniformLocation->insert(std::pair<std::string, GLint>(name, location));
 			return location;
 		}
@@ -55,42 +73,42 @@ namespace PrimeEngine { namespace Graphics {
 
 	void Shader::SetUniform(const GLchar* name, const Math::Matrix4x4& matrix)
 	{
-		glUniformMatrix4fv(GetLocation(name), 1, GL_FALSE, matrix.GetElements());
+		GlCall(glUniformMatrix4fv(GetLocation(name), 1, GL_FALSE, matrix.GetElements()));
 	}
 
-	void Shader::SetUniform(const GLchar* name, const Math::Vector4& vector4) 
+	void Shader::SetUniform(const GLchar* name, const Math::Vector4& vector4)
 	{
-		glUniform4f(GetLocation(name), vector4.x, vector4.y, vector4.z, vector4.w);
+		GlCall(glUniform4f(GetLocation(name), vector4.x, vector4.y, vector4.z, vector4.w));
 	}
 
 	void Shader::SetUniform(const GLchar* name, const Color& color)
 	{
-		glUniform4f(GetLocation(name), color[0], color[1], color[2], color[3]);
+		GlCall(glUniform4f(GetLocation(name), color[0], color[1], color[2], color[3]));
 	}
 
 	void Shader::SetUniform(const GLchar* name, const Math::Vector3& vector3)
 	{
-		glUniform3f(GetLocation(name), vector3.x, vector3.y, vector3.z);
+		GlCall(glUniform3f(GetLocation(name), vector3.x, vector3.y, vector3.z));
 	}
 
 	void Shader::SetUniform(const GLchar* name, const Math::Vector2& vector2)
 	{
-		glUniform2f(GetLocation(name), vector2.x, vector2.y);
+		GlCall(glUniform2f(GetLocation(name), vector2.x, vector2.y));
 	}
 
 	void Shader::SetUniform(const GLchar* name, float value)
 	{
-		glUniform1f(GetLocation(name), value);
+		GlCall(glUniform1f(GetLocation(name), value));
 	}
 
 	void Shader::SetUniform(const GLchar* name, int value)
 	{
-		glUniform1i(GetLocation(name), value);
+		GlCall(glUniform1i(GetLocation(name), value));
 	}
 
 	void Shader::SetUniform(const GLchar* name, int values[], int size)
 	{
-		glUniform1iv(GetLocation(name), size, values);
+		GlCall(glUniform1iv(GetLocation(name), size, values));
 	}
 
 	void Shader::ParseShaderFile(std::string& shaderFile, char** vertexSourceOut, char** fragmentSourceOut)
@@ -151,23 +169,23 @@ namespace PrimeEngine { namespace Graphics {
 
 	GLuint Shader::LoadShader(char* vertexSource, char* fragmentSource)
 	{
-		GLuint program = glCreateProgram();
-		GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-		GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+		GlCall(GLuint program = glCreateProgram());
+		GlCall(GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER));
+		GlCall(GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER));
 
-		glShaderSource(vertexShader, 1, &vertexSource, NULL);
-		glCompileShader(vertexShader);
+		GlCall(glShaderSource(vertexShader, 1, &vertexSource, NULL));
+		GlCall(glCompileShader(vertexShader));
 
 		GLint compileResult;
-		glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &compileResult);
+		GlCall(glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &compileResult));
 		if (compileResult == GL_FALSE)
 		{
 			GLint lenght;
-			glGetShaderiv(vertexShader, GL_INFO_LOG_LENGTH, &lenght);
+			GlCall(glGetShaderiv(vertexShader, GL_INFO_LOG_LENGTH, &lenght));
 			//TODO memory leak change to alloca
 			char* error = new char[lenght + 1];
-			glGetShaderInfoLog(vertexShader, lenght, &lenght, error);
-			glDeleteShader(vertexShader);
+			GlCall(glGetShaderInfoLog(vertexShader, lenght, &lenght, error));
+			GlCall(glDeleteShader(vertexShader));
 			PRIME_ERROR("Failed to compile vertex shader:\n", error,"\n");
 			//char* errorMsg = new char[sizeof(error) + 100];
 			//sprintf_s(errorMsg, sizeof(error) + 100, "Failed to compile vertex shader:\n%s \n", error);
@@ -175,17 +193,17 @@ namespace PrimeEngine { namespace Graphics {
 			//throw errorCompiling;
 		}
 
-		glShaderSource(fragmentShader, 1, &fragmentSource, NULL);
-		glCompileShader(fragmentShader);
+		GlCall(glShaderSource(fragmentShader, 1, &fragmentSource, NULL));
+		GlCall(glCompileShader(fragmentShader));
 
-		glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &compileResult);
+		GlCall(glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &compileResult));
 		if (compileResult == GL_FALSE)
 		{
 			GLint lenght;
-			glGetShaderiv(fragmentShader, GL_INFO_LOG_LENGTH, &lenght);
+			GlCall(glGetShaderiv(fragmentShader, GL_INFO_LOG_LENGTH, &lenght));
 			char* error = new char[lenght + 1];
-			glGetShaderInfoLog(fragmentShader, lenght, &lenght, error);
-			glDeleteShader(fragmentShader);
+			GlCall(glGetShaderInfoLog(fragmentShader, lenght, &lenght, error));
+			GlCall(glDeleteShader(fragmentShader));
 			PRIME_ERROR("Failed to compile fragment shader:\n", error, "\n"); //const char type not supported
 			//char* errorMsg = new char[sizeof(error) + 100];
 			//sprintf_s(errorMsg, sizeof(error) + 100, "Failed to compile fragment shader:\n%s \n", error);
@@ -193,25 +211,25 @@ namespace PrimeEngine { namespace Graphics {
 			//throw errorCompiling;
 		}
 
-		glAttachShader(program, vertexShader);
-		glAttachShader(program, fragmentShader);
+		GlCall(glAttachShader(program, vertexShader));
+		GlCall(glAttachShader(program, fragmentShader));
 
-		glLinkProgram(program);
-		glValidateProgram(program);
+		GlCall(glLinkProgram(program));
+		GlCall(glValidateProgram(program));
 
-		glDeleteShader(vertexShader);
-		glDeleteShader(fragmentShader);
+		GlCall(glDeleteShader(vertexShader));
+		GlCall(glDeleteShader(fragmentShader));
 
 		return program;
 	}
 
 	void Shader::Enable() const
 	{
-		glUseProgram(_shaderID);
+		GlCall(glUseProgram(_shaderID));
 	}
 	void Shader::Disable() const
 	{
-		glUseProgram(0);
+		GlCall(glUseProgram(0));
 	}
 
 }}

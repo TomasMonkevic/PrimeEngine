@@ -25,6 +25,7 @@ namespace PrimeEngine { namespace Graphics {
 		{
 			_textureCord[i] = right._textureCord[i];
 		}
+        AddType<Sprite>();
 	}
 
 	Sprite::~Sprite()

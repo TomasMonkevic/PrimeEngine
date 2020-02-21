@@ -1,6 +1,5 @@
 #pragma once
 
-#include <GL/glew.h>
 #include <Math/Math.h>
 #include <Graphics/Shader/Shader.h>
 #include <GameObject.h>

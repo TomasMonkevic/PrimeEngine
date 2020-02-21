@@ -18,12 +18,13 @@ namespace PrimeEngine { namespace Graphics {
 
 	protected:
 		Layer(Renderer2D* renderer, Shader* shader, Camera* camera); //add without camera obj
-		void Submit(Object* object);
-		void Remove(Object* object);
 
 	public:
 		virtual ~Layer();
 		void Render();
+
+		void Submit(Object* object);
+		void Remove(Object* object);
 	};
 }}
 

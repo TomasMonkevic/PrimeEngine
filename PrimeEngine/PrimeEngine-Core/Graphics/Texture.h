@@ -1,6 +1,6 @@
 #pragma once
 
-#include <GL/glew.h>
+#include <Graphics/OpenGL.h>
 #include "../DllExport.h"
 #include <Math/Vector2.h>
 #include "Color.h"
@@ -8,7 +8,7 @@
 namespace PrimeEngine { namespace Graphics {
 
 //!!!Not every PC supports 32 uniform textures in a shaderssss
-#define MAX_TEXTURE_COUNT 32 //should be change dynamically
+#define MAX_TEXTURE_COUNT 16 //should be change dynamically
 //glGetIntegerv() with parameters GL_MAX_FRAGMENT_UNIFORM_COMPONENTS and GL_MAX_FRAGMENT_UNIFORM_VECTORS
 
 	class PRIMEENGINEAPI Texture

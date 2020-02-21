@@ -2,6 +2,11 @@
 
 namespace PrimeEngine {
 
+	PrimeEngineBase::~PrimeEngineBase()
+	{
+		GetWindow()->Destroy();
+	}
+
 	void PrimeEngineBase::Render()
 	{
 		_activeScene->Render();
@@ -11,12 +16,13 @@ namespace PrimeEngine {
 	{
 		Time timer;
 		_fpsCounter = 0;
-		while (_window && !_window->Closed())
+		while (GetWindow() && !GetWindow()->IsClosed())
 		{
-			_window->Clear();
+			//TODO should call step func
+			GetWindow()->Clear();
 			Update(); //first frame fps and delta time is 0
 			Render();
-			_window->Update();
+			GetWindow()->Update();
 			_fpsCounter++;
 			_deltaTime = timer.Elapsed() - _prevDeltatime;
 			_prevDeltatime = timer.Elapsed();
@@ -30,18 +36,27 @@ namespace PrimeEngine {
 		}
 	}
 
-	void PrimeEngineBase::CreateWin(const char* title, int width, int height)
+	void PrimeEngineBase::Step()
 	{
-		Graphics::Window::SetWindow(title, width, height);
-		_window = Graphics::Window::GetWindow();
-		_window->Initialize();
-	}
-
-	void PrimeEngineBase::CreateWin(const char* title)
-	{
-		Graphics::Window::SetWindow(title);
-		_window = Graphics::Window::GetWindow();
-		_window->Initialize();
+        if(!GetWindow()->IsReady())
+        {
+            return;
+        }
+		static Time timer;
+		GetWindow()->Clear();
+		Update(); //first frame fps and delta time is 0
+		Render();
+		GetWindow()->Update();
+		_fpsCounter++;
+		_deltaTime = timer.Elapsed() - _prevDeltatime;
+		_prevDeltatime = timer.Elapsed();
+		if (timer.Elapsed() >= 1.0f)
+		{
+			Tick();
+			_fpsCounter = 0;
+			_prevDeltatime = 0;
+			timer.Reset();
+		}
 	}
 
 	void PrimeEngineBase::Play()
@@ -49,4 +64,14 @@ namespace PrimeEngine {
 		Awake();
 		Run();
 	}
+
+#ifdef PE_ANDROID
+	AndroidWindow* PrimeEngineBase::GetWindow() {
+		return reinterpret_cast<Graphics::AndroidWindow*>(Graphics::GetWindow());
+	}
+#else
+	DesktopWindow* PrimeEngineBase::GetWindow() {
+		return reinterpret_cast<Graphics::DesktopWindow*>(Graphics::GetWindow());
+	}
+#endif
 }

@@ -1,7 +1,7 @@
 #pragma once
 
-#include <GL/glew.h>
-#include <Utilities/File.h>
+#include <Graphics/OpenGL.h>
+#include <Utilities/FileUtils.h>
 #include <Math/Math.h>
 #include <DllExport.h>
 #include <map>

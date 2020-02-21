@@ -1,6 +1,7 @@
-R"( $version 330 core/$
+R"( $version 310 es/$
 
 $vertex
+#extension GL_EXT_shader_io_blocks : enable
 
 layout (location = 0) in vec4 position;
 layout (location = 1) in vec4 color;
@@ -8,8 +9,8 @@ layout (location = 2) in vec2 textureCord;
 layout (location = 3) in float texture;
 
 uniform mat4 pr_matrix;
-uniform mat4 view_matrix = mat4(1.0f);
-uniform mat4 model_matrix = mat4(1.0f);
+uniform mat4 view_matrix;
+uniform mat4 model_matrix;
 
 out data
 {
@@ -28,6 +29,11 @@ void main()
 
 $fragment
 
+#extension GL_EXT_shader_io_blocks : enable
+#extension GL_EXT_gpu_shader5 : require
+
+precision mediump float;
+
 in data
 {
 	vec4 color;
@@ -37,7 +43,7 @@ in data
 
 layout (location = 0) out vec4 color;
 
-uniform sampler2D textures[32];
+uniform sampler2D textures[16];
 
  void main()
  {

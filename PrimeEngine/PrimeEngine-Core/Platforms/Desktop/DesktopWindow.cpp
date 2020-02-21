@@ -1,76 +1,47 @@
-#include "Window.h"
-#include "../Input.h"
-#include "../PrimeException.h"
-#include "../Utilities/Log.h"
+#include <Platforms/Desktop/DesktopWindow.h>
+
+#include <Input.h>
+#include <PrimeException.h>
+#include <Utilities/Log.h>
+#include <memory>
 
 namespace PrimeEngine
 {
 	namespace Graphics
 	{
-		Window* Window::instance = NULL;
+        BasicWindow* GetWindow() {
+            static std::unique_ptr<BasicWindow> window = std::make_unique<DesktopWindow>();
+            return window.get();
+        }
 
 		void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 		{
-			Window::GetWindow()->_width = width;
-			Window::GetWindow()->_height = height;
-			glViewport(0, 0, width, height);
+            //TODO this should be moved to SetViewportSize?
+			GetWindow()->SetSize(width, height);
+			GlCall(glViewport(0, 0, width, height));
 		}
 
-		Window::Window(const char* title, int width, int height) : 
-			_title(title), _width(width), _height(height)
-		{
-			_isFullScreen = false;
-		}
-
-		Window::Window(const char* title) : _title(title)
-		{
-			_isFullScreen = true;
-		}
-
-		Window::~Window()
+		DesktopWindow::~DesktopWindow()
 		{
 			glfwTerminate();
 		}
 
-		void Window::Destroy() const
-		{
-			glfwDestroyWindow(_window);
-			instance = NULL;
+		void DesktopWindow::SetFullscreen(bool isFullscreen) {
+			_isFullScreen = isFullscreen;
 		}
 
-		void Window::isInstanceCreated()
+		void DesktopWindow::EnableVSync(bool isEnabled)
 		{
-			if (!instance)
-			{
-				PrimeException windowNotInit("Window instance not created! Please use SetWindows method.", (int)glGetError());
-				throw windowNotInit;
-			}
+			glfwSwapInterval((GLint)isEnabled);
 		}
 
-		void Window::Close() const
+		void DesktopWindow::Close()
 		{
 			glfwSetWindowShouldClose(_window, GLFW_TRUE);
 		}
 
-		void Window::SetWindow(const char* title, int width, int height)
+		void DesktopWindow::Initialize()
 		{
-			if (!instance)
-			{
-				instance = new Window(title, width, height);
-			}
-		}
-
-		void Window::SetWindow(const char* title)
-		{
-			if (!instance)
-			{
-				instance = new Window(title);
-			}
-		}
-
-		void Window::Initialize()
-		{
-			isInstanceCreated();
 			glfwInit();
 			glfwWindowHint(GLFW_RESIZABLE, GL_TRUE); //for now always is resizable
 			//glfwWindowHint(GLFW_SAMPLES, 4); //aa
@@ -106,19 +77,19 @@ namespace PrimeEngine
 			glfwSetCursorPosCallback(_window, Input::InputPC::cursor_position_callback);
 
 			glfwSetFramebufferSizeCallback(_window, framebuffer_size_callback);
-			//glfwSwapInterval(1); //Vsync off-0, on-1
-			//EnableVSync();
+
 			// Set this to true so GLEW knows to use a modern approach to retrieving function pointers and extensions
-			glewExperimental = GL_TRUE;
-			if (glewInit() != GLEW_OK)
+			GlCall(glewExperimental = GL_TRUE);
+			GlCall(GLenum glStatus = glewInit());
+			if (glStatus != GLEW_OK)
 			{
 				PrimeException windowNotInit("Failed to initialize GLEW", (int)glGetError());
 				throw windowNotInit;
 			}
-			glViewport(0, 0, _width, _height);
+			GlCall(glViewport(0, 0, _width, _height));
 
-			glEnable(GL_BLEND);
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			GlCall(glEnable(GL_BLEND));
+			GlCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 
 			//glEnable(GL_MULTISAMPLE);
 
@@ -127,30 +98,34 @@ namespace PrimeEngine
 			PRIME_INFO(glGetString(GL_RENDERER), "\n");
 		}
 
-		bool Window::Closed() const
+		void DesktopWindow::Update()
+		{
+            glfwPollEvents();
+			glfwSwapBuffers(_window);
+		}
+
+		bool DesktopWindow::IsReady() const {
+			return true;
+		}
+
+		void DesktopWindow::Destroy()
+		{
+			glfwDestroyWindow(_window);
+		}
+
+		bool DesktopWindow::IsClosed() const
 		{
 			return glfwWindowShouldClose(_window) == 1;
 		}
 
-		void Window::Update() const
+		void DesktopWindow::SetTitle(const char* title)
 		{
-#ifdef _DEBUG
-			GLenum error = glGetError();
-			if (error != GL_NO_ERROR)
-			{
-				PrimeException windowNotInit("GLEW error occured", (int)error);
-				PRIME_INFO(glewGetErrorString(error),'\n');
-				throw windowNotInit;
-			}
-#endif // DEBUG
-			glfwPollEvents();
-			glfwSwapBuffers(_window);
+			_title = title;
 		}
 
-		void Window::Clear() const
+		const char* DesktopWindow::GetTitle() const
 		{
-			glClearColor(_color[0], _color[1], _color[2], _color[3]);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			return _title;
 		}
 	}
 }
