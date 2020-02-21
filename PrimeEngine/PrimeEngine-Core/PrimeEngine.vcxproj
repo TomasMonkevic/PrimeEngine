@@ -26,6 +26,7 @@
     <ClInclude Include="Components\Transform.h" />
     <ClInclude Include="DllExport.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Graphics\BasicWindow.h" />
     <ClInclude Include="Graphics\BatchRenderer2D.h" />
     <ClInclude Include="Graphics\Buffers\IndexBuffer.h" />
     <ClInclude Include="Graphics\Buffers\VertexArray.h" />
@@ -46,6 +47,7 @@
     <ClInclude Include="Graphics\Mesh.h" />
     <ClInclude Include="Graphics\MeshRenderer.h" />
     <ClInclude Include="Graphics\ModelImporter.h" />
+    <ClInclude Include="Graphics\OpenGL.h" />
     <ClInclude Include="Graphics\Renderable.h" />
     <ClInclude Include="Graphics\Renderer2D.h" />
     <ClInclude Include="Graphics\Shader\Shader.h" />
@@ -54,6 +56,7 @@
     <ClInclude Include="Graphics\stb_image.h" />
     <ClInclude Include="Graphics\Texture.h" />
     <ClInclude Include="Math\Quaternion.h" />
+    <ClInclude Include="Platforms\Desktop\DesktopWindow.h" />
     <ClInclude Include="PrimeEngine.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="UI\Text.h" />
@@ -82,6 +85,8 @@
     <ClCompile Include="Components\Behaviours\FpsCamera.cpp" />
     <ClCompile Include="Components\Transform.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Graphics\BasicWindow.cpp" />
+    <ClCompile Include="Graphics\OpenGL.cpp" />
     <ClCompile Include="Graphics\BatchRenderer2D.cpp" />
     <ClCompile Include="Graphics\Buffers\IndexBuffer.cpp" />
     <ClCompile Include="Graphics\Buffers\VertexArray.cpp" />
@@ -115,7 +120,8 @@
     <ClCompile Include="Math\Quaternion.cpp" />
     <ClCompile Include="Math\Vector2.cpp" />
     <ClCompile Include="Math\Vector4.cpp" />
-    <ClCompile Include="Graphics\Window.cpp" />
+    <ClCompile Include="Platforms\Desktop\DesktopFileUtils.cpp" />
+    <ClCompile Include="Platforms\Desktop\DesktopWindow.cpp" />
     <ClCompile Include="Math\Vector3.cpp" />
     <ClCompile Include="Networking\TCPClient.cpp" />
     <ClCompile Include="Networking\TCPSever.cpp" />
@@ -123,20 +129,24 @@
     <ClCompile Include="PrimeEngineBase.cpp" />
     <ClCompile Include="PrimeException.cpp" />
     <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="UI\Text.cpp" />
+    <ClCompile Include="Utilities\CommonFileUtils.cpp" />
     <ClCompile Include="Utilities\Time.cpp" />
     <ClCompile Include="Utilities\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Graphics\Shader\Source\Default.pesl" />
-    <None Include="Graphics\Shader\Source\Glow.pesl" />
-    <None Include="Graphics\Shader\Source\Phong.pesl" />
-    <None Include="Graphics\Shader\Source\SimplePhong.pesl" />
+    <None Include="Graphics\Shader\Source\Android\Default.pesl" />
+    <None Include="Graphics\Shader\Source\Android\Glow.pesl" />
+    <None Include="Graphics\Shader\Source\Android\SimplePhong.pesl" />
+    <None Include="Graphics\Shader\Source\Desktop\Default.pesl" />
+    <None Include="Graphics\Shader\Source\Desktop\Glow.pesl" />
+    <None Include="Graphics\Shader\Source\Android\Phong.pesl" />
+    <None Include="Graphics\Shader\Source\Desktop\Phong.pesl" />
+    <None Include="Graphics\Shader\Source\Desktop\SimplePhong.pesl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{0CE5EF6F-7D71-4E54-8926-AC390F4F3C0F}</ProjectGuid>
     <RootNamespace>PrimeEngine</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
     <ProjectName>PrimeEngine-Core</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

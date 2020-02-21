@@ -1,0 +1,205 @@
+R"( $version 330 core/$
+
+$vertex
+
+layout (location = 0) in vec3 position;
+layout (location = 1) in vec4 color; //probably not needed in 3d, because color is set with uniform
+layout (location = 2) in vec3 normal;
+layout (location = 3) in vec2 uv;
+layout (location = 4) in vec3 tangent;
+
+uniform mat4 pr_matrix;
+uniform mat4 view_matrix = mat4(1.0f);
+uniform mat4 model_matrix = mat4(1.0f);
+
+out data
+{
+	vec4 color;
+	vec3 normal;
+	vec3 position;
+	vec2 uv;
+	mat3 tangentMatrix;
+} dataOut;
+
+void main()
+{
+	gl_Position = pr_matrix * view_matrix * model_matrix * vec4(position, 1.0f);
+	dataOut.color = color;
+	dataOut.uv = uv;
+	dataOut.normal = mat3(transpose(inverse(model_matrix))) * normal;
+	dataOut.position = vec3(model_matrix * vec4(position, 1.0f)).xyz;
+}/$
+
+$fragment
+
+#define AMBIENT_MIX 0.0f
+#define DIFFUSE_MIX 0.0f
+#define SPECULAR_MIX 0.0f
+
+struct PointLight
+{
+	vec3 position;
+	vec4 color;
+	float intensity;
+	float range;
+};
+
+struct AmbientLight
+{
+	vec4 color;
+	float intensity;
+};
+
+struct DirectionalLight
+{
+	vec4 color;
+	float intensity;
+	vec3 direction;
+};
+
+struct SpotLight
+{
+	vec3 position;
+	vec3 direction;
+	vec4 color;
+	float intensity;
+	float range;
+	float angle;
+	float smoothEdge;
+};
+
+in data
+{
+	vec4 color;
+	vec3 normal;
+	vec3 position;
+	vec2 uv;
+	mat3 tangentMatrix;
+} dataIn;
+
+layout (location = 0) out vec4 color;
+
+//TODO add default values to uniforms
+uniform sampler2D diffuseTexture;
+uniform sampler2D specularTexture;
+uniform sampler2D normalTexture;
+uniform vec4 diffuseColor;
+uniform float smoothness;
+
+uniform int pointLightsCount;
+uniform PointLight lights[64];
+uniform AmbientLight ambientLight;
+uniform DirectionalLight directionalLight;
+uniform SpotLight spotLight;
+
+uniform vec3 viewPosition;
+
+float Attenuation(vec3 lightPos, vec3 pos, float range);
+vec4 CalcPointLight(PointLight light, vec3 norm, vec3 viewDir);
+vec4 CalcDirectionalLight(DirectionalLight light, vec3 norm, vec3 viewDir);
+vec4 CalcSpotLight(SpotLight light, vec3 norm, vec3 viewDir);
+vec4 CalcAmbientLight(AmbientLight light);
+
+void main()
+{
+	vec3 norm = dataIn.normal;
+	//vec3 norm = dataIn.normal;
+	vec3 viewDir = normalize(viewPosition - dataIn.position);
+
+	vec4 result;
+	for(int i = 0; i < 2; i++) //TODO add dynamic pointLightCount
+	{
+		result += CalcPointLight(lights[i], norm, viewDir);
+	}
+	result += CalcAmbientLight(ambientLight);
+	result += CalcDirectionalLight(directionalLight, norm, viewDir);
+	result += CalcSpotLight(spotLight, norm, viewDir);
+
+	color = result * diffuseColor;
+	//color = texture(normalTexture, dataIn.uv);
+	//color = vec4(dataIn.normal * 0.5f + 0.5f, 1.0f);
+	//color = vec4(0.5f, 0.5f, 1.0f, 1.0f);
+}
+
+float Attenuation(vec3 lightPos, vec3 pos, float range)
+{
+	float distance = min(length(lightPos - pos), range) / range;
+	float attenuation = 1.0f/(1.0f + 25.0f * distance * distance); //hard coded formula
+	return attenuation;
+}
+
+vec4 CalcPointLight(PointLight light, vec3 norm, vec3 viewDir)
+{
+	if(light.range <= 0.0f)
+	{
+		return vec4(0.0f);
+	}
+	//Diffuse light
+	vec3 lightDir = normalize(light.position - dataIn.position);
+	vec4 diffuse = max(dot(norm, lightDir), 0.0f) * mix(light.color, vec4(1.0f), DIFFUSE_MIX) * texture(diffuseTexture, dataIn.uv);
+	diffuse.w = 1.0f;
+
+	//Specular light
+	vec3 lightReflection = normalize(reflect(-lightDir, norm));
+	float spec = pow(max(dot(lightReflection, viewDir), 0.0f), smoothness);
+	vec4 specular = spec * light.intensity * mix(light.color, vec4(1.0f), SPECULAR_MIX) * texture(specularTexture, dataIn.uv);
+	specular.w = 1.0f;
+
+	float attenuation = Attenuation(light.position, dataIn.position, light.range);
+	diffuse.xyz *= attenuation;
+	specular.xyz *= attenuation;
+	return diffuse + specular;
+}
+
+vec4 CalcDirectionalLight(DirectionalLight light, vec3 norm, vec3 viewDir)
+{
+	//Diffuse light
+	vec3 lightDir = normalize(-light.direction);
+	vec4 diffuse = max(dot(norm, lightDir), 0.0f) * mix(light.color, vec4(1.0f), DIFFUSE_MIX) * texture(diffuseTexture, dataIn.uv);
+	diffuse.w = 1.0f;
+
+	//Specular light
+	vec3 lightReflection = normalize(reflect(-lightDir, norm));
+	float spec = pow(max(dot(lightReflection, viewDir), 0.0f), smoothness);
+	vec4 specular = spec * light.intensity * mix(light.color, vec4(1.0f), SPECULAR_MIX) * texture(specularTexture, dataIn.uv);
+	specular.w = 1.0f;
+
+	return diffuse + specular;
+}
+
+vec4 CalcSpotLight(SpotLight light, vec3 norm, vec3 viewDir)
+{
+	vec4 result = vec4(0.0f);
+	if(light.range <= 0.0f)
+	{
+		return result;
+	}
+
+	vec3 lightDir = normalize(light.position - dataIn.position);
+	float theta = dot(normalize(light.direction), -lightDir);
+	vec4 diffuse = max(dot(norm, lightDir), 0.0f) * mix(light.color, vec4(1.0f), DIFFUSE_MIX) * texture(diffuseTexture, dataIn.uv);
+	diffuse.w = 1.0f;
+
+	//Specular light
+	vec3 lightReflection = normalize(reflect(-lightDir, norm));
+	float spec = pow(max(dot(lightReflection, viewDir), 0.0f), smoothness);
+	vec4 specular = spec * light.intensity * mix(light.color, vec4(1.0f), SPECULAR_MIX) * texture(specularTexture, dataIn.uv);
+	specular.w = 1.0f;
+
+	result = diffuse + specular;
+
+	float attenuation = Attenuation(light.position, dataIn.position, light.range);
+	result *= attenuation;
+
+	float intensity = clamp((theta - light.smoothEdge) / (light.angle - light.smoothEdge), 0.0, 1.0);
+	result *= intensity;
+	return result;
+}
+
+vec4 CalcAmbientLight(AmbientLight light)
+{
+	vec4 ambient = (light.intensity * mix(light.color,vec4(1.0f), AMBIENT_MIX)) * texture(diffuseTexture, dataIn.uv);
+	ambient.w = 1.0f;
+	return ambient;
+}
+/$ )"

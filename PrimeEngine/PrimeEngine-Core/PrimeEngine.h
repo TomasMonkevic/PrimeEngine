@@ -1,4 +1,4 @@
-#pragma once 
+#pragma once
 #include <Graphics/Shader/ShaderManager.h>
 #include <Graphics/Shader/Shader.h>
 #include <Graphics/Layers/UILayer.h>
@@ -7,7 +7,7 @@
 #include <Graphics/Buffers/VertexBuffer.h>
 #include <Graphics/Buffers/VertexArray.h>
 #include <Graphics/Buffers/IndexBuffer.h>
-#include <Graphics/Window.h>
+#include <Graphics/BasicWindow.h>
 #include <Graphics/Texture.h>
 #include <Graphics/stb_image.h>
 #include <Graphics/Sprite.h>

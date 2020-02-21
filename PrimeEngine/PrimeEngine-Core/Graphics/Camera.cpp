@@ -1,5 +1,6 @@
 #include "Camera.h"
-#include "Window.h"
+
+#include <Graphics/BasicWindow.h>
 
 namespace PrimeEngine { namespace Graphics {
 
@@ -22,13 +23,13 @@ namespace PrimeEngine { namespace Graphics {
 
 	Math::Vector2 Camera::ScreenToViewPoint(const Math::Vector2& point) const
 	{
-		Math::Vector2 screenSize = Window::GetWindow()->GetSize();
+		Math::Vector2 screenSize = GetWindow()->GetSize();
 		return Math::Vector2(2.0f * point.x / screenSize.x - 1, -2.0f * point.y / screenSize.y + 1);
 	}
 
 	Math::Vector2 Camera::ViewportToScreenPoint(const Math::Vector2& point) const
 	{
-		Math::Vector2 screenSize = Window::GetWindow()->GetSize();
+		Math::Vector2 screenSize = GetWindow()->GetSize();
 		return Math::Vector2((screenSize.x * (point.x + 1)) / 2.0f, (screenSize.y * (point.y - 1)) / -2.0f );
 	}
 

@@ -48,7 +48,7 @@ set(PECORE_HEADERS
     "Math/Matrix4x4.h"
     "Math/Vector2.h"
     "Math/Vector4.h"
-    "Graphics/Window.h"
+    "Graphics/BasicWindow.h"
     "Math/Vector3.h"
 
     # "Networking/TCPClient.h" TODO add later
@@ -69,6 +69,8 @@ set(PECORE_SOURCES
     "Components/Behaviours/FpsCamera.cpp"
     "Components/Transform.cpp"
     "GameObject.cpp"
+    "Graphics/OpenGL.cpp"
+    "Graphics/BasicWindow.cpp"
     "Graphics/BatchRenderer2D.cpp"
     "Graphics/Buffers/IndexBuffer.cpp"
     "Graphics/Buffers/VertexArray.cpp"
@@ -96,7 +98,6 @@ set(PECORE_SOURCES
     "Math/Quaternion.cpp"
     "Math/Vector2.cpp"
     "Math/Vector4.cpp"
-    "Graphics/Window.cpp"
     "Math/Vector3.cpp"
 
     "Input.cpp"
@@ -143,10 +144,10 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Android")
 
     add_library(PrimeEngineCore SHARED
                 ${GL3STUB_SRC}
-                #${PECORE_HEADERS} 
                 ${PECORE_SOURCES}
-                Platforms/Android/AndroidActivity.cpp
-                Platforms/Android/AndroidFileUtils.cpp
+                "Platforms/Android/AndroidActivity.cpp"
+                "Platforms/Android/AndroidFileUtils.cpp"
+                "Platforms/Android/AndroidWindow.cpp"
             )
 
     target_include_directories(PrimeEngineCore PRIVATE
@@ -177,10 +178,11 @@ else()
     add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/GLEW/build/cmake ${CMAKE_CURRENT_BINARY_DIR}/Dependencies/GLEW/build/cmake)
     add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/FreeType ${CMAKE_CURRENT_BINARY_DIR}/Dependencies/FreeType)
 
-    add_library(PrimeEngineCore SHARED ${PECORE_HEADERS} 
+    add_library(PrimeEngineCore SHARED ${PECORE_HEADERS}
                                         ${PECORE_SOURCES}
                                         "Platforms/Linux/UnixColorPrinter.cpp"
-                                        "Platforms/Desktop/DesktopFileUtils.cpp")
+                                        "Platforms/Desktop/DesktopFileUtils.cpp"
+                                        "Platforms/Desktop/DesktopWindow.cpp")
 
     target_link_libraries(PrimeEngineCore
         glew_s

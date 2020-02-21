@@ -1,6 +1,6 @@
 #include "BatchRenderer2D.h"
 #include <Utilities/Log.h>
-#include <Graphics/Window.h>
+#include <Graphics/BasicWindow.h>
 #include <Graphics/Sprite.h>
 #include <Graphics/Label.h>
 #include <cstddef>
@@ -59,9 +59,9 @@ namespace PrimeEngine { namespace Graphics {
 	{
 		_vbo->Bind();
 		#ifdef PE_ANDROID
-		_buffer = (VertexData*)glMapBufferRange(GL_ARRAY_BUFFER, 0, RENDERER_BUFFER_SIZE, GL_MAP_WRITE_BIT);
+		GlCall(_buffer = (VertexData*)glMapBufferRange(GL_ARRAY_BUFFER, 0, RENDERER_BUFFER_SIZE, GL_MAP_WRITE_BIT));
 		#else
-		_buffer = (VertexData*)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
+		GlCall(_buffer = (VertexData*)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY));
 		#endif
 	}
 
@@ -96,7 +96,6 @@ namespace PrimeEngine { namespace Graphics {
 					End();
 					Flush();
 					Begin();
-					_textureSlots->clear();
 				}
 				_textureSlots->push_back(textureId);
 				activeTexture = (float)_textureSlots->size();
@@ -167,7 +166,6 @@ namespace PrimeEngine { namespace Graphics {
 				End();
 				Flush();
 				Begin();
-				_textureSlots->clear();
 			}
 			_textureSlots->push_back(font.atlas->id);
 			activeTexture = (float)_textureSlots->size();
@@ -177,8 +175,8 @@ namespace PrimeEngine { namespace Graphics {
 		float x = transform.Position.x;
 		float line_y = 0.0f;
 
-		float xScale = Window::GetWindow()->GetSize().x / 16.0f; //TODO fix the hardcoded resolution
-		float yScale = Window::GetWindow()->GetSize().y / 9.0f;
+		float xScale = GetWindow()->GetSize().x / 16.0f; //TODO fix the hardcoded resolution
+		float yScale = GetWindow()->GetSize().y / 9.0f;
 
 		for (int i = 0; i < textComponent.text.size(); i++)
 		{
@@ -230,7 +228,7 @@ namespace PrimeEngine { namespace Graphics {
 
 	void BatchRenderer2D::End()
 	{
-		glUnmapBuffer(GL_ARRAY_BUFFER);
+		GlCall(glUnmapBuffer(GL_ARRAY_BUFFER));
 		_vbo->Unbind();
 	}
 
@@ -238,15 +236,16 @@ namespace PrimeEngine { namespace Graphics {
 	{
 		for (unsigned i = 0; i < _textureSlots->size(); i++)
 		{
-			glActiveTexture(GL_TEXTURE0 + i);
-			glBindTexture(GL_TEXTURE_2D, (*_textureSlots)[i]);
+			GlCall(glActiveTexture(GL_TEXTURE0 + i));
+			GlCall(glBindTexture(GL_TEXTURE_2D, (*_textureSlots)[i]));
 		}
 
 		_vao->Bind();
 		_ibo->Bind();
-		glDrawElements(GL_TRIANGLES, _indexCount, GL_UNSIGNED_SHORT, NULL);
+		GlCall(glDrawElements(GL_TRIANGLES, _indexCount, GL_UNSIGNED_SHORT, NULL));
 		_ibo->Unbind();
 		_vao->Unbind();
 		_indexCount = 0;
+		_textureSlots->clear();
 	}
 }}
