@@ -26,9 +26,11 @@ private:
 	float goalX;
     float nextPipePosition;
 	float birdRotation = 0.0f; //actually it's easier to have this; no need to constantly convert form quaternions to euler angles
+	float groundPositionX = 0.0f;
 
 private:
 	void Destroy(GameObject* obj);
+	void DestroyObjects(std::vector<GameObject*>& objects);
     bool DidBirdCollide();
     void RestartGame();
 	void Gravity(GameObject& obj);

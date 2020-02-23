@@ -33,13 +33,16 @@ namespace {
 
 FlappyBird::~FlappyBird()
 {
+	RestartGame();
+	DestroyObjects(grounds);
 	delete playingLayer;
-	delete mainCamera;
 	delete bird;
 	delete background;
 	delete groundPrefab;
 	delete pipeBottomPrefab;
 	delete pipeTopPrefab;
+	delete uiLayer;
+	delete scoreText;
 	delete arial;
 }
 
@@ -47,6 +50,15 @@ void FlappyBird::Destroy(GameObject* obj)
 {
 	playingLayer->Remove(obj);
 	delete obj;
+}
+
+void FlappyBird::DestroyObjects(std::vector<GameObject*>& objects)
+{
+    while(!objects.empty()) {
+        playingLayer->Remove(objects.back());
+        delete objects.back();
+		objects.pop_back();
+    }
 }
 
 bool FlappyBird::DidBirdCollide() {
@@ -95,7 +107,6 @@ void FlappyBird::Gravity(GameObject& obj)
 void FlappyBird::SpawnGround()
 {
 	//TODO dont forget to remove ground from layer and delete it
-	static float groundPositionX = 0.0f;
 	float width = groundPrefab->GetComponent<Sprite>()->GetSize().x;
 
 	//PRIME_INFO(mainCamera->WorldToViewPoint(grounds.back()->GetTransform().GetPosition() + Vector2(width / 2.0f, 0.0f)).x, "\n");
@@ -121,11 +132,7 @@ void FlappyBird::SpawnGround()
 void FlappyBird::RestartGame() {
     bird->GetTransform().Position.y = 0;
     bird->GetTransform().Rotation = Math::Quaternion::identity();
-    while(!pipes.empty()) {
-        playingLayer->Remove(pipes.back());
-        delete pipes.back();
-        pipes.pop_back();
-    }
+    DestroyObjects(pipes);
 	birdVelocity = Vector2::zero();
     score = 0;
     scoreText->GetComponent<Label>()->text = "0";
