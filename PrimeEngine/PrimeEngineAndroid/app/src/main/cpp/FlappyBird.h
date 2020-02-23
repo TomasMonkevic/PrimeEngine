@@ -23,8 +23,8 @@ private:
 	GameObject* scoreText;
 	float angularMomentum = 0.0f;
 	int score = 0;
-	float goalX;
-    float nextPipePosition;
+	float goalX = 0.0f;
+    float nextPipePosition = 0.0f;
 	float birdRotation = 0.0f; //actually it's easier to have this; no need to constantly convert form quaternions to euler angles
 	float groundPositionX = 0.0f;
 

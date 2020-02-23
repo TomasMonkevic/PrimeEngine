@@ -33,7 +33,7 @@ namespace {
 
 FlappyBird::~FlappyBird()
 {
-	RestartGame();
+    DestroyObjects(pipes);
 	DestroyObjects(grounds);
 	delete playingLayer;
 	delete bird;
@@ -268,11 +268,11 @@ void FlappyBird::Update()
     }
     if(!isGameOver_) {
 		bird->GetTransform().Position.x += GetDeltaTime() * BIRD_MOVEMENT_SPEED;
-		if (bird->GetTransform().Position.x >= goalX)
+		if (isGameStarted_ && bird->GetTransform().Position.x >= goalX)
 		{
 			score++;
 			scoreText->GetComponent<Label>()->text = std::to_string(score);
-			PRIME_INFO(scoreText->GetComponent<Label>()->text.c_str());
+			PRIME_WARNING("Increase score: ", scoreText->GetComponent<Label>()->text, '\n');
 			goalX += PIPE_SPREAD;
 		}
 	}
