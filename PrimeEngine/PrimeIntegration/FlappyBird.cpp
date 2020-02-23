@@ -180,7 +180,7 @@ void FlappyBird::Awake()
 
 	//TODO make a main camera in gameLayer or return a handle to camera; think about the camera system
 	mainCamera = new Camera(Matrix4x4::Orthographic(-360.0f, 360.0f, -640.0f, 640.0f, -1.0f, 1.0f));
-	playingLayer = new GameLayer(ShaderManagerI.CreateShader("mainShader", Shader::defaultShader), mainCamera);
+	playingLayer = new GameLayer(new Shader(Shader::defaultShader, true), mainCamera); //shader is deleted by layer
 	//TODO make an error log if existing shader name is used
 	uiLayer = new UILayer();
 

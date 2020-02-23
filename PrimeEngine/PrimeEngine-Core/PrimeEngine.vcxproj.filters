@@ -45,7 +45,6 @@
     <ClInclude Include="Graphics\Font.h" />
     <ClInclude Include="Math\Math.h" />
     <ClInclude Include="Graphics\Shader\Shader.h" />
-    <ClInclude Include="Graphics\Shader\ShaderManager.h" />
     <ClInclude Include="Graphics\Color.h" />
     <ClInclude Include="Components\Component.h" />
     <ClInclude Include="Components\Transform.h" />
@@ -103,7 +102,6 @@
     <ClCompile Include="Networking\TCPClient.cpp" />
     <ClCompile Include="Graphics\Font.cpp" />
     <ClCompile Include="Graphics\Shader\Shader.cpp" />
-    <ClCompile Include="Graphics\Shader\ShaderManager.cpp" />
     <ClCompile Include="Graphics\Color.cpp" />
     <ClCompile Include="Components\Transform.cpp" />
     <ClCompile Include="GameObject.cpp" />

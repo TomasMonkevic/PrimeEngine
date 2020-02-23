@@ -1,5 +1,4 @@
 #pragma once
-#include <Graphics/Shader/ShaderManager.h>
 #include <Graphics/Shader/Shader.h>
 #include <Graphics/Layers/UILayer.h>
 #include <Graphics/Layers/Layer.h>
