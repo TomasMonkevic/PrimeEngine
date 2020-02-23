@@ -51,6 +51,7 @@ namespace PrimeEngine { namespace Input {
 		{
 			mouseButtonPressed[i] = KeyState::released;
 		}
+		touches.clear();
 	}
 
 	bool InputPC::GetKeyDown(unsigned key)
