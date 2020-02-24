@@ -1,6 +1,6 @@
 ### What is this repository for? ###
 
-PrimeEngine is a C++ (OpenGL) cross-platform game engine. Currently, PrimeEngine is in very early stages of development, so it still has a lot of bugs and some code parts are simply said - "not good". With each commit, PrimeEngine improves and one day I hope it will be a usable game engine API.
+PrimeEngine is a C++ (OpenGL) cross-platform game engine. Currently, PrimeEngine is in very early stages of development, so it still has a lot of bugs and some unfinished systems. With each commit, PrimeEngine improves and one day, I hope, it will be a usable game engine.
 
 ### Features ###
 
@@ -10,6 +10,15 @@ PrimeEngine is a C++ (OpenGL) cross-platform game engine. Currently, PrimeEngine
 * ASCII text rendering
 * .obj model importer
 * GameObject/Component based system
+
+### To do list ###
+
+* UI system
+* Audio
+* 2D physics
+* 3D physics
+
+You can find more details about the work progress [here](https://trello.com/b/FSchbmHt/prime-engine-board).
 
 ### Screenshots ###
 
