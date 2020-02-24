@@ -1,1 +1,2 @@
 PrimeEngine/Dependencies/** linguist-detectable=false
+stb_image.h linguist-detectable=false
