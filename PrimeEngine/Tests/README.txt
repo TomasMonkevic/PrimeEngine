@@ -1,0 +1,1 @@
+Currectly this project doesn't work and it should rewritten using google tests
