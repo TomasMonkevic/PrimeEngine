@@ -13,7 +13,7 @@ using std::cout;
 using std::cin;
 using std::endl;
 
-class Demo : public PrimeEngineBase
+class PE_APP Demo : public PrimeEngineBase
 {
 private:
 	Scene * mainScene;

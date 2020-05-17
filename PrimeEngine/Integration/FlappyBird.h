@@ -7,7 +7,7 @@ using namespace Math;
 using namespace Graphics;
 using namespace Input;
 
-class FlappyBird : public PrimeEngineBase
+class PE_APP FlappyBird : public PrimeEngineBase
 {
 private:
 	//think about changing to stack
