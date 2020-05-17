@@ -31,22 +31,20 @@ set(CMAKE_SHARED_LINKER_FLAGS
 
 add_definitions(-DPE_ANDROID)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../../../../Core/)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../../../../Dependencies/FreeType)
-#include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/FreeType)
-#include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/GLFW/include)
-#include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/GLEW/include)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../../../../../Integration)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../../../../../Core)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../../../../../Dependencies/FreeType)
 
-set (src_dir ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../Core/)
-set (output_dir ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../Core/build)
+set (src_dir ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../../Integration)
+set (output_dir ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../../build/Android)
 file(MAKE_DIRECTORY ${output_dir})
 
 add_subdirectory(${src_dir} ${output_dir})
 
-set_target_properties( PrimeEngineCore PROPERTIES IMPORTED_LOCATION
-        ${output_dir}/${ANDROID_ABI}/libPrimeEngineCore.so)
+set_target_properties( Integration PROPERTIES IMPORTED_LOCATION
+        ${output_dir}/${ANDROID_ABI}/libIntegration.so)
 
-add_library(PrimeEngineAndroid SHARED main.cpp Game.cpp FlappyBird.cpp)
+add_library(PrimeEngineAndroid SHARED main.cpp)
 
 target_include_directories(PrimeEngineAndroid PRIVATE
     ${ANDROID_NDK}/sources/android/native_app_glue)
@@ -57,5 +55,5 @@ target_link_libraries(PrimeEngineAndroid
     native_app_glue
     EGL
     GLESv1_CM
-    PrimeEngineCore
+    Integration
     log)

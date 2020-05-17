@@ -238,9 +238,13 @@ void FlappyBird::Awake()
 void FlappyBird::Update()
 {
 	//PRIME_INFO(GetFPS(), "fps \n");
-	//if (InputPC::GetKeyDown(32) || InputPC::GetMouseButtonDown(0))
+#ifdef PE_ANDROID
 	auto touches = InputPC::GetTouches();
-	if (touches.size() == 1 && touches[0].phase == Input::TouchPhase::BEGAN)
+	bool isJump = touches.size() == 1 && touches[0].phase == Input::TouchPhase::BEGAN;
+#else
+	bool isJump = InputPC::GetKeyDown(32) || InputPC::GetMouseButtonDown(0);
+#endif
+	if(isJump)
 	{
 	    if(isGameOver_) {
             RestartGame();

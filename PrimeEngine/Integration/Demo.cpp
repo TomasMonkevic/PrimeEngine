@@ -123,11 +123,6 @@ void Demo::Update()
 
 	flashLight->GetTransform().Position = mainCamera->GetTransform().Position;
 	flashLight->GetTransform().Rotation = mainCamera->GetTransform().Rotation;
-
-	if (InputPC::GetKeyDown(256)) //esc
-	{
-		GetWindow()->Close();
-	}
 }
 
 void Demo::Tick()
