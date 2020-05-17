@@ -31,14 +31,14 @@ set(CMAKE_SHARED_LINKER_FLAGS
 
 add_definitions(-DPE_ANDROID)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../../../../PrimeEngine-Core/)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../../../../Core/)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../../../../Dependencies/FreeType)
 #include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/FreeType)
 #include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/GLFW/include)
 #include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/GLEW/include)
 
-set (src_dir ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../PrimeEngine-Core/)
-set (output_dir ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../PrimeEngine-Core/build)
+set (src_dir ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../Core/)
+set (output_dir ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../Core/build)
 file(MAKE_DIRECTORY ${output_dir})
 
 add_subdirectory(${src_dir} ${output_dir})

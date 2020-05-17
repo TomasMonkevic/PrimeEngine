@@ -82,13 +82,11 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Android")
     return()
     elseif (${ANDROID_PLATFORM_LEVEL} LESS 18)
     add_definitions("-DDYNAMIC_ES3")
-    set(GL3STUB_SRC ../../PrimeEngine-Core/Platforms/Android/gl3stub.c)
+    set(GL3STUB_SRC ../../Core/Platforms/Android/gl3stub.c)
     set(OPENGL_LIB GLESv2)
     else ()
     set(OPENGL_LIB GLESv3)
     endif (${ANDROID_PLATFORM_LEVEL} LESS 12)
-
-    include_directories(../../PrimeEngineCore/Platforms/Android)
 
     add_library(FreeType STATIC
                 ${GL3STUB_SRC}

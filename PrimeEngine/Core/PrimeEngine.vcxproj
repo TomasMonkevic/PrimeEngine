@@ -145,7 +145,7 @@
     <ProjectGuid>{0CE5EF6F-7D71-4E54-8926-AC390F4F3C0F}</ProjectGuid>
     <RootNamespace>PrimeEngine</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
-    <ProjectName>PrimeEngine-Core</ProjectName>
+    <ProjectName>Core</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -197,7 +197,7 @@
     <IncludePath>$(ProjectDir);$(SolutionDir)\Dependencies\GLFW\include;$(SolutionDir)\Dependencies\GLEW\include;$(SolutionDir)\Dependencies\FreeType;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies\GLEW\build\vc12\$(Platform)\$(Configuration);$(SolutionDir)Dependencies\GLFW\$(Platform)\$(Configuration);$(SolutionDir)Dependencies\FreeType\$(Platform)\$(Configuration);$(LibraryPath)</LibraryPath>
     <OutDir>$(ProjectDir)..\..\Build\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(ProjectDir)..\..\Build\bin\PrimeEngine-Core\$(Platform)\$(Configuration)\</IntDir>
+    <IntDir>$(ProjectDir)..\..\Build\bin\Core\$(Platform)\$(Configuration)\</IntDir>
     <TargetName>PrimeEngine</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -205,7 +205,7 @@
     <IncludePath>$(ProjectDir);$(SolutionDir)\Dependencies\GLFW\include;$(SolutionDir)\Dependencies\GLEW\include;$(SolutionDir)\Dependencies\FreeType;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies\GLEW\build\vc12\$(Platform)\$(Configuration);$(SolutionDir)Dependencies\GLFW\$(Platform)\$(Configuration);$(SolutionDir)Dependencies\FreeType\$(Platform)\$(Configuration);$(LibraryPath)</LibraryPath>
     <OutDir>$(ProjectDir)..\..\Build\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(ProjectDir)..\..\Build\bin\PrimeEngine-Core\$(Platform)\$(Configuration)\</IntDir>
+    <IntDir>$(ProjectDir)..\..\Build\bin\Core\$(Platform)\$(Configuration)\</IntDir>
     <TargetName>PrimeEngine</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -213,7 +213,7 @@
     <LibraryPath>$(SolutionDir)Dependencies\GLEW\build\vc12\$(Platform)\$(Configuration);$(SolutionDir)Dependencies\GLFW\$(Platform)\$(Configuration);$(SolutionDir)Dependencies\FreeType\$(Platform)\$(Configuration);$(LibraryPath)</LibraryPath>
     <TargetExt>.dll</TargetExt>
     <OutDir>$(ProjectDir)..\..\Build\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(ProjectDir)..\..\Build\bin\PrimeEngine-Core\$(Platform)\$(Configuration)\</IntDir>
+    <IntDir>$(ProjectDir)..\..\Build\bin\Core\$(Platform)\$(Configuration)\</IntDir>
     <TargetName>PrimeEngine</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -221,7 +221,7 @@
     <LibraryPath>$(SolutionDir)Dependencies\GLEW\build\vc12\$(Platform)\$(Configuration);$(SolutionDir)Dependencies\GLFW\$(Platform)\$(Configuration);$(SolutionDir)Dependencies\FreeType\$(Platform)\$(Configuration);$(LibraryPath)</LibraryPath>
     <TargetExt>.dll</TargetExt>
     <OutDir>$(ProjectDir)..\..\Build\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(ProjectDir)..\..\Build\bin\PrimeEngine-Core\$(Platform)\$(Configuration)\</IntDir>
+    <IntDir>$(ProjectDir)..\..\Build\bin\Core\$(Platform)\$(Configuration)\</IntDir>
     <TargetName>PrimeEngine</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

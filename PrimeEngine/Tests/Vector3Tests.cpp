@@ -15,7 +15,7 @@ namespace Microsoft { namespace VisualStudio { namespace CppUnitTestFramework {
 	}
 }}}
 
-namespace PrimeEngineTests
+namespace Tests
 {		
 	TEST_CLASS(Vector3Tests)
 	{
