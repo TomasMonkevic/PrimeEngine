@@ -24,7 +24,9 @@ compile_commands.json
 CTestTestfile.cmake
 
 .vs/
+.vscode/
 Build/**
+build/**
 Tools/.vscode/
 
 PrimeEngine/.vs/

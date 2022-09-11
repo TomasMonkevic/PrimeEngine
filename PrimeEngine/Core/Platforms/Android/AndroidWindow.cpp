@@ -53,9 +53,9 @@ namespace PrimeEngine
              */
 			eglChooseConfig(_display, attribs, nullptr,0, &numConfigs);
 			std::unique_ptr<EGLConfig[]> supportedConfigs(new EGLConfig[numConfigs]);
-			assert(supportedConfigs);
+			//assert(supportedConfigs);
 			eglChooseConfig(_display, attribs, supportedConfigs.get(), numConfigs, &numConfigs);
-			assert(numConfigs);
+			//assert(numConfigs);
 			auto i = 0;
 			for (; i < numConfigs; i++) {
 				auto& cfg = supportedConfigs[i];

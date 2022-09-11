@@ -12,7 +12,7 @@ namespace PrimeEngine {
 	{
 		friend class GameObject;
 	private:
-		GameObject* _gameObject = NULL;
+		GameObject* _gameObject = nullptr;
 		std::vector<std::size_t>* _types;
 	protected:
 		Component() 

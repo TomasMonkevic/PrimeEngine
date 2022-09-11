@@ -23,7 +23,7 @@ void TestGame::Awake()
 	Vector3 cameraPosition(Vector3(0.0f, 0.0f, -2.0f)); //projection
 	//Vector3 cameraPosition(Vector3(0, 0, 0.0f)); //ortho
 	mainCamera->GetTransform().Position = cameraPosition;
-	mainCamera->AddComponent(new FpsCamera(7.0f, Vector2(0.015f, 0.015f)));
+	mainCamera->AddComponent(new FpsCamera(0.07f, Vector2(0.00015f, 0.00015f)));
 
 	player = new GameObject();
 	Material* boxMaterial = new Material(Shader::phong, Color::Blue()); //TODO don't forget to delete this
@@ -58,6 +58,8 @@ void TestGame::Awake()
 void TestGame::Update()
 {
 	//TODO could be called automaticaly when scene is implemented
+	mainCamera->GetComponent<FpsCamera>()->Update(GetDeltaTime());
+
 	player->GetTransform().Rotate(Quaternion::Rotation(GetDeltaTime() * 0.5f, Vector3::up()));
 	sun->GetTransform().Rotate(Quaternion::Rotation(GetDeltaTime() * 0.1f, Vector3::right()));
 }
